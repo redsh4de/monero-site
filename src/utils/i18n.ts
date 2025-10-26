@@ -2,7 +2,9 @@ import { defaultLocale, locales } from "@/config/i18n";
 
 export const localizeHref = (locale: string, href: string): string => {
   if (href.startsWith('http')) return href;
-  return locale === defaultLocale ? href : `/${locale}${href}`;
+  const cleanHref = href.replace(/\/+$/, '');
+  const localized = locale === defaultLocale ? cleanHref : `/${locale}${cleanHref}`;
+  return `${localized}/`;
 };
 
 const getFlagEmoji = (countryCode: string): string => {

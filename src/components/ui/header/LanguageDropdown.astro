@@ -18,7 +18,7 @@ if (supported.has(pathParts[0])) pathParts.shift();
 const base = pathParts.length ? `/${pathParts.join('/')}` : '/';
 
 const hrefFor = (locale: string) =>
-  locale === 'en' ? base : (base === '/' ? `/${locale}` : `/${locale}${base}`);
+  locale === 'en' ? base : (base === '/' ? `/${locale}/` : `/${locale}${base}/`);
 ---
 
 <div class="lang-container">

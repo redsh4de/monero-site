@@ -7,10 +7,10 @@ import { defaultLocale, locales } from "./src/config/i18n";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  site: "https://getmonero.org",
-  trailingSlash: "never",
+  site: "https://getmonero.org/",
+  trailingSlash: "always",
   build: {
-    format: "file",
+    format: "directory",
   },
   integrations: [
     i18n({
