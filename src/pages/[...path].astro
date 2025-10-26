@@ -1,23 +1,20 @@
 ---
-// src/pages/[lang]/[...path].astro
-import Layout from "../../layouts/Layout.astro";
-import { nonDefaultLocales } from "../../config/i18n";
-import { generatePaths } from "../../lib/path-utils";
+import Layout from "../layouts/Layout.astro";
+import { defaultLocale } from "../config/i18n";
+import { generatePaths } from "../lib/path-utils";
 
 // One eager glob used at runtime to render
 const views = import.meta.glob("/src/views/**/[!_]*.astro", { eager: true });
 
 export async function getStaticPaths() {
-  return generatePaths(nonDefaultLocales);
+  return generatePaths([defaultLocale]);
 }
 
 // ---------- Runtime render ----------
-type Props = { viewKey: string };
+type Props = { viewKey: string; };
 
-const { lang } = Astro.params;
 const { viewKey } = Astro.props as Props;
 
-// Resolve the view from the eager map above
 const mod = views[viewKey] as any;
 const View = mod?.default;
 if (!View) {
@@ -25,6 +22,6 @@ if (!View) {
 }
 ---
 
-<Layout lang={lang}>
-  <View />
+<Layout>
+  <View/>
 </Layout>
