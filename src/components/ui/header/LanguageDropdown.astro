@@ -7,18 +7,22 @@ import Icon from '../Icon.astro';
 import Globe from '@/assets/icons/globe.avif?url';
 
 const currentLocale = getLocale(Astro.url);
+
 const localeList = Object.keys(locales).map(code => {
-  const info = getLocaleInfo(code);
-  return { code, name: info?.name || code, emoji: info?.emoji || '' };
+  const { name = code, emoji = '' } = getLocaleInfo(code) ?? {};
+  return { code, name, emoji };
 });
 
-const pathParts = Astro.url.pathname.split('/').filter(Boolean);
-const supported = new Set(localeList.map(l => l.code));
-if (supported.has(pathParts[0])) pathParts.shift();
-const base = pathParts.length ? `/${pathParts.join('/')}` : '/';
+const codes = Object.keys(locales).join('|');
 
-const hrefFor = (locale: string) =>
-  locale === 'en' ? base : (base === '/' ? `/${locale}/` : `/${locale}${base}/`);
+const core = Astro.url.pathname
+  .replace(new RegExp(`^/(?:${codes})(?=/|$)`), '')
+  .replace(/^\/|\/$/g, '');
+
+const base = core ? `/${core}/` : '/';
+
+// Locale-aware href
+const hrefFor = (locale: string) => (locale === 'en' ? base : `/${locale}${base}`);
 ---
 
 <div class="lang-container">

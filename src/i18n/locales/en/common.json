@@ -105,10 +105,17 @@
         "links": {
           "merchants": "Merchants & Exchanges",
           "stackExchange": "Stack Exchange",
-          "reddit": "Reddit",
-          "discord": "Discord",
-          "twitter": "Twitter",
-          "github": "GitHub"
+          "bitcoinTalk": "Bitcoin Talk",
+          "weblate": "Weblate"
+        }
+      },
+      "theMoneroProject": {
+        "title": "The Monero Project",
+        "links": {
+          "openAlias": "Open Alias",
+          "moneroResearchLab": "Monero Research Lab (MRL)",
+          "pressKit": "Press Kit",
+          "communityCrowdfundingSystem": "Community Crowdfunding System"
         }
       },
       "legal": {

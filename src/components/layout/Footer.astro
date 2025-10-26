@@ -52,28 +52,25 @@ const columns: Column[] = [
                 href: "https://monero.stackexchange.com/",
             },
             {
-                label: t('footer.columns.community.links.reddit', { ns: 'common' }),
-                href: "https://www.reddit.com/r/Monero/",
+                label: t('footer.columns.community.links.bitcoinTalk', { ns: 'common' }),
+                href: "https://bitcointalk.org/index.php?topic=583449.0",
             },
-            {
-                label: t('footer.columns.community.links.discord', { ns: 'common' }),
-                href: "https://discord.gg/monero",
-            },
-            {
-                label: t('footer.columns.community.links.twitter', { ns: 'common' }),
-                href: "https://twitter.com/monero",
-            },
-            {
-                label: t('footer.columns.community.links.github', { ns: 'common' }),
-                href: "https://github.com/monero-project/monero",
-            },
+            { label: t('footer.columns.community.links.weblate', { ns: 'common' }), href: "https://translate.getmonero.org" },
         ],
     },
     {
-        title: t('footer.columns.legal.title', { ns: 'common' }),
+        title: t('footer.columns.theMoneroProject.title', { ns: 'common' }),
         links: [
-            { label: t('footer.columns.legal.links.privacyPolicy', { ns: 'common' }), href: localizeHref(locale, "/legal/privacy-policy") },
-            { label: t('footer.columns.legal.links.termsOfUse', { ns: 'common' }), href: localizeHref(locale, "/legal/terms-of-use") },
+            { label: t('footer.columns.theMoneroProject.links.openAlias', { ns: 'common' }), href: "https://openalias.org" },
+            {
+                label: t('footer.columns.theMoneroProject.links.moneroResearchLab', { ns: 'common' }),
+                href: localizeHref(locale, "/resources/research-lab"),
+            },
+            { label: t('footer.columns.theMoneroProject.links.pressKit', { ns: 'common' }), href: localizeHref(locale, "/resources/press-kit") },
+            {
+                label: t('footer.columns.theMoneroProject.links.communityCrowdfundingSystem', { ns: 'common' }),
+                href: "https://ccs.getmonero.org",
+            },
         ],
     },
 ];
