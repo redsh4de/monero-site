@@ -1,4 +1,7 @@
 import { defaultLocale, locales } from "@/i18n/config";
+import { getLocale } from "astro-i18n-aut";
+import { createInstance } from 'i18next';
+import Backend from 'i18next-fs-backend';
 
 export const localizeHref = (locale: string, href: string): string => {
   if (href.startsWith('http')) return href;
@@ -27,3 +30,19 @@ export const getLocaleInfo = (locale: string): { name: string; emoji: string } |
   const emoji = getFlagEmoji(countryCode);
   return { name: capitalizedName, emoji };
 };
+
+export const createTInstance = (locale: string) => {
+  const newInstance = createInstance();
+
+  return newInstance.use(Backend).init({
+    lng: locale,
+    fallbackLng: defaultLocale,
+    supportedLngs: Object.keys(locales),
+    ns: ['common', 'translation'],
+    defaultNS: 'translation',
+    backend: {
+      loadPath: './src/i18n/locales/{{lng}}/{{ns}}.json',
+    },
+  });
+}
+export { getLocale}

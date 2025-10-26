@@ -5,36 +5,34 @@ import IndexCard from "../components/pages/index/IndexCard.astro";
 import GetStartedCard from "../components/pages/index/GetStartedCard.astro";
 import ResourceCard from "../components/pages/index/ResourceCard.astro";
 import placeholder from "../assets/placeholder.avif?url";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
+import { createTInstance, getLocale } from "@/i18n/utils";
 
+const locale = getLocale(Astro.url);
+const t = await createTInstance(locale);
+---
 <Layout>
-  <Hero />
+  <Hero t={t} />
   <IndexCard
-    title="About Monero"
-    description="Watch this video to understand the basics of how Monero works. For more in-depth understanding of the technology behind Monero, watch more explanatory videos."
+    title={t("index.aboutTitle")}
+    description={t("index.aboutDescription")}
   >
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <div>
-        <h2>Private</h2>
+        <h2>{t("index.main")}</h2>
         <p>
-          Monero respects privacy by providing full anonimity and untraceable
-          transactions for users.
+          {t("index.privacyText")}
         </p>
       </div>
       <div>
-        <h2>Decentralized</h2>
+        <h2>{t("index.decentralized")}</h2>
         <p>
-          With more than 2300 nodes, Monero is one of the most decentralized
-          cryptocurrencies that exist.
+          {t("index.decentralizedText")}
         </p>
       </div>
       <div>
-        <h2>Community-driven</h2>
+        <h2>{t("index.communityDriven")}</h2>
         <p>
-          Monero is developed and evolved by its community, more than 500
-          developers have contributed to the project.
+          {t("index.communityText")}
         </p>
       </div>
     </div>
@@ -47,60 +45,60 @@ import placeholder from "../assets/placeholder.avif?url";
   </IndexCard>
   <hr />
   <IndexCard
-    title="Start using Monero"
-    description="Follow these steps to get started with Monero. If you are new to crypto, we recommend learning the basic security measures you can utake to keep your funds safe."
+    title={t("index.startTitle")}
+    description={t("index.startDescription")}
   >
-    <img src={placeholder} alt="Get started illustration" width="100%" />
+    <img src={placeholder} alt={t("index.getStartedAlt")} width="100%" />
     <div>
       <GetStartedCard
         step="01"
-        title="Choose a wallet"
-        description="To use Monero, the first thing you are going to need is a wallet. Visit our Downloads page and get the right wallet for you."
+        title={t("index.step1Title")}
+        description={t("index.step1Desc")}
         ctaHref="/downloads"
-        ctaLabel="Get a wallet"
+        ctaLabel={t("index.step1Cta")}
       />
       <hr />
       <GetStartedCard
         step="02"
-        title="Get coins"
-        description="You can acquire Monero by mining or working in exchange for Monero, but the easiest way is to use an exchange to convert your fiat money into XMR."
+        title={t("index.step2Title")}
+        description={t("index.step2Desc")}
         ctaHref="/community/merchants"
-        ctaLabel="Find and exchange"
+        ctaLabel={t("index.step2Cta")}
       />
       <hr />
       <GetStartedCard
         step="03"
-        title="Send Monero"
-        description="Once Monero is in your wallet, you can exchange it for goods, services and other currencies, privately and with very low fees."
+        title={t("index.step3Title")}
+        description={t("index.step3Desc")}
         ctaHref="/resources/user-guides"
-        ctaLabel="Use Monero"
+        ctaLabel={t("index.step3Cta")}
       />
     </div>
   </IndexCard>
   <hr />
   <IndexCard
-    title="Monero Resources"
-    description="Explore the knowledge base to learn everything about Monero, from basic blockchain terms to advanced privacy mechanisms and technology."
+    title={t("index.resourcesTitle")}
+    description={t("index.resourcesDescription")}
   >
     <div id="resource-container">
       <ResourceCard
-        title="FAQ"
-        description="We've heard a lot of questions over the years and have compiled a thorough and varied FAQ. Don't worry, if your questions are not in there, you can always ask the community."
-        ctaLabel="Find your answer"
+        title={t("index.faqTitle")}
+        description={t("index.faqDesc")}
+        ctaLabel={t("index.faqCta")}
         ctaHref="#"
         icon={placeholder}
       />
       <ResourceCard
-        title="User guides"
-        description="We've heard a lot of questions over the years and have compiled a thorough and varied FAQ. Don't worry, if your questions are not in there, you can always ask the community."
-        ctaLabel="See the guides"
+        title={t("index.userGuidesTitle")}
+        description={t("index.userGuidesDesc")}
+        ctaLabel={t("index.userGuidesCta")}
         ctaHref="#"
         icon={placeholder}
       />
       <ResourceCard
-        title="Developer Guides"
-        description="We've heard a lot of questions over the years and have compiled a thorough and varied FAQ. Don't worry, if your questions are not in there, you can always ask the community."
-        ctaLabel="See the guides"
+        title={t("index.devGuidesTitle")}
+        description={t("index.devGuidesDesc")}
+        ctaLabel={t("index.devGuidesCta")}
         ctaHref="#"
         icon={placeholder}
       />
