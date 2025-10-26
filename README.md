@@ -32,11 +32,11 @@ This is a work-in-progress (WIP) implementation of the planned Monero page redes
 
 ## Next steps
 
-[] Set up Weblate for community translations
-[] Add icons in place of placeholders
-[] Add RSS feed generation
-[] Create components for page content
-[] Add localized blog content support
+- [ ] Set up Weblate for community translations
+- [ ] Add icons in place of placeholders
+- [ ] Add RSS feed generation
+- [ ] Create components for page content
+- [ ] Add localized blog content support
 
 ## Commands
 
