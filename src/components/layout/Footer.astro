@@ -1,6 +1,11 @@
 ---
 import Icon from "../ui/Icon.astro";
 import externalLink from "../../assets/icons/external-link.avif?url";
+import { getLocale } from 'astro-i18n-aut';
+import { localizeHref } from '../../utils/i18n';
+
+const locale = getLocale(Astro.url);
+
 interface Link {
     label: string;
     href: string;
@@ -20,17 +25,17 @@ const columns: Column[] = [
     {
         title: "Resources",
         links: [
-            { label: "Knowledge Base", href: "/resources/knowledge-base" },
-            { label: "Developer guides", href: "/resources/developer-guides" },
-            { label: "User guides", href: "/resources/user-guides" },
-            { label: "Downloads", href: "/downloads" },
+            { label: "Knowledge Base", href: localizeHref(locale, "/resources/knowledge-base") },
+            { label: "Developer guides", href: localizeHref(locale, "/resources/developer-guides") },
+            { label: "User guides", href: localizeHref(locale, "/resources/user-guides") },
+            { label: "Downloads", href: localizeHref(locale, "/downloads") },
         ],
     },
     {
         title: "Reach out",
         links: [
-            { label: "Workgroups", href: "/community/workgroups" },
-            { label: "Hangouts", href: "/community/hangouts" },
+            { label: "Workgroups", href: localizeHref(locale, "/community/workgroups") },
+            { label: "Hangouts", href: localizeHref(locale, "/community/hangouts") },
             {
                 label: "Mailing list",
                 href: "/postorius/lists/monero-announce.lists.getmonero.org",
@@ -40,7 +45,7 @@ const columns: Column[] = [
     {
         title: "Community",
         links: [
-            { label: "Merchants & Exchanges", href: "/community/merchants" },
+            { label: "Merchants & Exchanges", href: localizeHref(locale, "/community/merchants") },
             {
                 label: "Stack Exchange",
                 href: "https://monero.stackexchange.com/",
@@ -58,9 +63,9 @@ const columns: Column[] = [
             { label: "Open Alias", href: "https://openalias.org" },
             {
                 label: "Monero Research Lab (MRL)",
-                href: "/resources/research-lab",
+                href: localizeHref(locale, "/resources/research-lab"),
             },
-            { label: "Press Kit", href: "/resources/press-kit" },
+            { label: "Press Kit", href: localizeHref(locale, "/resources/press-kit") },
             {
                 label: "Community Crowdfunding System",
                 href: "https://ccs.getmonero.org",
@@ -72,7 +77,7 @@ const columns: Column[] = [
 const bottomLinks: Link[] = [
     { label: "Tor Onion service", href: "#" },
     { label: "Vulnerability response", href: "https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md" },
-    { label: "Legal", href: "/legal" },
+    { label: "Legal", href: localizeHref(locale, "/legal") },
     { label: "Source code", href: "https://github.com/monero-project/monero-site" },
     { label: "Sitemap", href: "/sitemap-index.xml" },
     { label: "RSS Feed", href: "/feed.xml" },

@@ -3,8 +3,9 @@ import Header from "../components/layout/Header.astro"
 import Footer from "../components/layout/Footer.astro"
 import '../styles/global.css';
 import '@fontsource-variable/dm-sans';
+import { getLocale } from 'astro-i18n-aut';
 
-const lang = Astro.props.lang || "en";
+const lang = getLocale(Astro.url) || 'en';
 ---
 
 <!doctype html>
