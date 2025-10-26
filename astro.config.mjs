@@ -2,7 +2,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
-import { defaultLocale, locales } from "./src/config/i18n";
+import { defaultLocale, locales } from "./src/i18n/config";
 
 // https://astro.build/config
 export default defineConfig({

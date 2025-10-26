@@ -1,4 +1,4 @@
-import { defaultLocale, locales } from "@/config/i18n";
+import { defaultLocale, locales } from "@/i18n/config";
 
 export const localizeHref = (locale: string, href: string): string => {
   if (href.startsWith('http')) return href;
