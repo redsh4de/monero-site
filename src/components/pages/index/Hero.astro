@@ -2,9 +2,11 @@
 import { getLocale, localizeHref } from "@/i18n/utils";
 const { t } = Astro.props;
 const locale = getLocale(Astro.url);
+import moneroOutline from "@/assets/monerooutline.svg?url";
 ---
 
 <div class="hero" aria-labelledby="hero-title">
+  <img src={moneroOutline} class="background-svg" />
   <div class="wrap">
     <h1 id="hero-title" class="title">
       <span class="accent">{t("index.hero.titleMonero")}</span><br />
@@ -47,14 +49,13 @@ const locale = getLocale(Astro.url);
   .hero {
     display: grid;
     align-content: center;
-    min-height: clamp(520px, 86vh, 720px);
-    padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 5vw, 5rem);
   }
   .wrap {
     text-align: center;
-    max-width: 56rem;
     margin-inline: auto;
     color: var(--ink);
+    position: relative;
+    z-index: 1;
   }
 
   /* Title scales smoothly from phones to desktop */
@@ -130,14 +131,6 @@ const locale = getLocale(Astro.url);
     }
     .btn {
       width: auto;
-      max-width: none;
-    }
-  }
-
-  /* Use dynamic viewport height if supported */
-  @supports (height: 100dvh) {
-    .hero {
-      min-height: clamp(520px, 86dvh, 720px);
     }
   }
 
@@ -146,5 +139,16 @@ const locale = getLocale(Astro.url);
     .btn {
       transition: none;
     }
+  }
+
+  .background-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    object-fit: contain;
+    pointer-events: none;
   }
 </style>
