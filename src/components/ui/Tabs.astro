@@ -1,0 +1,179 @@
+---
+import crypto from 'node:crypto';
+
+interface Props {
+  labels: string[]; // One label per panel slot (panel-0 ... panel-9)
+  id?: string;      // Optional stable id if multiple components on a page
+  initial?: number; // 0-based default tab
+}
+
+const { labels = [], id, initial = 0 }: Props = Astro.props;
+if (!Array.isArray(labels) || labels.length === 0) {
+  throw new Error("<Tabs> needs a non-empty labels array.");
+}
+if (labels.length > 10) {
+  throw new Error("<Tabs> supports up to 10 tabs.");
+}
+const uid = id ?? `tabs-${crypto.randomUUID()}`;
+const I = (n: number) => Math.min(Math.max(0, Number(n) || 0), labels.length - 1);
+const active = I(initial);
+---
+<style>
+  .tabs { width: 100%; }
+  .tabs input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+
+  .tab-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .tab-label {
+    display: inline-block;
+    padding: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .panel {
+    display: none;
+    padding: 1rem 0;
+  }
+
+  /* Active tab labels */
+  input[id$="-0"]:checked ~ .tab-header label[for$="-0"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-1"]:checked ~ .tab-header label[for$="-1"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-2"]:checked ~ .tab-header label[for$="-2"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-3"]:checked ~ .tab-header label[for$="-3"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-4"]:checked ~ .tab-header label[for$="-4"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-5"]:checked ~ .tab-header label[for$="-5"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-6"]:checked ~ .tab-header label[for$="-6"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-7"]:checked ~ .tab-header label[for$="-7"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-8"]:checked ~ .tab-header label[for$="-8"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+  input[id$="-9"]:checked ~ .tab-header label[for$="-9"] {
+    background: var(--card-color);
+    border-radius: 999px;
+  }
+
+  /* Show panels */
+  input[id$="-0"]:checked ~ .tab-content .panel[id$="-panel-0"] { display: block; }
+  input[id$="-1"]:checked ~ .tab-content .panel[id$="-panel-1"] { display: block; }
+  input[id$="-2"]:checked ~ .tab-content .panel[id$="-panel-2"] { display: block; }
+  input[id$="-3"]:checked ~ .tab-content .panel[id$="-panel-3"] { display: block; }
+  input[id$="-4"]:checked ~ .tab-content .panel[id$="-panel-4"] { display: block; }
+  input[id$="-5"]:checked ~ .tab-content .panel[id$="-panel-5"] { display: block; }
+  input[id$="-6"]:checked ~ .tab-content .panel[id$="-panel-6"] { display: block; }
+  input[id$="-7"]:checked ~ .tab-content .panel[id$="-panel-7"] { display: block; }
+  input[id$="-8"]:checked ~ .tab-content .panel[id$="-panel-8"] { display: block; }
+  input[id$="-9"]:checked ~ .tab-content .panel[id$="-panel-9"] { display: block; }
+</style>
+
+<div class="tabs" id={uid}>
+  {labels[0] && <input type="radio" name={uid} id={`${uid}-0`} checked={active === 0} aria-controls={`${uid}-panel-0`} role="tab" />}
+  {labels[1] && <input type="radio" name={uid} id={`${uid}-1`} checked={active === 1} aria-controls={`${uid}-panel-1`} role="tab" />}
+  {labels[2] && <input type="radio" name={uid} id={`${uid}-2`} checked={active === 2} aria-controls={`${uid}-panel-2`} role="tab" />}
+  {labels[3] && <input type="radio" name={uid} id={`${uid}-3`} checked={active === 3} aria-controls={`${uid}-panel-3`} role="tab" />}
+  {labels[4] && <input type="radio" name={uid} id={`${uid}-4`} checked={active === 4} aria-controls={`${uid}-panel-4`} role="tab" />}
+  {labels[5] && <input type="radio" name={uid} id={`${uid}-5`} checked={active === 5} aria-controls={`${uid}-panel-5`} role="tab" />}
+  {labels[6] && <input type="radio" name={uid} id={`${uid}-6`} checked={active === 6} aria-controls={`${uid}-panel-6`} role="tab" />}
+  {labels[7] && <input type="radio" name={uid} id={`${uid}-7`} checked={active === 7} aria-controls={`${uid}-panel-7`} role="tab" />}
+  {labels[8] && <input type="radio" name={uid} id={`${uid}-8`} checked={active === 8} aria-controls={`${uid}-panel-8`} role="tab" />}
+  {labels[9] && <input type="radio" name={uid} id={`${uid}-9`} checked={active === 9} aria-controls={`${uid}-panel-9`} role="tab" />}
+
+  <div class="tab-header">
+    {labels[0] && <label class="tab-label" for={`${uid}-0`}>{labels[0]}</label>}
+    {labels[1] && <label class="tab-label" for={`${uid}-1`}>{labels[1]}</label>}
+    {labels[2] && <label class="tab-label" for={`${uid}-2`}>{labels[2]}</label>}
+    {labels[3] && <label class="tab-label" for={`${uid}-3`}>{labels[3]}</label>}
+    {labels[4] && <label class="tab-label" for={`${uid}-4`}>{labels[4]}</label>}
+    {labels[5] && <label class="tab-label" for={`${uid}-5`}>{labels[5]}</label>}
+    {labels[6] && <label class="tab-label" for={`${uid}-6`}>{labels[6]}</label>}
+    {labels[7] && <label class="tab-label" for={`${uid}-7`}>{labels[7]}</label>}
+    {labels[8] && <label class="tab-label" for={`${uid}-8`}>{labels[8]}</label>}
+    {labels[9] && <label class="tab-label" for={`${uid}-9`}>{labels[9]}</label>}
+  </div>
+
+  <div class="tab-content">
+    {labels[0] && (
+      <div class="panel" id={`${uid}-panel-0`} role="tabpanel" aria-labelledby={`${uid}-0`}>
+        <slot name="panel-0" />
+      </div>
+    )}
+    {labels[1] && (
+      <div class="panel" id={`${uid}-panel-1`} role="tabpanel" aria-labelledby={`${uid}-1`}>
+        <slot name="panel-1" />
+      </div>
+    )}
+    {labels[2] && (
+      <div class="panel" id={`${uid}-panel-2`} role="tabpanel" aria-labelledby={`${uid}-2`}>
+        <slot name="panel-2" />
+      </div>
+    )}
+    {labels[3] && (
+      <div class="panel" id={`${uid}-panel-3`} role="tabpanel" aria-labelledby={`${uid}-3`}>
+        <slot name="panel-3" />
+      </div>
+    )}
+    {labels[4] && (
+      <div class="panel" id={`${uid}-panel-4`} role="tabpanel" aria-labelledby={`${uid}-4`}>
+        <slot name="panel-4" />
+      </div>
+    )}
+    {labels[5] && (
+      <div class="panel" id={`${uid}-panel-5`} role="tabpanel" aria-labelledby={`${uid}-5`}>
+        <slot name="panel-5" />
+      </div>
+    )}
+    {labels[6] && (
+      <div class="panel" id={`${uid}-panel-6`} role="tabpanel" aria-labelledby={`${uid}-6`}>
+        <slot name="panel-6" />
+      </div>
+    )}
+    {labels[7] && (
+      <div class="panel" id={`${uid}-panel-7`} role="tabpanel" aria-labelledby={`${uid}-7`}>
+        <slot name="panel-7" />
+      </div>
+    )}
+    {labels[8] && (
+      <div class="panel" id={`${uid}-panel-8`} role="tabpanel" aria-labelledby={`${uid}-8`}>
+        <slot name="panel-8" />
+      </div>
+    )}
+    {labels[9] && (
+      <div class="panel" id={`${uid}-panel-9`} role="tabpanel" aria-labelledby={`${uid}-9`}>
+        <slot name="panel-9" />
+      </div>
+    )}
+  </div>
+</div>
