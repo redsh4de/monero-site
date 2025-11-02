@@ -33,23 +33,39 @@ const active = I(initial);
   .tab-header {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    width: fit-content;
+    box-sizing: border-box;
   }
 
   .tab-label {
     display: inline-block;
-    padding: 1rem;
+    padding: 1rem 2rem;
     cursor: pointer;
     font-weight: 600;
     user-select: none;
+    border-radius: 999px;
+    transition: background 0.3s ease;
+  }
+  .tab-label:hover {
+    background: var(--card-hover-color);
   }
 
   .panel {
     display: none;
-    padding: 1rem 0;
+  }
+
+  @media (max-width: 900px) {
+    .tab-header {
+      width: 100%;
+      flex-wrap: nowrap;
+      overflow-y: scroll;
+    }
+    .tab-label {
+      flex: 1 1 100%;
+      text-align: center;
+    }
   }
 
   /* Active tab labels */
