@@ -210,6 +210,33 @@
           "content": "Los mineros procesan transacciones en la red de Monero al minar bloques.<br><br><strong>Recompensa de Bloque:</strong><ul><li>El minero de un bloque recibe la recompensa de bloque constante de 0.6 XMR</li><li>Más las tarifas de transacción</li></ul><br><strong>¿Por qué tener una recompensa de bloque?</strong><br>Monero tiene la recompensa de bloque en lugar de depender únicamente de las tarifas de transacción para:<ul><li>Dar incentivo a los mineros para seguir asegurando la red con su hashrate</li><li>Mantener las tarifas de transacción bajas</li></ul><br>La emisión de cola causada por esta recompensa de bloque constante crea una tasa de inflación de menos del 1% que tiende hacia 0% con el tiempo."
         }
       ]
+    },
+    "additionalResources": {
+      "userGuides": {
+        "title": "Guías de Usuario",
+        "description": "Encuentra guías detalladas sobre cómo usar Monero, desde configurar tu billetera hasta técnicas avanzadas de privacidad.",
+        "ctaLabel": "Ver las guías"
+      },
+      "devGuides": {
+        "title": "Guías para Desarrolladores",
+        "description": "Explora documentación técnica y guías para desarrolladores interesados en contribuir a Monero o construir sobre su tecnología.",
+        "ctaLabel": "Ver las guías"
+      },
+      "stackExchange": {
+        "title": "Stack Exchange",
+        "description": "Únete a la comunidad de Monero Stack Exchange para hacer preguntas y encontrar respuestas relacionadas con Monero.",
+        "ctaLabel": "Visitar"
+      },
+      "reddit": {
+        "title": "r/monerosupport",
+        "description": "Interactúa con la comunidad de Monero en Reddit para discusiones, noticias y actualizaciones.",
+        "ctaLabel": "Visitar"
+      },
+      "monerohow": {
+        "title": "Monero.how",
+        "description": "Recursos antiguos y conocidos con guías y tutoriales anteriores",
+        "ctaLabel": "Visitar"
+      }
     }
   }
 }

@@ -204,6 +204,33 @@
           "content": "Les mineurs traitent les transactions sur le réseau Monero en minant des blocs.<br><br><strong>Récompense de bloc :</strong><ul><li>Le mineur d'un bloc reçoit la récompense de bloc constante de 0,6 XMR</li><li>Plus les frais de transaction</li></ul><br><strong>Pourquoi avoir une récompense de bloc ?</strong><br>Monero a la récompense de bloc plutôt que de s'appuyer uniquement sur les frais de transaction pour :<ul><li>Donner aux mineurs une incitation à continuer de sécuriser le réseau avec leur hashrate</li><li>Maintenir les frais de transaction bas</li></ul><br>L'émission de queue causée par cette récompense de bloc constante crée un taux d'inflation de moins de 1% qui tend vers 0% au fil du temps."
         }
       ]
+    },
+    "additionalResources": {
+      "userGuides": {
+        "title": "Guides Utilisateur",
+        "description": "Trouvez des guides approfondis sur l'utilisation de Monero, de la configuration de votre portefeuille aux techniques avancées de confidentialité.",
+        "ctaLabel": "Voir les guides"
+      },
+      "devGuides": {
+        "title": "Guides Développeur",
+        "description": "Explorez la documentation technique et les guides pour les développeurs intéressés à contribuer à Monero ou à développer sur sa technologie.",
+        "ctaLabel": "Voir les guides"
+      },
+      "stackExchange": {
+        "title": "Stack Exchange",
+        "description": "Rejoignez la communauté Monero Stack Exchange pour poser des questions et trouver des réponses liées à Monero.",
+        "ctaLabel": "Visiter"
+      },
+      "reddit": {
+        "title": "r/monerosupport",
+        "description": "Engagez-vous avec la communauté Monero sur Reddit pour des discussions, des nouvelles et des mises à jour.",
+        "ctaLabel": "Visiter"
+      },
+      "monerohow": {
+        "title": "Monero.how",
+        "description": "Anciennes ressources connues avec d'anciens guides et tutoriels",
+        "ctaLabel": "Visiter"
+      }
     }
   }
 }
