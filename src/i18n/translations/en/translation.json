@@ -210,6 +210,33 @@
           "content": "Miners process transactions on the Monero network by mining blocks.<br><br><strong>Block Reward:</strong><ul><li>The miner of a block is paid the constant block reward of 0.6 XMR</li><li>Plus transaction fees</li></ul><br><strong>Why have a block reward?</strong><br>Monero has the block reward rather than relying solely on transaction fees to:<ul><li>Give miners incentive to keep securing the network with their hashrate</li><li>Keep transaction fees low</li></ul><br>The tail emission caused by this constant block reward creates an inflation rate of less than 1% which trends towards 0% over time."
         }
       ]
+    },
+    "additionalResources": {
+      "userGuides": {
+        "title": "User Guides",
+        "description": "Find in-depth guides on how to use Monero, from setting up your wallet to advanced privacy techniques.",
+        "ctaLabel": "See the guides"
+      },
+      "devGuides": {
+        "title": "Developer Guides",
+        "description": "Explore technical documentation and guides for developers interested in contributing to Monero or building on its technology.",
+        "ctaLabel": "See the guides"
+      },
+      "stackExchange": {
+        "title": "Stack Exchange",
+        "description": "Join the Monero Stack Exchange community to ask questions and find answers related to Monero.",
+        "ctaLabel": "Visit"
+      },
+      "reddit": {
+        "title": "r/monerosupport",
+        "description": "Engage with the Monero community on Reddit for discussions, news, and updates.",
+        "ctaLabel": "Visit"
+      },
+      "monerohow": {
+        "title": "Monero.how",
+        "description": "Old and known resources with old guides and howtos",
+        "ctaLabel": "Visit"
+      }
     }
   }
 }
