@@ -1,4 +1,6 @@
 ---
+import "node:crypto";
+
 import MaskIcon from "./MaskIcon.astro";
 import dropdownIcon from "@/assets/icons/mask/dropdown-caret.avif?url";
 
@@ -13,12 +15,13 @@ export interface Props {
 }
 
 const { items, multiExpand = false } = Astro.props;
+const accordionId = crypto.randomUUID();
 ---
 
 <div class="accordion">
   {
     items.map((item) => (
-      <details class="accordion-item" name={multiExpand ? undefined : "accordion"}>
+      <details class="accordion-item" name={multiExpand ? undefined : `accordion-${accordionId}`}>
         <summary class="accordion-header">
           <span class="accordion-title">{item.title}</span>
           <div class="accordion-icon">
@@ -58,7 +61,6 @@ const { items, multiExpand = false } = Astro.props;
     padding: 1.5rem 0;
     cursor: pointer;
     list-style: none;
-    user-select: none;
   }
 
   .accordion-header::-webkit-details-marker {
@@ -90,6 +92,7 @@ const { items, multiExpand = false } = Astro.props;
   .accordion-content {
     padding: 0 0 1.5rem 0;
     color: var(--paragraph-main);
+    font-family: "Inter Variable", sans-serif;
   }
 
   .accordion-content p {
