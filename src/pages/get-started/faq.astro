@@ -1,11 +1,72 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import TitleCard from "../../components/ui/TitleCard.astro";
+import Accordion from "@/components/ui/Accordion.astro";
+import type { AccordionItem } from "@/components/ui/Accordion.astro";
+import { createTInstance, getLocale } from "@/i18n/utils";
+
+const locale = getLocale(Astro.url);
+const t = await createTInstance(locale);
 ---
 
-<Layout>
+<Layout title={t("faq.pageTitle")}>
   <TitleCard
-    title="FAQ"
-    subtitle="Find answers to some of the most common questions about Monero."
+    title={t("faq.heroTitle")}
+    subtitle={t("faq.heroSubtitle")}
   />
+  <div class="accordion-grid">
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.basics.title")}</h2>
+      <Accordion items={t("faq.basics.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.nodes.title")}</h2>
+      <Accordion items={t("faq.nodes.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.privacy.title")}</h2>
+      <Accordion items={t("faq.privacy.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.security.title")}</h2>
+      <Accordion items={t("faq.security.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.wallets.title")}</h2>
+      <Accordion items={t("faq.wallets.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+    <div class="accordion-card">
+      <h2 class="card-title">{t("faq.economics.title")}</h2>
+      <Accordion items={t("faq.economics.items", { returnObjects: true }) as AccordionItem[]} />
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .accordion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin: 6rem 0;
+  }
+
+  @media (max-width: 900px) {
+    .accordion-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .accordion-card {
+    background-color: var(--card-color);
+    padding: 3rem;
+    border-radius: 0.5rem;
+  }
+
+  .card-title {
+    margin: 0 0 1.5rem 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--paragraph-main);
+    text-transform: uppercase;
+  }
+</style>

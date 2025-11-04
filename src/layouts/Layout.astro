@@ -52,12 +52,10 @@ const title = Astro.props.title;
 <style>
   :root {
     --bg-color: #ffffff;
-    --text-color: #2e3038;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg-color: #171717;
-      --text-color: #ffffff;
     }
   }
 
@@ -67,7 +65,7 @@ const title = Astro.props.title;
     min-height: 100vh;
     font-family: "DM Sans Variable", sans-serif;
     background-color: var(--bg-color);
-    color: var(--text-color);
+    color: var(--text-primary);
     display: flex;
     flex-direction: column;
   }
