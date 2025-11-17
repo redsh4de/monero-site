@@ -1,0 +1,168 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { getLocale } from "@/i18n/utils";
+
+// Generate static paths for all moneropedia entries, locale-neutral slug
+export async function getStaticPaths() {
+	const entries = await getCollection("moneropedia");
+
+	const paths = entries.map((entry: any) => {
+		const rawSlug = entry.slug ?? entry.id;
+		const parts = rawSlug.split("/");
+		const slug = parts[parts.length - 1];
+
+		return {
+			params: { slug },
+			props: { id: entry.id },
+		};
+	});
+
+	return paths;
+}
+
+const locale = getLocale(Astro.url);
+const slugParam = (Astro.params as any).slug as string;
+const allEntries = await getCollection("moneropedia");
+
+// Prefer entry matching current locale, fall back to English if needed
+const entry =
+	allEntries.find((e: any) => {
+		const dataLocale = (e.data as any).locale ?? "en";
+		if (dataLocale !== locale) return false;
+
+		const rawSlug = e.slug ?? e.id;
+		const parts = rawSlug.split("/");
+		const normalizedSlug = parts[parts.length - 1];
+
+		return normalizedSlug === slugParam;
+	}) ??
+	allEntries.find((e: any) => {
+		const dataLocale = (e.data as any).locale ?? "en";
+		if (dataLocale !== "en") return false;
+
+		const rawSlug = e.slug ?? e.id;
+		const parts = rawSlug.split("/");
+		const normalizedSlug = parts[parts.length - 1];
+
+		return normalizedSlug === slugParam;
+	});
+
+if (!entry) {
+	throw new Error(
+		`Moneropedia entry not found for slug "${slugParam}" and locale "${locale}"`,
+	);
+}
+
+const { Content } = await entry.render();
+
+// Build moneropedia index for client-side processing
+const localeEntries = allEntries.filter((e: any) => {
+	const dataLocale = (e.data as any).locale ?? "en";
+	return dataLocale === locale;
+});
+
+const moneropediaIndex = localeEntries.map((e: any) => {
+	const rawSlug = e.slug ?? e.id;
+	const parts = rawSlug.split("/");
+	const file = parts[parts.length - 1];
+	
+	return {
+		terms: (e.data as any).terms as string[],
+		summary: (e.data as any).summary as string,
+		file,
+	};
+});
+---
+<Layout title={(entry.data as any).title as string ?? (entry.data as any).terms?.[0] ?? "Moneropedia"}>
+	<article class="moneropedia-article container" id="moneropedia-content">
+		<h1>{(entry.data as any).title as string ?? (entry.data as any).terms?.[0]}</h1>
+		<Content />
+	</article>
+</Layout>
+
+<script define:vars={{ moneropediaIndex, locale }}>
+	// Process @term tags in the content
+	function processMoneropediaTags() {
+		const content = document.getElementById('moneropedia-content');
+		if (!content) return;
+
+		let html = content.innerHTML;
+
+		// Process each entry's terms
+		for (const entry of moneropediaIndex) {
+			for (const term of entry.terms) {
+				// Match @term but not inside HTML tags or existing links
+				const regex = new RegExp(`@(${term})(?!\\w)`, 'gi');
+				
+				html = html.replace(regex, (match, matchedTerm) => {
+					const linkPath = locale === 'en' 
+						? `/resources/moneropedia/${entry.file}` 
+						: `/${locale}/resources/moneropedia/${entry.file}`;
+					
+					return `<a class="moneropedia-link" data-tooltip="${entry.summary}" href="${linkPath}">${matchedTerm.replace(/-/g, ' ')}</a>`;
+				});
+			}
+		}
+
+		content.innerHTML = html;
+	}
+
+	// Run after DOM is loaded
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', processMoneropediaTags);
+	} else {
+		processMoneropediaTags();
+	}
+</script>
+
+<style>
+	.moneropedia-article {
+		padding-block: 2rem 3rem;
+	}
+
+	.moneropedia-article h1 {
+		margin-bottom: 1.5rem;
+	}
+
+	:global(.moneropedia-link) {
+		color: var(--monero-orange);
+		text-decoration: none;
+		border-bottom: 1px dotted var(--monero-orange);
+		cursor: help;
+		position: relative;
+	}
+
+	:global(.moneropedia-link:hover) {
+		text-decoration: none;
+	}
+
+	:global(.moneropedia-link::after) {
+		content: attr(data-tooltip);
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: 0.25rem;
+		white-space: normal;
+		width: max-content;
+		max-width: 20rem;
+		font-size: 0.875rem;
+		line-height: 1.4;
+		color: var(--text-primary);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s;
+		z-index: 1000;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	:global(.moneropedia-link:hover::after) {
+		opacity: 1;
+	}
+</style>
+
