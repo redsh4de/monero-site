@@ -4,7 +4,7 @@ title: Payment ID
 terms: ["payment-ID", "payment-IDs"]
 ---
 
-_Note:_ Long Payment IDs have been removed since release 0.15; it's not possible to use them anymore. More info in the [blog post]({{ site.baseurl_root }}/2019/06/04/Long-Payment-ID-Deprecation.html) that announced their deprecation.
+_Note:_ Long Payment IDs have been removed since release 0.15; it's not possible to use them anymore. More info in the [blog post](/2019/06/04/Long-Payment-ID-Deprecation.html) that announced their deprecation.
 
 ### The Basics
 

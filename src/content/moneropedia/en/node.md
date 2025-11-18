@@ -44,4 +44,4 @@ in the network.
 
 ##### Other Resources
 
-<sub>1. _Fluffypony gives a great explanation of why mandatory network upgrades are good for Monero._ ([Monero Missives for the Week of 2016-06-20]({{ site.baseurl_root }}/2016/06/20/monero-missive-for-the-week-of-2016-06-20.html))</sub>
+<sub>1. _Fluffypony gives a great explanation of why mandatory network upgrades are good for Monero._ ([Monero Missives for the Week of 2016-06-20](/2016/06/20/monero-missive-for-the-week-of-2016-06-20.html))</sub>

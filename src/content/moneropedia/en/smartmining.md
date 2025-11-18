@@ -16,7 +16,7 @@ little bit of security. As such, it is likely that a smart miner will mine
 slower than a normal miner on the same hardware.
 
 Smart mining is available in the official CLI and GUI wallet, which are
-available in the [downloads page]({{ site.baseurl_root }}/downloads/).
+available in the [downloads page](/downloads/).
 
 It is hoped that the relative slowness of a smart miner (especially on
 low-power machines) will be offset by the large amount of people running a
