@@ -18,7 +18,7 @@ Compared to @CLSAG:
 
 - The **anonymity set is the entire set of Monero transactions in history**, not a ring of 16.
 - **Double-spend detection** still works using linkable tags that cannot be tied back to a concrete on-chain output.
-- **Spend authorization** is cleanly separated: the proof shows the spender controls the key to *some* valid output in the global set, but never which one.
+- **Spend authorization** is cleanly separated: the proof shows the spender controls the key to _some_ valid output in the global set, but never which one.
 
 ### New Capabilities
 
