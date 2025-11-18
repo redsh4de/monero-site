@@ -10,8 +10,7 @@ Linkable Spontaneous Anonymous Group Signature). CLSAG will go live and
 mandatory with the [Monero network upgrade of October 2020](/2020/08/18/network-upgrade-october-2020.html). CLSAG maintains the same
 functionalities as MLSAG, but with the advantage of considerable size
 savings for @transactions and improvements in verification speed. This new
-technology was developed by contributors of the [Monero Research Lab]({{
-site.baseurl }}/resources/research-lab/) and [audited by external
+technology was developed by contributors of the [Monero Research Lab](/resources/research-lab/) and [audited by external
 researchers](/resources/research-lab/audits/clsag.pdf).
 
 With CLSAG, users see a 20% improvement in signature verification, and at
