@@ -86,7 +86,7 @@ const dir = getDirection(getLocale(Astro.url));
                 {item.desc && <div class="desc">{item.desc}</div>}
               </div>
               <div class="arrow">
-                <MaskIcon src={arrowRight} size="0.75rem" rtl={dir == 'rtl'}/>
+                <MaskIcon src={arrowRight} size="0.75rem" rtl={dir == "rtl"} />
               </div>
             </a>
           ))}

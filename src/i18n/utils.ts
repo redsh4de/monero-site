@@ -21,8 +21,8 @@ export const getLocaleName = (locale: string): { name: string } | null => {
   return { name: capitalizedName };
 };
 
-export const getDirection = (locale: string): 'ltr' | 'rtl' => {
-  return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
+export const getDirection = (locale: string): "ltr" | "rtl" => {
+  return rtlLocales.includes(locale) ? "rtl" : "ltr";
 };
 
 export const createTInstance = (

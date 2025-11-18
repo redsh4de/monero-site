@@ -232,198 +232,196 @@ const navItems = [
   </div>
 </header>
 
-
 <style>
-.site-header {
-  position: relative;
-  z-index: 10;
-}
-
-/* ===== Desktop / base layout ===== */
-.header-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-block: 1rem;
-  padding-inline: clamp(1rem, 4vw, 4rem);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--paragraph-main);
-  text-decoration: none;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.02em;
-  flex: 0 0 auto;
-}
-.mark {
-  display: grid;
-  place-items: center;
-  inline-size: 1.625rem;
-  block-size: 1.625rem;
-}
-
-.nav {
-  flex: 1 1 auto;
-}
-.nav-list {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-}
-
-.utils {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex: 0 0 auto;
-  margin-inline-start: auto;
-}
-.lang {
-  color: var(--paragraph-main);
-  display: inline-flex;
-  align-items: center;
-}
-
-.hamburger {
-  color: var(--paragraph-main);
-  display: none;
-  cursor: pointer;
-  font-size: 1.25rem;
-}
-
-/* Shared drawer bits */
-.nav-toggle {
-  display: none;
-}
-.scrim {
-  display: none;
-}
-.drawer-header {
-  display: none;
-}
-.close {
-  color: var(--paragraph-main);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  line-height: 1;
-}
-
-/* ===== Mobile / Tablet (<= 1500px) ===== */
-@media (max-width: 1500px) {
-  :root {
-    --drawer-gap: clamp(5rem, 20vw, 9rem);
-  }
-
   .site-header {
-    position: sticky;
-    inset-block-start: 0;
+    position: relative;
     z-index: 10;
-    background-color: inherit;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .hamburger {
+  /* ===== Desktop / base layout ===== */
+  .header-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 1rem;
+    padding-inline: clamp(1rem, 4vw, 4rem);
+  }
+
+  .brand {
     display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--paragraph-main);
+    text-decoration: none;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.02em;
+    flex: 0 0 auto;
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    inline-size: 1.625rem;
+    block-size: 1.625rem;
+  }
+
+  .nav {
+    flex: 1 1 auto;
+  }
+  .nav-list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     align-items: center;
     justify-content: center;
   }
 
-  .drawer-header {
-    display: flex;
+  .utils {
+    display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-block: 0.5rem;
-    padding-inline: 0;
-    position: sticky;
-    inset-block-start: 0;
-    z-index: 1;
-    background: inherit;
+    gap: 0.75rem;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+  }
+  .lang {
+    color: var(--paragraph-main);
+    display: inline-flex;
+    align-items: center;
   }
 
-  .nav {
-    position: fixed;
-    inset-block: 0;
-    inset-inline-end: 0;
-    inset-inline-start: auto;
-
-    inline-size: min(26.25rem, calc(100vw - var(--drawer-gap)));
-    box-sizing: border-box;
-
-    background: var(--bg-color);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
-    padding-block: 1rem 2rem;
-    padding-inline: 1rem;
-
-    z-index: 1001;
-    overscroll-behavior: contain;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-
-    margin-inline-end: -100vw;
-    transition: margin-inline-end 0.25s ease;
+  .hamburger {
+    color: var(--paragraph-main);
+    display: none;
+    cursor: pointer;
+    font-size: 1.25rem;
   }
 
-  body:has(#nav-toggle:checked) {
-    overflow: hidden;
-    overscroll-behavior: none;
+  /* Shared drawer bits */
+  .nav-toggle {
+    display: none;
   }
-
-  .nav-list {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.25rem;
-    margin-block-start: 1rem;
-    justify-content: flex-start;
-  }
-
-  /* Scrim under drawer */
   .scrim {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    display: block;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 1000;
-    touch-action: none;
+    display: none;
+  }
+  .drawer-header {
+    display: none;
+  }
+  .close {
+    color: var(--paragraph-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
   }
 
-  /* Open state */
-  .nav-toggle:checked ~ .nav {
-    margin-inline-end: 0; /* slides in from inline-end: right in LTR, left in RTL */
-  }
-  .nav-toggle:checked ~ .scrim {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-/* Dynamic viewport height when supported */
-@supports (height: 100dvh) {
+  /* ===== Mobile / Tablet (<= 1500px) ===== */
   @media (max-width: 1500px) {
+    :root {
+      --drawer-gap: clamp(5rem, 20vw, 9rem);
+    }
+
+    .site-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 10;
+      background-color: inherit;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-block: 0.5rem;
+      padding-inline: 0;
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 1;
+      background: inherit;
+    }
+
     .nav {
-      block-size: 100dvh;
+      position: fixed;
+      inset-block: 0;
+      inset-inline-end: 0;
+      inset-inline-start: auto;
+
+      inline-size: min(26.25rem, calc(100vw - var(--drawer-gap)));
+      box-sizing: border-box;
+
+      background: var(--bg-color);
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      padding-block: 1rem 2rem;
+      padding-inline: 1rem;
+
+      z-index: 1001;
+      overscroll-behavior: contain;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+
+      margin-inline-end: -100vw;
+      transition: margin-inline-end 0.25s ease;
+    }
+
+    body:has(#nav-toggle:checked) {
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+      margin-block-start: 1rem;
+      justify-content: flex-start;
+    }
+
+    /* Scrim under drawer */
+    .scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      touch-action: none;
+    }
+
+    /* Open state */
+    .nav-toggle:checked ~ .nav {
+      margin-inline-end: 0; /* slides in from inline-end: right in LTR, left in RTL */
+    }
+    .nav-toggle:checked ~ .scrim {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
-}
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .nav,
-  .scrim {
-    transition: none;
+  /* Dynamic viewport height when supported */
+  @supports (height: 100dvh) {
+    @media (max-width: 1500px) {
+      .nav {
+        block-size: 100dvh;
+      }
+    }
   }
-}
 
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .nav,
+    .scrim {
+      transition: none;
+    }
+  }
 </style>
