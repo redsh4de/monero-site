@@ -1,52 +1,45 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Accordion from "@/components/ui/Accordion.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getLocale, createTInstance, localizeHref } from "@/i18n/utils";
 import TitleCard from "@/components/ui/TitleCard.astro";
+import { defaultLocale } from "@/i18n/config";
 
-type MoneropediaItem = {
-  id: string;
-  title: string;
-  terms: string[];
-  summary: string;
-  letter: string;
+type MoneropediaItem = CollectionEntry<"moneropedia"> & {
   href: string;
+  title: string;
+  letter: string;
 };
 
-const locale = getLocale(Astro.url);
+const locale = getLocale(Astro.url) ?? defaultLocale;
 const t = await createTInstance(locale);
 
-const localeEntries = (await getCollection("moneropedia")).filter((entry) => {
-  const dataLocale = (entry.data as any).locale ?? "en";
-  return dataLocale === locale;
-});
-
-const items: MoneropediaItem[] = localeEntries.map((entry) => {
-  const terms = (entry.data as any).terms as string[];
-  const title = (entry.data as any).title as string ?? terms[0];
-  const letter = title.charAt(0).toUpperCase();
-
-  // Use the last path segment as a locale-neutral slug
-  const rawSlug = entry.slug ?? entry.id;
-  const parts = rawSlug.split("/");
-  const slug = parts[parts.length - 1];
-
+const entries = (
+  await getCollection("moneropedia", (entry) => 
+    entry.slug?.startsWith(`${locale}/`)
+  )
+).map<MoneropediaItem>((entry) => {
+  const slug = entry.slug?.split("/").pop()!;
+  const title = entry.data.title ?? entry.data.terms[0];
+  
+  // Capitalize the summary
+  entry.data.summary = entry.data.summary.charAt(0).toUpperCase() + entry.data.summary.slice(1);
+  
   return {
-    id: entry.id,
+    ...entry,
+    href: localizeHref(locale, `/resources/moneropedia/${slug}/`),
     title,
-    terms,
-    summary: ((entry.data as any).summary as string).charAt(0).toUpperCase() + ((entry.data as any).summary as string).slice(1),
-    letter,
-    href: localizeHref(locale, `/resources/moneropedia/${slug}`),
+    letter: title.charAt(0).toUpperCase(),
   };
 });
 
 // Group by first letter
 const groups = new Map<string, MoneropediaItem[]>();
-for (const item of items) {
-  if (!groups.has(item.letter)) groups.set(item.letter, []);
-  groups.get(item.letter)!.push(item);
+for (const entry of entries) {
+  if (!groups.has(entry.letter)) groups.set(entry.letter, []);
+  groups.get(entry.letter)!.push(entry);
 }
 
 const sortedLetters = Array.from(groups.keys()).sort();
@@ -60,11 +53,11 @@ for (const letter of sortedLetters) {
   <section class="moneropedia-index container">
     {
       sortedLetters.map((letter, idx) => {
-        const groupItems = groups.get(letter)!;
+        const groupEntries = groups.get(letter)!;
 
-        const accordionItems = groupItems.map((item) => ({
-          title: item.title,
-          content: `${item.summary}\n\n[${t("moneropedia.readMore")} ](${item.href})`,
+        const accordionItems = groupEntries.map((entry) => ({
+          title: entry.title,
+          content: `${entry.data.summary}\n\n[${t("moneropedia.readMore")} ](${entry.href})`,
         }));
 
         return (

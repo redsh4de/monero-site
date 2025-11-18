@@ -6,7 +6,6 @@ const moneropedia = defineCollection({
     title: z.string().optional(),
     terms: z.array(z.string()),
     summary: z.string(),
-    locale: z.string().optional(),
   }),
 });
 

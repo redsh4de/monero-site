@@ -1,168 +1,138 @@
 ---
-import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import { getLocale } from "@/i18n/utils";
+import MoneropediaContent from "@/components/content/MoneropediaContent.astro";
+import { defaultLocale } from "@/i18n/config";
+import { localizeHref, getLocale } from "@/i18n/utils";
 
-// Generate static paths for all moneropedia entries, locale-neutral slug
 export async function getStaticPaths() {
-	const entries = await getCollection("moneropedia");
+  const entries = await getCollection("moneropedia", (entry) =>
+    entry.slug?.startsWith(defaultLocale + "/"),
+  );
 
-	const paths = entries.map((entry: any) => {
-		const rawSlug = entry.slug ?? entry.id;
-		const parts = rawSlug.split("/");
-		const slug = parts[parts.length - 1];
-
-		return {
-			params: { slug },
-			props: { id: entry.id },
-		};
-	});
-
-	return paths;
+  return entries.map((entry) => ({
+    params: { slug: entry.slug?.replace(`${defaultLocale}/`, "") },
+  }));
 }
 
+type Props = CollectionEntry<"moneropedia">;
+
+const { slug } = Astro.params;
 const locale = getLocale(Astro.url);
-const slugParam = (Astro.params as any).slug as string;
-const allEntries = await getCollection("moneropedia");
-
-// Prefer entry matching current locale, fall back to English if needed
-const entry =
-	allEntries.find((e: any) => {
-		const dataLocale = (e.data as any).locale ?? "en";
-		if (dataLocale !== locale) return false;
-
-		const rawSlug = e.slug ?? e.id;
-		const parts = rawSlug.split("/");
-		const normalizedSlug = parts[parts.length - 1];
-
-		return normalizedSlug === slugParam;
-	}) ??
-	allEntries.find((e: any) => {
-		const dataLocale = (e.data as any).locale ?? "en";
-		if (dataLocale !== "en") return false;
-
-		const rawSlug = e.slug ?? e.id;
-		const parts = rawSlug.split("/");
-		const normalizedSlug = parts[parts.length - 1];
-
-		return normalizedSlug === slugParam;
-	});
+const entry = await getEntry("moneropedia", `${locale}/${slug}`);
 
 if (!entry) {
-	throw new Error(
-		`Moneropedia entry not found for slug "${slugParam}" and locale "${locale}"`,
-	);
+  return new Response(null, {
+    status: 404,
+    statusText: "Not found",
+  });
 }
 
 const { Content } = await entry.render();
-
-// Build moneropedia index for client-side processing
-const localeEntries = allEntries.filter((e: any) => {
-	const dataLocale = (e.data as any).locale ?? "en";
-	return dataLocale === locale;
-});
-
-const moneropediaIndex = localeEntries.map((e: any) => {
-	const rawSlug = e.slug ?? e.id;
-	const parts = rawSlug.split("/");
-	const file = parts[parts.length - 1];
-	
-	return {
-		terms: (e.data as any).terms as string[],
-		summary: (e.data as any).summary as string,
-		file,
-	};
-});
+const title = entry.data.title ?? entry.data.terms[0];
 ---
-<Layout title={(entry.data as any).title as string ?? (entry.data as any).terms?.[0] ?? "Moneropedia"}>
-	<article class="moneropedia-article container" id="moneropedia-content">
-		<h1>{(entry.data as any).title as string ?? (entry.data as any).terms?.[0]}</h1>
-		<Content />
-	</article>
+<Layout title={title ?? "Moneropedia"}>
+  <div class="moneropedia-page container">
+    {/* Row 1, Col 1 */}
+    <aside class="moneropedia-sidebar">
+      <a href={localizeHref(locale, "/resources/moneropedia/")} class="moneropedia-back">
+        <span class="moneropedia-back-icon">‹</span>
+        <span class="moneropedia-back-label">Moneropedia</span>
+      </a>
+    </aside>
+
+    {/* Row 1, Col 2 */}
+    <header class="moneropedia-header">
+      <h1>{title}</h1>
+    </header>
+
+    {/* Row 2, Col 2 (Row 2 Col 1 intentionally empty) */}
+    <article class="moneropedia-article">
+      <MoneropediaContent locale={locale}>
+        <Content />
+      </MoneropediaContent>
+    </article>
+  </div>
 </Layout>
 
-<script define:vars={{ moneropediaIndex, locale }}>
-	// Process @term tags in the content
-	function processMoneropediaTags() {
-		const content = document.getElementById('moneropedia-content');
-		if (!content) return;
-
-		let html = content.innerHTML;
-
-		// Process each entry's terms
-		for (const entry of moneropediaIndex) {
-			for (const term of entry.terms) {
-				// Match @term but not inside HTML tags or existing links
-				const regex = new RegExp(`@(${term})(?!\\w)`, 'gi');
-				
-				html = html.replace(regex, (match, matchedTerm) => {
-					const linkPath = locale === 'en' 
-						? `/resources/moneropedia/${entry.file}` 
-						: `/${locale}/resources/moneropedia/${entry.file}`;
-					
-					return `<a class="moneropedia-link" data-tooltip="${entry.summary}" href="${linkPath}">${matchedTerm.replace(/-/g, ' ')}</a>`;
-				});
-			}
-		}
-
-		content.innerHTML = html;
-	}
-
-	// Run after DOM is loaded
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', processMoneropediaTags);
-	} else {
-		processMoneropediaTags();
-	}
-</script>
-
 <style>
-	.moneropedia-article {
-		padding-block: 2rem 3rem;
-	}
+  .moneropedia-page {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr); /* 1 : 2-ish ratio */
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "sidebar header"
+      ".       content";
+    gap: 1rem 5rem;
+    padding-block: 2rem 3rem;
+  }
 
-	.moneropedia-article h1 {
-		margin-bottom: 1.5rem;
-	}
+  .moneropedia-sidebar {
+	align-self: center;
+    grid-area: sidebar;
+    display: flex;
+    align-items: flex-start;
+  }
 
-	:global(.moneropedia-link) {
-		color: var(--monero-orange);
-		text-decoration: none;
-		border-bottom: 1px dotted var(--monero-orange);
-		cursor: help;
-		position: relative;
-	}
+  .moneropedia-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--monero-orange);
+    text-decoration: none;
+  }
 
-	:global(.moneropedia-link:hover) {
-		text-decoration: none;
-	}
+  .moneropedia-back-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: var(--card-color);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
 
-	:global(.moneropedia-link::after) {
-		content: attr(data-tooltip);
-		position: absolute;
-		bottom: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		margin-bottom: 0.5rem;
-		padding: 0.5rem 0.75rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 0.25rem;
-		white-space: normal;
-		width: max-content;
-		max-width: 20rem;
-		font-size: 0.875rem;
-		line-height: 1.4;
-		color: var(--text-primary);
-		opacity: 0;
-		pointer-events: none;
-		transition: opacity 0.2s;
-		z-index: 1000;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	}
+  .moneropedia-back-label {
+    white-space: nowrap;
+  }
+  .moneropedia-back:hover > .moneropedia-back-label {
+	opacity: 0.8;
+  }
 
-	:global(.moneropedia-link:hover::after) {
-		opacity: 1;
-	}
+  .moneropedia-header {
+	align-self: center;
+    grid-area: header;
+  }
+
+  .moneropedia-header h1 {
+    margin: 0;
+    font-size: var(--font-size-3xl);
+  }
+
+  .moneropedia-article {
+    grid-area: content;
+    min-width: 0; /* prevent overflow inside the grid */
+  }
+
+  @media (max-width: 900px) {
+    .moneropedia-page {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "sidebar"
+        "header"
+        "content";
+      gap: 1.5rem;
+    }
+
+    .moneropedia-article {
+      max-width: 100%;
+    }
+  }
 </style>
-
