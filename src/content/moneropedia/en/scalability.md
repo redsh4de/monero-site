@@ -4,18 +4,13 @@ title: Scalability
 terms: ["scalability"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-The size of Monero @blocks (which contain @transactions) is flexible and can
-accommodate many transactions as demand changes. Formulas determine how the
-reward miners receive interacts with the number of transactions they choose
-to include in blocks. The @blockchain can therefore scale to meet changes in
-transaction volume.
-
-Scaling may also refer to the ability to conduct certain types of
-intermediate transactions safely without interacting with a
-blockchain. Monero does not currently support native off-chain solutions
-like atomic swaps, since its privacy features do not permit the use of
-required functionality like non-interactive refund transactions or complex
-scripting. However, academic and industry research is ongoing and promising
-in this area.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

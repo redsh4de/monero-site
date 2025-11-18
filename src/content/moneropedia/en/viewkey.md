@@ -4,19 +4,13 @@ title: View Key
 terms: ["view-key", "view-keys"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-One of two sets of private and public cryptographic keys that each account
-has, with the private view key required to view all transactions related to
-the account.
-
-Monero features an opaque blockchain (with an explicit allowance system
-called the @view-key), in sharp contrast with transparent blockchains used
-by any other cryptocurrency not based on CryptoNote. Thus, Monero is said to
-be "private, optionally transparent".
-
-Every Monero address has a private viewkey which can be shared. By sharing
-a viewkey, a person is allowing access to view every incoming transaction
-for that address. However, outgoing transactions cannot be reliably viewed
-as of June 2017. Therefore, the balance of a Monero address as shown via a
-viewkey should not be relied upon.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

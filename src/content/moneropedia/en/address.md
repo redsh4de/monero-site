@@ -4,29 +4,13 @@ title: Address
 terms: ["address", "addresses"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-When you send Monero to someone you only need one piece of information, and
-that is their Monero address. A _raw_ Monero address is a set of 95
-characters starting with a '4'. The Monero donation address, for instance,
-is
-888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkRxbANsAnjyPbb3iQ1YBRk1UXcdRsiKc9dhwMVgN5S9cQUiyoogDavup3H.
-
-Because those addresses are long and complex, you will often encounter an
-@OpenAlias address instead. For example, Monero donations can be sent to
-donate@getmonero.org or donate.getmonero.org.
-
-If you would like to get an @OpenAlias address of your own then there is
-some information on the [OpenAlias page](https://openalias.org/).
-
-### Integrated address
-
-An integrated address is an address combined with an encrypted 64-bit
-@payment-ID. A raw integrated address is 106 characters long.
-
-### In-depth Information
-
-The address is actually the concatenation, in Base58 format, of the _public_
-@spend-key and the _public_ @view-key, prefixed with the network byte (the
-number 18 for Monero) and suffixed with the first four bytes of the
-Keccac-256 hash of the whole string (used as a checksum).
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

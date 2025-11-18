@@ -4,40 +4,14 @@ title: Clearnet
 terms: ["Clearnet"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-When you use the Internet for things like news, email, social media, and
-even Monero, you are most likely using a clearnet connection. This means
-that _all_ of your connections can be tracked, traced, and monitored by:
-
-- your [ISP](https://en.wikipedia.org/wiki/ISP)
-
-- the website/service/person you're communicating with
-
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.
 - possibly a [Five Eyes](https://en.wikipedia.org/wiki/5_Eyes) capable
-  entity
-
-and even if you use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) or similar
-(which _encrypts_ your transmission), your route is not hidden nor is it
-anonymous, thus; it is in the _clear_.
-
-### In-depth information
-
-Since a traditional [VPN](https://en.wikipedia.org/wiki/VPN) cannot save you
-from clearnet (as you are still using _clearnet_ (though you are more
-proxied than without a VPN)), you should use an _anonymous overlay network_
-to avoid using clearnet directly:
-
-- Java-I2P
-
-- [Tor](https://torproject.org/)
-
-These technologies protect you from clearnet by building an anonymous
-network **over** clearnet to keep your transmissions both encrypted **and**
-anonymous.
-
-Here is an accurate, [interactive
-diagram](https://www.eff.org/pages/tor-and-https) provided by the
-[EFF](https://www.eff.org/) which describes _clearnet_ as it relates to
-**Tor**. The concept also (somewhat) applies to I2P in terms of anonymity
-with the exception that your traffic never need to leave the I2P network

@@ -4,31 +4,13 @@ title: Pruning
 terms: ["pruning"]
 ---
 
-'Pruning' allows node operators to save 2/3 of storage space while keeping
-the full transaction history. Pruning works by removing 7/8 of unnecessary
-ring signature data. The 1/8 remaining data will be available to the other
-nodes and will be used to sync with the network. Other pruned nodes will
-have a random 1/8 of the data, which they will also make available to the
-network. There are no privacy or security downsides when using a pruned
-node.
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-There are three ways to prune:
-
-- _Synchronize a pruned node from scratch:_ You will download and sync only
-  1/3 of the full blockchain.
-
-- _Prune an existing node:_ The already existing blockchain will be pruned,
-  but this will not result in a smaller blockchain. Instead, it will mark
-  parts of the file as free, so that future data will use that free space,
-  causing the file to not grow until free space grows scarce.
-
-- _Create a new pruned blockchain from a full one:_ A full blockchain that
-  you already have will be used to create a new, pruned blockchain.
-
-Pruned nodes are very useful and preferable to @remote-nodes, but if
-possible, users should run a full node and opt for pruning only in case if
-necessary.
-
-The 'database pruning' feature [was
-added](https://github.com/monero-project/monero/pull/4843) on January 2019. See the [blog post](/2019/02/01/pruning.html) for
-more information.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

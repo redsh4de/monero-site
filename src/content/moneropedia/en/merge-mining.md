@@ -5,18 +5,13 @@ title: Merge Mining
 terms: ["merge-mine", "merge-mining", "merged-mining", "merge-mined"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-Merge mining is the process of @mining two or more @blockchains at the same
-time. Generally there is a parent @blockchain and an auxillary blockchain
-both of which use the same proof of work algorithm. In most cases the
-auxillary chain will have a lower difficulty than the parent block chain.
-
-Merge mining can be used for securing a lower hashrate blockchain or
-developing a @sidechain that does something different than the primary
-chain.
-
-Some examples that currently exist or are in development are: a blockchain
-game [TownForge](https://townforge.net/about), digital assets platform
-[Tari](https://www.tari.com/#what-is-tari), and a decentralized mining pool
-(@P2Pool).
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

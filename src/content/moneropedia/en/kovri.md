@@ -4,15 +4,13 @@ title: Kovri
 terms: ["Kovri"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-[Kovri](https://gitlab.com/kovri-project/kovri/) is a C++ implementation of
-the I2P network which was proposed to be integrated in Monero. At the moment
-the future of this I2P router is unclear and an integration with Monero is
-not planned.
-
-Read [anonimal's FFS
-proposal](https://forum.getmonero.org/9/work-in-progress/86967/anonimal-s-kovri-full-time-development-funding-thread)
-for more details and for reasoning behind the project. Also read the FAQ and
-User Guide in the [Kovri
-repository](https://gitlab.com/kovri-project/kovri/).
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

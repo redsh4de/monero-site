@@ -4,17 +4,13 @@ title: Airgap
 terms: ["airgap"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-"An air gap, air wall or air gapping is a network security measure employed
-on one or more computers to ensure that a secure computer network is
-physically isolated from unsecured networks, such as the public Internet or
-an unsecured local area network.[2] The name arises from the technique of
-creating a network that is physically separated (with a conceptual air gap)
-from all other networks. The air gap may not be completely literal, as
-networks employing the use of dedicated cryptographic devices that can
-tunnel packets over untrusted networks while avoiding packet rate or size
-variation can be considered air gapped, as there is no ability for computers
-on opposite sides of the gap to communicate."
-
-Taken from https://en.wikipedia.org/wiki/Air_gap_(networking)
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

@@ -4,17 +4,13 @@ title: Fluffyblocks
 terms: ["fluffy blocks", "fluffyblocks"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-A @block is made up of a header and @transactions. Fluffy Blocks only
-contain a header, a list of transaction indices, and any transactions that
-the node recieving the block may be missing. This saves bandwidth because
-nodes might already know about most or all of the transactions in the block
-and they don't need to be sent them again.
-
-### See Also
-
-- [BIP152 "Compact Block
-  Relay"](https://github.com/bitcoin/bips/blob/master/bip-0152.mediawiki)
-
-- [Xthin](https://github.com/BitcoinUnlimited/BitcoinUnlimited/blob/release/doc/bu-xthin-protocol.md)
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

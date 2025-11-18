@@ -4,14 +4,13 @@ title: Ring Size
 terms: ["ring-size"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-Ring size refers to the total number of signers in a @ring-signature. Before
-release [0.13.0 "Beryllium Bullet"](/2018/10/11/monero-0.13.0-released.html), it was possible to select an
-arbitrary number of signers. With release 0.13, it was decided to set this
-number to 11 to enforce transaction uniformity.
-
-`Ring size (16) = foreign outputs (15) + your output (1)`
-
-Foreign outputs are typically called "decoys," and the number of decoys was
-previously called the "mixin" size.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

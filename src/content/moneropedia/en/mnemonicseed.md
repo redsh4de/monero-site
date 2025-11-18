@@ -4,29 +4,13 @@ title: Mnemonic Seed
 terms: ["mnemonic-seed", "mnemonic"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-A 13 or 25 word phrase used to backup a Monero account, available in a
-number of languages. This 25-word phrase (13 words in the case of MyMonero)
-has all the information needed to view and spend funds from a Monero
-@account.
-
-### In-depth Information
-
-In the official wallet, the mnemonic seed comprises 25 words with the last
-word being used as a checksum. Those words correspond to a 256-bit integer,
-which is the account's _private_ @spend-key. The _private_ @view-key is
-derived by hashing the private spend key with Keccak-256, producing a second
-256-bit integer. The corresponding _public_ keys are then derived from the
-private keys.
-
-By storing the 25 word mnemonic key in a secure location, you have a backup
-of your private keys and hence all of your Moneroj. Sharing this 25 word key
-is the equivalent of allowing another person complete access to your funds.
-
-It's not a good idea to store more than you want to lose in a "hot wallet"
-aka a wallet which is currently or has ever been connected to the internet
-or loaded onto any device that has or may in the future be connected to the
-internet or any untrusted source!
-
-By creating a cold, or @paper-wallet you can safely store Moneroj.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

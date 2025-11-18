@@ -4,22 +4,13 @@ title: Mining
 terms: ["mining", "miner", "miners"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-The process of cryptographically computing a mathematical proof for a block,
-containing a number of transactions, which is then added to the blockchain.
-
-Mining is the distributed process of confirming transactions on the public
-ledger of all transactions, aka @blockchain. Monero nodes use the
-blockchain to distinguish legitimate transactions from attempts to re-spend
-coins that have already been spent elsewhere.
-
-Monero is powered strictly by Proof of Work. It employs a mining algorithm
-that has the potential to be efficiently tasked to billions of existing
-devices (any modern x86 CPU and many GPUs). Monero uses a variant of
-CryptoNight Proof of Work (PoW) algorithm, which is designed for use in
-ordinary CPUs and GPUs.
-
-The smart mining feature allows transparent CPU mining on the user's
-computer, far from the de facto centralization of mining farms and pool
-mining, pursuing Satoshi Nakamoto's original vision of a true P2P currency.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

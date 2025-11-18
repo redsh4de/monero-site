@@ -4,15 +4,13 @@ title: Bootstrap Node
 terms: ["bootstrap-node", "bootstrap-nodes"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-The @daemon running on a local @node has to sync with other
-@remote-nodes. While it is not fully synced, @wallet may still be connected
-to the local node. Therefore, the @wallet cannot access the @blocks that are
-not yet synced on the local @node.
-
-To allow the @wallet to be immediately usable, the daemon on the local @node
-uses a bootstrap node to which the RPC request are proxying to, giving
-access to the missing @blocks.
-
-Note: the replies from the bootstrap node may be untrustworthy.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

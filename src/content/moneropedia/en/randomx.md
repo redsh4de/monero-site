@@ -4,17 +4,13 @@ title: RandomX
 terms: ["randomx", "random-x"]
 ---
 
-RandomX is a Proof Of Work algorithm developed by Monero contributors and
-adopted by Monero from release 0.15.
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-This innovative POW is optimized for CPUs and it's based on execution of
-random code and other memory-heavy techniques. The goal is to discourage the
-use of specialized hardware (like ASICs) for @mining Monero. RandomX was
-created with the intent of keeping mining decentralized and to create a more
-egalitarian distribution of the @block rewards.
-
-RandomX specifications and development can be found [on the GitHub
-repository](https://github.com/tevador/RandomX), while [an article dedicated
-to RandomX](https://www.monerooutreach.org/stories/RandomX.html) made by the
-Outreach workgroup contains more information about the history of RandomX
-and its relation with Monero.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

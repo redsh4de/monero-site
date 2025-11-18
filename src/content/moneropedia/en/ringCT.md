@@ -4,18 +4,13 @@ title: RingCT
 terms: ["ringCT", "ring-CT"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-RingCT, short for Ring Confidential Transactions, is how transaction amounts
-are hidden in Monero.
-
-Ring CT was implemented in block #1220516 in January 2017. After September
-2017, this feature became mandatory for all transactions on the network.
-
-RingCT introduces an improved version of @ring-signatures called "A
-Multi-layered Linkable Spontaneous Anonymous Group signature", which allows
-for hidden amounts, origins and destinations of transactions with reasonable
-efficiency and verifiable, trustless coin generation.
-
-For more information, please read the creator Shen Noether's paper
-[here](https://eprint.iacr.org/2015/1098).
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.

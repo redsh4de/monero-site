@@ -4,17 +4,13 @@ title: Tail Emission
 terms: ["Tail-Emission"]
 ---
 
-### The Basics
+ 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur.
 
-Monero block rewards will never drop to zero. Block rewards will gradually
-drop until tail emission commences at the end of May 2022. At this point,
-rewards will be fixed at 0.6 XMR per block.
-
-### Why
-
-Miners need an incentive to mine. Because of the dynamic blocksize,
-competition between @miners will cause fees to decrease. If mining is not
-profitable due to a high cost and low reward, miners lose their incentive
-and will stop mining, reducing the security of the network.
-
-Tail emission ensures that a dynamic block size and fee market can develop.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, non
+vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.
