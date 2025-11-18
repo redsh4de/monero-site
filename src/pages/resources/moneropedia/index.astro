@@ -55,49 +55,88 @@ for (const letter of sortedLetters) {
     subtitle={t("moneropedia.heroSubtitle")}
   />
   <section class="moneropedia-index container">
-    {
-      sortedLetters.map((letter, idx) => {
-        const groupEntries = groups.get(letter)!;
+    <nav class="letter-nav" aria-label="Moneropedia navigation bar">
+      {
+        sortedLetters.map((letter) => (
+          <a class="letter-nav-link" href={`#${letter}`}>
+            {letter}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="letter-groups">
+      {
+        sortedLetters.map((letter, idx) => {
+          const groupEntries = groups.get(letter)!;
 
-        const accordionItems = groupEntries.map((entry) => ({
-          title: entry.title,
-          content: `${entry.data.summary}\n\n[${t("moneropedia.readMore")} ](${entry.href})`,
-        }));
+          const accordionItems = groupEntries.map((entry) => ({
+            title: entry.title,
+            content: `${entry.data.summary}\n\n[${t("moneropedia.readMore")} ](${entry.href})`,
+          }));
 
-        return (
-          <div class="letter-group">
-            {idx > 0 && <hr class="letter-separator" />}
-            <div class="letter-layout">
-              <div class="letter-column">
-                <h2 class="letter-heading">{letter}</h2>
-              </div>
-              <div class="items-column">
-                <Accordion
-                  items={accordionItems}
-                  multiExpand={false}
-                  variant="card"
-                />
+          return (
+            <div class="letter-group" id={`${letter}`}>
+              <hr class="letter-separator" />
+              <div class="letter-layout">
+                <div class="letter-column">
+                  <h2 class="letter-heading">{letter}</h2>
+                </div>
+                <div class="items-column">
+                  <Accordion
+                    items={accordionItems}
+                    multiExpand={false}
+                    variant="card"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })
-    }
+          );
+        })
+      }
+    </div>
   </section>
 </Layout>
 
 <style>
+  html {
+    scroll-padding-top: 100%;
+  }
+
   .moneropedia-index {
     padding-block: 2rem 3rem;
   }
 
-  .intro {
-    margin-bottom: 1.5rem;
-    color: var(--paragraph-subtitle);
+  .letter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    font-weight: 600;
+    box-shadow: inset;
   }
 
-  .letter-group {
-    margin-bottom: 1.5rem;
+  .letter-nav-link {
+    padding: 0.5rem 0.5rem;
+    border-radius: 5px;
+    border: none;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    outline: none;
+  }
+
+  .letter-nav-link:hover {
+    background-color: var(--card-color);
+  }
+
+  .letter-groups {
+    overflow-y: auto;
+    max-height: clamp(20rem, 70vh, 60rem);
+    padding-right: 0.5rem;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
   }
 
   .letter-layout {
@@ -115,6 +154,10 @@ for (const letter of sortedLetters) {
   .letter-separator {
     border: 0;
     border-top: 1px solid var(--border-color);
-    margin: 2rem 0 1rem;
+    margin: 2rem 0 2rem;
+  }
+  .letter-group:first-child .letter-separator {
+    margin-top: 0;
+    border-color: transparent;
   }
 </style>
