@@ -32,11 +32,15 @@ if (!entry) {
 const { Content } = await entry.render();
 const title = entry.data.title ?? entry.data.terms[0];
 ---
+
 <Layout title={title ?? "Moneropedia"}>
   <div class="moneropedia-page container">
     {/* Row 1, Col 1 */}
     <aside class="moneropedia-sidebar">
-      <a href={localizeHref(locale, "/resources/moneropedia/")} class="moneropedia-back">
+      <a
+        href={localizeHref(locale, "/resources/moneropedia/")}
+        class="moneropedia-back"
+      >
         <span class="moneropedia-back-icon">‹</span>
         <span class="moneropedia-back-label">Moneropedia</span>
       </a>
@@ -69,7 +73,7 @@ const title = entry.data.title ?? entry.data.terms[0];
   }
 
   .moneropedia-sidebar {
-	align-self: center;
+    align-self: center;
     grid-area: sidebar;
     display: flex;
     align-items: flex-start;
@@ -102,11 +106,11 @@ const title = entry.data.title ?? entry.data.terms[0];
     white-space: nowrap;
   }
   .moneropedia-back:hover > .moneropedia-back-label {
-	opacity: 0.8;
+    opacity: 0.8;
   }
 
   .moneropedia-header {
-	align-self: center;
+    align-self: center;
     grid-area: header;
   }
 

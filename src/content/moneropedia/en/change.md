@@ -1,5 +1,5 @@
 ---
-summary: 'Monero sent as part of a transaction, that returns to your account instead of going to another recipient'
+summary: "Monero sent as part of a transaction, that returns to your account instead of going to another recipient"
 title: Change
 terms: ["change"]
 ---

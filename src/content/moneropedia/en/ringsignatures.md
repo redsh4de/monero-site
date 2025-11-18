@@ -1,5 +1,5 @@
 ---
-summary: 'a group of cryptographic signatures with at least one real participant, but no way to tell which in the group is the real one as they all appear valid'
+summary: "a group of cryptographic signatures with at least one real participant, but no way to tell which in the group is the real one as they all appear valid"
 title: Ring Signatures
 terms: ["ring-signature", "ring-signatures"]
 ---
@@ -11,7 +11,7 @@ performed by any member of a group of users that each have keys. Therefore,
 a message signed with a ring signature is endorsed by someone in a
 particular group of people. One of the security properties of a ring
 signature is that it should be computationally infeasible to determine
-*which* of the group members' keys was used to produce the signature.
+_which_ of the group members' keys was used to produce the signature.
 
 For instance, a ring signature could be used to provide an anonymous
 signature from "a high-ranking White House official", without revealing

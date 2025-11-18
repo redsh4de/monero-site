@@ -1,5 +1,5 @@
 ---
-summary: 'a 13 or 25 word phrase used to backup a Monero account, available in a number of languages'
+summary: "a 13 or 25 word phrase used to backup a Monero account, available in a number of languages"
 title: Mnemonic Seed
 terms: ["mnemonic-seed", "mnemonic"]
 ---
@@ -15,9 +15,9 @@ has all the information needed to view and spend funds from a Monero
 
 In the official wallet, the mnemonic seed comprises 25 words with the last
 word being used as a checksum. Those words correspond to a 256-bit integer,
-which is the account's *private* @spend-key. The *private* @view-key is
+which is the account's _private_ @spend-key. The _private_ @view-key is
 derived by hashing the private spend key with Keccak-256, producing a second
-256-bit integer. The corresponding *public* keys are then derived from the
+256-bit integer. The corresponding _public_ keys are then derived from the
 private keys.
 
 By storing the 25 word mnemonic key in a secure location, you have a backup

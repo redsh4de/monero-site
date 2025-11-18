@@ -1,5 +1,5 @@
 ---
-summary: 'the process of cryptographically computing a mathematical proof for a block, containing a number of transactions, which is then added to the blockchain'
+summary: "the process of cryptographically computing a mathematical proof for a block, containing a number of transactions, which is then added to the blockchain"
 title: Mining
 terms: ["mining", "miner", "miners"]
 ---
@@ -10,7 +10,7 @@ The process of cryptographically computing a mathematical proof for a block,
 containing a number of transactions, which is then added to the blockchain.
 
 Mining is the distributed process of confirming transactions on the public
-ledger of all transactions, aka @blockchain.  Monero nodes use the
+ledger of all transactions, aka @blockchain. Monero nodes use the
 blockchain to distinguish legitimate transactions from attempts to re-spend
 coins that have already been spent elsewhere.
 

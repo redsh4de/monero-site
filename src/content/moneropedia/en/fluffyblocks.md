@@ -1,5 +1,5 @@
 ---
-summary: 'a way of saving bandwidth when sending new blocks around the network'
+summary: "a way of saving bandwidth when sending new blocks around the network"
 title: Fluffyblocks
 terms: ["fluffy blocks", "fluffyblocks"]
 ---
@@ -14,7 +14,7 @@ and they don't need to be sent them again.
 
 ### See Also
 
-* [BIP152 "Compact Block
+- [BIP152 "Compact Block
   Relay"](https://github.com/bitcoin/bips/blob/master/bip-0152.mediawiki)
 
-* [Xthin](https://github.com/BitcoinUnlimited/BitcoinUnlimited/blob/release/doc/bu-xthin-protocol.md)
+- [Xthin](https://github.com/BitcoinUnlimited/BitcoinUnlimited/blob/release/doc/bu-xthin-protocol.md)

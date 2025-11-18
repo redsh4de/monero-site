@@ -1,5 +1,5 @@
 ---
-summary: 'similar in function to a bank account, contains all of your sent and received transactions'
+summary: "similar in function to a bank account, contains all of your sent and received transactions"
 title: Account
 terms: ["account", "accounts", "wallet", "wallets"]
 ---
@@ -7,7 +7,7 @@ terms: ["account", "accounts", "wallet", "wallets"]
 ### The Basics
 
 Those familiar with Monero's predecessors will be more familiar with the
-term *wallet* to describe this. In Monero we call this an account, and it is
+term _wallet_ to describe this. In Monero we call this an account, and it is
 a private account owned and operated by a Monero user.
 
 Your account contains all of the Monero @transactions you have sent and
@@ -39,8 +39,8 @@ exercise.
 
 ### Cryptographic Keys
 
-Monero relies heavily on a cryptography principle known as *public/private
-key cryptography* or *asymmetric cryptography*, which is thoroughly detailed
+Monero relies heavily on a cryptography principle known as _public/private
+key cryptography_ or _asymmetric cryptography_, which is thoroughly detailed
 in [this Wikipedia
 article](https://en.wikipedia.org/wiki/Public-key_cryptography).
 
@@ -66,7 +66,7 @@ it very easy to backup your account. When creating a Monero account for the
 first time you will be given a unique @mnemonic-seed for your account that
 consists of 13 or 25 words in the language of your choosing. **This seed is
 the only thing you need to backup for your account**, and so it is
-imperative that it is written down and stored securely.  Never store this
+imperative that it is written down and stored securely. Never store this
 seed in a form or location that would allow someone else to see it!
 
 ```
@@ -100,7 +100,7 @@ chlorine smog uphill glass aptitude nowhere sewage plywood
 dual relic fierce divers anvil nodes bubble cabin abort
 **********************************************************************
 Starting refresh...
-Refresh done, blocks received: 21939                            
+Refresh done, blocks received: 21939
 Balance: 0.000000000000, unlocked balance: 0.000000000000
 Background refresh thread started
 [wallet 4B15Zj]: █

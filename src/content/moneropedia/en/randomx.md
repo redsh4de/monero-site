@@ -1,5 +1,5 @@
 ---
-summary: 'ASIC-resistant POW algoritm currently used by Monero'
+summary: "ASIC-resistant POW algoritm currently used by Monero"
 title: RandomX
 terms: ["randomx", "random-x"]
 ---

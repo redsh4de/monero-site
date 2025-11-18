@@ -1,5 +1,5 @@
 ---
-summary: 'Background process which runs and controls a Monero node'
+summary: "Background process which runs and controls a Monero node"
 title: Daemon
 terms: ["daemon"]
 ---
@@ -23,6 +23,6 @@ the bottom of this page.
 
 <sub>1. The [monerod reference on Monero Docs]({{ site.docsurl }}/interacting/monerod-reference/)</sub><br>
 
-<sub>2. 'Daemon' entry [on Wikipedia](https://en.wikipedia.org/wiki/Daemon_(computing))</sub><br>
+<sub>2. 'Daemon' entry [on Wikipedia](<https://en.wikipedia.org/wiki/Daemon_(computing)>)</sub><br>
 
 <sub>3. Monerod-tagged questions [on StackExchange](https://monero.stackexchange.com/?tags=monerod)</sub>

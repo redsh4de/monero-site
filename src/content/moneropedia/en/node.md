@@ -1,5 +1,5 @@
 ---
-summary: 'A device on the Internet running the Monero software, with a full copy of the Monero blockchain. It can be local or remote'
+summary: "A device on the Internet running the Monero software, with a full copy of the Monero blockchain. It can be local or remote"
 title: Node
 terms: ["node", "nodes", "full-node", "full-nodes"]
 ---
@@ -44,4 +44,4 @@ in the network.
 
 ##### Other Resources
 
-<sub>1. *Fluffypony gives a great explanation of why mandatory network upgrades are good for Monero.* ([Monero Missives for the Week of 2016-06-20]({{ site.baseurl_root }}/2016/06/20/monero-missive-for-the-week-of-2016-06-20.html))</sub>
+<sub>1. _Fluffypony gives a great explanation of why mandatory network upgrades are good for Monero._ ([Monero Missives for the Week of 2016-06-20]({{ site.baseurl_root }}/2016/06/20/monero-missive-for-the-week-of-2016-06-20.html))</sub>

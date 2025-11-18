@@ -1,11 +1,11 @@
 ---
-summary: 'Atomic Units refer to the smallest fraction of 1 XMR.'
+summary: "Atomic Units refer to the smallest fraction of 1 XMR."
 title: Atomic Units
 terms: ["atomic-units", "atomic-unit"]
 ---
 
 ### The Basics
 
-Atomic Units refer to the smallest fraction of 1 XMR.  One atomic unit is
-currently 1e-12 XMR (0.000000000001 XMR, or one @piconero).  It may be
+Atomic Units refer to the smallest fraction of 1 XMR. One atomic unit is
+currently 1e-12 XMR (0.000000000001 XMR, or one @piconero). It may be
 changed in the future.

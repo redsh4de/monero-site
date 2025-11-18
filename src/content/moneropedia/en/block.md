@@ -1,5 +1,5 @@
 ---
-summary: 'a container of transactions, a sequence of which forms a blockchain'
+summary: "a container of transactions, a sequence of which forms a blockchain"
 title: Block
 terms: ["block", "blocks"]
 ---

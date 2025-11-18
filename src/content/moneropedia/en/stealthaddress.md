@@ -1,5 +1,5 @@
 ---
-summary: 'automatic one-time addresses for every transaction'
+summary: "automatic one-time addresses for every transaction"
 title: Stealth Address
 terms: ["stealth-address", "stealth-addresses"]
 ---
@@ -26,9 +26,9 @@ inability to track outgoing transactions. You can decide who can see your
 Monero balance by sharing your @view-key. Monero is private by default and
 optionally semi-transparent!
 
-When using the Monero Wallet all this is handled by the software.  Sending
+When using the Monero Wallet all this is handled by the software. Sending
 Monero is as easy as entering the destination address, the amount, and
-pressing Send.  To recieve Monero, simply provide the sender your Public
+pressing Send. To recieve Monero, simply provide the sender your Public
 Address.
 
 To learn how Monero prevents tracking history (untraceability), see

@@ -1,5 +1,5 @@
 ---
-summary: 'a special transaction where the recipient(s) can only spend the funds after a future date, as set by the sender'
+summary: "a special transaction where the recipient(s) can only spend the funds after a future date, as set by the sender"
 title: Unlock Time
 terms: ["unlock-time"]
 ---
@@ -12,8 +12,8 @@ a future date, as set by the sender.
 Unlock time allows you to send a transaction to someone, such that they can
 not spend it until after a certain block height, or until a certain
 time. These locks are per transaction, not per output. This means any
-returning change will be locked too. ***Do not unintentionally lock your
-change outputs.***
+returning change will be locked too. **_Do not unintentionally lock your
+change outputs._**
 
 Note that this works differently than Bitcoin's
 [nLockTime](https://en.bitcoin.it/wiki/NLockTime), in which the transaction
@@ -46,7 +46,7 @@ absolute Unix epoch timestamp. The Monero CLI wallet only supports values
 less than 500,000,000; Unix timestamps must be submitted via RPC or another
 custom software.
 
-The integer value will be interpreted by the protocol as an ***absolute***
+The integer value will be interpreted by the protocol as an **_absolute_**
 block height value or Unix epoch timestamp, not a relative value. Using an
 integer value less than the current block height or a Unix epoch timestamp
 less than the current Unix epoch timestamp makes no sense. For example, if

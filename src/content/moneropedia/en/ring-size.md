@@ -1,5 +1,5 @@
 ---
-summary: 'total number of possible signers in a ring signature'
+summary: "total number of possible signers in a ring signature"
 title: Ring Size
 terms: ["ring-size"]
 ---

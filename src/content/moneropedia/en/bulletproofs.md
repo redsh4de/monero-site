@@ -1,5 +1,5 @@
 ---
-summary: 'a new kind of range proofs replacing RingCT in transactions to obfuscate the amounts sent'
+summary: "a new kind of range proofs replacing RingCT in transactions to obfuscate the amounts sent"
 title: Bulletproofs
 terms: ["bulletproofs", "bulletproof"]
 ---
@@ -13,7 +13,7 @@ ringCT transaction.
 
 ### Where it comes to bulletproofs
 
-Back in 2017, a [Standford applied crypto group](https://crypto.stanford.edu/bulletproofs/) wrote a [paper](https://eprint.iacr.org/2017/1066.pdf) presenting a new kind of range proofs, called bulletproofs.  
+Back in 2017, a [Standford applied crypto group](https://crypto.stanford.edu/bulletproofs/) wrote a [paper](https://eprint.iacr.org/2017/1066.pdf) presenting a new kind of range proofs, called bulletproofs.
 
 > Bulletproofs are short non-interactive zero-knowledge proofs that require no trusted setup.
 
@@ -31,7 +31,7 @@ The code has been written and rewritten to follow the new version of bulletproof
 Therefore, the community started an auditing process. Researchers reached out to Benedikt Bünz, lead author of the Bulletproofs paper, and to [OSTIF](https://ostif.org/) an organization which helps open source technologies to improve and secure themselves.  
 OSTIF directed the group to several organizations with the skills required to perform the audit. While one of them asked to be kept unnamed and was therefore put away from the process that needed to be public, two others (QuarksLab & Kudelski Security) were choosen to conduct the audit.  
 Our 3 auditors were funded by the community to ensure that the
-implementation did not contain any critical bugs or exploits.  The final
+implementation did not contain any critical bugs or exploits. The final
 reports were released during the summer of 2018, with several useful
 corrections and fixes suggested, and the final bulletproof implementation
 has been added first to Monero Stagenet, and then to the main Monero network

@@ -1,5 +1,5 @@
 ---
-summary: 'C++ router implementation of the I2P network'
+summary: "C++ router implementation of the I2P network"
 title: Kovri
 terms: ["Kovri"]
 ---

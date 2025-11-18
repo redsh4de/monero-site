@@ -1,5 +1,5 @@
 ---
-summary: 'a process of having a throttled miner mine when it otherwise does not cause drawbacks'
+summary: "a process of having a throttled miner mine when it otherwise does not cause drawbacks"
 title: Smart Mining
 terms: ["smart-mining"]
 ---
@@ -7,7 +7,7 @@ terms: ["smart-mining"]
 ### The Basics
 
 Smart mining is the process of having a throttled @miner mine when it
-otherwise does not cause drawbacks.  Drawbacks include increases heat,
+otherwise does not cause drawbacks. Drawbacks include increases heat,
 slower machine, depleting battery, etc. The intent of smart mining is to
 increase network security by allowing as many people as possible to let the
 smart miner on all the time. For this to work, the miner must prove

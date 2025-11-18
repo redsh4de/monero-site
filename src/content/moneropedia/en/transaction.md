@@ -1,5 +1,5 @@
 ---
-summary: 'a cryptographically signed container that details the transfer of Monero to a recipient (or recipients)'
+summary: "a cryptographically signed container that details the transfer of Monero to a recipient (or recipients)"
 title: Transaction
 terms: ["transaction", "transactions"]
 ---
@@ -36,5 +36,5 @@ faked. You cannot receive transactions and identify them without a
 corresponding private view key.
 
 In order to spend the funds you have to compute a one-time private spend key
-for that output.  This is almost always done automatically by the Monero
+for that output. This is almost always done automatically by the Monero
 Wallet software.

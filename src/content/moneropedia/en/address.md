@@ -1,5 +1,5 @@
 ---
-summary: 'either an alias, such as donate.getmonero.org, or a set of 95 characters starting with a 4'
+summary: "either an alias, such as donate.getmonero.org, or a set of 95 characters starting with a 4"
 title: Address
 terms: ["address", "addresses"]
 ---
@@ -7,7 +7,7 @@ terms: ["address", "addresses"]
 ### The Basics
 
 When you send Monero to someone you only need one piece of information, and
-that is their Monero address. A *raw* Monero address is a set of 95
+that is their Monero address. A _raw_ Monero address is a set of 95
 characters starting with a '4'. The Monero donation address, for instance,
 is
 888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkRxbANsAnjyPbb3iQ1YBRk1UXcdRsiKc9dhwMVgN5S9cQUiyoogDavup3H.
@@ -26,7 +26,7 @@ An integrated address is an address combined with an encrypted 64-bit
 
 ### In-depth Information
 
-The address is actually the concatenation, in Base58 format, of the *public*
-@spend-key and the *public* @view-key, prefixed with the network byte (the
+The address is actually the concatenation, in Base58 format, of the _public_
+@spend-key and the _public_ @view-key, prefixed with the network byte (the
 number 18 for Monero) and suffixed with the first four bytes of the
 Keccac-256 hash of the whole string (used as a checksum).

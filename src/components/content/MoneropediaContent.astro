@@ -11,17 +11,21 @@ const { locale } = Astro.props as Props;
 
 // Fetch entries for current locale, with default locale as fallback
 const currentLocaleEntries = await getCollection("moneropedia", (entry) =>
-  entry.slug?.startsWith(`${locale}/`)
+  entry.slug?.startsWith(`${locale}/`),
 );
 
-const fallbackEntries = locale !== defaultLocale 
-  ? await getCollection("moneropedia", (entry) =>
-      entry.slug?.startsWith(`${defaultLocale}/`)
-    )
-  : [];
+const fallbackEntries =
+  locale !== defaultLocale
+    ? await getCollection("moneropedia", (entry) =>
+        entry.slug?.startsWith(`${defaultLocale}/`),
+      )
+    : [];
 
 // CUse Map for deduplication
-const entryMap = new Map<string, { terms: string[]; summary: string; file: string }>();
+const entryMap = new Map<
+  string,
+  { terms: string[]; summary: string; file: string }
+>();
 
 // Add fallback entries first (will be overwritten if current locale has same file)
 for (const entry of fallbackEntries) {
@@ -76,10 +80,7 @@ for (const entry of entries) {
 }
 ---
 
-<div
-  class="moneropedia-content"
-  set:html={DOMPurify.sanitize(processedHtml)}
-/>
+<div class="moneropedia-content" set:html={DOMPurify.sanitize(processedHtml)} />
 
 <style>
   .moneropedia-content {
@@ -104,8 +105,8 @@ for (const entry of entries) {
     content: attr(data-tooltip);
     position: absolute;
     bottom: 100%;
-    left: 0;                       /* anchor to the link's left edge */
-    transform: translateX(0);      /* no centering by default */
+    left: 0; /* anchor to the link's left edge */
+    transform: translateX(0); /* no centering by default */
     margin-bottom: 0.5rem;
     padding: 0.5rem 0.75rem;
     background: var(--card-color);

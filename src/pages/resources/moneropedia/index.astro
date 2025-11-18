@@ -17,16 +17,17 @@ const locale = getLocale(Astro.url) ?? defaultLocale;
 const t = await createTInstance(locale);
 
 const entries = (
-  await getCollection("moneropedia", (entry) => 
-    entry.slug?.startsWith(`${locale}/`)
+  await getCollection("moneropedia", (entry) =>
+    entry.slug?.startsWith(`${locale}/`),
   )
 ).map<MoneropediaItem>((entry) => {
   const slug = entry.slug?.split("/").pop()!;
   const title = entry.data.title ?? entry.data.terms[0];
-  
+
   // Capitalize the summary
-  entry.data.summary = entry.data.summary.charAt(0).toUpperCase() + entry.data.summary.slice(1);
-  
+  entry.data.summary =
+    entry.data.summary.charAt(0).toUpperCase() + entry.data.summary.slice(1);
+
   return {
     ...entry,
     href: localizeHref(locale, `/resources/moneropedia/${slug}/`),
@@ -49,7 +50,10 @@ for (const letter of sortedLetters) {
 ---
 
 <Layout title={t("moneropedia.pageTitle") ?? "Moneropedia"}>
-  <TitleCard title={t("moneropedia.heroTitle") ?? "Moneropedia"} subtitle={t("moneropedia.heroSubtitle")} />
+  <TitleCard
+    title={t("moneropedia.heroTitle") ?? "Moneropedia"}
+    subtitle={t("moneropedia.heroSubtitle")}
+  />
   <section class="moneropedia-index container">
     {
       sortedLetters.map((letter, idx) => {
@@ -68,7 +72,11 @@ for (const letter of sortedLetters) {
                 <h2 class="letter-heading">{letter}</h2>
               </div>
               <div class="items-column">
-                <Accordion items={accordionItems} multiExpand={false} variant="card"/>
+                <Accordion
+                  items={accordionItems}
+                  multiExpand={false}
+                  variant="card"
+                />
               </div>
             </div>
           </div>

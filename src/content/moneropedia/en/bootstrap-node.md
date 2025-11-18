@@ -1,5 +1,5 @@
 ---
-summary: 'A node to which a daemon connects to give immediate usability to wallets while syncing'
+summary: "A node to which a daemon connects to give immediate usability to wallets while syncing"
 title: Bootstrap Node
 terms: ["bootstrap-node", "bootstrap-nodes"]
 ---

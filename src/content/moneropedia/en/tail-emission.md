@@ -1,5 +1,5 @@
 ---
-summary: 'the block reward at the end of the emission curve'
+summary: "the block reward at the end of the emission curve"
 title: Tail Emission
 terms: ["Tail-Emission"]
 ---
