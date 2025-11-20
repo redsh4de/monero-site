@@ -186,58 +186,53 @@ const navItems = [
 ---
 
 <header class="header-bar">
-    <a class="brand" href={localizeHref(locale, "/")}>
-      <img
-        class="mark"
-        src="/meta/favicon-32x32.png"
-        alt=""
-        aria-hidden="true"
-      />
-      <span class="word">MONERO</span>
-    </a>
+  <a class="brand" href={localizeHref(locale, "/")}>
+    <img class="mark" src="/meta/favicon-32x32.png" alt="" aria-hidden="true" />
+    <span class="word">MONERO</span>
+  </a>
 
-    <input
-      id="nav-toggle"
-      class="nav-toggle"
-      type="checkbox"
-      aria-label="Open menu"
-    />
+  <input
+    id="nav-toggle"
+    class="nav-toggle"
+    type="checkbox"
+    aria-label="Open menu"
+  />
 
-    <nav id="primary-nav" class="nav" aria-label="Primary">
-      <div class="drawer-header">
-        <label
-          for="nav-toggle"
-          class="close"
-          aria-controls="primary-nav"
-          aria-label="Close menu"
-        >
-          <MaskIcon src={close} size="1.25rem" />
-        </label>
-      </div>
-      <ul class="nav-list">
-        {navItems.map((item) => <NavItem {...item} />)}
-      </ul>
-    </nav>
-
-    <label
-      for="nav-toggle"
-      class="scrim"
-      aria-hidden="true"
-      aria-label="Close menu"></label>
-
-    <div class="utils" aria-label="Utilities">
-      <div class="lang">
-        <LanguageDropdown />
-      </div>
+  <nav id="primary-nav" class="nav" aria-label="Primary">
+    <div class="drawer-header">
       <label
         for="nav-toggle"
-        class="hamburger"
+        class="close"
         aria-controls="primary-nav"
-        aria-hidden="true"
+        aria-label="Close menu"
       >
-        <MaskIcon src={hamburger} size="1.25rem" />
+        <MaskIcon src={close} size="1.25rem" />
       </label>
     </div>
+    <ul class="nav-list">
+      {navItems.map((item) => <NavItem {...item} />)}
+    </ul>
+  </nav>
+
+  <label
+    for="nav-toggle"
+    class="scrim"
+    aria-hidden="true"
+    aria-label="Close menu"></label>
+
+  <div class="utils" aria-label="Utilities">
+    <div class="lang">
+      <LanguageDropdown />
+    </div>
+    <label
+      for="nav-toggle"
+      class="hamburger"
+      aria-controls="primary-nav"
+      aria-hidden="true"
+    >
+      <MaskIcon src={hamburger} size="1.25rem" />
+    </label>
+  </div>
 </header>
 
 <style>
