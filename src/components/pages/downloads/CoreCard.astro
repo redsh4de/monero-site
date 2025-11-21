@@ -124,28 +124,24 @@ const PLATFORM_ICONS: Record<string, string> = {
         }
       </Dropdown>
       {
-        (torrentUrl || magnetUrl) && (
+        torrentUrl && magnetUrl && (
           <div class="torrent-split-button">
-            {torrentUrl && (
-              <Button
-                variant="secondary"
-                href={torrentUrl}
-                as="a"
-                class="torrent-button"
-              >
-                Torrent
-              </Button>
-            )}
-            {magnetUrl && (
-              <Button
-                variant="secondary"
-                href={magnetUrl}
-                as="a"
-                class="magnet-button"
-              >
-                🧲
-              </Button>
-            )}
+            <Button
+              variant="secondary"
+              href={torrentUrl}
+              as="a"
+              class="torrent-button"
+            >
+              Torrent
+            </Button>
+            <Button
+              variant="secondary"
+              href={magnetUrl}
+              as="a"
+              class="magnet-button"
+            >
+              🧲
+            </Button>
           </div>
         )
       }
