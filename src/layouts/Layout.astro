@@ -75,6 +75,8 @@ const title = Astro.props.title;
   main {
     padding: var(--default-padding);
     flex: 1;
+    max-width: var(--content-max-width); /* this is so that on very large screens content doesn't stretch too wide. */
+    margin: 0 auto;
   }
 
   @media (max-width: 600px) {
