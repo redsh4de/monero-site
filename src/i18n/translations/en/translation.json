@@ -214,6 +214,33 @@
           "content": "New coins are earned by miners who invest energy and hardware to secure the chain. The proof-of-work design aims to limit advantages from specialized hardware and keep mining accessible to more people."
         }
       ]
+    },
+    "additionalResources": {
+      "userGuides": {
+        "title": "User Guides",
+        "description": "Find in-depth guides on how to use Monero, from setting up your wallet to advanced privacy techniques.",
+        "ctaLabel": "See the guides"
+      },
+      "devGuides": {
+        "title": "Developer Guides",
+        "description": "Explore technical documentation and guides for developers interested in contributing to Monero or building on its technology.",
+        "ctaLabel": "See the guides"
+      },
+      "stackExchange": {
+        "title": "Stack Exchange",
+        "description": "Join the Monero Stack Exchange community to ask questions and find answers related to Monero.",
+        "ctaLabel": "Visit"
+      },
+      "reddit": {
+        "title": "r/monerosupport",
+        "description": "Engage with the Monero community on Reddit for discussions, news, and updates.",
+        "ctaLabel": "Visit"
+      },
+      "monerohow": {
+        "title": "Monero.how",
+        "description": "Old and known resources with old guides and howtos",
+        "ctaLabel": "Visit"
+      }
     }
   },
   "moneropedia": {
