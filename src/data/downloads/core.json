@@ -35,6 +35,7 @@
         "size": "125.59 MB"
       }
     ],
+    "torrent": "https://downloads.getmonero.org/gui/monero-gui-v0.18.4.4.torrent",
     "name": "Fluorine Fermi"
   },
   "cli": {
@@ -117,6 +118,7 @@
         "size": "71.24 MB"
       }
     ],
+    "torrent": "https://downloads.getmonero.org/cli/monero-cli-v0.18.4.4.torrent",
     "name": "Fluorine Fermi"
   }
 }

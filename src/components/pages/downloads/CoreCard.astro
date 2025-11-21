@@ -2,6 +2,7 @@
 import Dropdown from "@/components/ui/dropdown/Dropdown.astro";
 import DropdownItem from "@/components/ui/dropdown/DropdownItem.astro";
 import DropdownSeparator from "@/components/ui/dropdown/DropdownSeparator.astro";
+import Button from "@/components/ui/Button.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 import safeMarkdown from "@/utils/safeMarkdown.ts";
 
@@ -40,6 +41,7 @@ interface Props {
   version?: string;
   versionName?: string;
   releaseNotesUrl?: string;
+  torrentUrl?: string;
   verifyLink?: string;
   labels?: Labels;
 }
@@ -55,6 +57,7 @@ const {
   version,
   versionName,
   releaseNotesUrl,
+  torrentUrl,
   verifyLink,
   labels = {
     version: "Version",
@@ -118,6 +121,17 @@ const PLATFORM_ICONS: Record<string, string> = {
           )
         }
       </Dropdown>
+      {
+        torrentUrl && (
+          <Button
+            variant="secondary"
+            href={torrentUrl}
+            as="a"
+          >
+            🧲
+          </Button>
+        )
+      }
     </div>
     <div class="metadata-links">
       {
@@ -227,6 +241,9 @@ const PLATFORM_ICONS: Record<string, string> = {
 
   .download-actions {
     margin-top: 0.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
   }
 
   .metadata-links {
