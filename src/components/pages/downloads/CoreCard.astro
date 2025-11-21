@@ -42,6 +42,7 @@ interface Props {
   versionName?: string;
   releaseNotesUrl?: string;
   torrentUrl?: string;
+  magnetUrl?: string;
   verifyLink?: string;
   labels?: Labels;
 }
@@ -58,6 +59,7 @@ const {
   versionName,
   releaseNotesUrl,
   torrentUrl,
+  magnetUrl,
   verifyLink,
   labels = {
     version: "Version",
@@ -122,10 +124,29 @@ const PLATFORM_ICONS: Record<string, string> = {
         }
       </Dropdown>
       {
-        torrentUrl && (
-          <Button variant="secondary" href={torrentUrl} as="a">
-            🧲
-          </Button>
+        (torrentUrl || magnetUrl) && (
+          <div class="torrent-split-button">
+            {torrentUrl && (
+              <Button
+                variant="secondary"
+                href={torrentUrl}
+                as="a"
+                class="torrent-button"
+              >
+                Torrent
+              </Button>
+            )}
+            {magnetUrl && (
+              <Button
+                variant="secondary"
+                href={magnetUrl}
+                as="a"
+                class="magnet-button"
+              >
+                🧲
+              </Button>
+            )}
+          </div>
         )
       }
     </div>
@@ -240,6 +261,27 @@ const PLATFORM_ICONS: Record<string, string> = {
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .torrent-split-button {
+    display: flex;
+  }
+
+  .torrent-split-button .button {
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .torrent-split-button .torrent-button {
+    border-top-left-radius: 22.5rem;
+    border-bottom-left-radius: 22.5rem;
+  }
+
+  .torrent-split-button .magnet-button {
+    border-top-right-radius: 22.5rem;
+    border-bottom-right-radius: 22.5rem;
+    border-left: 1px solid var(--border-color);
   }
 
   .metadata-links {
