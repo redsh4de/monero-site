@@ -1,6 +1,8 @@
 ---
-import { getMoneropediaEntries, processMoneropediaLinks } from "@/utils/moneropedia";
-import { defaultLocale } from "@/i18n/config";
+import {
+  getMoneropediaEntries,
+  processMoneropediaLinks,
+} from "@/utils/moneropedia";
 import DOMPurify from "isomorphic-dompurify";
 import "@/styles/moneropedia-link.css";
 
@@ -14,7 +16,7 @@ const entries = await getMoneropediaEntries(locale);
 
 // Get slot content and process it
 let processedHtml = await Astro.slots.render("default");
-processedHtml = processMoneropediaLinks(processedHtml, entries, locale, defaultLocale);
+processedHtml = processMoneropediaLinks(processedHtml, entries, locale);
 ---
 
 <div class="moneropedia-content" set:html={DOMPurify.sanitize(processedHtml)} />

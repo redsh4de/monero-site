@@ -7,7 +7,9 @@ export interface MoneropediaEntry {
   file: string;
 }
 
-export async function getMoneropediaEntries(locale: string): Promise<MoneropediaEntry[]> {
+export async function getMoneropediaEntries(
+  locale: string,
+): Promise<MoneropediaEntry[]> {
   // Fetch entries for current locale, with default locale as fallback
   const currentLocaleEntries = await getCollection("moneropedia", (entry) =>
     entry.slug?.startsWith(`${locale}/`),
@@ -53,7 +55,6 @@ export function processMoneropediaLinks(
   html: string,
   entries: MoneropediaEntry[],
   locale: string,
-  defaultLocale: string
 ): string {
   const LOOKAHEAD = "(based|like|form)";
   let processedHtml = html;

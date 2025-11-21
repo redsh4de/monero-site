@@ -6,7 +6,10 @@ import type { AccordionItem } from "@/components/ui/Accordion.astro";
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
 import { createTInstance, getLocale } from "@/i18n/utils";
-import { getMoneropediaEntries, processMoneropediaLinks } from "@/utils/moneropedia";
+import {
+  getMoneropediaEntries,
+  processMoneropediaLinks,
+} from "@/utils/moneropedia";
 import { marked } from "marked";
 
 import userGuidesIcon from "@/assets/icons/mask/user-guides.avif?url";
@@ -17,37 +20,48 @@ import "@/styles/moneropedia-link.css";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
-const defaultLocale = (await import("@/i18n/config")).defaultLocale;
 const moneropediaEntries = await getMoneropediaEntries(locale);
 
 function processItemContent(content: string): string {
   const html = marked.parse(content) as string;
-  return processMoneropediaLinks(html, moneropediaEntries, locale, defaultLocale);
+  return processMoneropediaLinks(html, moneropediaEntries, locale);
 }
 
-const basicsItems = (t("faq.basics.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const basicsItems = (
+  t("faq.basics.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
-const nodesItems = (t("faq.nodes.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const nodesItems = (
+  t("faq.nodes.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
-const privacyItems = (t("faq.privacy.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const privacyItems = (
+  t("faq.privacy.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
-const securityItems = (t("faq.security.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const securityItems = (
+  t("faq.security.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
-const walletsItems = (t("faq.wallets.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const walletsItems = (
+  t("faq.wallets.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
-const economicsItems = (t("faq.economics.items", { returnObjects: true }) as AccordionItem[]).map(item => ({
+const economicsItems = (
+  t("faq.economics.items", { returnObjects: true }) as AccordionItem[]
+).map((item) => ({
   ...item,
-  content: processItemContent(item.content)
+  content: processItemContent(item.content),
 }));
 ---
 
@@ -56,39 +70,27 @@ const economicsItems = (t("faq.economics.items", { returnObjects: true }) as Acc
   <div class="accordion-grid">
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.basics.title")}</h2>
-      <Accordion
-        items={basicsItems}
-      />
+      <Accordion items={basicsItems} />
     </div>
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.nodes.title")}</h2>
-      <Accordion
-        items={nodesItems}
-      />
+      <Accordion items={nodesItems} />
     </div>
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.privacy.title")}</h2>
-      <Accordion
-        items={privacyItems}
-      />
+      <Accordion items={privacyItems} />
     </div>
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.security.title")}</h2>
-      <Accordion
-        items={securityItems}
-      />
+      <Accordion items={securityItems} />
     </div>
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.wallets.title")}</h2>
-      <Accordion
-        items={walletsItems}
-      />
+      <Accordion items={walletsItems} />
     </div>
     <div class="accordion-card">
       <h2 class="card-title">{t("faq.economics.title")}</h2>
-      <Accordion
-        items={economicsItems}
-      />
+      <Accordion items={economicsItems} />
     </div>
   </div>
   <IndexCard
