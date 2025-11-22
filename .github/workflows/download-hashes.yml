@@ -1,4 +1,4 @@
-name: "Validate Download Hashes"
+name: "Download Hashes"
 
 on:
   push:
@@ -16,6 +16,11 @@ jobs:
   validate-download-hashes:
     name: "Validate signed hashes and downloads"
     runs-on: ubuntu-latest
+    outputs:
+      magnet_gui: ${{ steps.verify-torrents.outputs.magnet_gui }}
+      magnet_cli: ${{ steps.verify-torrents.outputs.magnet_cli }}
+      version_gui: ${{ steps.validate-sources.outputs.version_gui }}
+      version_cli: ${{ steps.validate-sources.outputs.version_cli }}
 
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +39,8 @@ jobs:
             diffutils \
             bash \
             tar \
-            transmission-cli
+            transmission-cli \
+            jq
 
       - name: Verify hashes.txt signature
         run: |
@@ -94,6 +100,7 @@ jobs:
           sha256sum -c "$manifest"
       
       - name: Validate source integrity
+        id: validate-sources
         run: |
           set -euo pipefail
 
@@ -102,6 +109,8 @@ jobs:
           version_cli=$(awk '/monero-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
           
           echo -e "\n--> GUI version: $version_gui \n--> CLI version: $version_cli"
+          echo "version_gui=$version_gui" >> $GITHUB_OUTPUT
+          echo "version_cli=$version_cli" >> $GITHUB_OUTPUT
           mkdir validate_sources
           cd validate_sources
 
@@ -112,9 +121,9 @@ jobs:
 
           echo -e "--> Generating tarballs..."
           # CLI
-          git clone --recursive -b $version_cli --depth 1 --shallow-submodule https://github.com/monero-project/monero.git monero.git && cd monero.git && ../git-archive-all.sh --prefix monero-source-${version_cli}/ --format tar --tree-ish $version_cli ../monero-source-${version_cli}.tar && cd .. && bzip2 monero-source-${version_cli}.tar
+          git clone --recursive -b "$version_cli" --depth 1 --shallow-submodule https://github.com/monero-project/monero.git monero.git && cd monero.git && ../git-archive-all.sh --prefix monero-source-${version_cli}/ --format tar --tree-ish $version_cli ../monero-source-${version_cli}.tar && cd .. && bzip2 monero-source-${version_cli}.tar
           # GUI
-          git clone --recursive -b $version_gui --depth 1 --shallow-submodule https://github.com/monero-project/monero-gui.git monero-gui.git && cd monero-gui.git && ../git-archive-all.sh --prefix monero-gui-source-${version_gui}/ --format tar --tree-ish $version_gui ../monero-gui-source-${version_gui}.tar && cd .. && bzip2 monero-gui-source-${version_gui}.tar
+          git clone --recursive -b "$version_gui" --depth 1 --shallow-submodule https://github.com/monero-project/monero-gui.git monero-gui.git && cd monero-gui.git && ../git-archive-all.sh --prefix monero-gui-source-${version_gui}/ --format tar --tree-ish $version_gui ../monero-gui-source-${version_gui}.tar && cd .. && bzip2 monero-gui-source-${version_gui}.tar
           mkdir yours
           cp monero-gui-source-${version_gui}.tar.bz2 yours/.
           cp monero-source-${version_cli}.tar.bz2 yours/.
@@ -139,6 +148,7 @@ jobs:
           diff -r yours/monero-gui-source-$version_gui from_website/monero-gui-source-$version_gui
       
       - name: Verify torrent + magnet links
+        id: verify-torrents
         run: |
           set -euo pipefail
 
@@ -218,3 +228,72 @@ jobs:
           fi
 
           echo "Torrent files and magnet links match local build and CDN."
+          echo "magnet_gui=$MAGNET_LINK_GUI" >> $GITHUB_OUTPUT
+          echo "magnet_cli=$MAGNET_LINK_CLI" >> $GITHUB_OUTPUT
+
+  update-repo:
+    needs: validate-download-hashes
+    name: "Update static data with new download info"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Update magnet links
+        run: |
+          MAGNET_LINK_GUI="${{ needs.validate-download-hashes.outputs.magnet_gui }}"
+          MAGNET_LINK_CLI="${{ needs.validate-download-hashes.outputs.magnet_cli }}"
+
+          # Update magnet links in core.json only if different
+          CURRENT_GUI_MAGNET=$(jq -r '.gui.torrent.magnet' src/data/downloads/core.json)
+          if [ "$CURRENT_GUI_MAGNET" != "$MAGNET_LINK_GUI" ]; then
+            jq --arg m "$MAGNET_LINK_GUI" '.gui.torrent.magnet = $m' src/data/downloads/core.json > tmp.json && mv tmp.json src/data/downloads/core.json
+          fi
+          CURRENT_CLI_MAGNET=$(jq -r '.cli.torrent.magnet' src/data/downloads/core.json)
+          if [ "$CURRENT_CLI_MAGNET" != "$MAGNET_LINK_CLI" ]; then
+            jq --arg m "$MAGNET_LINK_CLI" '.cli.torrent.magnet = $m' src/data/downloads/core.json > tmp.json && mv tmp.json src/data/downloads/core.json
+          fi
+
+      - name: Update Core download metadata
+        run: |
+          set -euo pipefail
+
+          version_gui="${{ needs.validate-download-hashes.outputs.version_gui }}"
+          version_cli="${{ needs.validate-download-hashes.outputs.version_cli }}"
+
+          current_gui_version=$(jq -r '.gui.version' src/data/downloads/core.json)
+          current_cli_version=$(jq -r '.cli.version' src/data/downloads/core.json)
+
+          if [ "$current_gui_version" != "$version_gui" ] || [ "$current_cli_version" != "$version_cli" ]; then
+            echo "Versions differ, updating core downloads"
+            pnpm install
+            pnpm dlx tsx scripts/update-core-downloads.ts
+          else
+            echo "Versions match, skipping"
+          fi
+
+      - name: Commit and push changes
+        run: |
+          if git diff --quiet src/data/downloads/core.json; then
+            echo "No changes to commit"
+          else
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add src/data/downloads/core.json
+            git commit -m "Update Core download information"
+            git push
+          fi
