@@ -1,216 +1,137 @@
----
-name: Validate Hashes
+name: "Download Hashes"
+
 on:
   push:
+    branches-ignore:
+      - main
     paths:
-      - 'downloads/hashes.txt'
-      - '_data/downloads.yml'
-      - '_data/contributing.yml'
-  pull_request:
-    paths:
-      - 'downloads/hashes.txt'
-      - '_data/downloads.yml'
-      - '_data/contributing.yml'
+      - "public/downloads/hashes.txt"
   workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
-  validate-hashes:
-    name: Validate Hashes
-    runs-on: ubuntu-22.04
+  validate-download-hashes:
+    name: "Validate signed hashes and downloads"
+    runs-on: ubuntu-latest
+    outputs:
+      magnet_gui: ${{ steps.verify-torrents.outputs.magnet_gui }}
+      magnet_cli: ${{ steps.verify-torrents.outputs.magnet_cli }}
+      version_gui: ${{ steps.validate-sources.outputs.version_gui }}
+      version_cli: ${{ steps.validate-sources.outputs.version_cli }}
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
-          sudo apt-get install -y --no-install-recommends curl gpg jq python3-pip zbar-tools
-          sudo pip3 install yq
-      - name: Verify hashes.txt + contributing.yml + wallet-generator signature
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y \
+            ca-certificates \
+            coreutils \
+            curl \
+            gnupg \
+            git \
+            bzip2 \
+            diffutils \
+            bash \
+            tar \
+            transmission-cli \
+            jq
+
+      - name: Verify hashes.txt signature
         run: |
-          curl -sL https://raw.githubusercontent.com/monero-project/monero/master/utils/gpg_keys/binaryfate.asc |
+          set -euo pipefail
+
+          export GNUPGHOME="$(mktemp -d)"
+
+          curl -sSfL --proto '=https' --tlsv1.2 \
+            "https://raw.githubusercontent.com/monero-project/monero/master/utils/gpg_keys/binaryfate.asc" |
             gpg --import
-          gpg --verify downloads/hashes.txt
-          gpg --verify _data/contributing.yml.asc
-          gpg --verify resources/wallet-generator/wallet-generator.html.asc
-          mkdir resources/wallet-generator/validate_sig
-          unzip resources/wallet-generator/wallet-generator.zip -d resources/wallet-generator/validate_sig
-          gpg --verify resources/wallet-generator/validate_sig/wallet-generator.html.asc
-      - name: Verify General Fund donation QR's
+
+          gpg --batch --verify public/downloads/hashes.txt
+
+      - name: Download releases and verify hashes
         run: |
-          yaml="_data/contributing.yml"
-          get_yaml_value() {
-              awk -v key="$1:" '$1 == key {print $2}' "$yaml"
-          }
-          for coin in xmr btc; do
-              qr_checksum=$(get_yaml_value "qr_${coin}_checksum")
-              qr_filename=$(get_yaml_value "qr_${coin}_filename")
-              qr_content=$(get_yaml_value "qr_${coin}_content")
-              echo "DEBUG: $qr_checksum $qr_filename"
-              echo "DEBUG: $qr_content"
-              # Confirm hashes match
-              echo "$qr_checksum $qr_filename" | sha256sum -c
-              # Scan QR content 
-              qr_scanned=$(zbarimg -q --raw "$qr_filename")
-              # Compare scanned content with expected content
-              if [ "$qr_scanned" = "$qr_content" ]; then
-                  echo "${coin^^} QR code content matches exactly"
-              else
-                  echo "${coin^^} QR code content does not match"
-                  echo "Scanned: $qr_scanned"
-                  echo "Expected: $qr_content"
-                  exit 1
-              fi
+          set -euo pipefail
+
+          HASH_FILE="public/downloads/hashes.txt"
+          manifest="$PWD/.hash-manifest"
+          downloads="$PWD/.download-list"
+
+          : > "$manifest"
+          : > "$downloads"
+
+          # Expecting "filename" lines matching /monero-/
+          awk '/monero-/ {print $1, $2}' "$HASH_FILE" |
+          while IFS=' ' read -r hash filename; do
+            [ -z "$filename" ] && continue
+
+            dir="cli"
+            case "$filename" in
+              *gui*) dir="gui" ;;
+            esac
+
+            url="https://dlsrc.getmonero.org/${dir}/${filename}"
+
+            if [ -z "$hash" ]; then
+              echo "Missing hash for $filename" >&2
+              exit 1
+            fi
+
+            printf '%s  %s\n' "$hash" "$filename" >> "$manifest"
+            printf '%s|%s\n' "$url" "$filename" >> "$downloads"
           done
-      - name: Verify filenames
-        run: |
-          lines="$(grep -v ^# downloads/hashes.txt)"
-          SAVEIFS=$IFS
-          IFS=$'\n'
-          lines=($lines)
-          IFS=$SAVEIFS
-          
-          version_gui=$(awk '/monero-gui-source-v/ {print $2}' downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
-          version_cli=$(awk '/monero-source-v/ {print $2}' downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
 
-          filenames_cli=()
-          filenames_gui=()
+          if [ ! -s "$downloads" ]; then
+            echo "No downloads listed in hashes.txt (download list is empty)" >&2
+            exit 1
+          fi
 
-          get_filename(){
-              line=$1
-              the_line=($line)
-              length="${#the_line[@]}"
-              ((length-=1))
-              filename="${the_line[$length]}"
-              echo "${filename}"
-          }
-          # expects cli files between lines 2-14 and gui 15-19 (comments do not count, 1st line = 0)
-          # to add a new file to the cli, $num must be -gt 1 and -lt 16.
-          # gui $num is now -gt 15 and -lt 21 (new line has been added above)
-          # a new gui file will only increase the -lt number by 1
-          # changes to extensions / new files must be reflected in the cli_files / gui_files lists below
-          num=0
-          for line in "${lines[@]}"; do
-              if [ $num -gt 1 ] && [ $num -lt 15 ] ; then
-                  #CLI
-                  filename=$(get_filename "${line}")
-                  filenames_cli+=("${filename}")
-              elif [ $num -gt 14 ] && [ $num -lt 21 ] ; then
-                 #GUI
-                  filename=$(get_filename "${line}")
-                  filenames_gui+=("${filename}")
-              fi
-              ((num+=1))
-          done
-          # edit/add/remove filenames below
-          cli_files=(\
-          "monero-android-armv7-${version_cli}.tar.bz2" \
-          "monero-android-armv8-${version_cli}.tar.bz2" \
-          "monero-freebsd-x64-${version_cli}.tar.bz2" \
-          "monero-linux-armv7-${version_cli}.tar.bz2" \
-          "monero-linux-armv8-${version_cli}.tar.bz2" \
-          "monero-linux-riscv64-${version_cli}.tar.bz2" \
-          "monero-linux-x64-${version_cli}.tar.bz2" \
-          "monero-linux-x86-${version_cli}.tar.bz2" \
-          "monero-mac-armv8-${version_cli}.tar.bz2" \
-          "monero-mac-x64-${version_cli}.tar.bz2" \
-          "monero-win-x64-${version_cli}.zip" \
-          "monero-win-x86-${version_cli}.zip" \
-          "monero-source-${version_cli}.tar.bz2")
+          while IFS='|' read -r url filename; do
+            [ -z "$url" ] && continue
+            echo "Downloading $filename from $url"
+            curl -sSfL --proto '=https' --tlsv1.2 "$url" -o "$filename"
+          done < "$downloads"
 
-          gui_files=(\
-          "monero-gui-install-win-x64-${version_gui}.exe" \
-          "monero-gui-linux-x64-${version_gui}.tar.bz2" \
-          "monero-gui-mac-x64-${version_gui}.dmg" \
-          "monero-gui-mac-armv8-${version_gui}.dmg" \
-          "monero-gui-win-x64-${version_gui}.zip" \
-          "monero-gui-source-${version_gui}.tar.bz2")
+          sha256sum -c "$manifest"
 
-          check_filenames(){
-              local -n file_list=$1
-              local -n hardcoded=$2
-              for f in "${file_list[@]}"; do
-                if [[ "${hardcoded[*]}" =~ "${f}" ]]; then
-                    echo "Filename OK: ${f}"
-                else
-                    echo "Filename BAD: ${f}"
-                    exit 1
-                fi
-              done
-          }
-
-          check_filenames filenames_cli cli_files
-          check_filenames filenames_gui gui_files
-      - name: Download releases
-        run: |
-          for file in $(awk '/monero-/ {print $2}' downloads/hashes.txt); do
-              [ -f $file ] && continue
-              echo Downloading $file...
-              dir=cli
-              if [[ $file =~ gui ]]; then
-                  dir=gui
-              fi
-              url=https://dlsrc.getmonero.org/${dir}/${file}
-              curl -sLO $url
-          done
-      - name: Verify hashes.txt hashes
-        run: |
-          grep monero- downloads/hashes.txt | sha256sum -c
-      - name: Verify downloads.yml hashes
-        run: |
-          yq -r '.[] | .[0].downloads[] | "\(.link)|\(.hash)"' _data/downloads.yml | grep -v github |
-              while read line; do
-                  [ -z "$line" ] && continue
-                  url=$(echo $line | cut -d'|' -f1)
-                  hash=$(echo $line | cut -d'|' -f2)
-                  filename=
-                  case $url in
-                      *gui/win64install) filename=monero-gui-install-win-x64 ;;
-                      *gui/win64) filename=monero-gui-win-x64 ;;
-                      *gui/mac64) filename=monero-gui-mac-x64 ;;
-                      *gui/macarm8) filename=monero-gui-mac-armv8 ;;
-                      *gui/linux64) filename=monero-gui-linux-x64 ;;
-                      *gui/source) filename=monero-gui-source ;;
-                      *cli/win64) filename=monero-win-x64 ;;
-                      *cli/win32) filename=monero-win-x86 ;;
-                      *cli/mac64) filename=monero-mac-x64 ;;
-                      *cli/macarm8) filename=monero-mac-armv8 ;;
-                      *cli/linux64) filename=monero-linux-x64 ;;
-                      *cli/linux32) filename=monero-linux-x86 ;;
-                      *cli/linuxarm8) filename=monero-linux-armv8 ;;
-                      *cli/linuxarm7) filename=monero-linux-armv7 ;;
-                      *cli/linuxriscv64) filename=monero-linux-riscv64 ;;
-                      *cli/androidarm8) filename=monero-android-armv8 ;;
-                      *cli/androidarm7) filename=monero-android-armv7 ;;
-                      *cli/freebsd64) filename=monero-freebsd-x64 ;;
-                      *cli/source) filename=monero-source ;;
-                      *)
-                          echo "Unknown url $url" >&2
-                          exit 1
-                      ;;
-                  esac
-                  filename=$(awk "/${filename}/ {print \$2}" downloads/hashes.txt)
-                  echo "$hash  $filename" | sha256sum -c
-              done
       - name: Validate source integrity
+        id: validate-sources
         run: |
-          version_gui=$(awk '/monero-gui-source-v/ {print $2}' downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
-          version_cli=$(awk '/monero-source-v/ {print $2}' downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
+          set -euo pipefail
+
+          # Derive version numbers for CLI and GUI from hashes.txt
+          version_gui=$(awk '/monero-gui-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
+          version_cli=$(awk '/monero-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
+
           echo -e "\n--> GUI version: $version_gui \n--> CLI version: $version_cli"
+          echo "version_gui=$version_gui" >> $GITHUB_OUTPUT
+          echo "version_cli=$version_cli" >> $GITHUB_OUTPUT
           mkdir validate_sources
           cd validate_sources
+
           # Download / verify git-archive-all.sh
           curl -O https://raw.githubusercontent.com/fabacab/git-archive-all.sh/fc86194f00b678438f9210859597f6eead28e765/git-archive-all.sh
           echo "db62e9a824866989c9d080f008ec06d81421cf94bed3762acba3b9148607af2d git-archive-all.sh" | sha256sum -c
           chmod +x git-archive-all.sh
+
           echo -e "--> Generating tarballs..."
           # CLI
-          git clone --recursive -b $version_cli --depth 1 --shallow-submodule https://github.com/monero-project/monero.git monero.git && cd monero.git && ../git-archive-all.sh --prefix monero-source-${version_cli}/ --format tar --tree-ish $version_cli ../monero-source-${version_cli}.tar && cd .. && bzip2 monero-source-${version_cli}.tar
+          git clone --recursive -b "$version_cli" --depth 1 --shallow-submodule https://github.com/monero-project/monero.git monero.git && cd monero.git && ../git-archive-all.sh --prefix monero-source-${version_cli}/ --format tar --tree-ish $version_cli ../monero-source-${version_cli}.tar && cd .. && bzip2 monero-source-${version_cli}.tar
           # GUI
-          git clone --recursive -b $version_gui --depth 1 --shallow-submodule https://github.com/monero-project/monero-gui.git monero-gui.git && cd monero-gui.git && ../git-archive-all.sh --prefix monero-gui-source-${version_gui}/ --format tar --tree-ish $version_gui ../monero-gui-source-${version_gui}.tar && cd .. && bzip2 monero-gui-source-${version_gui}.tar
+          git clone --recursive -b "$version_gui" --depth 1 --shallow-submodule https://github.com/monero-project/monero-gui.git monero-gui.git && cd monero-gui.git && ../git-archive-all.sh --prefix monero-gui-source-${version_gui}/ --format tar --tree-ish $version_gui ../monero-gui-source-${version_gui}.tar && cd .. && bzip2 monero-gui-source-${version_gui}.tar
           mkdir yours
           cp monero-gui-source-${version_gui}.tar.bz2 yours/.
           cp monero-source-${version_cli}.tar.bz2 yours/.
           mkdir from_website
+
           echo -e "\n--> Move tarballs from getmonero..."
-          mv ../monero-gui-source-${version_gui}.tar.bz2 from_website/.
-          mv ../monero-source-${version_cli}.tar.bz2 from_website/.
+          cp ../monero-gui-source-${version_gui}.tar.bz2 from_website/.
+          cp ../monero-source-${version_cli}.tar.bz2 from_website/.
+
           echo -e "\n--> Unpacking all..."
           bunzip2 yours/*.bz2
           bunzip2 from_website/*.bz2
@@ -218,8 +139,160 @@ jobs:
           tar xf yours/monero-gui-source-${version_gui}.tar -C yours/
           tar xf from_website/monero-source-${version_cli}.tar -C from_website/
           tar xf from_website/monero-gui-source-${version_gui}.tar -C from_website
+
           # Compare directories
           echo -e "\n--> Comparing CLI directories"
           diff -r yours/monero-source-$version_cli from_website/monero-source-$version_cli
           echo -e "\n--> Comparing GUI directories"
           diff -r yours/monero-gui-source-$version_gui from_website/monero-gui-source-$version_gui
+
+      - name: Verify torrent + magnet links
+        id: verify-torrents
+        run: |
+          set -euo pipefail
+
+          HASH_FILE="public/downloads/hashes.txt"
+
+          # Derive version numbers for CLI and GUI from hashes.txt
+          version_gui=$(awk '/monero-gui-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
+          version_cli=$(awk '/monero-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
+
+          # Clone and pin the monero-torrent repo
+          git clone --recurse-submodules https://github.com/plowsof/monero-torrent.git
+          cd monero-torrent
+          git reset --hard e883850bf24811507e49cf4f4f16126ed2031295
+          cd ..
+
+          # Move the already-downloaded monero-* files into cdn
+          mkdir monero-torrent/cdn
+          awk '/monero-/ {print $2}' "$HASH_FILE" | while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            if [ ! -f "$f" ]; then
+              echo "Expected file $f is missing in workspace" >&2
+              exit 1
+            fi
+            mv "$f" monero-torrent/cdn/
+          done
+
+          # Add GPG key and hashes.txt into cdn
+          wget -q \
+            https://raw.githubusercontent.com/monero-project/monero/master/utils/gpg_keys/binaryfate.asc \
+            -O monero-torrent/cdn/binaryfate.asc
+
+          cp "$HASH_FILE" monero-torrent/cdn/hashes.txt
+
+          # Build torrents locally
+          cd monero-torrent
+          docker compose --profile local up --build
+
+          # Paths to locally-built torrents
+          local_cli_torrent="watch/monero-${version_cli}.torrent"
+          local_gui_torrent="watch/monero-gui-${version_gui}.torrent"
+
+          if [ ! -f "$local_cli_torrent" ] || [ ! -f "$local_gui_torrent" ]; then
+            echo "Local torrent files were not created as expected" >&2
+            ls -R
+            exit 1
+          fi
+
+          # Extract magnet links from locally built torrents
+          MAGNET_LINK_CLI="$(transmission-show -m "$local_cli_torrent")"
+          MAGNET_LINK_GUI="$(transmission-show -m "$local_gui_torrent")"
+
+          # Download torrents from CDN (replace with the monero URLs)
+          CDN_CLI_URL="https://github.com/plowsof/monero-torrent/releases/download/v0.18.4.4/monero-v0.18.4.4.torrent"
+          CDN_GUI_URL="https://github.com/plowsof/monero-torrent/releases/download/v0.18.4.4/monero-gui-v0.18.4.4.torrent"
+
+          wget -q "$CDN_CLI_URL" -O "monero-${version_cli}.torrent"
+          wget -q "$CDN_GUI_URL" -O "monero-gui-${version_gui}.torrent"
+
+          CDN_MAGNET_LINK_CLI="$(transmission-show -m "monero-${version_cli}.torrent")"
+          CDN_MAGNET_LINK_GUI="$(transmission-show -m "monero-gui-${version_gui}.torrent")"
+
+          # Compare local vs CDN magnets
+          if [ "$MAGNET_LINK_CLI" != "$CDN_MAGNET_LINK_CLI" ]; then
+            echo "CLI torrent magnet mismatch between local build and CDN version" >&2
+            echo "Local: $MAGNET_LINK_CLI" >&2
+            echo "CDN : $CDN_MAGNET_LINK_CLI" >&2
+            ls -R
+            exit 1
+          fi
+
+          if [ "$MAGNET_LINK_GUI" != "$CDN_MAGNET_LINK_GUI" ]; then
+            echo "GUI torrent magnet mismatch between local build and CDN version" >&2
+            echo "Local: $MAGNET_LINK_GUI" >&2
+            echo "CDN : $CDN_MAGNET_LINK_GUI" >&2
+            ls -R
+            exit 1
+          fi
+
+          echo "Torrent files and magnet links match local build and CDN."
+          echo "magnet_gui=$MAGNET_LINK_GUI" >> $GITHUB_OUTPUT
+          echo "magnet_cli=$MAGNET_LINK_CLI" >> $GITHUB_OUTPUT
+
+  update-repo:
+    needs: validate-download-hashes
+    name: "Update static data with new download info"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Update magnet links
+        run: |
+          MAGNET_LINK_GUI="${{ needs.validate-download-hashes.outputs.magnet_gui }}"
+          MAGNET_LINK_CLI="${{ needs.validate-download-hashes.outputs.magnet_cli }}"
+
+          # Update magnet links in core.json only if different
+          CURRENT_GUI_MAGNET=$(jq -r '.gui.torrent.magnet' src/data/downloads/core.json)
+          if [ "$CURRENT_GUI_MAGNET" != "$MAGNET_LINK_GUI" ]; then
+            jq --arg m "$MAGNET_LINK_GUI" '.gui.torrent.magnet = $m' src/data/downloads/core.json > tmp.json && mv tmp.json src/data/downloads/core.json
+          fi
+          CURRENT_CLI_MAGNET=$(jq -r '.cli.torrent.magnet' src/data/downloads/core.json)
+          if [ "$CURRENT_CLI_MAGNET" != "$MAGNET_LINK_CLI" ]; then
+            jq --arg m "$MAGNET_LINK_CLI" '.cli.torrent.magnet = $m' src/data/downloads/core.json > tmp.json && mv tmp.json src/data/downloads/core.json
+          fi
+
+      - name: Update Core download metadata
+        run: |
+          set -euo pipefail
+
+          version_gui="${{ needs.validate-download-hashes.outputs.version_gui }}"
+          version_cli="${{ needs.validate-download-hashes.outputs.version_cli }}"
+
+          current_gui_version=$(jq -r '.gui.version' src/data/downloads/core.json)
+          current_cli_version=$(jq -r '.cli.version' src/data/downloads/core.json)
+
+          if [ "$current_gui_version" != "$version_gui" ] || [ "$current_cli_version" != "$version_cli" ]; then
+            echo "Versions differ, updating core downloads"
+            pnpm install
+            pnpm dlx tsx scripts/update-core-downloads.ts
+          else
+            echo "Versions match, skipping"
+          fi
+
+      - name: Commit and push changes
+        run: |
+          if git diff --quiet src/data/downloads/core.json; then
+            echo "No changes to commit"
+          else
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add src/data/downloads/core.json
+            git commit -m "Update Core download information"
+            git push
+          fi
