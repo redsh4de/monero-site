@@ -339,7 +339,8 @@ const navItems = [
     }
 
     /* Prevents other dropdowns from being opened by hover, when one is open via focus (Tab/click) */
-    .header:has(.nav-item--dropdown:focus-within) :global(.nav-item--dropdown:not(:focus-within):hover) {
+    .header:has(.nav-item--dropdown:focus-within)
+      :global(.nav-item--dropdown:not(:focus-within):hover) {
       pointer-events: none;
     }
   }
