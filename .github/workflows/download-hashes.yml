@@ -16,19 +16,25 @@ jobs:
   validate-download-hashes:
     name: "Validate signed hashes and downloads"
     runs-on: ubuntu-latest
-    container:
-      image: alpine:3.19
-      options: --security-opt no-new-privileges:true
-    defaults:
-      run:
-        shell: sh
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
           set -euo pipefail
-          apk add --no-cache ca-certificates coreutils curl gnupg git bzip2 diffutils bash tar
+          sudo apt-get update
+          sudo apt-get install -y \
+            ca-certificates \
+            coreutils \
+            curl \
+            gnupg \
+            git \
+            bzip2 \
+            diffutils \
+            bash \
+            tar \
+            transmission-cli
 
       - name: Verify hashes.txt signature
         run: |
@@ -93,9 +99,6 @@ jobs:
 
           HASH_FILE="public/downloads/hashes.txt"
 
-          # Install dependencies
-          apk add --no-cache docker docker-compose transmission-cli
-
           # Derive version numbers for CLI and GUI from hashes.txt
           version_gui=$(awk '/monero-gui-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
           version_cli=$(awk '/monero-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
@@ -124,7 +127,7 @@ jobs:
 
           cp "$HASH_FILE" monero-torrent/cdn/hashes.txt
 
-          # Build torrents locally (requires docker + docker compose on the runner)
+          # Build torrents locally
           cd monero-torrent
           docker compose --profile local up --build
 
