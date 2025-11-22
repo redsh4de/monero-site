@@ -151,7 +151,7 @@ jobs:
           # Clone and pin the monero-torrent repo
           git clone --recurse-submodules https://github.com/plowsof/monero-torrent.git
           cd monero-torrent
-          git reset --hard 587c43dbd6d9fe424edb376b7c5fa2f42589d116
+          git reset --hard e883850bf24811507e49cf4f4f16126ed2031295
           cd ..
 
           # Move the already-downloaded monero-* files into cdn
@@ -190,8 +190,6 @@ jobs:
           MAGNET_LINK_CLI="$(transmission-show -m "$local_cli_torrent")"
           MAGNET_LINK_GUI="$(transmission-show -m "$local_gui_torrent")"
 
-          cd ..
-
           # Download torrents from CDN (replace with the monero URLs)
           CDN_CLI_URL="https://github.com/plowsof/monero-torrent/releases/download/v0.18.4.4/monero-v0.18.4.4.torrent"
           CDN_GUI_URL="https://github.com/plowsof/monero-torrent/releases/download/v0.18.4.4/monero-gui-v0.18.4.4.torrent"
@@ -207,6 +205,7 @@ jobs:
             echo "CLI torrent magnet mismatch between local build and CDN version" >&2
             echo "Local: $MAGNET_LINK_CLI" >&2
             echo "CDN : $CDN_MAGNET_LINK_CLI" >&2
+            ls -R
             exit 1
           fi
 
@@ -214,6 +213,7 @@ jobs:
             echo "GUI torrent magnet mismatch between local build and CDN version" >&2
             echo "Local: $MAGNET_LINK_GUI" >&2
             echo "CDN : $CDN_MAGNET_LINK_GUI" >&2
+            ls -R
             exit 1
           fi
 
