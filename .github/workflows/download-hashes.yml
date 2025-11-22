@@ -121,8 +121,8 @@ jobs:
           mkdir from_website
 
           echo -e "\n--> Move tarballs from getmonero..."
-          mv ../monero-gui-source-${version_gui}.tar.bz2 from_website/.
-          mv ../monero-source-${version_cli}.tar.bz2 from_website/.
+          cp ../monero-gui-source-${version_gui}.tar.bz2 from_website/.
+          cp ../monero-source-${version_cli}.tar.bz2 from_website/.
 
           echo -e "\n--> Unpacking all..."
           bunzip2 yours/*.bz2
