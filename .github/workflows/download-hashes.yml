@@ -137,8 +137,6 @@ jobs:
           diff -r yours/monero-source-$version_cli from_website/monero-source-$version_cli
           echo -e "\n--> Comparing GUI directories"
           diff -r yours/monero-gui-source-$version_gui from_website/monero-gui-source-$version_gui
-
-          cd ..
       
       - name: Verify torrent + magnet links
         run: |
