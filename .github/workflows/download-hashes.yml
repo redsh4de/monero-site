@@ -2,8 +2,9 @@ name: "Download Hashes"
 
 on:
   push:
-    branches-ignore:
-      - main
+    paths:
+      - "public/downloads/hashes.txt"
+  pull_request:
     paths:
       - "public/downloads/hashes.txt"
   workflow_dispatch:
