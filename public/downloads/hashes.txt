@@ -8,7 +8,7 @@ Hash: SHA256
 #
 #
 ## CLI
-7c2ad18ca3a1ad5bc603630ca935a753537a38a803e98d645edd6a3b94a5f035  monero-android-armv7-v0.18.4.4.tar.bz2
+7c2ad18ca3a1ad5bc603630ca935a753537a38a803e98d645edd6a3b94a5f036  monero-android-armv7-v0.18.4.4.tar.bz2
 eb81b71f029884ab5fec76597be583982c95fd7dc3fc5f5083a422669cee311e  monero-android-armv8-v0.18.4.4.tar.bz2
 bc539178df23d1ae8b69569d9c328b5438ae585c0aacbebe12d8e7d387a745b0  monero-freebsd-x64-v0.18.4.4.tar.bz2
 2040dc22748ef39ed8a755324d2515261b65315c67b91f449fa1617c5978910b  monero-linux-armv7-v0.18.4.4.tar.bz2
