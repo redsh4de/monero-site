@@ -97,7 +97,7 @@ async function main() {
       item.size = await getFileSize(item.href);
       console.log(`    → ${item.size}`);
 
-      // Rate limiting
+      // Rate limitings
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
   }
