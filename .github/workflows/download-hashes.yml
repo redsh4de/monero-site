@@ -2,14 +2,16 @@ name: "Download Hashes"
 
 on:
   push:
-    branches:
-      - main
     paths:
       - "public/downloads/hashes.txt"
   pull_request:
     paths:
       - "public/downloads/hashes.txt"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
