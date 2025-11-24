@@ -136,7 +136,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          HASH_FILE="public/downloads/hashes.txt"
+          HASH_FILE="$PWD/public/downloads/hashes.txt"
           manifest="$PWD/.hash-manifest"
           downloads="$PWD/.download-list"
 
