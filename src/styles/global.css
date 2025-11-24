@@ -71,8 +71,9 @@
 }
 
 /* ========================================
-   Global HTML Element Styles
+   Global HTML Element Styles (do not define classes here!)
    ======================================== */
+
 a {
   color: var(--monero-orange);
   text-decoration: none;
