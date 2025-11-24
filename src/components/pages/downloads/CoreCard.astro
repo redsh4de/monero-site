@@ -97,7 +97,10 @@ const PLATFORM_ICONS: Record<string, string> = {
                       />
                     </span>
                   )}
-                  <span>{t(`platforms.${item.platform}`)} ({t(`core.formats.${item.format}`)})</span>
+                  <span>
+                    {t(`platforms.${item.platform}`)} (
+                    {t(`core.formats.${item.format}`)})
+                  </span>
                 </span>
                 {item.size && <span slot="meta">{item.size}</span>}
               </DropdownItem>
