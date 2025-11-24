@@ -231,12 +231,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          HASH_FILE="public/downloads/hashes.txt"
+          HASH_FILE="$PWD/public/downloads/hashes.txt"
 
           # Derive version numbers for CLI and GUI from hashes.txt
-          version_gui=$(awk '/monero-gui-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
-          version_cli=$(awk '/monero-source-v/ {print $2}' public/downloads/hashes.txt | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
-
+          version_gui=$(awk '/monero-gui-source-v/ {print $2}' "$HASH_FILE" | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $4}')
+          version_cli=$(awk '/monero-source-v/ {print $2}' "$HASH_FILE" | awk -F".tar.bz2" '{print $1}' | awk -F"-" '{print $3}')
           # Clone and pin the monero-torrent repo
           git clone --recurse-submodules https://github.com/plowsof/monero-torrent.git
           cd monero-torrent
