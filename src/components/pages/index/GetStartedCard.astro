@@ -25,7 +25,9 @@ const dir = getDirection(locale);
 ---
 
 <div class="gs" aria-labelledby="gs-title">
-  <div class="num" aria-hidden="true">{localizeNumber(Number(step), locale, 2)}</div>
+  <div class="num" aria-hidden="true">
+    {localizeNumber(Number(step), locale, 2)}
+  </div>
 
   <div class="text">
     <h2 id="gs-title" class="title">{title}</h2>
