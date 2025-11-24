@@ -259,11 +259,7 @@ const dir = getDirection(getLocale(Astro.url));
   }
 
   /* highlight link when hovered/focused */
-  .nav-item--dropdown:is(
-      :hover,
-      :focus-within,
-      :has(.dropdown :focus-visible)
-    )
+  .nav-item--dropdown:is(:hover, :focus-within, :has(.dropdown :focus-visible))
     > .row
     > .link {
     color: var(--heading-color);
