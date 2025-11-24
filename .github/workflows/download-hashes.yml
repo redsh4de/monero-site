@@ -172,7 +172,8 @@ jobs:
           while IFS='|' read -r url filename; do
             [ -z "$url" ] && continue
             echo "Downloading $filename from $url"
-            curl -sSfL --proto '=https' --tlsv1.2 "$url" -o "$filename"
+            curl --retry 3 --retry-delay 2 -sSfL --proto '=https' --tlsv1.2 "$url" -o "$filename"
+            sleep 1
           done < "$downloads"
 
           sha256sum -c "$manifest"
