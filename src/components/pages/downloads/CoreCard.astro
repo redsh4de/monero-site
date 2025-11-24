@@ -191,7 +191,12 @@ const PLATFORM_ICONS: Record<string, string> = {
     <div class="verification">
       <h4>{labels.verifyDownloads}</h4>
       <p set:html={safeMarkdown.parse(labels.verifyDescription ?? "")} />
-      <a href="/downloads/hashes.txt" class="verify-link" target="_blank" rel="noopener noreferrer">{labels.viewHashes}</a>
+      <a
+        href="/downloads/hashes.txt"
+        class="verify-link"
+        target="_blank"
+        rel="noopener noreferrer">{labels.viewHashes}</a
+      >
     </div>
   </div>
 </div>
