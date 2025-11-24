@@ -20,7 +20,7 @@ const lightUrl = `'${norm(src).replace(/'/g, "\\'")}'`;
 const darkUrl = darkSrc ? `'${norm(darkSrc).replace(/'/g, "\\'")}'` : lightUrl;
 ---
 
-<div class={`icon ${className}`} aria-hidden="true"></div>
+<div class={`icon ${className} ${rtl ? "icon--rtl" : ""}`} aria-hidden="true"></div>
 
 <style
   define:vars={{
@@ -42,6 +42,11 @@ const darkUrl = darkSrc ? `'${norm(darkSrc).replace(/'/g, "\\'")}'` : lightUrl;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+  }
+
+  .icon--rtl {
+    transform: scaleX(var(-1, 1));
+    transform-origin: center;
   }
 
   @media (prefers-color-scheme: dark) {
