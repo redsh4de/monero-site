@@ -449,4 +449,4 @@ jobs:
             -d "$(jq -n \
                   --arg ref "$BRANCH_NAME" \
                   --arg pr "$pr_number" \
-                  '{event_type:"bot-pr-ci", client_payload:{ref:$ref, pr:$pr}}')"
+                  '{event_type:"bot-pr", client_payload:{ref:$ref, pr:$pr}}')"
