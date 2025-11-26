@@ -388,11 +388,6 @@ const navItems = [
     pointer-events: auto;
   }
 
-  /* When language dropdown is open, change header background */
-  .header:has(.lang-container[open]) {
-    background: var(--card-color);
-  }
-
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .nav,
@@ -405,6 +400,11 @@ const navItems = [
     body:has(#nav-toggle:checked) {
       overflow: hidden;
       overscroll-behavior: none;
+    }
+    
+    /* When language dropdown is open, change header background */
+    .header:has(.lang-container[open]) {
+      background: var(--card-color);
     }
   }
 
