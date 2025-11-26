@@ -1,8 +1,8 @@
 ---
 import TitleCard from "@/components/ui/TitleCard.astro";
+import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getLocale, localizeHref, createTInstance } from "@/i18n/utils";
 
 const allPosts = await getCollection("blog");
 const sortedPosts = allPosts.sort((a, b) => b.id.localeCompare(a.id));
@@ -18,7 +18,9 @@ const t = await createTInstance(locale);
   {
     sortedPosts.map((post) => (
       <li>
-        <a href={localizeHref(locale, `/blog/${post.slug}/`)}>{post.data.title}</a>
+        <a href={localizeHref(locale, `/blog/${post.slug}/`)}>
+          {post.data.title}
+        </a>
       </li>
     ))
   }

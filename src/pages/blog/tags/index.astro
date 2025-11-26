@@ -1,8 +1,8 @@
 ---
 import TitleCard from "@/components/ui/TitleCard.astro";
+import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getLocale, localizeHref, createTInstance } from "@/i18n/utils";
 
 const allPosts = await getCollection("blog");
 const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))].filter(
@@ -13,12 +13,20 @@ const t = await createTInstance(locale);
 ---
 
 <Layout>
-  <TitleCard title={t("blog.tagIndex.heroTitle")} subtitle={t("blog.tagIndex.heroSubtitle")} />
+  <TitleCard
+    title={t("blog.tagIndex.heroTitle")}
+    subtitle={t("blog.tagIndex.heroSubtitle")}
+  />
   <ul>
     {
       tags.map((tag) => (
         <li>
-          <a href={localizeHref(locale, `/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`)}>
+          <a
+            href={localizeHref(
+              locale,
+              `/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`,
+            )}
+          >
             {tag}
           </a>
         </li>
