@@ -155,46 +155,21 @@ jobs:
         run: |
           set -euo pipefail
 
-          manifest="$PWD/.hash-manifest"
-          downloads="$PWD/.download-list"
-
-          : > "$manifest"
-          : > "$downloads"
-
-          # Expecting "filename" lines matching /monero-/
-          awk '/monero-/ {print $1, $2}' "$HASH_FILE" |
-          while IFS=' ' read -r hash filename; do
-            [ -z "$filename" ] && continue
+          for file in $(awk '/monero-/ {print $2}' "$HASH_FILE"); do
+            [ -f "$file" ] && continue
+            echo "Downloading $file from $url..."
 
             dir="cli"
-            if [[ $filename =~ gui ]]; then
-                  dir="gui"
+            if [[ $file =~ gui ]]; then
+              dir="gui"
             fi
 
-            url="https://dlsrc.getmonero.org/${dir}/${filename}"
-
-            if [ -z "$hash" ]; then
-              echo "Missing hash for $filename" >&2
-              exit 1
-            fi
-
-            printf '%s  %s\n' "$hash" "$filename" >> "$manifest"
-            printf '%s|%s\n' "$url" "$filename" >> "$downloads"
+            url="https://dlsrc.getmonero.org/${dir}/${file}"
+            curl --retry 3 --retry-delay 2 -sSfL --proto '=https' --tlsv1.2 "$url" -o "$file"
+            sleep 0.5
           done
 
-          if [ ! -s "$downloads" ]; then
-            echo "No files listed in hashes.txt (download list is empty)" >&2
-            exit 1
-          fi
-
-          while IFS='|' read -r url filename; do
-            [ -z "$url" ] && continue
-            echo "Downloading $filename from $url"
-            curl --retry 3 --retry-delay 2 -sSfL --proto '=https' --tlsv1.2 "$url" -o "$filename"
-            sleep 0.5
-          done < "$downloads"
-
-          sha256sum -c "$manifest"
+          sha256sum -c "$HASH_FILE"
 
       - name: Validate source integrity
         id: validate-sources
