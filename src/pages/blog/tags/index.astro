@@ -4,7 +4,9 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("blog");
-const tags = [...new Set(allPosts.map((post: any) => post.data.tags).flat())];
+const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))].filter(
+  (tag) => tag !== undefined,
+);
 ---
 
 <Layout>

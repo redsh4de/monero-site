@@ -13,7 +13,7 @@ const sortedPosts = allPosts.sort((a, b) => b.id.localeCompare(a.id));
     subtitle="Read the latest news and updates about Monero."
   />
   {
-    sortedPosts.map((post: any) => (
+    sortedPosts.map((post) => (
       <li>
         <a href={`/blog/${post.id}/`}>{post.data.title}</a>
       </li>
