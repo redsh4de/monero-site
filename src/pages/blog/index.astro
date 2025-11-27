@@ -1,5 +1,6 @@
 ---
 import BlogCard from "@/components/pages/blog/BlogCard.astro";
+import Tabs from "@/components/ui/Tabs.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import { createTInstance, getLocale } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
@@ -9,12 +10,25 @@ const allPosts = await getCollection("blog");
 const sortedPosts = allPosts.sort((a, b) => b.id.localeCompare(a.id));
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
+
+const tabs = [
+  { label: "All Posts", link: "/blog/" },
+  { label: "Urgent", link: "/blog/tags/urgent/" },
+  { label: "Releases", link: "/blog/tags/releases/" },
+  { label: "Community", link: "/blog/tags/community/" },
+  { label: "Meeting Logs", link: "/blog/tags/dev-diaries/" },
+];
 ---
 
 <Layout>
   <TitleCard
     title={t("blog.index.heroTitle")}
     subtitle={t("blog.index.heroSubtitle")}
+  />
+  <Tabs
+    labels={tabs.map((t) => t.label)}
+    links={tabs.map((t) => t.link)}
+    activeIndex={0}
   />
   <div class="blog-grid">
     {
