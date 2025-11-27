@@ -26,12 +26,14 @@ const date = localizeDateString(dateString, locale, {
 ---
 
 <div class="card-container">
-  <div class={`thumbnail ${!image ? 'no-image' : ''}`}>
-    {image ? (
-      <img src={image} alt={title} loading="lazy" />
-    ) : (
-      <span>Release</span>
-    )}
+  <div class={`thumbnail ${!image ? "no-image" : ""}`}>
+    {
+      image ? (
+        <img src={image} alt={title} loading="lazy" />
+      ) : (
+        <span>Release</span>
+      )
+    }
   </div>
   <div class="info">
     <div class="meta">
@@ -61,17 +63,17 @@ const date = localizeDateString(dateString, locale, {
       <a href={localizeHref(locale, `/blog/${slug}/`)}>{title}</a>
     </h2>
     <p class="summary">{summary}</p>
-    {tags.length > 0 && (
-      <div class="tag-container">
-        {
-          tags.map((tag: string) => (
+    {
+      tags.length > 0 && (
+        <div class="tag-container">
+          {tags.map((tag: string) => (
             <a class="tag" href={localizeHref(locale, `/blog/tags/${tag}/`)}>
               {tag}
             </a>
-          ))
-        }
-      </div>
-    )}
+          ))}
+        </div>
+      )
+    }
   </div>
 </div>
 
@@ -174,7 +176,7 @@ const date = localizeDateString(dateString, locale, {
     }
 
     .thumbnail {
-      display: none
+      display: none;
     }
 
     .info {
@@ -189,7 +191,7 @@ const date = localizeDateString(dateString, locale, {
     }
 
     .summary {
-        order: -1;
+      order: -1;
     }
 
     .meta {
