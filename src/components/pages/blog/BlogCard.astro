@@ -23,10 +23,11 @@ const date = localizeDateString(dateString, locale, {
   month: "long",
   year: "numeric",
 });
+const localizedLink = localizeHref(locale, `/blog/${slug}/`);
 ---
 
 <div class="card-container">
-  <div class={`thumbnail ${!image ? "no-image" : ""}`}>
+  <a class={`thumbnail ${!image ? "no-image" : ""}`} href={localizedLink}>
     {
       image ? (
         <img src={image} alt={title} loading="lazy" />
@@ -34,7 +35,7 @@ const date = localizeDateString(dateString, locale, {
         <span>Release</span>
       )
     }
-  </div>
+  </a>
   <div class="info">
     <div class="meta">
       {
@@ -60,9 +61,9 @@ const date = localizeDateString(dateString, locale, {
       }
     </div>
     <h2 class="title">
-      <a href={localizeHref(locale, `/blog/${slug}/`)}>{title}</a>
+      <a href={localizedLink}>{title}</a>
     </h2>
-    <p class="summary">{summary}</p>
+    <a class="summary" href={localizedLink}>{summary}</a>
     {
       tags.length > 0 && (
         <div class="tag-container">
@@ -120,7 +121,7 @@ const date = localizeDateString(dateString, locale, {
   .meta {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: clamp(1rem, 2vw, 2rem);
     flex-wrap: wrap;
     color: var(--text-secondary);
   }
@@ -164,11 +165,11 @@ const date = localizeDateString(dateString, locale, {
   }
 
   .summary {
-    margin-top: 0rem;
+    margin-bottom: 1rem;
     color: var(--text-secondary);
+    text-decoration: none;
   }
 
-  /* Mobile layout tweaks */
   @media (max-width: 1200px) {
     .card-container {
       grid-template-rows: auto;
@@ -190,12 +191,17 @@ const date = localizeDateString(dateString, locale, {
     }
 
     .summary {
-      order: -1;
+      order: 2;
+      margin-bottom: unset;
+      margin-top: 1rem;
     }
 
     .meta {
       margin-bottom: 1rem;
-      gap: 1rem;
+    }
+
+    .tag-container {
+      font-size: var(--font-size-xs);
     }
   }
 </style>
