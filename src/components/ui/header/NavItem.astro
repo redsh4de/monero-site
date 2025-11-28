@@ -76,11 +76,7 @@ const dir = getDirection(getLocale(Astro.url));
           />
         </div>
 
-        <div
-          class="dropdown"
-          role="menu"
-          aria-label={`${label} menu`}
-        >
+        <div class="dropdown" role="menu" aria-label={`${label} menu`}>
           <div class="dropdown-inner">
             <div class="dropdown-content">
               {dropdown.map((item) => (
