@@ -5,7 +5,7 @@ tags: [crypto]
 author: Cypher Stack
 ---
 
-**TL;DR**: A recent review conducted by Cypher Stack identified issues with CLSAG formal security proofs, and proposed fixes. 
+**TL;DR**: A recent review conducted by Cypher Stack identified issues with CLSAG formal security proofs, and proposed fixes.
 These fixes don't affect the Monero implementation of CLSAG, so users are not at risk, and no action needs to be taken.
 
 The Monero transaction protocol uses [CLSAG](https://eprint.iacr.org/2019/654), a linkable ring signature construction, to authorize transactions.

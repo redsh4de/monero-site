@@ -9,7 +9,6 @@ author: Rucknium
 
 New research reveals the timing of Monero spending patterns in probabilistic form. The research could be used to improve Monero user privacy in the future. In the meantime, Monero users with extreme threat models should be aware that anti-privacy adversaries can leverage timing information to increase the probability of guessing the real spend in a ring signature to approximately 1-in-4.2 instead of 1-in-16.
 
-
 ## Introduction
 
 Four technologies protect the privacy of Monero users. Dandelion++ protects users' IP addresses from being linked to their transactions. [Confidential transactions](/resources/moneropedia/ringCT) hide the amount of value that is transferred between users. Monero's [stealth address](/resources/moneropedia/stealthaddress) technique produces one-time-use addresses on the blockchain that cannot be linked to specific wallets without voluntary disclosure of view keys. [Ring signatures](/resources/moneropedia/ringsignatures) obfuscate which stock of coins was spent in a transaction by combining the real spend with 15 decoy spends. This blog post discusses improvements and threats to Monero's ring signature privacy model.
@@ -24,7 +23,7 @@ Several peer-reviewed research articles suggested that near-optimal privacy for 
 
 OSPEAD works by chaining together two statistical techniques. First, the Bonhomme-Jochmans-Robin estimator separates the distribution of rings that use the "standard" decoy selection algorithm from the distributions of rings that use decoy selection algorithms of "third-party" wallet software (Bonhomme, Jochmans, & Robin 2016).[^2] Next, the Patra-Sen inversion estimator is used to separate the decoy distribution from the real spend distribution (Patra & Sen 2016).[^5] Note that the OSPEAD research has not yet been formally peer-reviewed.
 
-Producing a reliable estimate of the real spend age distribution is a double-edged sword. It provides great privacy when implemented in a decoy selection algorithm, yet it also enables an anti-privacy adversary to more easily guess the real spend when the actual decoy selection algorithm used by users is very different from the real spend distribution. 
+Producing a reliable estimate of the real spend age distribution is a double-edged sword. It provides great privacy when implemented in a decoy selection algorithm, yet it also enables an anti-privacy adversary to more easily guess the real spend when the actual decoy selection algorithm used by users is very different from the real spend distribution.
 
 ## Privacy risk
 

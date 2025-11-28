@@ -10,7 +10,7 @@ image: /blog/assets/2022-04-20-network-upgrade-july-2022/upgrades.png
     <img src="{{ page.image }}" width="350px">
 </div>
 
-***Note: This blog post has been updated to reflect the new hard-fork date of the 13th of August, 2022, as the release was delayed due to required multi-sig security fixes and hardware wallet-related delays.***
+**_Note: This blog post has been updated to reflect the new hard-fork date of the 13th of August, 2022, as the release was delayed due to required multi-sig security fixes and hardware wallet-related delays._**
 
 The next network upgrade will take place on **~13th August, 2022** (block 2,688,888). Network upgrades are technically hard-forks and require all participants in the Monero network to update their software. The new software (**v0.18 "Fluorine Fermi"**) will be released one month before the network upgrade, on the **~13th of July**.
 
@@ -31,21 +31,21 @@ To learn more about how Monero uses hard-forks to upgrade the network, you can r
 ### Common questions
 
 **Q:** Hard-fork? Does this mean there will be a split and a new coin will be created?  
-**A:** *No. Hard-forks in Monero are made to improve the base protocol, and are non-contentious. There will be no split and no new coin will be created.*
+**A:** _No. Hard-forks in Monero are made to improve the base protocol, and are non-contentious. There will be no split and no new coin will be created._
 
 **Q:** What do I have to do to be prepared for this upgrade?  
-**A:** *A new release will be announced before the network upgrade (around the 13th of July). You will only have to be using the updated software by the time the network upgrade occurs (13th August). To the end user, it will be like a simple software update.*
+**A:** _A new release will be announced before the network upgrade (around the 13th of July). You will only have to be using the updated software by the time the network upgrade occurs (13th August). To the end user, it will be like a simple software update._
 
 **Q:** How do I update my wallet/node?  
-**A:** *Detailed instructions will be posted along with the software update, but basically users will need to simply replace their previous software (monerod, monero-wallet-cli, monero-wallet-gui) with the new version. That's it.*
+**A:** _Detailed instructions will be posted along with the software update, but basically users will need to simply replace their previous software (monerod, monero-wallet-cli, monero-wallet-gui) with the new version. That's it._
 
 **Q:** If I have my coins on a paper wallet, do I have to do something?  
-**A:** *No. You will simply have to use an updated version of the Monero software when you will decide to move your coins.*
+**A:** _No. You will simply have to use an updated version of the Monero software when you will decide to move your coins._
 
 **Q:** If I have my coins on a hardware wallet, do I have to do something?  
-**A:** *Yes, you will need to update the Monero app or device firmware from the manufacturer once the appropriate update is available. Always be sure you go straight to the official website of the manufacturer to get these updates!*
+**A:** _Yes, you will need to update the Monero app or device firmware from the manufacturer once the appropriate update is available. Always be sure you go straight to the official website of the manufacturer to get these updates!_
 
 **Q:** Will there be any changes to the PoW algorithm?  
-**A:** *No. The PoW algorithm will not be affected. Mining will work as before and miners won't need to update their software.*
+**A:** _No. The PoW algorithm will not be affected. Mining will work as before and miners won't need to update their software._
 
 If you have further questions about the hard-fork, please reach out in [r/MoneroSupport](https://www.reddit.com/r/monerosupport) or via [#monero on IRC or Matrix]({{ site.baseurl_root }}/community/hangouts/).
