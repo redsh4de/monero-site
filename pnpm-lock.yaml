@@ -45,6 +45,12 @@ importers:
       '@eslint/js':
         specifier: ^9.39.1
         version: 9.39.1
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
       eslint:
         specifier: ^9.39.1
         version: 9.39.1
@@ -93,6 +99,12 @@ importers:
       typescript-eslint:
         specifier: ^8.47.0
         version: 8.47.0(eslint@9.39.1)(typescript@5.9.3)
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
 
 packages:
 
