@@ -1,18 +1,12 @@
 ---
-import { createTInstance, getLocale } from "@/i18n/utils";
-
 import Layout from "@/layouts/Layout.astro";
 
 import TitleCard from "@/components/ui/TitleCard.astro";
-
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
 ---
 
 <Layout>
   <TitleCard
-    title={t("getStarted.contribute.title")}
-    subtitle={t("getStarted.contribute.subtitle")}
+    title="Contribute"
+    subtitle="Monero is an open-source, community-driven project. Described below are several ways to support the project."
   />
-  <!--- Content goes here -->
 </Layout>
