@@ -1,11 +1,13 @@
 ---
 import type { Page } from "astro";
+import { localizeNumber } from "@/i18n/utils";
 
 interface Props {
   page: Page<unknown>;
+  locale?: string;
 }
 
-const { page } = Astro.props;
+const { page, locale } = Astro.props;
 
 let firstUrl: string;
 if (page.currentPage === 1) {
@@ -110,7 +112,7 @@ if (last <= 3) {
                   aria-label={ariaLabel}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {n}
+                  {locale ? localizeNumber(n, locale) : n}
                 </a>
               </li>
             );
