@@ -43,8 +43,9 @@ const html = await marked(post.body);
 const processedHtml = processMoneropediaLinks(html, entries, locale);
 
 // Get recent posts for the sidebar
-const allPosts = await getCollection("blog");
-allPosts.sort((a, b) => b.slug.localeCompare(a.slug));
+const allPosts = (await getCollection("blog")).sort((a, b) =>
+  b.slug.localeCompare(a.slug),
+);
 const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
 const N = 4;
 const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
