@@ -3,7 +3,13 @@ import "@/styles/moneropedia-link.css";
 
 import BlogContent from "@/components/pages/blog/BlogContent.astro";
 import BlogHeader from "@/components/pages/blog/BlogHeader.astro";
-import { createTInstance, getLocale, localizeHref, localizeDateString } from "@/i18n/utils";
+import {
+  createTInstance,
+  getLocale,
+  localizeDateString,
+  localizeHref,
+} from "@/i18n/utils";
+import { getDateStringFromSlug } from "@/utils/blog";
 import {
   getMoneropediaEntries,
   processMoneropediaLinks,
@@ -13,7 +19,6 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
-import { getDateStringFromSlug } from "@/utils/blog";
 import Layout from "../../layouts/Layout.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -64,20 +69,29 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
     <aside class="sidebar">
       <h2>{t("blog.post.recentPosts")}</h2>
       <ul class="recent-posts">
-        {recentPosts.map((recentPost) => {
-          const dateStr = getDateStringFromSlug(recentPost.slug);
-          const formattedDate = localizeDateString(dateStr, locale, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
-          return (
-            <li>
-              <a class="post-title" href={localizeHref(locale, `/blog/${recentPost.slug}/`)}>{recentPost.data.title}</a>
-              <time class="post-date" datetime={dateStr}>{formattedDate}</time>
-            </li>
-          );
-        })}
+        {
+          recentPosts.map((recentPost) => {
+            const dateStr = getDateStringFromSlug(recentPost.slug);
+            const formattedDate = localizeDateString(dateStr, locale, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+            return (
+              <li>
+                <a
+                  class="post-title"
+                  href={localizeHref(locale, `/blog/${recentPost.slug}/`)}
+                >
+                  {recentPost.data.title}
+                </a>
+                <time class="post-date" datetime={dateStr}>
+                  {formattedDate}
+                </time>
+              </li>
+            );
+          })
+        }
       </ul>
     </aside>
   </div>
