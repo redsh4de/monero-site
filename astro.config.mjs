@@ -18,7 +18,7 @@ export default defineConfig({
     i18n({
       locales,
       defaultLocale,
-      exclude: ["pages/**/*.js"]
+      exclude: ["pages/**/*.js"],
     }),
     sitemap({
       i18n: {
