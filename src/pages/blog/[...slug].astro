@@ -3,7 +3,7 @@ import "@/styles/moneropedia-link.css";
 
 import BlogContent from "@/components/pages/blog/BlogContent.astro";
 import BlogHeader from "@/components/pages/blog/BlogHeader.astro";
-import { createTInstance, getLocale } from "@/i18n/utils";
+import { createTInstance, getLocale, localizeHref, localizeDateString } from "@/i18n/utils";
 import {
   getMoneropediaEntries,
   processMoneropediaLinks,
@@ -13,6 +13,7 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
+import { getDateStringFromSlug } from "@/utils/blog";
 import Layout from "../../layouts/Layout.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -35,6 +36,13 @@ const t = await createTInstance(locale);
 const entries = await getMoneropediaEntries(locale);
 const html = await marked(post.body);
 const processedHtml = processMoneropediaLinks(html, entries, locale);
+
+// Get recent posts for the sidebar
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => b.slug.localeCompare(a.slug));
+const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+const N = 4;
+const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
 ---
 
 <Layout title={post.data.title}>
@@ -55,6 +63,22 @@ const processedHtml = processMoneropediaLinks(html, entries, locale);
 
     <aside class="sidebar">
       <h2>{t("blog.post.recentPosts")}</h2>
+      <ul class="recent-posts">
+        {recentPosts.map((recentPost) => {
+          const dateStr = getDateStringFromSlug(recentPost.slug);
+          const formattedDate = localizeDateString(dateStr, locale, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          return (
+            <li>
+              <a class="post-title" href={localizeHref(locale, `/blog/${recentPost.slug}/`)}>{recentPost.data.title}</a>
+              <time class="post-date" datetime={dateStr}>{formattedDate}</time>
+            </li>
+          );
+        })}
+      </ul>
     </aside>
   </div>
 </Layout>
@@ -82,6 +106,37 @@ const processedHtml = processMoneropediaLinks(html, entries, locale);
     margin-top: 0;
   }
 
+  .recent-posts {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .recent-posts li {
+    margin-bottom: 0.5rem;
+  }
+
+  .recent-posts .post-date {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--paragraph-subtitle);
+    margin-top: 0.25rem;
+  }
+
+  .recent-posts .post-title {
+    font-size: var(--font-size-md);
+    color: var(--paragraph-main);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+  }
+
+  .recent-posts .post-title:hover {
+    text-decoration: underline;
+  }
+
   @media (min-width: 1200px) {
     .blog-container {
       grid-template-columns: 1fr 75ch 1fr;
@@ -97,7 +152,7 @@ const processedHtml = processMoneropediaLinks(html, entries, locale);
     }
   }
 
-  @media (min-width: 1500px) {
+  @media (min-width: 1600px) {
     .sidebar {
       grid-column: 3;
       grid-row: 1;
