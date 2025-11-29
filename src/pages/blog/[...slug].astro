@@ -24,7 +24,7 @@ import Layout from "../../layouts/Layout.astro";
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 };
@@ -39,14 +39,13 @@ const t = await createTInstance(locale);
 
 // Process moneropedia links in the blog post content
 const entries = await getMoneropediaEntries(locale);
-const html = await marked(post.body);
+const html = await marked(post.body ?? "");
 const processedHtml = processMoneropediaLinks(html, entries, locale);
-
 // Get recent posts for the sidebar
 const allPosts = (await getCollection("blog")).sort((a, b) =>
-  b.slug.localeCompare(a.slug),
+  b.id.localeCompare(a.id),
 );
-const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const N = 4;
 const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
 ---
@@ -56,7 +55,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
     <main>
       <BlogHeader
         title={post.data.title}
-        slug={post.slug}
+        slug={post.id}
         author={post.data.author}
         tags={post.data.tags}
         locale={locale}
@@ -72,7 +71,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
       <ul class="recent-posts">
         {
           recentPosts.map((recentPost) => {
-            const dateStr = getDateStringFromSlug(recentPost.slug);
+            const dateStr = getDateStringFromSlug(recentPost.id);
             const formattedDate = localizeDateString(dateStr, locale, {
               year: "numeric",
               month: "long",
@@ -82,7 +81,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
               <li>
                 <a
                   class="post-title"
-                  href={localizeHref(locale, `/blog/${recentPost.slug}/`)}
+                  href={localizeHref(locale, `/blog/${recentPost.id}/`)}
                 >
                   {recentPost.data.title}
                 </a>
