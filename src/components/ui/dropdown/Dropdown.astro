@@ -10,34 +10,33 @@ interface Props {
 const { label } = Astro.props;
 ---
 
-<details class="dropdown">
-  <summary class="dropdown-summary">
-    <Button variant="primary" as="span">
-      {label}
-      <span class="caret">
-        <MaskIcon src={dropdownCaretIcon} />
-      </span>
-    </Button>
-  </summary>
-  <div class="dropdown-content">
+<div class="dropdown">
+  <Button
+    variant="primary"
+    class="dropdown-trigger"
+    aria-haspopup="true"
+    type="button"
+  >
+    {label}
+    <span class="caret">
+      <MaskIcon src={dropdownCaretIcon} />
+    </span>
+  </Button>
+  <div class="dropdown-content" tabindex="-1">
     <slot />
   </div>
-</details>
+</div>
 
 <style>
   .dropdown {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
   }
 
-  .dropdown-summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  .dropdown-summary::-webkit-details-marker {
-    display: none;
+  .dropdown-trigger {
+    font: inherit;
+    width: 100%;
   }
 
   .caret {
@@ -46,7 +45,7 @@ const { label } = Astro.props;
     margin-inline-start: 0.5rem;
     transition: transform 0.2s ease;
   }
-  .dropdown[open] .caret {
+  .dropdown:focus-within .caret {
     transform: rotate(180deg);
   }
 
@@ -75,7 +74,7 @@ const { label } = Astro.props;
     transition: transform 0.2s ease;
   }
 
-  .dropdown[open] .dropdown-content {
+  .dropdown:focus-within .dropdown-content {
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
