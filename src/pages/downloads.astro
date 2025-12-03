@@ -16,8 +16,14 @@ const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 ---
 
-<Layout title={t("downloads.pageTitle")} description={t("downloads.heroSubtitle")}>
-  <TitleCard title={t("downloads.heroTitle")} subtitle={t("downloads.heroSubtitle")} />
+<Layout
+  title={t("downloads.pageTitle")}
+  description={t("downloads.heroSubtitle")}
+>
+  <TitleCard
+    title={t("downloads.heroTitle")}
+    subtitle={t("downloads.heroSubtitle")}
+  />
   <Tabs
     labels={[t("downloads.tabs.core"), t("downloads.tabs.community")]}
     initial={0}
@@ -79,7 +85,9 @@ const t = await createTInstance(locale);
       </p>
 
       <!-- Monero-only -->
-      <h3 class="subheading">{t("downloads.community.categories.moneroOnly")}</h3>
+      <h3 class="subheading">
+        {t("downloads.community.categories.moneroOnly")}
+      </h3>
       <div class="cards-grid compact">
         {
           communityWallets.localSync.moneroOnly.map((wallet) => (
@@ -90,7 +98,9 @@ const t = await createTInstance(locale);
               tags={wallet.tags}
               link={wallet.link}
               linkText={t("downloads.community.learnMore")}
-              translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
+              translateTag={(key: string) =>
+                t(`downloads.community.tags.${key}`)
+              }
               t={t}
             />
           ))
@@ -98,7 +108,9 @@ const t = await createTInstance(locale);
       </div>
 
       <!-- Multi-coin -->
-      <h3 class="subheading">{t("downloads.community.categories.multiCoin")}</h3>
+      <h3 class="subheading">
+        {t("downloads.community.categories.multiCoin")}
+      </h3>
       <div class="cards-grid compact">
         {
           communityWallets.localSync.multiCoin.map((wallet) => (
@@ -109,7 +121,9 @@ const t = await createTInstance(locale);
               tags={wallet.tags}
               link={wallet.link}
               linkText={t("downloads.community.learnMore")}
-              translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
+              translateTag={(key: string) =>
+                t(`downloads.community.tags.${key}`)
+              }
               t={t}
             />
           ))
@@ -133,7 +147,9 @@ const t = await createTInstance(locale);
               tags={wallet.tags}
               link={wallet.link}
               linkText={t("downloads.community.learnMore")}
-              translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
+              translateTag={(key: string) =>
+                t(`downloads.community.tags.${key}`)
+              }
               t={t}
             />
           ))
@@ -157,7 +173,9 @@ const t = await createTInstance(locale);
               tags={wallet.tags}
               link={wallet.link}
               linkText={t("downloads.community.learnMore")}
-              translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
+              translateTag={(key: string) =>
+                t(`downloads.community.tags.${key}`)
+              }
               t={t}
             />
           ))
@@ -181,7 +199,9 @@ const t = await createTInstance(locale);
               tags={wallet.tags}
               link={wallet.link}
               linkText={t("downloads.community.learnMore")}
-              translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
+              translateTag={(key: string) =>
+                t(`downloads.community.tags.${key}`)
+              }
               t={t}
             />
           ))

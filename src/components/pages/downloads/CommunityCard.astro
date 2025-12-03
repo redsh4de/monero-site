@@ -132,7 +132,9 @@ const showPlatforms = desktop.length > 0 || mobile.length > 0;
       <div class="card-platforms" aria-label="Supported platforms">
         {desktop.length > 0 && (
           <div class="platform-row">
-            <span class="platforms-label">{t("downloads.community.desktopLabel")}:</span>
+            <span class="platforms-label">
+              {t("downloads.community.desktopLabel")}:
+            </span>
             <ul class="list">
               {desktop.map((key) => (
                 <li class="pill" title={LABEL[key]}>
@@ -144,7 +146,9 @@ const showPlatforms = desktop.length > 0 || mobile.length > 0;
         )}
         {mobile.length > 0 && (
           <div class="platform-row">
-            <span class="platforms-label">{t("downloads.community.mobileLabel")}:</span>
+            <span class="platforms-label">
+              {t("downloads.community.mobileLabel")}:
+            </span>
             <ul class="list">
               {mobile.map((key) => (
                 <li class="pill" title={LABEL[key]}>

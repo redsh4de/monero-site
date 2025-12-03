@@ -39,7 +39,10 @@ const dir = getDirection(getLocale(Astro.url));
 
   <a class="cta" href={ctaHref}>
     {ctaLabel}
-   <MaskIcon src={ctaHref.startsWith("http") ? externalLink : arrowRight} rtl={dir == "rtl"} />
+    <MaskIcon
+      src={ctaHref.startsWith("http") ? externalLink : arrowRight}
+      rtl={dir == "rtl"}
+    />
   </a>
 </article>
 
