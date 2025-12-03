@@ -39,3 +39,48 @@ jobs:
             echo "Translations are handled via Weblate/CI. Revert the changes listed above."
             exit 1
           fi
+
+  check-moneropedia-updates:
+    name: Check if Moneropedia config and translations are up to date
+    runs-on: ubuntu-22.04
+    if: github.actor != 'github-actions[bot]' && github.actor != 'weblate'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y po4a
+          pnpm install --frozen-lockfile
+
+      - name: Regenerate Moneropedia config
+        run: pnpm run i18n:moneropedia:config
+
+      - name: Update translations
+        run: pnpm run i18n:moneropedia:compile
+
+      - name: Check for changes
+        run: |
+          set -euo pipefail
+
+          CHANGED_FILES=$(
+            git diff --name-only -- \
+              'src/i18n/moneropedia/po4a.conf' \
+              'src/i18n/moneropedia/**/*.po' \
+              'src/i18n/moneropedia/moneropedia.pot' || true
+          )
+
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "The following Moneropedia translation files are mismatched:"
+            echo "$CHANGED_FILES"
+            echo
+            echo "Please run 'pnpm run i18n:moneropedia:config' and 'pnpm run i18n:moneropedia:compile' locally, then commit the changes."
+            exit 1
+          fi
