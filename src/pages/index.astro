@@ -7,19 +7,20 @@ import GetStartedCard from "@/components/pages/index/GetStartedCard.astro";
 import Hero from "@/components/pages/index/Hero.astro";
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
-import MaskIcon from "@/components/ui/MaskIcon.astro";
 
 import developerGuidesIcon from "@/assets/icons/mask/developer-guides.avif?url";
 import faqIcon from "@/assets/icons/mask/faq.avif?url";
-import placeholder from "@/assets/icons/mask/placeholder.avif?url";
 import userGuidesIcon from "@/assets/icons/mask/user-guides.avif?url";
+
+import placeholderIcon from "@/assets/icons/mask/placeholder.avif?url";
+import MaskIcon from "@/components/ui/MaskIcon.astro";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 ---
 
 <Layout title="Monero" description={t("index.hero.lead")}>
-  <Hero t={t} />
+  <Hero t={t} class="index-hero" />
   <div class="main-content">
     <IndexCard
       title={t("index.aboutTitle")}
@@ -50,7 +51,8 @@ const t = await createTInstance(locale);
           width="100%"
           height="100%"
           controls
-          preload="metadata"
+          preload="none"
+          poster="/media/what-is-monero.webp"
           aria-label="Video explaining what Monero is"
         >
           <source src="/media/what-is-monero.webm" type="video/webm" />
@@ -65,13 +67,16 @@ const t = await createTInstance(locale);
       description={t("index.startDescription")}
       id="start-using-monero"
     >
-      <MaskIcon src={placeholder} size="100%" />
+      {
+        /*<Image src={landingImage} alt="" style="width: 100%; height: auto;" />*/
+      }
+      <MaskIcon src={placeholderIcon} size="100%" />
       <div>
         <GetStartedCard
           step="01"
           title={t("index.step1Title")}
           description={t("index.step1Desc")}
-          ctaHref="/downloads"
+          ctaHref="/downloads/community"
           ctaLabel={t("index.step1Cta")}
         />
         <hr />
@@ -186,13 +191,13 @@ const t = await createTInstance(locale);
     scroll-margin-top: 4rem;
   }
 
-  :global(.hero) {
-    position: absolute !important;
-    top: 3rem !important;
-    inset-inline-start: 5rem !important;
-    inset-inline-end: 5rem !important;
-    z-index: 5 !important;
-    min-height: var(--hero-min-height) !important;
+  :global(.hero.index-hero) {
+    position: absolute;
+    top: 3rem;
+    inset-inline-start: 5rem;
+    inset-inline-end: 5rem;
+    z-index: 5;
+    min-height: var(--hero-min-height);
   }
 
   @media (max-width: 1200px) {
@@ -202,9 +207,9 @@ const t = await createTInstance(locale);
   }
 
   @media (max-width: 600px) {
-    :global(.hero) {
-      inset-inline-start: 2rem !important;
-      inset-inline-end: 2rem !important;
+    :global(.hero.index-hero) {
+      inset-inline-start: 2rem;
+      inset-inline-end: 2rem;
     }
   }
 </style>
