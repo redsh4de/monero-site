@@ -76,7 +76,7 @@ jobs:
           set -euo pipefail
 
           CHANGES=$(git diff --name-status "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- src/content/moneropedia/en/)
-          ADDED_DELETED=$(echo "$CHANGES" | grep -E '^[AD]' || true)
+          ADDED_DELETED=$(echo "$CHANGES" | grep -E '^[ARD]' || true)
 
           if [ -n "$ADDED_DELETED" ]; then
             echo "Files added or deleted in en/, regenerating config"
