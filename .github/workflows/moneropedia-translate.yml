@@ -6,6 +6,9 @@ on:
       - "src/content/moneropedia/**"
       - "src/i18n/moneropedia/**"
       - "src/i18n/translations/**"
+  push:
+    paths:
+      - "src/i18n/moneropedia/**/*.po"
 
 permissions:
   contents: read
@@ -14,10 +17,12 @@ jobs:
   forbid-manual-locale-edits:
     name: Forbid direct edits to localized Moneropedia files
     runs-on: ubuntu-22.04
-    if: github.actor != 'github-actions[bot]' && github.actor != 'weblate'
+    if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]' && github.actor != 'weblate'
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Forbid direct edits
         run: |
@@ -26,7 +31,7 @@ jobs:
           FORBIDDEN=$(
             git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- \
               'src/content/moneropedia/**' \
-              'src/i18n/moneropedia/moneropedia.pot' \
+              'src/i18n/moneropedia/**/*.pot' \
               'src/i18n/moneropedia/**/*.po' \
               'src/i18n/translations/**' \
               | grep -v '^src/content/moneropedia/en/' || true
@@ -43,10 +48,16 @@ jobs:
   check-moneropedia-updates:
     name: Check if Moneropedia config and translations are up to date
     runs-on: ubuntu-22.04
-    if: github.actor != 'github-actions[bot]' && github.actor != 'weblate'
+    if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]' && github.actor != 'weblate'
+
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -60,27 +71,91 @@ jobs:
           sudo apt-get install -y po4a
           pnpm install --frozen-lockfile
 
+      - name: Check for added/deleted files in Moneropedia en
+        run: |
+          set -euo pipefail
+
+          CHANGES=$(git diff --name-status "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- src/content/moneropedia/en/)
+          ADDED_DELETED=$(echo "$CHANGES" | grep -E '^[AD]' || true)
+
+          if [ -n "$ADDED_DELETED" ]; then
+            echo "Files added or deleted in en/, regenerating config"
+            echo "REGENERATE_CONFIG=true" >> $GITHUB_ENV
+          else
+            echo "No additions/deletions, skipping config regeneration"
+            echo "REGENERATE_CONFIG=false" >> $GITHUB_ENV
+          fi
+
       - name: Regenerate Moneropedia config
+        if: env.REGENERATE_CONFIG == 'true'
         run: pnpm run i18n:moneropedia:config
 
       - name: Update translations
         run: pnpm run i18n:moneropedia:compile
 
-      - name: Check for changes
+      - name: Commit updated files
         run: |
           set -euo pipefail
+
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           CHANGED_FILES=$(
             git diff --name-only -- \
               'src/i18n/moneropedia/po4a.conf' \
               'src/i18n/moneropedia/**/*.po' \
-              'src/i18n/moneropedia/moneropedia.pot' || true
+              'src/i18n/moneropedia/**/*.pot' || true
           )
 
           if [ -n "$CHANGED_FILES" ]; then
-            echo "The following Moneropedia translation files are mismatched:"
+            echo "Committing updated translation files:"
             echo "$CHANGED_FILES"
-            echo
-            echo "Please run 'pnpm run i18n:moneropedia:config' and 'pnpm run i18n:moneropedia:compile' locally, then commit the changes."
-            exit 1
+            git add src/i18n/moneropedia
+            git commit -m "Update Moneropedia translation files"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+  compile-translations:
+    name: Compile translations from Weblate
+    runs-on: ubuntu-22.04
+    if: github.actor == 'weblate'
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y po4a
+          pnpm install --frozen-lockfile
+
+      - name: Compile translations
+        run: pnpm run i18n:moneropedia:compile
+
+      - name: Commit changes
+        run: |
+          set -euo pipefail
+
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if git diff --quiet -- src/content/moneropedia/; then
+            echo "No changes to commit"
+          else
+            git add src/content/moneropedia/
+            git commit -m "Update Moneropedia translations"
+            git push
           fi
