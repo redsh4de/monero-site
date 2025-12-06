@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-12-03 15:12+0200\n"
+"POT-Creation-Date: 2025-12-06 02:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,25 +112,25 @@ msgid ""
 "vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.\n"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: summary
+#. type: YAML Front Matter: summary
 #: src/content/moneropedia/en/consensus.md
 #, no-wrap
 msgid "consensus describes a property of distributed networks like Monero where most of the participants follow the rules, and thus reject bad participants"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/consensus.md
 #, no-wrap
 msgid "consensus"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/consensus.md
 #, no-wrap
 msgid "consensus-network"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: title
+#. type: YAML Front Matter: title
 #: src/content/moneropedia/en/consensus.md
 #, no-wrap
 msgid "Consensus"

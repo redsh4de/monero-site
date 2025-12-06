@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-12-03 15:12+0200\n"
+"POT-Creation-Date: 2025-12-06 02:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,37 +16,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. type: Yaml Front Matter Hash Value: summary
+#. type: YAML Front Matter: summary
 #: src/content/moneropedia/en/account.md
 #, no-wrap
 msgid "similar in function to a bank account, contains all of your sent and received transactions"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/account.md
 #, no-wrap
 msgid "account"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/account.md
 #, no-wrap
 msgid "accounts"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/account.md src/content/moneropedia/en/wallet.md
 #, no-wrap
 msgid "wallet"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/account.md src/content/moneropedia/en/wallet.md
 #, no-wrap
 msgid "wallets"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: title
+#. type: YAML Front Matter: title
 #: src/content/moneropedia/en/account.md
 #, no-wrap
 msgid "Account"

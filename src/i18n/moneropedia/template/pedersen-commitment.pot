@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-12-03 15:12+0200\n"
+"POT-Creation-Date: 2025-12-06 02:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,43 +112,43 @@ msgid ""
 "vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.\n"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: summary
+#. type: YAML Front Matter: summary
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "Pedersen commitments are cryptographic algorithms that allow a prover to commit to a certain value without revealing it or being able to change it"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "commitments"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "commitment"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "pedersen"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "pedersen-commitment"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "pedersen-commitments"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: title
+#. type: YAML Front Matter: title
 #: src/content/moneropedia/en/pedersen-commitment.md
 #, no-wrap
 msgid "Pedersen Commitment"

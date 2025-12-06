@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-12-03 15:12+0200\n"
+"POT-Creation-Date: 2025-12-06 02:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,97 +112,97 @@ msgid ""
 "vulputate arcu pretium vitae. Integer et nisl vitae urna vehicula gravida.\n"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: summary
+#. type: YAML Front Matter: summary
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "A denomination is a proper description of a currency amount. It is oftentimes a sub-unit of the currency. For example, traditionally a cent is 1/100th of a particular unit of currency."
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "denominations"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "subunits"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "tacoshi"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "piconero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "nanonero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "micronero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "millinero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "centinero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "decinero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "decanero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "hectonero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "kilonero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "meganero"
 msgstr ""
 
-#. type: Yaml Front Matter Array Element: terms
+#. type: YAML Front Matter: terms
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "giganero"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: title
+#. type: YAML Front Matter: title
 #: src/content/moneropedia/en/denominations.md
 #, no-wrap
 msgid "Denominations"
