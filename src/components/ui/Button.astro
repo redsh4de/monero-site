@@ -10,6 +10,9 @@ interface Props extends HTMLAttributes<As> {
   href?: string;
   as?: As;
   type?: "button" | "submit" | "reset";
+
+  popovertarget?: string;
+  popovertargetaction?: "hide" | "show" | "toggle";
 }
 
 const {

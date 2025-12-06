@@ -1,4 +1,6 @@
 ---
+import crypto from "node:crypto";
+
 import Button from "@/components/ui/Button.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 
@@ -6,39 +8,36 @@ import dropdownCaretIcon from "@/assets/icons/mask/dropdown-caret.avif?url";
 
 interface Props {
   label: string;
+  id?: string;
 }
-const { label } = Astro.props;
+
+const { label, id } = Astro.props;
+
+const popoverId = id ?? `dropdown-${crypto.randomUUID()}`;
 ---
 
-<details class="dropdown">
-  <summary class="dropdown-summary">
-    <Button variant="primary" as="span">
-      {label}
-      <span class="caret">
-        <MaskIcon src={dropdownCaretIcon} />
-      </span>
-    </Button>
-  </summary>
-  <div class="dropdown-content">
+<div class="dropdown">
+  <Button
+    variant="primary"
+    type="button"
+    popovertarget={popoverId}
+    popovertargetaction="toggle"
+  >
+    {label}
+    <span class="caret">
+      <MaskIcon src={dropdownCaretIcon} />
+    </span>
+  </Button>
+
+  <div id={popoverId} popover="auto" class="dropdown-content">
     <slot />
   </div>
-</details>
+</div>
 
 <style>
   .dropdown {
     position: relative;
     display: inline-block;
-  }
-
-  .dropdown-summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-radius: 22.5em;
-  }
-  .dropdown-summary::-webkit-details-marker {
-    display: none;
   }
 
   .caret {
@@ -47,15 +46,21 @@ const { label } = Astro.props;
     margin-inline-start: 0.5rem;
     transition: transform 0.2s ease;
   }
-  .dropdown[open] .caret {
+
+  .dropdown:has(.dropdown-content:popover-open) .caret {
     transform: rotate(180deg);
   }
 
   /* Panel */
   .dropdown-content {
     position: absolute;
-    inset-block-start: 100%;
-    inset-inline-start: 0;
+    /* popover reset */
+    margin: 0;
+    border: none;
+
+    inset-block-start: anchor(bottom);
+    inset-inline-start: anchor(start);
+
     background: var(--card-color);
     border-radius: 0.75rem;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
@@ -76,7 +81,7 @@ const { label } = Astro.props;
     transition: transform 0.2s ease;
   }
 
-  .dropdown[open] .dropdown-content {
+  .dropdown-content:popover-open {
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
