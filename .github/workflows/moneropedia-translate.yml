@@ -13,38 +13,6 @@ permissions:
   contents: read
 
 jobs:
-  forbid-manual-locale-edits:
-    name: Forbid direct edits to localized Moneropedia files
-    runs-on: ubuntu-22.04
-    if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]' && github.actor != 'weblate'
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
-
-      - name: Forbid direct edits
-        run: |
-          set -euo pipefail
-
-          FORBIDDEN=$(
-            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- \
-              'src/content/moneropedia/**' \
-              'src/i18n/moneropedia/**/*.pot' \
-              'src/i18n/moneropedia/**/*.po' \
-              | grep -v '^src/content/moneropedia/en/' \
-              | grep -v '/_[^/]*$' || true
-          )
-
-          if [ -n "$FORBIDDEN" ]; then
-            echo "The following localization files were modified directly:"
-            echo "$FORBIDDEN"
-            echo
-            echo "Translations are handled via Weblate/CI. Revert the changes listed above."
-            exit 1
-          fi
-
   check-moneropedia-updates:
     name: Check if Moneropedia config and translations are up to date
     runs-on: ubuntu-22.04
