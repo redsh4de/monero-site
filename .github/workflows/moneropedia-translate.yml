@@ -29,7 +29,7 @@ jobs:
           set -euo pipefail
 
           FORBIDDEN=$(
-            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- \
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- \
               'src/content/moneropedia/**' \
               'src/i18n/moneropedia/**/*.pot' \
               'src/i18n/moneropedia/**/*.po' \
@@ -76,7 +76,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          CHANGES=$(git diff --name-status "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- src/content/moneropedia/en/)
+          CHANGES=$(git diff --name-status "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- src/content/moneropedia/en/)
           ADDED_DELETED=$(echo "$CHANGES" | grep -E '^[ARD]' || true)
 
           if [ -n "$ADDED_DELETED" ]; then
