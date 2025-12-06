@@ -34,7 +34,8 @@ jobs:
               'src/i18n/moneropedia/**/*.pot' \
               'src/i18n/moneropedia/**/*.po' \
               'src/i18n/translations/**' \
-              | grep -v '^src/content/moneropedia/en/' || true
+              | grep -v '^src/content/moneropedia/en/' \
+              | grep -v '/_[^/]*$' || true
           )
 
           if [ -n "$FORBIDDEN" ]; then
