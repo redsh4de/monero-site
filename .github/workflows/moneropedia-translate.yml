@@ -5,7 +5,6 @@ on:
     paths:
       - "src/content/moneropedia/**"
       - "src/i18n/moneropedia/**"
-      - "src/i18n/translations/**"
   push:
     paths:
       - "src/i18n/moneropedia/**/*.po"
@@ -33,7 +32,6 @@ jobs:
               'src/content/moneropedia/**' \
               'src/i18n/moneropedia/**/*.pot' \
               'src/i18n/moneropedia/**/*.po' \
-              'src/i18n/translations/**' \
               | grep -v '^src/content/moneropedia/en/' \
               | grep -v '/_[^/]*$' || true
           )
