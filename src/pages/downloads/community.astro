@@ -12,6 +12,11 @@ import communityWallets from "@/data/downloads/community.json";
 
 import hashtagIcon from "@/assets/icons/mask/hashtag.avif";
 
+import cloudSyncIcon from "@/assets/icons/mask/cloud-sync.avif";
+import serverIcon from "@/assets/icons/mask/server.avif";
+import snowflakeIcon from "@/assets/icons/mask/snowflake.avif";
+import walletIcon from "@/assets/icons/mask/wallet.avif";
+
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 const tabs = [
@@ -25,21 +30,25 @@ const tabs = [
 const sections = [
   {
     id: "local-sync",
+    icon: walletIcon,
     title: t("downloads.community.sections.localSync.title"),
     subtitle: t("downloads.community.sections.localSync.subtitle"),
   },
   {
     id: "remote-sync",
+    icon: cloudSyncIcon,
     title: t("downloads.community.sections.remoteSync.title"),
     subtitle: t("downloads.community.sections.remoteSync.subtitle"),
   },
   {
     id: "cold-wallets",
+    icon: snowflakeIcon,
     title: t("downloads.community.sections.cold.title"),
     subtitle: t("downloads.community.sections.cold.subtitle"),
   },
   {
     id: "nodes",
+    icon: serverIcon,
     title: t("downloads.community.sections.nodes.title"),
     subtitle: t("downloads.community.sections.nodes.subtitle"),
   },
@@ -67,6 +76,9 @@ const sections = [
     {
       sections.map((section) => (
         <a class="toc-link" href={`#${section.id}`}>
+          <span class="toc-icon">
+            <MaskIcon src={section.icon} size="1.5em" aria-hidden="true" />
+          </span>
           <div class="content">
             <span class="toc-link-title">{section.title}</span>
             <span class="toc-link-subtitle">{section.subtitle}</span>
@@ -206,6 +218,10 @@ const sections = [
     gap: 1rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  .toc-icon {
+    color: var(--monero-orange);
   }
 
   .toc-link {
