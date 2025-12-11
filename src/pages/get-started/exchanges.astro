@@ -18,21 +18,21 @@ import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 const highlightOptions = [
   {
     key: "easiest",
-    linkClass: "easiest-option",
+    highlight: "aggregator",
     icon: rabbitIcon,
     title: "I want the simplest way to get Monero",
     subtitle: "Beginner-friendly options",
   },
   {
     key: "fiat",
-    linkClass: "fiat-option",
+    highlight: "fiat",
     icon: bankIcon,
     title: "I want to pay with cash or bank transfer",
     subtitle: "Exchanges that support fiat currency (USD, EUR, etc.)",
   },
   {
     key: "privacy",
-    linkClass: "privacy-option",
+    highlight: "privacy",
     icon: hatGlassesIcon,
     title: "I care most about privacy",
     subtitle: "Decentralized options that don't require identity verification",
@@ -230,7 +230,8 @@ const centralizedExchanges = [
                 return (
                   <label
                     for={filterId}
-                    class={`highlight-option ${opt.linkClass}`}
+                    class="highlight-option"
+                    data-highlight={opt.highlight}
                   >
                     <span class="highlight-option-icon">
                       <MaskIcon
@@ -291,7 +292,8 @@ const centralizedExchanges = [
             href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
             target="_blank"
             rel="noopener noreferrer"
-            class="kycnot-button aggregator-highlight crypto-highlight"
+            class="kycnot-button"
+            data-highlight="aggregator crypto"
           >
             <img
               src="/media/kycnotme.jpg"
@@ -361,7 +363,11 @@ const centralizedExchanges = [
         highlightOptions.map((opt) => {
           const filterId = `filter-${opt.key}`;
           return (
-            <label for={filterId} class={`highlight-option ${opt.linkClass}`}>
+            <label
+              for={filterId}
+              class="highlight-option"
+              data-highlight={opt.highlight}
+            >
               <span class="highlight-option-icon">
                 <MaskIcon src={opt.icon} size="1.5em" aria-hidden="true" />
               </span>
@@ -502,10 +508,6 @@ const centralizedExchanges = [
     text-decoration: underline;
   }
 
-  .highlight-target {
-    display: none;
-  }
-
   .kycnot-button {
     display: flex;
     align-items: center;
@@ -534,27 +536,6 @@ const centralizedExchanges = [
     color: var(--heading-color);
   }
 
-  .wallet-tip {
-    background: rgba(76, 175, 80, 0.05);
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    border-radius: 0.25rem;
-    padding: 0.75rem;
-    margin: 1rem 0;
-    font-size: var(--font-size-sm);
-    color: var(--text-primary);
-  }
-
-  .wallet-tip p {
-    margin: 0;
-  }
-
-  .wallet-tip code {
-    background: rgba(76, 175, 80, 0.1);
-    padding: 0.125rem 0.25rem;
-    border-radius: 0.125rem;
-    font-family: var(--font-family-mono);
-  }
-
   /* hidden control inputs, fixed so focus doesn't scroll */
   .filter-toggle,
   .mobile-filter-toggle {
@@ -568,39 +549,35 @@ const centralizedExchanges = [
   }
 
   /* FILTER HIGHLIGHTING */
-  #filter-bitcoin:checked ~ .exchanges-wrapper :global(.crypto-highlight) {
+  #filter-bitcoin:checked
+    ~ .exchanges-wrapper :global([data-highlight~="crypto"]),
+  #filter-fiat:checked
+    ~ .exchanges-wrapper :global([data-highlight~="fiat"]),
+  #filter-privacy:checked
+    ~ .exchanges-wrapper :global([data-highlight~="privacy"]),
+  #filter-easiest:checked
+    ~ .exchanges-wrapper :global([data-highlight~="aggregator"]) {
     background: rgba(255, 152, 0, 0.1);
   }
 
-  #filter-fiat:checked ~ .exchanges-wrapper :global(.fiat-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  #filter-privacy:checked ~ .exchanges-wrapper :global(.privacy-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  #filter-easiest:checked ~ .exchanges-wrapper :global(.aggregator-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  /* Highlight options in both sidebar and mobile sheet */
-  #filter-bitcoin:checked ~ .exchanges-wrapper .sidebar .crypto-option,
-  #filter-bitcoin:checked ~ .mobile-filter-sheet .crypto-option,
-  #filter-fiat:checked ~ .exchanges-wrapper .sidebar .fiat-option,
-  #filter-fiat:checked ~ .mobile-filter-sheet .fiat-option,
-  #filter-privacy:checked ~ .exchanges-wrapper .sidebar .privacy-option,
-  #filter-privacy:checked ~ .mobile-filter-sheet .privacy-option,
-  #filter-easiest:checked ~ .exchanges-wrapper .sidebar .easiest-option,
-  #filter-easiest:checked ~ .mobile-filter-sheet .easiest-option {
+  #filter-bitcoin:checked
+      ~ .exchanges-wrapper .highlight-option[data-highlight~="crypto"],
+  #filter-bitcoin:checked
+      ~ .mobile-filter-sheet .highlight-option[data-highlight~="crypto"],
+  #filter-fiat:checked
+      ~ .exchanges-wrapper .highlight-option[data-highlight~="fiat"],
+  #filter-fiat:checked
+      ~ .mobile-filter-sheet .highlight-option[data-highlight~="fiat"],
+  #filter-privacy:checked
+      ~ .exchanges-wrapper .highlight-option[data-highlight~="privacy"],
+  #filter-privacy:checked
+      ~ .mobile-filter-sheet .highlight-option[data-highlight~="privacy"],
+  #filter-easiest:checked
+      ~ .exchanges-wrapper .highlight-option[data-highlight~="aggregator"],
+  #filter-easiest:checked
+      ~ .mobile-filter-sheet .highlight-option[data-highlight~="aggregator"] {
     background: color-mix(in srgb, var(--card-color), white 10%);
     border-color: var(--monero-orange);
-  }
-
-  #filter-none:checked ~ .exchanges-wrapper .sidebar .highlight-option,
-  #filter-none:checked ~ .mobile-filter-sheet .highlight-option {
-    background: var(--card-hover-color);
-    border-color: var(--border-color);
   }
 
   /* MOBILE BOTTOM BAR & SHEET */

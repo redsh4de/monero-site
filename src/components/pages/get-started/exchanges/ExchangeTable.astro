@@ -49,17 +49,18 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
         </thead>
         <tbody>
           {exchanges.map((ex) => {
-            const highlightClass =
-              ex.type === "decentralized"
-                ? "privacy-highlight"
-                : ex.type === "aggregator"
-                  ? "aggregator-highlight"
-                  : "";
+            const highlightTags = [
+              ex.fiat && "fiat",
+              ex.crypto && "crypto",
+              ex.type === "decentralized" && "privacy",
+              ex.type === "aggregator" && "aggregator",
+            ]
+              .filter(Boolean)
+              .join(" ");
             return (
               <tr
-                class={`exchange-row ${ex.type} ${ex.fiat ? "fiat-highlight" : ""} ${
-                  ex.crypto ? "crypto-highlight" : ""
-                } ${highlightClass}`}
+                class={`exchange-row ${ex.type}`}
+                data-highlight={highlightTags || undefined}
               >
                 <td class="with-icon">
                   <img src={ex.img} alt={ex.alt} class="exchange-icon" />
@@ -296,11 +297,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
       width: 2.5rem;
     }
 
-    .exchange-row .kyc-required,
-    .exchange-row .kyc-optional,
-    .exchange-row .kyc-none,
-    .exchange-row .checkmark,
-    .exchange-row .cross {
+    .exchange-row :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross) {
       order: 1;
       flex: 0 0 auto;
       display: inline-flex;
@@ -315,11 +312,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
     }
 
     /* Pill labels */
-    .exchange-row .kyc-required::before,
-    .exchange-row .kyc-optional::before,
-    .exchange-row .kyc-none::before,
-    .exchange-row .checkmark::before,
-    .exchange-row .cross::before {
+    .exchange-row :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross)::before {
       content: attr(data-label);
       text-transform: uppercase;
       letter-spacing: 0.06em;
