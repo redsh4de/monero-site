@@ -4,21 +4,23 @@ export interface Props {
   description: string;
   exchanges: Array<{
     type: string;
+    id: string;
     name: string;
     img: string;
     alt: string;
-    description: string;
     fiat: boolean;
     crypto: boolean;
     url: string;
     kycClass?: string;
-    kycLabel?: string;
+    kycReq?: string;
   }>;
   hasKyc: boolean;
   disclaimerText?: string;
+  t: (key: string) => string;
 }
 
-const { title, description, exchanges, hasKyc, disclaimerText } = Astro.props;
+const { title, description, exchanges, hasKyc, disclaimerText, t } =
+  Astro.props;
 
 import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
@@ -40,11 +42,11 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
       <table class="exchange-table">
         <thead>
           <tr>
-            <th>Name</th>
-            {hasKyc && <th>KYC</th>}
-            <th>Fiat</th>
-            <th>Crypto</th>
-            <th />
+            <th>{t("exchanges.table.name")}</th>
+            {hasKyc && <th>{t("exchanges.table.kyc")}</th>}
+            <th>{t("exchanges.table.fiat")}</th>
+            <th>{t("exchanges.table.crypto")}</th>
+            <th>{t("exchanges.table.visit")}</th>
           </tr>
         </thead>
         <tbody>
@@ -63,29 +65,34 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
                 <td class="with-icon">
                   <img src={ex.img} alt={ex.alt} class="exchange-icon" />
                   <span class="exchange-name">{ex.name}</span>
-                  <span class="exchange-description">{ex.description}</span>
+                  <span class="exchange-description">
+                    {t(`exchanges.descriptions.${ex.id}`)}
+                  </span>
                 </td>
                 {hasKyc && (
-                  <td class={ex.kycClass} data-label="KYC">
-                    {ex.kycLabel}
+                  <td class={ex.kycClass} data-label={t("exchanges.table.kyc")}>
+                    {ex.kycReq ? t(`exchanges.kyc.${ex.kycReq}`) : ""}
                   </td>
                 )}
-                <td class={ex.fiat ? "checkmark" : "cross"} data-label="Fiat">
+                <td
+                  class={ex.fiat ? "checkmark" : "cross"}
+                  data-label={t("exchanges.table.fiat")}
+                >
                   {ex.fiat ? "✓" : "✗"}
                 </td>
                 <td
                   class={ex.crypto ? "checkmark" : "cross"}
-                  data-label="Crypto"
+                  data-label={t("exchanges.table.crypto")}
                 >
                   {ex.crypto ? "✓" : "✗"}
                 </td>
-                <td class="visit-cell" data-label="Visit">
+                <td class="visit-cell" data-label={t("exchanges.table.visit")}>
                   <a
                     href={ex.url}
                     target="_blank"
                     rel="noopener noreferrer external"
                   >
-                    Visit
+                    {t("exchanges.table.visit")}
                   </a>
                 </td>
               </tr>
@@ -181,7 +188,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
   th,
   td {
     padding: 0.75rem;
-    text-align: left;
+    text-align: start;
     border-bottom: 1px solid var(--border-color);
   }
 
@@ -234,7 +241,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
     }
 
     .visit-cell {
-      text-align: right;
+      text-align: end;
     }
   }
 

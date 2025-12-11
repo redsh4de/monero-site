@@ -1,5 +1,11 @@
 ---
 import TitleCard from "@/components/ui/TitleCard.astro";
+import {
+  createTInstance,
+  getDirection,
+  getLocale,
+  localizeHref,
+} from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 import bankIcon from "@/assets/icons/mask/bank.avif";
@@ -17,38 +23,44 @@ import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 
 import exchanges from "@/data/exchanges.json";
 
+import safeMarkdown from "@/utils/safeMarkdown";
+
+const locale = getLocale(Astro.url);
+const dir = getDirection(locale);
+const t = await createTInstance(locale);
+
 const highlightOptions = [
   {
     key: "easiest",
     highlight: "aggregator",
     icon: rabbitIcon,
-    title: "I want the simplest way to get Monero",
-    subtitle: "Beginner-friendly options",
+    title: t("exchanges.highlightOptions.easiest.title"),
+    subtitle: t("exchanges.highlightOptions.easiest.subtitle"),
   },
   {
     key: "fiat",
     highlight: "fiat",
     icon: bankIcon,
-    title: "I want to pay with cash or bank transfer",
-    subtitle: "Exchanges that support fiat currency (USD, EUR, etc.)",
+    title: t("exchanges.highlightOptions.fiat.title"),
+    subtitle: t("exchanges.highlightOptions.fiat.subtitle"),
   },
   {
     key: "privacy",
     highlight: "privacy",
     icon: hatGlassesIcon,
-    title: "I care most about privacy",
-    subtitle: "Decentralized options that don't require identity verification",
+    title: t("exchanges.highlightOptions.privacy.title"),
+    subtitle: t("exchanges.highlightOptions.privacy.subtitle"),
   },
 ];
 ---
 
 <Layout
-  title="Exchanges"
-  description="Cryptocurrency exchanges that let you buy or trade Monero."
+  title={t("exchanges.pageTitle")}
+  description={t("exchanges.heroSubtitle")}
 >
   <TitleCard
-    title="Exchanges"
-    subtitle="Cryptocurrency exchanges that let you buy or trade Monero."
+    title={t("exchanges.heroTitle")}
+    subtitle={t("exchanges.heroSubtitle")}
   />
 
   <!-- hidden filter radio buttons -->
@@ -96,10 +108,9 @@ const highlightOptions = [
       <!-- DESKTOP SIDEBAR -->
       <aside class="sidebar">
         <div class="filters-section">
-          <h2 class="filters-title">New to Monero?</h2>
+          <h2 class="filters-title">{t("exchanges.sidebarTitle")}</h2>
           <p class="filters-description">
-            Start by choosing the situation that matches you. We'll highlight
-            the options on this page that are likely the best fit.
+            {t("exchanges.filtersDescription")}
           </p>
           <div class="highlight-options">
             {
@@ -140,7 +151,7 @@ const highlightOptions = [
                 for="filter-none"
                 class="clear-highlights-link clear-highlights-label"
               >
-                Clear selection
+                {t("exchanges.clearSelection")}
               </label>
             </div>
           </div>
@@ -149,22 +160,23 @@ const highlightOptions = [
 
       <div class="main-content">
         <ExchangeTable
-          title="Decentralized Exchanges"
-          description="These options let you trade Monero directly from your own wallet, without a traditional exchange account. They're great if you want more privacy and control."
+          title={t("exchanges.sections.decentralized.title")}
+          description={t("exchanges.sections.decentralized.description")}
           exchanges={exchanges.decentralizedExchanges}
           hasKyc={false}
+          t={t}
         />
 
         <ExchangeTable
-          title="Swap Aggregators"
-          description="Easiest way to trade crypto for Monero without creating an account. These services compare prices from multiple swap providers and route you to the best option."
-          exchanges={[]}
+          title={t("exchanges.sections.aggregators.title")}
+          description={t("exchanges.sections.aggregators.description")}
+          exchanges={exchanges.swapAggregators}
           hasKyc={false}
-          disclaimerText="The aggregator itself doesn't hold your funds, but the service you end up using might still ask you to verify your identity."
+          disclaimerText={t("exchanges.sections.aggregators.disclaimer")}
+          t={t}
         >
           <p style="color: var(--paragraph-subtitle);">
-            For an up-to-date list with details and reviews, you can visit the
-            community resource below:
+            {t("exchanges.sections.aggregators.resourceIntro")}
           </p>
           <a
             href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
@@ -179,34 +191,35 @@ const highlightOptions = [
               class="resource-btn-logo"
             />
             <span class="resource-btn-title"
-              >KYCNot.me - community-curated listings</span
+              >{t("exchanges.sections.aggregators.resourceBtnTitle")}</span
             >
-            <MaskIcon src={externalLinkIcon} size="1em" />
+            <MaskIcon src={externalLinkIcon} size="1em" rtl={dir == "rtl"} />
           </a>
-          <p style="color: var(--paragraph-subtitle);">
-            <strong>Tip:</strong> Some Monero wallets have a <b
-              >built-in exchange</b
-            > for convenience. Check out the <a
-              href="/downloads/community/#built-in-exchange"
-              target="_blank">community downloads</a
-            > for options.
-          </p>
+          <p
+            style="color: var(--paragraph-subtitle);"
+            set:html={safeMarkdown.parseInline(
+              t("exchanges.sections.aggregators.tip", {
+                communityDownloadsUrl: localizeHref(
+                  locale,
+                  "/downloads/community/#built-in-exchange",
+                ).replace(/\/$/, ""),
+              }),
+            )}
+          />
         </ExchangeTable>
 
         <ExchangeTable
-          title="Centralized Exchanges"
-          description="These are the classic exchanges where you create an account, complete ID checks, and can deposit from your crypto wallet, bank or card."
+          title={t("exchanges.sections.centralized.title")}
+          description={t("exchanges.sections.centralized.description")}
           exchanges={exchanges.centralizedExchanges}
           hasKyc={true}
+          t={t}
         />
       </div>
     </div>
 
-    <DisclaimerBar icon={shieldIcon} title="Disclaimer">
-      This list is for informational purposes only. The Monero Project does not
-      endorse, recommend, or guarantee any service listed here. Always
-      double-check URLs, start with a small test amount if you're unsure, and
-      use every service at your own risk.
+    <DisclaimerBar icon={shieldIcon} title={t("exchanges.disclaimerTitle")}>
+      {t("exchanges.disclaimer")}
     </DisclaimerBar>
 
     <!-- MOBILE: sticky container with bottom bar -->
@@ -214,7 +227,7 @@ const highlightOptions = [
       <label for="mobile-filter-toggle" class="mobile-filter-bar">
         <div class="mobile-filter-bar-inner">
           <MaskIcon src={searchIcon} size="1.25em" aria-hidden="true" />
-          <span>New to Monero?</span>
+          <span>{t("exchanges.sidebarTitle")}</span>
         </div>
       </label>
     </div>
@@ -223,7 +236,7 @@ const highlightOptions = [
   <!-- MOBILE BOTTOM SHEET OVERLAY -->
   <div class="mobile-filter-sheet">
     <div class="mobile-filter-sheet-header">
-      <h2 class="intro-title">Choose your situation</h2>
+      <h2 class="intro-title">{t("exchanges.sidebarTitle")}</h2>
       <label
         for="mobile-filter-toggle"
         class="mobile-filter-close"
@@ -233,8 +246,7 @@ const highlightOptions = [
       </label>
     </div>
     <p class="intro-description">
-      Pick the option that sounds most like you. We'll highlight the exchanges
-      and services that are a good starting point.
+      {t("exchanges.filtersDescription")}
     </p>
     <div class="highlight-options">
       {
@@ -265,7 +277,7 @@ const highlightOptions = [
           for="filter-none"
           class="clear-highlights-link clear-highlights-label"
         >
-          Clear selection
+          {t("exchanges.clearSelection")}
         </label>
       </div>
     </div>
