@@ -217,9 +217,9 @@ const centralizedExchanges = [
     <div class="exchanges-page-layout">
       <!-- DESKTOP SIDEBAR -->
       <aside class="sidebar">
-        <div class="intro-section card">
-          <h2 class="intro-title">New to Monero?</h2>
-          <p class="intro-description">
+        <div class="filters-section">
+          <h2 class="filters-title">New to Monero?</h2>
+          <p class="filters-description">
             Start by choosing the situation that matches you. We'll highlight
             the options on this page that are likely the best fit.
           </p>
@@ -292,23 +292,23 @@ const centralizedExchanges = [
             href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
             target="_blank"
             rel="noopener noreferrer"
-            class="kycnot-button"
+            class="resource-btn"
             data-highlight="aggregator crypto"
           >
             <img
               src="/media/kycnotme.jpg"
               alt="KYCNot.me logo"
-              class="kycnot-logo"
+              class="resource-btn-logo"
             />
-            <span class="kycnot-title"
+            <span class="resource-btn-title"
               >KYCNot.me - community-curated listings</span
             >
             <MaskIcon src={externalLinkIcon} size="1em" />
           </a>
           <p style="color: var(--paragraph-subtitle);">
             <strong>Tip:</strong> Some Monero wallets have a <b
-              >built-in swap feature</b
-            > for easy onboarding. Check out the <a
+              >built-in exchange</b
+            > for convenience. Check out the <a
               href="/downloads/community/#built-in-exchange"
               target="_blank">community downloads</a
             > for options.
@@ -405,9 +405,8 @@ const centralizedExchanges = [
     gap: 2rem;
   }
 
-  .card {
-    background: var(--card-color);
-    border-radius: 0.5rem;
+  .main-content {
+    flex: 1;
   }
 
   .sidebar {
@@ -418,15 +417,13 @@ const centralizedExchanges = [
     margin-bottom: 2rem;
   }
 
-  .main-content {
-    flex: 1;
-  }
-
-  .intro-section {
+  .filters-section {
     padding: 2rem;
+    background: var(--card-color);
+    border-radius: 0.5rem;
   }
 
-  .intro-title {
+  .filters-title {
     margin-top: 0;
     color: var(--heading-color);
     font-size: var(--font-size-3xl);
@@ -434,7 +431,7 @@ const centralizedExchanges = [
     margin-bottom: 1rem;
   }
 
-  .intro-description {
+  .filters-description {
     color: var(--paragraph-subtitle);
     font-size: var(--font-size-md);
     margin-bottom: 2rem;
@@ -460,7 +457,7 @@ const centralizedExchanges = [
   }
 
   .highlight-option:hover {
-    background: color-mix(in srgb, var(--card-color), white 10%);
+    background: var(--card-color);
   }
 
   .highlight-option-icon {
@@ -508,7 +505,7 @@ const centralizedExchanges = [
     text-decoration: underline;
   }
 
-  .kycnot-button {
+  .resource-btn {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -521,17 +518,17 @@ const centralizedExchanges = [
     margin-top: 1rem;
   }
 
-  .kycnot-button:hover {
-    background: color-mix(in srgb, var(--card-color), white 10%);
+  .resource-btn:hover {
+    background: var(--card-hover-color);
   }
 
-  .kycnot-logo {
+  .resource-btn-logo {
     width: 48px;
     height: 48px;
     border-radius: 0.5rem;
   }
 
-  .kycnot-title {
+  .resourse-btn-title {
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
   }
@@ -550,34 +547,53 @@ const centralizedExchanges = [
 
   /* FILTER HIGHLIGHTING */
   #filter-bitcoin:checked
-    ~ .exchanges-wrapper :global([data-highlight~="crypto"]),
-  #filter-fiat:checked
-    ~ .exchanges-wrapper :global([data-highlight~="fiat"]),
+    ~ .exchanges-wrapper
+    :global(tr[data-highlight~="crypto"]),
+  #filter-fiat:checked ~ .exchanges-wrapper :global(tr[data-highlight~="fiat"]),
   #filter-privacy:checked
-    ~ .exchanges-wrapper :global([data-highlight~="privacy"]),
+    ~ .exchanges-wrapper
+    :global(tr[data-highlight~="privacy"]),
   #filter-easiest:checked
-    ~ .exchanges-wrapper :global([data-highlight~="aggregator"]) {
+    ~ .exchanges-wrapper
+    :global(tr[data-highlight~="aggregator"]) {
     background: rgba(255, 152, 0, 0.1);
   }
 
   #filter-bitcoin:checked
-      ~ .exchanges-wrapper .highlight-option[data-highlight~="crypto"],
+    ~ .exchanges-wrapper
+    .highlight-option[data-highlight~="crypto"],
   #filter-bitcoin:checked
-      ~ .mobile-filter-sheet .highlight-option[data-highlight~="crypto"],
+    ~ .mobile-filter-sheet
+    .highlight-option[data-highlight~="crypto"],
   #filter-fiat:checked
-      ~ .exchanges-wrapper .highlight-option[data-highlight~="fiat"],
+    ~ .exchanges-wrapper
+    .highlight-option[data-highlight~="fiat"],
   #filter-fiat:checked
-      ~ .mobile-filter-sheet .highlight-option[data-highlight~="fiat"],
+    ~ .mobile-filter-sheet
+    .highlight-option[data-highlight~="fiat"],
   #filter-privacy:checked
-      ~ .exchanges-wrapper .highlight-option[data-highlight~="privacy"],
+    ~ .exchanges-wrapper
+    .highlight-option[data-highlight~="privacy"],
   #filter-privacy:checked
-      ~ .mobile-filter-sheet .highlight-option[data-highlight~="privacy"],
+    ~ .mobile-filter-sheet
+    .highlight-option[data-highlight~="privacy"],
   #filter-easiest:checked
-      ~ .exchanges-wrapper .highlight-option[data-highlight~="aggregator"],
+    ~ .exchanges-wrapper
+    .highlight-option[data-highlight~="aggregator"],
   #filter-easiest:checked
-      ~ .mobile-filter-sheet .highlight-option[data-highlight~="aggregator"] {
-    background: color-mix(in srgb, var(--card-color), white 10%);
+    ~ .mobile-filter-sheet
+    .highlight-option[data-highlight~="aggregator"] {
+    background: var(--card-color);
     border-color: var(--monero-orange);
+  }
+
+  #filter-bitcoin:checked
+    ~ .exchanges-wrapper
+    .resource-btn[data-highlight~="crypto"],
+  #filter-easiest:checked
+    ~ .exchanges-wrapper
+    .resource-btn[data-highlight~="aggregator"] {
+    outline: 2px solid var(--monero-orange);
   }
 
   /* MOBILE BOTTOM BAR & SHEET */
@@ -604,7 +620,7 @@ const centralizedExchanges = [
       display: block;
       position: sticky;
       bottom: 0;
-      z-index: 40;
+      z-index: 2;
       margin-top: 1.5rem;
       margin-inline: -2rem;
       background-color: var(--bg-color);
@@ -612,7 +628,7 @@ const centralizedExchanges = [
 
     .mobile-filter-bar {
       display: block;
-      padding: 0.5rem 1rem;
+      padding: 1rem 1rem;
       background-color: var(--bg-color);
       border-top: 1px solid var(--border-color);
     }
@@ -632,7 +648,7 @@ const centralizedExchanges = [
     }
 
     .mobile-filter-bar-inner:hover {
-      background: color-mix(in srgb, var(--card-color), white 8%);
+      background: var(--card-hover-color);
     }
 
     /* sheet overlay */
@@ -648,7 +664,7 @@ const centralizedExchanges = [
       box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35);
       max-height: 75vh;
       overflow-y: auto;
-      z-index: 60;
+      z-index: 3;
       transform: translateY(100%);
       transition: transform 0.25s ease-out;
       margin: 0;

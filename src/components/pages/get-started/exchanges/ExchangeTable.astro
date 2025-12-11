@@ -49,19 +49,17 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
         </thead>
         <tbody>
           {exchanges.map((ex) => {
-            const highlightTags = [
-              ex.fiat && "fiat",
-              ex.crypto && "crypto",
-              ex.type === "decentralized" && "privacy",
-              ex.type === "aggregator" && "aggregator",
-            ]
-              .filter(Boolean)
-              .join(" ");
+            const highlightTags =
+              [
+                ex.fiat && "fiat",
+                ex.crypto && "crypto",
+                ex.type === "decentralized" && "privacy",
+                ex.type === "aggregator" && "aggregator",
+              ]
+                .filter(Boolean)
+                .join(" ") || undefined;
             return (
-              <tr
-                class={`exchange-row ${ex.type}`}
-                data-highlight={highlightTags || undefined}
-              >
+              <tr class="exchange-row" data-highlight={highlightTags}>
                 <td class="with-icon">
                   <img src={ex.img} alt={ex.alt} class="exchange-icon" />
                   <span class="exchange-name">{ex.name}</span>
@@ -105,17 +103,20 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
     margin-bottom: 2rem;
   }
 
+  .table-section .title,
+  .subtitle {
+    margin-top: 0;
+  }
+
   .table-section .title {
     color: var(--heading-color);
     font-size: var(--font-size-2xl);
     margin-bottom: 0.5rem;
-    margin-top: 0;
   }
 
   .subtitle {
     color: var(--paragraph-subtitle);
     font-size: var(--font-size-base);
-    margin-top: 0;
     margin-bottom: 1rem;
   }
 
@@ -206,10 +207,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
     color: #ff9800;
   }
 
-  .kyc-none {
-    color: #4caf50;
-  }
-
+  .kyc-none,
   .checkmark {
     color: #4caf50;
   }
@@ -228,13 +226,11 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
       table-layout: auto;
     }
 
-    .exchange-table th:first-child,
-    .exchange-table td:first-child {
+    .exchange-table :is(th, td):first-child {
       width: auto;
     }
 
-    .exchange-table th:not(:first-child),
-    .exchange-table td:not(:first-child) {
+    .exchange-table :is(th, td):not(:first-child) {
       width: 1%;
       white-space: nowrap;
       text-align: center;
@@ -297,7 +293,8 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
       width: 2.5rem;
     }
 
-    .exchange-row :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross) {
+    .exchange-row
+      :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross) {
       order: 1;
       flex: 0 0 auto;
       display: inline-flex;
@@ -306,13 +303,14 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
       margin: 0 0.4rem 0.4rem 0;
       border-radius: 999px;
       font-size: 0.85rem;
-      background: color-mix(in oklab, var(--card-color), black 10%);
+      background: var(--card-hover-color);
       line-height: 1;
       white-space: nowrap;
     }
 
     /* Pill labels */
-    .exchange-row :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross)::before {
+    .exchange-row
+      :is(.kyc-required, .kyc-optional, .kyc-none, .checkmark, .cross)::before {
       content: attr(data-label);
       text-transform: uppercase;
       letter-spacing: 0.06em;
