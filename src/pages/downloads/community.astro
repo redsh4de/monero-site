@@ -20,6 +20,18 @@ import walletIcon from "@/assets/icons/mask/wallet.avif";
 import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
 import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 
+interface Wallet {
+  id: string;
+  name: string;
+  logo: string;
+  link: string;
+  tags: {
+    general?: string[];
+    mobile?: string[];
+    desktop?: string[];
+  };
+}
+
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 const tabs = [
@@ -58,7 +70,7 @@ const sections = [
 ];
 let builtinIdAssigned = false;
 
-const setBuiltinId = (wallet: any) => {
+const setBuiltinId = (wallet: Wallet) => {
   if (
     !builtinIdAssigned &&
     wallet.tags.general?.includes("i18n:builtInExchange")
