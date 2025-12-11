@@ -334,7 +334,7 @@ const centralizedExchanges = [
       <label for="mobile-filter-toggle" class="mobile-filter-bar">
         <div class="mobile-filter-bar-inner">
           <MaskIcon src={searchIcon} size="1.25em" aria-hidden="true" />
-          <span>Find the best way to get Monero</span>
+          <span>New to Monero?</span>
         </div>
       </label>
     </div>
@@ -396,7 +396,7 @@ const centralizedExchanges = [
 
   .exchanges-page-layout {
     display: flex;
-    gap: 4rem;
+    gap: 2rem;
   }
 
   .card {
@@ -407,7 +407,7 @@ const centralizedExchanges = [
   .sidebar {
     flex: 0 0 25rem;
     position: sticky;
-    top: 4rem;
+    top: 2rem;
     height: fit-content;
   }
 
@@ -628,13 +628,14 @@ const centralizedExchanges = [
       bottom: 0;
       z-index: 40;
       margin-top: 1.5rem;
-      margin-inline: calc(-1 * var(--mobile-padding));
+      margin-inline: -2rem;
+      background-color: var(--bg-color);
     }
 
     .mobile-filter-bar {
       display: block;
       padding: 0.5rem 1rem;
-      background: color-mix(in srgb, var(--bg-color), black 5%);
+      background-color: var(--bg-color);
       border-top: 1px solid var(--border-color);
     }
 
