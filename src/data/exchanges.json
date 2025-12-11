@@ -1,0 +1,114 @@
+{
+  "decentralizedExchanges": [
+    {
+      "type": "decentralized",
+      "name": "BasicSwapDEX",
+      "img": "/media/basicswapdex.jpg",
+      "alt": "BasicSwapDEX logo",
+      "description": "Trade crypto directly with other people, no sign-ups, no middleman (atomic swaps).",
+      "fiat": false,
+      "crypto": true,
+      "url": "https://basicswapdex.com"
+    },
+    {
+      "type": "decentralized",
+      "name": "Bisq",
+      "img": "/media/bisq.png",
+      "alt": "Bisq logo",
+      "description": "Peer-to-peer exchange where you trade directly with other people. Supports BTC → XMR swaps.",
+      "fiat": false,
+      "crypto": true,
+      "url": "https://bisq.network"
+    },
+    {
+      "type": "decentralized",
+      "name": "Eigenwallet",
+      "img": "/media/eigenwallet.avif",
+      "alt": "Eigenwallet logo",
+      "description": "A highly liquid platform for swapping BTC into XMR using atomic swaps.",
+      "fiat": false,
+      "crypto": true,
+      "url": "https://eigenwallet.com"
+    },
+    {
+      "type": "decentralized",
+      "name": "RetoSwap",
+      "img": "/media/retoswap.jpg",
+      "alt": "RetoSwap logo",
+      "description": "Decentralized peer-to-peer exchange built on Monero. Supports fiat, crypto ↔ XMR trades.",
+      "fiat": true,
+      "crypto": true,
+      "url": "https://retoswap.com"
+    }
+  ],
+  "swapAggregators": [
+    {
+      "type": "aggregator",
+      "name": "CypherGoat",
+      "img": "/media/cyphergoat.png",
+      "alt": "CypherGoat logo",
+      "description": "Service that finds routes for secure crypto-to-crypto swaps across different providers.",
+      "fiat": false,
+      "crypto": true,
+      "url": "https://cyphergoat.com"
+    },
+    {
+      "type": "aggregator",
+      "name": "OrangeFren",
+      "img": "/media/orangefren.jpg",
+      "alt": "OrangeFren logo",
+      "description": "Beginner-friendly site that lets you compare and make crypto swaps, usually without creating an account.",
+      "fiat": true,
+      "crypto": true,
+      "url": "https://orangefren.com"
+    },
+    {
+      "type": "aggregator",
+      "name": "Trocador",
+      "img": "/media/trocador-logo.webp",
+      "alt": "Trocador logo",
+      "description": "Aggregator that focuses on privacy-friendly swap routes.",
+      "fiat": false,
+      "crypto": true,
+      "url": "https://trocador.app"
+    }
+  ],
+  "centralizedExchanges": [
+    {
+      "type": "centralized",
+      "name": "Bitfinex",
+      "img": "/media/bitfinex.png",
+      "alt": "Bitfinex logo",
+      "description": "Trading platform with a wide range of cryptocurrencies and derivatives.",
+      "kycClass": "kyc-required",
+      "kycLabel": "Required",
+      "fiat": true,
+      "crypto": true,
+      "url": "https://bitfinex.com"
+    },
+    {
+      "type": "centralized",
+      "name": "Kraken",
+      "img": "/media/kraken.png",
+      "alt": "Kraken logo",
+      "description": "Well-known exchange with strong fiat support and advanced trading features.",
+      "kycClass": "kyc-required",
+      "kycLabel": "Required",
+      "fiat": true,
+      "crypto": true,
+      "url": "https://kraken.com"
+    },
+    {
+      "type": "centralized",
+      "name": "KuCoin",
+      "img": "/media/kucoin.png",
+      "alt": "KuCoin logo",
+      "description": "Popular exchange known for its large selection of altcoins, including Monero.",
+      "kycClass": "kyc-required",
+      "kycLabel": "Required",
+      "fiat": true,
+      "crypto": true,
+      "url": "https://kucoin.com"
+    }
+  ]
+}
