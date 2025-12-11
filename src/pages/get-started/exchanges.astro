@@ -1,43 +1,41 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
+import Layout from "@/layouts/Layout.astro";
 
 import bankIcon from "@/assets/icons/mask/bank.avif";
-import bitcoinIcon from "@/assets/icons/mask/bitcoin.avif";
+import closeIcon from "@/assets/icons/mask/close.avif";
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 import hashtagIcon from "@/assets/icons/mask/hashtag.avif";
 import hatGlassesIcon from "@/assets/icons/mask/hat-glasses.avif";
-import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
 import rabbitIcon from "@/assets/icons/mask/rabbit.avif";
+import searchIcon from "@/assets/icons/mask/search.avif";
+import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 
-import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 import ExchangeTable from "@/components/pages/get-started/exchanges/ExchangeTable.astro";
+import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 
 const highlightOptions = [
   {
-    id: "highlight-bitcoin",
-    linkClass: "crypto-option",
-    icon: bitcoinIcon,
-    title: "I have Bitcoin or other crypto",
-  },
-  {
-    id: "highlight-fiat",
-    linkClass: "fiat-option",
-    icon: bankIcon,
-    title: "I have cash or bank account",
-  },
-  {
-    id: "highlight-privacy",
-    linkClass: "privacy-option",
-    icon: hatGlassesIcon,
-    title: "I want privacy",
-  },
-  {
-    id: "highlight-easiest",
+    key: "easiest",
     linkClass: "easiest-option",
     icon: rabbitIcon,
-    title: "I want the simplest way",
+    title: "I want the simplest way to get Monero",
+    subtitle: "Beginner-friendly options",
+  },
+  {
+    key: "fiat",
+    linkClass: "fiat-option",
+    icon: bankIcon,
+    title: "I want to pay with cash or bank transfer",
+    subtitle: "Exchanges that support fiat currency (USD, EUR, etc.)",
+  },
+  {
+    key: "privacy",
+    linkClass: "privacy-option",
+    icon: hatGlassesIcon,
+    title: "I care most about privacy",
+    subtitle: "Decentralized options that don't require identity verification",
   },
 ];
 
@@ -48,7 +46,7 @@ const decentralizedExchanges = [
     img: "/media/basicswapdex.jpg",
     alt: "BasicSwapDEX logo",
     description:
-      "Atomic swap DEX for trustless and decentralized cryptocurrency exchanges.",
+      "Trade crypto directly with other people, no sign-ups, no middleman (atomic swaps).",
     fiat: false,
     crypto: true,
     url: "https://basicswapdex.com",
@@ -59,8 +57,8 @@ const decentralizedExchanges = [
     img: "/media/bisq.png",
     alt: "Bisq logo",
     description:
-      "Decentralized exchange for peer-to-peer cryptocurrency trading. Supports BTC -> XMR trades.",
-    fiat: true,
+      "Peer-to-peer exchange where you trade directly with other people. Supports BTC → XMR swaps.",
+    fiat: false,
     crypto: true,
     url: "https://bisq.network",
   },
@@ -70,7 +68,7 @@ const decentralizedExchanges = [
     img: "/media/eigenwallet.avif",
     alt: "Eigenwallet logo",
     description:
-      "Monero wallet with integrated BTC -> XMR atomic swaps",
+      "A highly liquid platform for swapping BTC into XMR using atomic swaps.",
     fiat: false,
     crypto: true,
     url: "https://eigenwallet.com",
@@ -81,7 +79,7 @@ const decentralizedExchanges = [
     img: "/media/retoswap.jpg",
     alt: "RetoSwap logo",
     description:
-      "Decentralized exchange built on Monero. Note that some services may require banking details for fiat integration.",
+      "Decentralized peer-to-peer exchange built on Monero. Supports fiat, crypto ↔ XMR trades.",
     fiat: true,
     crypto: true,
     url: "https://retoswap.com",
@@ -94,7 +92,8 @@ const swapAggregators = [
     name: "CypherGoat",
     img: "/media/cyphergoat.png",
     alt: "CypherGoat logo",
-    description: "Decentralized aggregator for secure cryptocurrency exchanges.",
+    description:
+      "Service that finds routes for secure crypto-to-crypto swaps across different providers.",
     fiat: false,
     crypto: true,
     url: "https://cyphergoat.com",
@@ -105,7 +104,7 @@ const swapAggregators = [
     img: "/media/orangefren.jpg",
     alt: "OrangeFren logo",
     description:
-      "User-friendly aggregator for quick and easy crypto swaps without registration.",
+      "Beginner-friendly site that lets you compare and make crypto swaps, usually without creating an account.",
     fiat: true,
     crypto: true,
     url: "https://orangefren.com",
@@ -115,7 +114,7 @@ const swapAggregators = [
     name: "Trocador",
     img: "/media/trocador-logo.webp",
     alt: "Trocador logo",
-    description: "Privacy-focused swap aggregator.",
+    description: "Aggregator that focuses on privacy-friendly swap routes.",
     fiat: false,
     crypto: true,
     url: "https://trocador.app",
@@ -129,7 +128,7 @@ const centralizedExchanges = [
     img: "/media/bitfinex.png",
     alt: "Bitfinex logo",
     description:
-      "Professional trading platform offering a wide range of cryptocurrencies and derivatives.",
+      "Trading platform with a wide range of cryptocurrencies and derivatives.",
     kycClass: "kyc-required",
     kycLabel: "Required",
     fiat: true,
@@ -142,7 +141,7 @@ const centralizedExchanges = [
     img: "/media/kraken.png",
     alt: "Kraken logo",
     description:
-      "US-based cryptocurrency exchange with advanced trading features and fiat support.",
+      "Well-known exchange with strong fiat support and advanced trading features.",
     kycClass: "kyc-required",
     kycLabel: "Required",
     fiat: true,
@@ -155,7 +154,7 @@ const centralizedExchanges = [
     img: "/media/kucoin.png",
     alt: "KuCoin logo",
     description:
-      "Popular exchange known for its extensive selection of altcoins.",
+      "Popular exchange known for its large selection of altcoins, including Monero.",
     kycClass: "kyc-required",
     kycLabel: "Required",
     fiat: true,
@@ -174,104 +173,242 @@ const centralizedExchanges = [
     subtitle="Cryptocurrency exchanges that let you buy or trade Monero."
   />
 
-  <DisclaimerBar icon={shieldIcon} title="Disclaimer">
-    This list is for informational purposes only. The Monero
-    Project does not endorse, recommend, or guarantee any service listed here.
-    Verify URLs carefully and use services at your own risk.
-  </DisclaimerBar>
+  <!-- hidden filter radio buttons -->
+  <input
+    id="filter-none"
+    class="filter-toggle"
+    type="radio"
+    name="exchange-filter"
+    checked
+  />
+  <input
+    id="filter-bitcoin"
+    class="filter-toggle"
+    type="radio"
+    name="exchange-filter"
+  />
+  <input
+    id="filter-fiat"
+    class="filter-toggle"
+    type="radio"
+    name="exchange-filter"
+  />
+  <input
+    id="filter-privacy"
+    class="filter-toggle"
+    type="radio"
+    name="exchange-filter"
+  />
+  <input
+    id="filter-easiest"
+    class="filter-toggle"
+    type="radio"
+    name="exchange-filter"
+  />
 
-  <!-- highlight anchors -->
-  <div id="highlight-bitcoin" class="highlight-target"></div>
-  <div id="highlight-fiat" class="highlight-target"></div>
-  <div id="highlight-privacy" class="highlight-target"></div>
-  <div id="highlight-easiest" class="highlight-target"></div>
-  <div id="clear" class="highlight-target"></div>
+  <!-- mobile bottom-sheet toggle -->
+  <input
+    id="mobile-filter-toggle"
+    class="mobile-filter-toggle"
+    type="checkbox"
+  />
 
-  <div class="exchanges-page-layout">
-    <aside class="sidebar">
-      <div class="intro-section card">
-        <h2 class="intro-title">New to Monero?</h2>
-        <p class="intro-description">Find the best option for you.</p>
-        <div class="highlight-options">
-          {highlightOptions.map((opt) => (
-            <a href={`#${opt.id}`} class={`highlight-option ${opt.linkClass}`}>
+  <div class="exchanges-wrapper">
+    <div class="exchanges-page-layout">
+      <!-- DESKTOP SIDEBAR -->
+      <aside class="sidebar">
+        <div class="intro-section card">
+          <h2 class="intro-title">New to Monero?</h2>
+          <p class="intro-description">
+            Start by choosing the situation that matches you. We'll highlight
+            the options on this page that are likely the best fit.
+          </p>
+          <div class="highlight-options">
+            {
+              highlightOptions.map((opt) => {
+                const filterId = `filter-${opt.key}`;
+                return (
+                  <label
+                    for={filterId}
+                    class={`highlight-option ${opt.linkClass}`}
+                  >
+                    <span class="highlight-option-icon">
+                      <MaskIcon
+                        src={opt.icon}
+                        size="1.5em"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    <div class="content">
+                      <span class="highlight-option-title">{opt.title}</span>
+                      <span class="highlight-option-subtitle">
+                        {opt.subtitle}
+                      </span>
+                    </div>
+                    <div class="highlight-option-arrow">
+                      <MaskIcon
+                        src={hashtagIcon}
+                        size="0.75em"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </label>
+                );
+              })
+            }
+            <div class="clear-highlights">
+              <label
+                for="filter-none"
+                class="clear-highlights-link clear-highlights-label"
+              >
+                Clear selection
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main-content">
+        <ExchangeTable
+          title="Decentralized Exchanges"
+          description="These options let you trade Monero directly from your own wallet, without a traditional exchange account. They're great if you want more privacy and control."
+          exchanges={decentralizedExchanges}
+          hasKyc={false}
+        />
+
+        <ExchangeTable
+          title="Swap Aggregators"
+          description="Easiest way to trade crypto for Monero without creating an account. These services compare prices from multiple swap providers and route you to the best option."
+          exchanges={[]}
+          hasKyc={false}
+          disclaimerText="The aggregator itself doesn't hold your funds, but the service you end up using might still ask you to verify your identity."
+        >
+          <p style="color: var(--paragraph-subtitle);">
+            For an up-to-date list with details and reviews, you can visit the
+            community resource below:
+          </p>
+          <a
+            href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="kycnot-button aggregator-highlight crypto-highlight"
+          >
+            <img
+              src="/media/kycnotme.jpg"
+              alt="KYCNot.me logo"
+              class="kycnot-logo"
+            />
+            <span class="kycnot-title"
+              >KYCNot.me - community-curated listings</span
+            >
+            <MaskIcon src={externalLinkIcon} size="1em" />
+          </a>
+          <p style="color: var(--paragraph-subtitle);">
+            <strong>Tip:</strong> Some Monero wallets have a <b
+              >built-in swap feature</b
+            > for easy onboarding. Check out the <a
+              href="/downloads/community/#built-in-exchange"
+              target="_blank">community downloads</a
+            > for options.
+          </p>
+        </ExchangeTable>
+
+        <ExchangeTable
+          title="Centralized Exchanges"
+          description="These are the classic exchanges where you create an account, complete ID checks, and can deposit from your crypto wallet, bank or card."
+          exchanges={centralizedExchanges}
+          hasKyc={true}
+        />
+      </div>
+    </div>
+
+    <DisclaimerBar icon={shieldIcon} title="Disclaimer">
+      This list is for informational purposes only. The Monero Project does not
+      endorse, recommend, or guarantee any service listed here. Always
+      double-check URLs, start with a small test amount if you're unsure, and
+      use every service at your own risk.
+    </DisclaimerBar>
+
+    <!-- MOBILE: sticky container with bottom bar -->
+    <div class="mobile-filter-container">
+      <label for="mobile-filter-toggle" class="mobile-filter-bar">
+        <div class="mobile-filter-bar-inner">
+          <MaskIcon src={searchIcon} size="1.25em" aria-hidden="true" />
+          <span>Find the best way to get Monero</span>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM SHEET OVERLAY -->
+  <div class="mobile-filter-sheet">
+    <div class="mobile-filter-sheet-header">
+      <h2 class="intro-title">Choose your situation</h2>
+      <label
+        for="mobile-filter-toggle"
+        class="mobile-filter-close"
+        aria-label="Close filters"
+      >
+        <MaskIcon src={closeIcon} size="1em" aria-hidden="true" />
+      </label>
+    </div>
+    <p class="intro-description">
+      Pick the option that sounds most like you. We'll highlight the exchanges
+      and services that are a good starting point.
+    </p>
+    <div class="highlight-options">
+      {
+        highlightOptions.map((opt) => {
+          const filterId = `filter-${opt.key}`;
+          return (
+            <label for={filterId} class={`highlight-option ${opt.linkClass}`}>
               <span class="highlight-option-icon">
                 <MaskIcon src={opt.icon} size="1.5em" aria-hidden="true" />
               </span>
               <div class="content">
                 <span class="highlight-option-title">{opt.title}</span>
+                <span class="highlight-option-subtitle">{opt.subtitle}</span>
               </div>
               <div class="highlight-option-arrow">
                 <MaskIcon src={hashtagIcon} size="0.75em" aria-hidden="true" />
               </div>
-            </a>
-          ))}
-          <div class="clear-highlights">
-            <a href="#clear" class="clear-highlights-link">Clear selection</a>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <main class="main-content">
-      <ExchangeTable
-        title="Decentralized Exchanges & Atomic Swaps"
-        description="Decentralized exchanges and atomic swaps enable peer-to-peer trading of Monero, enhancing privacy and security."
-        exchanges={decentralizedExchanges}
-        hasKyc={false}
-      />
-
-      <ExchangeTable
-        title="Swap Aggregators"
-        description="Swap aggregators compare rates from multiple platforms to help you find the best deals for trading Monero."
-        exchanges={swapAggregators}
-        hasKyc={false}
-        disclaimerText="Note that while aggregators don't hold your funds, the underlying swap service might require KYC verification."
-      >
-        <p class="paragraph-secondary extra-margin-top">
-          For an up-to-date list with details and reviews, visit the community resource below.
-        </p>
-        <a
-          href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="kycnot-button aggregator-highlight crypto-highlight"
+            </label>
+          );
+        })
+      }
+      <div class="clear-highlights">
+        <label
+          for="filter-none"
+          class="clear-highlights-link clear-highlights-label"
         >
-          <img
-            src="/media/kycnotme.jpg"
-            alt="KYCNot.me logo"
-            class="kycnot-logo"
-          />
-          <span class="kycnot-title">KYCNot.me</span>
-          <MaskIcon src={externalLinkIcon} size="1em" />
-        </a>
-      </ExchangeTable>
-
-      <ExchangeTable
-        title="Centralized Exchanges"
-        description="Centralized exchanges are traditional platforms where you can buy and sell Monero, often requiring KYC verification."
-        exchanges={centralizedExchanges}
-        hasKyc={true}
-      />
-    </main>
+          Clear selection
+        </label>
+      </div>
+    </div>
   </div>
 </Layout>
 
 <style>
+  .exchanges-wrapper {
+    position: relative;
+    margin-top: 6rem;
+  }
+
   .exchanges-page-layout {
     display: flex;
-    gap: 2rem;
-    margin: 2rem 0;
+    gap: 4rem;
   }
 
   .card {
     background: var(--card-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 0.5rem;
   }
 
   .sidebar {
-    flex: 0 0 400px;
+    flex: 0 0 25rem;
+    position: sticky;
+    top: 4rem;
+    height: fit-content;
   }
 
   .main-content {
@@ -291,8 +428,8 @@ const centralizedExchanges = [
   }
 
   .intro-description {
-    color: var(--text-primary);
-    font-size: var(--font-size-lg);
+    color: var(--paragraph-subtitle);
+    font-size: var(--font-size-md);
     margin-bottom: 2rem;
   }
 
@@ -312,11 +449,11 @@ const centralizedExchanges = [
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .highlight-option:hover {
     background: color-mix(in srgb, var(--card-color), white 10%);
-    cursor: pointer;
   }
 
   .highlight-option-icon {
@@ -330,11 +467,23 @@ const centralizedExchanges = [
     color: var(--paragraph-subtitle);
   }
 
+  .highlight-option .content {
+    display: flex;
+    flex-direction: column;
+  }
+
   .highlight-option-title {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
     display: block;
+  }
+
+  .highlight-option-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--paragraph-subtitle);
+    line-height: var(--line-height-caption);
+    margin-top: 0.15rem;
   }
 
   .clear-highlights {
@@ -345,6 +494,7 @@ const centralizedExchanges = [
     color: var(--text-secondary);
     text-decoration: none;
     font-size: var(--font-size-sm);
+    cursor: pointer;
   }
 
   .clear-highlights-link:hover {
@@ -353,56 +503,6 @@ const centralizedExchanges = [
 
   .highlight-target {
     display: none;
-  }
-
-  /* Row highlighting based on properties */
-  #highlight-bitcoin:target
-    ~ :global(.exchanges-page-layout
-    .crypto-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  #highlight-fiat:target
-    ~ :global(.exchanges-page-layout
-    .fiat-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  #highlight-privacy:target
-    ~ :global(.exchanges-page-layout
-    .privacy-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  #highlight-easiest:target
-    ~ :global(.exchanges-page-layout
-    .aggregator-highlight) {
-    background: rgba(255, 152, 0, 0.1);
-  }
-
-  /* Sidebar option highlighting */
-  #highlight-bitcoin:target
-    ~ .exchanges-page-layout
-    .sidebar
-    .crypto-option,
-  #highlight-fiat:target
-    ~ .exchanges-page-layout
-    .sidebar
-    .fiat-option,
-  #highlight-privacy:target
-    ~ .exchanges-page-layout
-    .sidebar
-    .privacy-option,
-  #highlight-easiest:target
-    ~ .exchanges-page-layout
-    .sidebar
-    .easiest-option {
-    background: color-mix(in srgb, var(--card-color), white 10%);
-    border-color: var(--monero-orange);
-  }
-
-  .extra-margin-top {
-    margin-top: 1rem;
   }
 
   .kycnot-button {
@@ -433,13 +533,186 @@ const centralizedExchanges = [
     color: var(--heading-color);
   }
 
+  .wallet-tip {
+    background: rgba(76, 175, 80, 0.05);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+  }
+
+  .wallet-tip p {
+    margin: 0;
+  }
+
+  .wallet-tip code {
+    background: rgba(76, 175, 80, 0.1);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.125rem;
+    font-family: var(--font-family-mono);
+  }
+
+  /* hidden control inputs, fixed so focus doesn't scroll */
+  .filter-toggle,
+  .mobile-filter-toggle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* FILTER HIGHLIGHTING */
+  #filter-bitcoin:checked ~ .exchanges-wrapper :global(.crypto-highlight) {
+    background: rgba(255, 152, 0, 0.1);
+  }
+
+  #filter-fiat:checked ~ .exchanges-wrapper :global(.fiat-highlight) {
+    background: rgba(255, 152, 0, 0.1);
+  }
+
+  #filter-privacy:checked ~ .exchanges-wrapper :global(.privacy-highlight) {
+    background: rgba(255, 152, 0, 0.1);
+  }
+
+  #filter-easiest:checked ~ .exchanges-wrapper :global(.aggregator-highlight) {
+    background: rgba(255, 152, 0, 0.1);
+  }
+
+  /* Highlight options in both sidebar and mobile sheet */
+  #filter-bitcoin:checked ~ .exchanges-wrapper .sidebar .crypto-option,
+  #filter-bitcoin:checked ~ .mobile-filter-sheet .crypto-option,
+  #filter-fiat:checked ~ .exchanges-wrapper .sidebar .fiat-option,
+  #filter-fiat:checked ~ .mobile-filter-sheet .fiat-option,
+  #filter-privacy:checked ~ .exchanges-wrapper .sidebar .privacy-option,
+  #filter-privacy:checked ~ .mobile-filter-sheet .privacy-option,
+  #filter-easiest:checked ~ .exchanges-wrapper .sidebar .easiest-option,
+  #filter-easiest:checked ~ .mobile-filter-sheet .easiest-option {
+    background: color-mix(in srgb, var(--card-color), white 10%);
+    border-color: var(--monero-orange);
+  }
+
+  #filter-none:checked ~ .exchanges-wrapper .sidebar .highlight-option,
+  #filter-none:checked ~ .mobile-filter-sheet .highlight-option {
+    background: var(--card-hover-color);
+    border-color: var(--border-color);
+  }
+
+  /* MOBILE BOTTOM BAR & SHEET */
+  .mobile-filter-container,
+  .mobile-filter-sheet {
+    display: none;
+  }
+
+  .mobile-filter-close {
+    display: none;
+  }
+
   @media (max-width: 1200px) {
     .exchanges-page-layout {
       flex-direction: column;
     }
 
     .sidebar {
-      flex: none;
+      display: none;
+    }
+
+    /* sticky container to keep bar above footer */
+    .mobile-filter-container {
+      display: block;
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      margin-top: 1.5rem;
+      margin-inline: calc(-1 * var(--mobile-padding));
+    }
+
+    .mobile-filter-bar {
+      display: block;
+      padding: 0.5rem 1rem;
+      background: color-mix(in srgb, var(--bg-color), black 5%);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .mobile-filter-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--heading-color);
+    }
+
+    .mobile-filter-bar-inner:hover {
+      background: color-mix(in srgb, var(--card-color), white 8%);
+    }
+
+    /* sheet overlay */
+    .mobile-filter-sheet {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1.25rem 1.5rem 1.75rem;
+      background: var(--bg-color);
+      border-radius: 1.25rem 1.25rem 0 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35);
+      max-height: 75vh;
+      overflow-y: auto;
+      z-index: 60;
+      transform: translateY(100%);
+      transition: transform 0.25s ease-out;
+      margin: 0;
+    }
+
+    .mobile-filter-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .mobile-filter-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      margin-left: 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: var(--card-color);
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .mobile-filter-sheet .intro-title {
+      font-size: var(--font-size-xl);
+      margin-bottom: 0.25rem;
+    }
+
+    .mobile-filter-sheet .intro-description {
+      font-size: var(--font-size-base);
+      margin-bottom: 1.25rem;
+    }
+
+    .mobile-filter-sheet .highlight-option {
+      padding: 0.65rem;
+    }
+
+    /* open sheet */
+    #mobile-filter-toggle:checked ~ .mobile-filter-sheet {
+      transform: translateY(0);
     }
   }
 </style>

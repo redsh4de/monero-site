@@ -17,6 +17,9 @@ import serverIcon from "@/assets/icons/mask/server.avif";
 import snowflakeIcon from "@/assets/icons/mask/snowflake.avif";
 import walletIcon from "@/assets/icons/mask/wallet.avif";
 
+import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
+import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
+
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 const tabs = [
@@ -53,6 +56,18 @@ const sections = [
     subtitle: t("downloads.community.sections.nodes.subtitle"),
   },
 ];
+let builtinIdAssigned = false;
+
+const setBuiltinId = (wallet: any) => {
+  if (
+    !builtinIdAssigned &&
+    wallet.tags.general?.includes("i18n:builtInExchange")
+  ) {
+    builtinIdAssigned = true;
+    return "built-in-exchange";
+  }
+  return undefined;
+};
 ---
 
 <Layout
@@ -113,6 +128,7 @@ const sections = [
           linkText={t("downloads.community.learnMore")}
           translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
           t={t}
+          id={setBuiltinId(wallet)}
         />
       ))
     }
@@ -132,6 +148,7 @@ const sections = [
           linkText={t("downloads.community.learnMore")}
           translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
           t={t}
+          id={setBuiltinId(wallet)}
         />
       ))
     }
@@ -156,6 +173,7 @@ const sections = [
           linkText={t("downloads.community.learnMore")}
           translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
           t={t}
+          id={setBuiltinId(wallet)}
         />
       ))
     }
@@ -180,6 +198,7 @@ const sections = [
           linkText={t("downloads.community.learnMore")}
           translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
           t={t}
+          id={setBuiltinId(wallet)}
         />
       ))
     }
@@ -204,10 +223,18 @@ const sections = [
           linkText={t("downloads.community.learnMore")}
           translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
           t={t}
+          id={setBuiltinId(wallet)}
         />
       ))
     }
   </div>
+
+  <DisclaimerBar icon={shieldIcon} title="Disclaimer">
+    This list is for informational purposes only. The Monero Project does not
+    endorse, recommend, or guarantee any service listed here. Always
+    double-check URLs, start with a small test amount if you're unsure, and use
+    every service at your own risk.
+  </DisclaimerBar>
 </Layout>
 
 <style>
@@ -273,6 +300,10 @@ const sections = [
     font-weight: var(--font-weight-bold);
     color: var(--heading-color);
     margin: 2rem 0 1rem 0;
+  }
+
+  .section-title,
+  :global(#built-in-exchange) {
     scroll-margin-top: 2rem;
   }
 
@@ -311,7 +342,8 @@ const sections = [
   }
 
   @media (max-width: 1200px) {
-    .section-title {
+    .section-title,
+    :global(#built-in-exchange) {
       scroll-margin-top: 6rem;
     }
   }

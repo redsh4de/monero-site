@@ -7,21 +7,21 @@ interface Props {
   title?: string;
 }
 
-const {
-  icon,
-  title = "Disclaimer",
-} = Astro.props;
+const { icon, title = "Disclaimer" } = Astro.props;
 ---
 
 <div class="disclaimer-bar card">
   <div class="disclaimer-content">
-    {icon && (
-      <span class="disclaimer-icon">
-        <MaskIcon src={icon} size="1.5em" aria-hidden="true" />
-      </span>
-    )}
+    {
+      icon && (
+        <span class="disclaimer-icon">
+          <MaskIcon src={icon} size="1.5em" aria-hidden="true" />
+        </span>
+      )
+    }
     <p>
-      {title && <b>{title}:</b>} <slot />
+      {title && <b>{title}:</b>}
+      <slot />
     </p>
   </div>
 </div>
