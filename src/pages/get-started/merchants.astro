@@ -2,6 +2,10 @@
 import Layout from "@/layouts/Layout.astro";
 
 import TitleCard from "@/components/ui/TitleCard.astro";
+import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
+
+import monericaLogo from "@/assets/images/monerica-logo.png";
+import cryptwerkLogo from "@/assets/images/cryptwerk.jpg";
 ---
 
 <Layout
@@ -10,6 +14,41 @@ import TitleCard from "@/components/ui/TitleCard.astro";
 >
   <TitleCard
     title="Merchants"
-    subtitle="Stores and merchants that accept Monero as payment.."
+    subtitle="Stores and merchants that accept Monero as payment."
   />
+
+  <div id="content">
+    <p>
+      If you are looking for places to spend your Monero, the directories below provide a comprehensive list of options. Please remember to do your own research before trusting them with your money.
+    </p>
+
+        <div class="button-container">
+      <ExternalResourceButton
+        href="https://cryptwerk.com/pay-with/xmr"
+        title="Cryptwerk"
+        subtitle="Directory of merchants accepting Monero"
+        logo={cryptwerkLogo}
+      />
+      <ExternalResourceButton
+        href="https://monerica.com/"
+        title="Monerica"
+        subtitle="Comprehensive directory for Monero merchants"
+        logo={monericaLogo}
+      />
+    </div>
+  </div>
 </Layout>
+
+<style>
+  #content {
+    margin-top: 3rem;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  p {
+    color: var(--paragraph-subtitle);
+  }
+</style>
