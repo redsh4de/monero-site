@@ -1,73 +1,84 @@
 ---
-import type { ImageMetadata } from "astro";
-import type { HTMLAttributes } from "astro/types";
-import { Image } from 'astro:assets';
-import MaskIcon from "./MaskIcon.astro";
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
+import torIcon from "@/assets/icons/mask/tor.avif";
+import { getPublicImageDimensions } from "@/utils/image";
+import type { HTMLAttributes } from "astro/types";
+import { Image } from "astro:assets";
+import MaskIcon from "./MaskIcon.astro";
 
-export interface Props extends HTMLAttributes<'a'> {
+export interface Props extends HTMLAttributes<"a"> {
   href: string;
   title: string;
   subtitle: string;
-  logo: ImageMetadata;
+  logo: string;
   rtl?: boolean;
+  onionHref?: string;
 }
 
-const { href, title, subtitle, logo, rtl, ...rest } = Astro.props;
+const { href, title, subtitle, logo, rtl, onionHref, ...rest } = Astro.props;
+const logoDimensions = await getPublicImageDimensions(logo);
 ---
 
-<a
-  href={href}
-  target="_blank"
-  rel="noopener noreferrer external"
-  class="external-resource-button"
-  {...rest}
->
-  <div class="image">
-    <Image src={logo} alt={`${title} Logo`} format="avif" priority />
-  </div>
-  
-  <div class="text">
-    <span class="title">{title}</span>
-    <span class="subtitle">{subtitle}</span>
-  </div>
-  
-  <MaskIcon src={externalLinkIcon} size="1em" color="var(--monero-orange)" rtl={rtl}/>
-</a>
+<div class="external-resource-button">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer external"
+    class="primary-link"
+    {...rest}
+  >
+    <div class="image">
+      <Image
+        src={logo}
+        alt={`${title} Logo`}
+        width={logoDimensions.width}
+        height={logoDimensions.height}
+        format="avif"
+        priority
+      />
+    </div>
+
+    <div class="text">
+      <span class="title">{title}</span>
+      <span class="subtitle">{subtitle}</span>
+    </div>
+
+    <MaskIcon
+      src={externalLinkIcon}
+      size="1em"
+      color="var(--monero-orange)"
+      rtl={rtl}
+    />
+  </a>
+  {
+    onionHref && (
+      <a
+        href={onionHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="onion-link"
+        title="Onion service"
+      >
+        <MaskIcon src={torIcon} size="1.5em" color="#7D4698" />
+      </a>
+    )
+  }
+</div>
 
 <style>
   .external-resource-button {
     display: flex;
-    justify-content: space-between;
-    background: var(--card-color);
-    color: var(--monero-orange);
-    align-items: center;
-    padding: 1em;
-    border-radius: 0.5rem;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
+
+    background: var(--card-color);
     border: 1px solid var(--border-color);
-    cursor: pointer;
-    text-decoration: none;
-    user-select: none;
-  }
-  .external-resource-button:hover,
-  .external-resource-button:focus-visible {
-    background: var(--card-hover-color);
-  }
-  .image {
-    margin-inline-end: 1rem;
-    height: 3rem;
     border-radius: 0.5rem;
-    overflow: hidden;
   }
-  .image img {
-    height: 100%;
-    width: auto;
-  }
+
   .text {
     flex: 1;
-    margin-inline-end: 1rem;
+    margin-inline-start: 1rem;
   }
   .text .title {
     display: block;
@@ -82,8 +93,49 @@ const { href, title, subtitle, logo, rtl, ...rest } = Astro.props;
     color: var(--text-secondary);
     font-weight: var(--font-weight-normal);
   }
-  /* Override for rel=external ::after from globals.css*/
-  .external-resource-button::after {
+
+  .image {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .image img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .primary-link,
+  .onion-link {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .primary-link:hover,
+  .onion-link:hover {
+    background: var(--card-hover-color);
+  }
+
+  .primary-link {
+    flex: 1;
+  }
+  /* Remove default rel=external icon set by globals.css - using MaskIcon here */
+  .primary-link::after {
     display: none;
+  }
+
+  .onion-link {
+    flex: 0 0 auto;
+    color: #7d4698;
+    border-inline-start: 1px solid var(--border-color);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
   }
 </style>

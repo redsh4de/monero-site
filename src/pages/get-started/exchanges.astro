@@ -10,7 +10,6 @@ import Layout from "@/layouts/Layout.astro";
 
 import bankIcon from "@/assets/icons/mask/bank.avif";
 import closeIcon from "@/assets/icons/mask/close.avif";
-import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 import hashtagIcon from "@/assets/icons/mask/hashtag.avif";
 import hatGlassesIcon from "@/assets/icons/mask/hat-glasses.avif";
 import rabbitIcon from "@/assets/icons/mask/rabbit.avif";
@@ -23,7 +22,6 @@ import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
 
 import exchanges from "@/data/exchanges.json";
-import kycnotmeLogo from "@/assets/images/kycnotme.jpg";
 
 import safeMarkdown from "@/utils/safeMarkdown";
 
@@ -182,10 +180,12 @@ const highlightOptions = [
           </p>
           <ExternalResourceButton
             href="https://kycnot.me/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
+            onionHref="http://kycnotmezdiftahfmc34pqbpicxlnx3jbf5p7jypge7gdvduu7i6qjqd.onion/?categories=aggregator&currency-mode=or&currencies=xmr&max-kyc=0"
             title={t("exchanges.sections.aggregators.resourceBtnTitle")}
             subtitle="Community-curated exchange aggregator list"
-            logo={kycnotmeLogo}
+            logo="/media/kycnotme.jpg"
             data-highlight="aggregator crypto"
+            rtl={dir == "rtl"}
           />
           <p
             style="color: var(--paragraph-subtitle);"
@@ -441,9 +441,7 @@ const highlightOptions = [
     border-color: var(--monero-orange);
   }
 
-  #filter-easiest:checked
-    ~ .exchanges-wrapper
-    a[data-highlight~="aggregator"] {
+  #filter-easiest:checked ~ .exchanges-wrapper a[data-highlight~="aggregator"] {
     outline: 2px solid var(--monero-orange);
   }
 

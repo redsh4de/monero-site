@@ -1,12 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-import TitleCard from "@/components/ui/TitleCard.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
+import TitleCard from "@/components/ui/TitleCard.astro";
 import { createTInstance, getDirection, getLocale } from "@/i18n/utils";
 
-import monericaLogo from "@/assets/images/monerica-logo.png";
-import cryptwerkLogo from "@/assets/images/cryptwerk.jpg";
+import merchants from "@/data/merchants.json";
+
+import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
+import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
@@ -27,23 +29,27 @@ const dir = getDirection(locale);
       {t("merchants.intro")}
     </p>
 
-        <div class="button-container">
-      <ExternalResourceButton
-        href="https://cryptwerk.com/pay-with/xmr"
-        title="Cryptwerk"
-        subtitle={t("merchants.subtitles.cryptwerk")}
-        logo={cryptwerkLogo}
-        rtl={dir == "rtl"}
-      />
-      <ExternalResourceButton
-        href="https://monerica.com/"
-        title="Monerica"
-        subtitle={t("merchants.subtitles.monerica")}
-        logo={monericaLogo}
-        rtl={dir == "rtl"}
-      />
+    <div class="button-container">
+      {
+        merchants
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((merchant) => (
+            <ExternalResourceButton
+              href={merchant.link}
+              onionHref={merchant.onionLink}
+              title={merchant.name}
+              subtitle={t(`merchants.subtitles.${merchant.id}`)}
+              logo={merchant.logo}
+              rtl={dir == "rtl"}
+            />
+          ))
+      }
     </div>
   </div>
+
+  <DisclaimerBar icon={shieldIcon} title={t("merchants.disclaimerTitle")}>
+    {t("merchants.disclaimer")}
+  </DisclaimerBar>
 </Layout>
 
 <style>
@@ -54,6 +60,7 @@ const dir = getDirection(locale);
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-bottom: 3rem;
   }
   p {
     color: var(--paragraph-subtitle);
