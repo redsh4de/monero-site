@@ -19,7 +19,7 @@ const { href, title, subtitle, logo, rtl, onionHref, ...rest } = Astro.props;
 const logoDimensions = await getPublicImageDimensions(logo);
 ---
 
-<div class="external-resource-button">
+<div class={`external-resource-button ${onionHref ? "has-onion" : ""}`}>
   <a
     href={href}
     target="_blank"
@@ -42,27 +42,40 @@ const logoDimensions = await getPublicImageDimensions(logo);
       <span class="title">{title}</span>
       <span class="subtitle">{subtitle}</span>
     </div>
-
-    <MaskIcon
-      src={externalLinkIcon}
-      size="1em"
-      color="var(--monero-orange)"
-      rtl={rtl}
-    />
   </a>
-  {
-    onionHref && (
-      <a
-        href={onionHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="onion-link"
-        title="Onion service"
-      >
-        <MaskIcon src={torIcon} size="1.5em" color="#7D4698" />
-      </a>
-    )
-  }
+
+  <div class={`actions ${onionHref ? "has-onion" : ""}`} aria-label="Links">
+    {
+      onionHref && (
+        <a
+          href={onionHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="icon-button onion-link"
+          title="Onion service"
+          aria-label="Open onion service"
+        >
+          <MaskIcon src={torIcon} size="1.5em" color="#7D4698" />
+        </a>
+      )
+    }
+
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer external"
+      class="icon-button external-link"
+      title="Open website"
+      aria-label="Open website"
+    >
+      <MaskIcon
+        src={externalLinkIcon}
+        size="1em"
+        color="var(--monero-orange)"
+        rtl={rtl}
+      />
+    </a>
+  </div>
 </div>
 
 <style>
@@ -74,6 +87,7 @@ const logoDimensions = await getPublicImageDimensions(logo);
     background: var(--card-color);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
+    overflow: hidden;
   }
 
   .text {
@@ -106,8 +120,12 @@ const logoDimensions = await getPublicImageDimensions(logo);
     object-fit: contain;
   }
 
-  .primary-link,
-  .onion-link {
+  /* Override default rel=external icon that's set by globals.css - using MaskIcon here */
+  a::after {
+    display: none;
+  }
+
+  .primary-link {
     background: transparent;
     border: 0;
     border-radius: 0;
@@ -116,26 +134,41 @@ const logoDimensions = await getPublicImageDimensions(logo);
     align-items: center;
     text-decoration: none;
     box-sizing: border-box;
+    flex: 1;
   }
 
+  .actions {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+
+  /* Only add the actions icon divider when there's an onion link */
+  .external-resource-button.has-onion .actions {
+    border-inline-start: 1px solid var(--border-color);
+  }
+
+  .icon-button {
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* Normal hover behavior */
   .primary-link:hover,
-  .onion-link:hover {
+  .icon-button:hover {
     background: var(--card-hover-color);
   }
 
-  .primary-link {
-    flex: 1;
-  }
-  /* Remove default rel=external icon set by globals.css - using MaskIcon here */
-  .primary-link::after {
-    display: none;
+  /* Only show the inner divider when onion exists */
+  .actions.has-onion .external-link {
+    border-inline-start: 1px solid var(--border-color);
   }
 
-  .onion-link {
-    flex: 0 0 auto;
-    color: #7d4698;
-    border-inline-start: 1px solid var(--border-color);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-normal);
+  .external-resource-button:not(.has-onion):hover .primary-link,
+  .external-resource-button:not(.has-onion):hover .icon-button {
+    background: var(--card-hover-color);
   }
 </style>
