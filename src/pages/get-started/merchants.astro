@@ -3,37 +3,44 @@ import Layout from "@/layouts/Layout.astro";
 
 import TitleCard from "@/components/ui/TitleCard.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
+import { createTInstance, getDirection, getLocale } from "@/i18n/utils";
 
 import monericaLogo from "@/assets/images/monerica-logo.png";
 import cryptwerkLogo from "@/assets/images/cryptwerk.jpg";
+
+const locale = getLocale(Astro.url);
+const t = await createTInstance(locale);
+const dir = getDirection(locale);
 ---
 
 <Layout
-  title="Merchants"
-  description="Stores and merchants that accept Monero as payment"
+  title={t("merchants.pageTitle")}
+  description={t("merchants.heroSubtitle")}
 >
   <TitleCard
-    title="Merchants"
-    subtitle="Stores and merchants that accept Monero as payment."
+    title={t("merchants.heroTitle")}
+    subtitle={t("merchants.heroSubtitle")}
   />
 
   <div id="content">
     <p>
-      If you are looking for places to spend your Monero, the directories below provide a comprehensive list of options. Please remember to do your own research before trusting them with your money.
+      {t("merchants.intro")}
     </p>
 
         <div class="button-container">
       <ExternalResourceButton
         href="https://cryptwerk.com/pay-with/xmr"
         title="Cryptwerk"
-        subtitle="Directory of merchants accepting Monero"
+        subtitle={t("merchants.subtitles.cryptwerk")}
         logo={cryptwerkLogo}
+        rtl={dir == "rtl"}
       />
       <ExternalResourceButton
         href="https://monerica.com/"
         title="Monerica"
-        subtitle="Comprehensive directory for Monero merchants"
+        subtitle={t("merchants.subtitles.monerica")}
         logo={monericaLogo}
+        rtl={dir == "rtl"}
       />
     </div>
   </div>

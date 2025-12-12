@@ -10,9 +10,10 @@ export interface Props extends HTMLAttributes<'a'> {
   title: string;
   subtitle: string;
   logo: ImageMetadata;
+  rtl?: boolean;
 }
 
-const { href, title, subtitle, logo, ...rest } = Astro.props;
+const { href, title, subtitle, logo, rtl, ...rest } = Astro.props;
 ---
 
 <a
@@ -23,7 +24,7 @@ const { href, title, subtitle, logo, ...rest } = Astro.props;
   {...rest}
 >
   <div class="image">
-    <Image src={logo} alt={`${title} Logo`} />
+    <Image src={logo} alt={`${title} Logo`} format="avif" priority />
   </div>
   
   <div class="text">
@@ -31,26 +32,24 @@ const { href, title, subtitle, logo, ...rest } = Astro.props;
     <span class="subtitle">{subtitle}</span>
   </div>
   
-  <MaskIcon src={externalLinkIcon} size="1em" color="var(--monero-orange)" />
+  <MaskIcon src={externalLinkIcon} size="1em" color="var(--monero-orange)" rtl={rtl}/>
 </a>
 
 <style>
   .external-resource-button {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    background: var(--card-color);
+    color: var(--monero-orange);
+    align-items: center;
     padding: 1em;
-    border-radius: 0.75rem;
-    font: inherit;
+    border-radius: 0.5rem;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     border: 1px solid var(--border-color);
     cursor: pointer;
     text-decoration: none;
     user-select: none;
-    background: var(--card-color);
-    color: var(--monero-orange);
-    transition: background 0.2s ease;
   }
   .external-resource-button:hover,
   .external-resource-button:focus-visible {

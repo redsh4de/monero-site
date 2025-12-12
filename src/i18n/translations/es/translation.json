@@ -433,6 +433,16 @@
       "none": "Ninguno"
     }
   },
+  "merchants": {
+    "pageTitle": "Comerciantes | Monero - criptomoneda segura, privada, no rastreable.",
+    "heroTitle": "Comerciantes",
+    "heroSubtitle": "Tiendas y comerciantes que aceptan Monero como pago.",
+    "intro": "Si estás buscando lugares para gastar tu Monero, los directorios a continuación proporcionan una lista completa de opciones. Recuerda hacer tu propia investigación antes de confiarles tu dinero.",
+    "subtitles": {
+      "cryptwerk": "Directorio de comerciantes que aceptan Monero",
+      "monerica": "Directorio completo para comerciantes de Monero"
+    }
+  },
   "blog": {
     "index": {
       "pageTitle": "Blog | Monero - criptomoneda segura, privada, no rastreable.",
