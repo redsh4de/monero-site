@@ -67,42 +67,9 @@ import briefcaseIcon from "@/assets/icons/mask/briefcase.avif";
           You don't have to do anything special or opt-in. Privacy is built into every single Monero transaction.
         </p>
       </div>
-      {/* <div class="solution-card">
-        <div class="solution-item">
-          <span class="icon">
-            <MaskIcon src={hatGlassesIcon} size="2rem" />
-          </span>
-          <div class="text">
-                      <p class="title">Stealth Addresses</p>
-          <p class="subtitle">
-            Unique, one-time addresses are created for each transaction, ensuring the recipient's identity remains confidential.
-          </p>
-          </div>
-        </div>
-        <div class="solution-item">
-          <span class="icon">
-            <MaskIcon src={shieldCheckIcon} size="2rem" />
-          </span>
-          <div class="text">
-            <p class="title">FCMP++</p>
-            <p class="subtitle">
-              Full Chain Membership Proofs (FCMP++) are zero knowledge proofs that prove a payment used a real coin on the blockchain, without revealing which one - protecting the sender's privacy.
-            </p>
-          </div>
-        </div>
-        <div class="solution-item">
-          <span class="icon">
-            <MaskIcon src={scalesIcon} size="2rem" />
-          </span>
-          <div class="text">
-            <p class="title">CT (Confidential Transactions)</p>
-            <p class="subtitle">
-            The transaction amount is hidden using advanced cryptographic techniques, ensuring that only the sender and receiver know the value being transferred.
-          </p>
-          </div>
-        </div>
-      </div>*/}
-      <img src={cryptoLock.src} alt="Monero Logo" style="height: 343px; width: 100%; object-fit: contain;" />
+      <div class="media">
+        <Image src={cryptoLock} alt="Crypto Lock" />
+      </div>
     </div>
 
     <hr />
@@ -209,8 +176,8 @@ import briefcaseIcon from "@/assets/icons/mask/briefcase.avif";
           <a href="/community" class="cta">Contribute to Monero <MaskIcon src={arrowRight} size="1em" /></a>
         </div>
       </div>
-      <div class="image">
-        <Image src={communityLogo} alt="Monero Community Logo" style="height: 343px; object-fit: contain;" />
+      <div class="media">
+        <Image src={communityLogo} alt="Monero Community Logo" />
       </div>
     </div>
 
@@ -259,6 +226,20 @@ import briefcaseIcon from "@/assets/icons/mask/briefcase.avif";
     font-size: var(--font-size-lg);
     max-width: 75ch;
     margin-inline: auto;
+  }
+  .card-item .media {
+    position: relative;
+    min-width: 0;
+    align-self: stretch;
+  }
+  .card-item .media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
   }
   .card-item.reverse .text {
     order: 2;
