@@ -1,12 +1,401 @@
 ---
+import placeholder from "@/assets/icons/mask/placeholder.avif";
+import MaskIcon from "@/components/ui/MaskIcon.astro";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 import TitleCard from "@/components/ui/TitleCard.astro";
+
+import globeIcon from "@/assets/icons/mask/globe.avif";
+import shieldCheckIcon from "@/assets/icons/mask/shieldCheck.avif";
+import scalesIcon from "@/assets/icons/mask/scales.avif";
+import usersIcon from "@/assets/icons/mask/users.avif";
+import hatGlassesIcon from "@/assets/icons/mask/hat-glasses.avif";
+
+import zapIcon from "@/assets/icons/mask/zap.avif";
+import arrowRight from "@/assets/icons/mask/arrow-right.avif";
+import moneroIcon from "@/assets/icons/color/monero.avif";
+
+import surveillanceImage from "@/assets/images/surveillanceImage.png";
+import cryptoLock from "@/assets/images/crypto-lock.png";
+import communityLogo from "@/assets/images/community-logo.png";
+import eyeOffIcon from "@/assets/icons/mask/eyeOff.avif";
+import shieldPlusIcon from "@/assets/icons/mask/shieldPlus.avif";
+
+import coinsIcon from "@/assets/icons/mask/coins.avif";
+import fistIcon from "@/assets/icons/mask/fist.avif";
+import briefcaseIcon from "@/assets/icons/mask/briefcase.avif";
 ---
 
 <Layout
   title="What is Monero?"
   description="An introduction to Monero, the privacy-focused cryptocurrency."
 >
-  <TitleCard title="What is Monero?" />
+  <TitleCard
+    title="What is Monero?"
+  />
+
+  <div id="content">
+    <div class="card-item">
+      <div class="text">
+        <span class="eyebrow"> The problem </span>
+        <h2>Most cryptocurrencies are <span style="color: oklch(70.4% 0.191 22.216);">not private</span></h2>
+        <p>
+          Bitcoin, Ethereum, and most other cryptocurrencies have transparent
+          blockchains. From your wallet address, anyone can see your balance, track your spending, and
+          trace where your money goes.<br/><br/> Imagine if everyone could see your bank
+          statement - that's how most cryptocurrencies work.<br/><br/>This lack of privacy introduces
+          significant risks, from targeted theft to financial surveillance by
+          governments and corporations.
+        </p>
+      </div>
+      <div style="color: var(--monero-orange); height: 100%; width: 100%;">
+        <MaskIcon src={surveillanceImage} size="100%" />
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="card-item reverse">
+      <div class="text">
+        <span class="eyebrow">The solution</span>
+        <h2>Monero is <span style="color: var(--monero-orange);">private by default</span></h2>
+        <p>
+          Monero is the leading cryptocurrency where <b>every user is private by default.</b> Nobody can see your balance or track your spending without your permission.
+          <br>
+          <br>
+          You don't have to do anything special or opt-in. Privacy is built into every single Monero transaction.
+        </p>
+      </div>
+      {/* <div class="solution-card">
+        <div class="solution-item">
+          <span class="icon">
+            <MaskIcon src={hatGlassesIcon} size="2rem" />
+          </span>
+          <div class="text">
+                      <p class="title">Stealth Addresses</p>
+          <p class="subtitle">
+            Unique, one-time addresses are created for each transaction, ensuring the recipient's identity remains confidential.
+          </p>
+          </div>
+        </div>
+        <div class="solution-item">
+          <span class="icon">
+            <MaskIcon src={shieldCheckIcon} size="2rem" />
+          </span>
+          <div class="text">
+            <p class="title">FCMP++</p>
+            <p class="subtitle">
+              Full Chain Membership Proofs (FCMP++) are zero knowledge proofs that prove a payment used a real coin on the blockchain, without revealing which one - protecting the sender's privacy.
+            </p>
+          </div>
+        </div>
+        <div class="solution-item">
+          <span class="icon">
+            <MaskIcon src={scalesIcon} size="2rem" />
+          </span>
+          <div class="text">
+            <p class="title">CT (Confidential Transactions)</p>
+            <p class="subtitle">
+            The transaction amount is hidden using advanced cryptographic techniques, ensuring that only the sender and receiver know the value being transferred.
+          </p>
+          </div>
+        </div>
+      </div>*/}
+      <img src={cryptoLock.src} alt="Monero Logo" style="height: 343px; width: 100%; object-fit: contain;" />
+    </div>
+
+    <hr />
+
+    <div class="card-item centered">
+      <div class="text">
+        <span class="eyebrow">Technology</span>
+        <h2>How Monero protects you</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={hatGlassesIcon} size="100%" />
+          </div>
+          <h3>Stealth Addresses</h3>
+          <p>
+            Each transaction generates a unique, one-time address for the recipient, ensuring the receiver address never appears on the blockchain.
+          </p>
+          <p class="based-on">Based on: <a href="/resources/moneropedia/elliptic-curve-diffie-hellman/">Elliptic Curve Diffie-Hellman</a></p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={shieldPlusIcon} size="100%" />
+          </div>
+          <h3>FCMP++</h3>
+          <p>
+            Full Chain Membership Proofs (FCMP++) are zero knowledge proofs that prove a payment used a real coin on the blockchain, without revealing which one - protecting the sender's privacy.
+          </p>
+          <p class="based-on">Based on: <a href="/resources/moneropedia/curve-trees/">Curve Trees</a></p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={eyeOffIcon} size="100%" />
+          </div>
+          <h3>Confidential Transactions</h3>
+          <p>
+            Transaction amounts are encrypted, so only the sender and receiver know the value being transferred.
+          </p>
+          <p class="based-on">Based on: <a href="/resources/moneropedia/pedersen-commitment/">Pedersen Commitments</a> and <a href="/resources/moneropedia/bulletproofs/">Bulletproofs+</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="card-item centered">
+      <div class="text">
+        <span class="eyebrow">Use Cases</span>
+        <h2>Why people use Monero</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={shieldCheckIcon} size="100%" />
+          </div>
+          <h3>Financial Privacy</h3>
+          <p>
+            Keep your salary, savings, and spending habits private from employers, businesses, and data brokers.
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={coinsIcon} size="100%" />
+          </div>
+          <h3>Digital Cash</h3>
+          <p>
+            Send and receive payments anywhere in the world, with low fees and no intermediaries.
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={fistIcon} size="100%" />
+          </div>
+          <h3>Censorship Resistance</h3>
+          <p>
+            No government or corporation can freeze your funds or block your transactions.
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">
+            <MaskIcon src={briefcaseIcon} size="100%" />
+          </div>
+          <h3>Business Payments</h3>
+          <p>
+            Accept payments without exposing your revenue, suppliers, or financial relationships to competitors.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="card-item community">
+
+      <div class="text">
+        <h2>Built by a global community</h2>
+        <p>
+          Monero is not a company - it's an open-source project maintained by hundreds of developers worldwide. The <a href="/resources/research-lab/">Monero Research Lab</a> leads cutting-edge cryptography research, ensuring the protocol stays ahead of threats.
+        </p>
+        <p>
+          Since its launch, the project has received contributions from <b>500+ developers</b> located all around the world.
+        </p>
+        <div class="cta-links">
+          <a href="/community" class="cta">Join the community <MaskIcon src={arrowRight} size="1em" /></a>
+          <a href="/community" class="cta">Contribute to Monero <MaskIcon src={arrowRight} size="1em" /></a>
+        </div>
+      </div>
+      <div class="image">
+        <Image src={communityLogo} alt="Monero Community Logo" style="height: 343px; object-fit: contain;" />
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="card-item centered">
+      <div class="text">
+        <span class="eyebrow">Learn More</span>
+        <h2>Monero: Sound Money, Safe Mode</h2>
+        <p>
+          In this presentation, Dr. Daniel Kim covers Monero's origins and evolution, explains the core tech that enables private digital cash, and connects it to the broader philosophy of sound money.
+        </p>
+      </div>
+      <iframe
+        width="854"
+        height="480"
+        src="https://www.youtube.com/embed/wq6w03E2DS4"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+      
+  </div>
 </Layout>
+
+<style>
+  #content {
+    margin-top: 3rem;
+  }
+  .card-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-block: 2rem;
+  }
+  .card-item h2 {
+    font-size: var(--font-size-3xl);
+    color: var(--heading-color);
+    margin-top: 0.5rem;
+  }
+  .card-item p {
+    color: var(--paragraph-subtitle);
+    line-height: var(--line-height-body);
+    font-size: var(--font-size-lg);
+    max-width: 75ch;
+    margin-inline: auto;
+  }
+  .card-item.reverse .text {
+    order: 2;
+  }
+  .card-item.reverse .image {
+    order: 1;
+  }
+  .card-item.community  {
+    display: flex;
+  }
+
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+  .solution-card .solution-item {
+    display: flex;
+    gap: 1rem;
+  }
+  .solution-card .icon {
+    color: var(--monero-orange);
+  }
+  .solution-card .title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--heading-color);
+    margin: 0;
+  }
+  .solution-card .subtitle {
+    margin: 0;
+    color: var(--paragraph-subtitle);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-body);
+  }
+
+  .card-item.centered {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1em;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .feature-item {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+  }
+  .feature-item h3 {
+    font-size: var(--font-size-lg);
+    color: var(--heading-color);
+  }
+  .feature-item p {
+    color: var(--paragraph-subtitle);
+    font-size: var(--font-size-md);
+    margin: 0;
+  }
+
+  .feature-item .based-on {
+    font-size: var(--font-size-sm);
+    color: var(--paragraph-subtitle);
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+
+  .feature-item .based-on a {
+    color: var(--monero-orange);
+  }
+
+  .feature-item h3:has(span.num) {
+    margin-top: 0;
+  }
+
+  .feature-item .icon {
+    color: var(--monero-orange);
+    width: 2rem;
+    height: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+  }
+
+  .num {
+    font-weight: var(--font-weight-semibold);
+    font-size: 150%;
+    color: var(--monero-orange);
+    margin-inline-end: 1rem;
+  }
+
+  iframe {
+    display: block;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+  }
+
+  .cta-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+    font-weight: var(--font-weight-bold);
+    color: var(--monero-orange);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--monero-orange);
+    font-size: var(--font-size-sm);
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1em 0;
+  }
+
+  @media (max-width: 768px) {
+    .card-item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

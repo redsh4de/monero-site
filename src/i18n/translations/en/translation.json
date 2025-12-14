@@ -300,7 +300,7 @@
       "releaseNotes": "Release notes",
       "sourceCode": "Source code",
       "verifyDownload": "Verify",
-      "verifyDescription": "You are strongly advised to [verify the SHA-256 hash](https://docs.getmonero.org/interacting/verify-monero-binaries) of the file you downloaded.\n\nThis will confirm that the files you downloaded perfectly match the files uploaded by the Monero development workgroup. Please don't underestimate this step, a corrupted archive could result in lost funds.",
+      "verifyDescription": "You are strongly advised to <a href=\"{{verifyInstructionLink}}\" target=\"_blank\" rel=\"noopener noreferrer\">verify the SHA-256 hash</a> of the file you downloaded.\n\nThis will confirm that the files you downloaded perfectly match the files uploaded by the Monero development workgroup. Please don't underestimate this step, a corrupted archive could result in lost funds.",
       "viewHashes": "View hashes",
       "downloadButton": "Download",
       "torrent": "Torrent",
