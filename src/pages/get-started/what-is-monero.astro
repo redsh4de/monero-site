@@ -20,6 +20,11 @@ import shieldPlusIcon from "@/assets/icons/mask/shieldPlus.avif";
 import arrowRight from "@/assets/icons/mask/arrow-right.avif";
 
 import Button from "@/components/ui/Button.astro";
+import { createTInstance, getDirection, getLocale } from "@/i18n/utils";
+
+const locale = getLocale(Astro.url);
+const dir = getDirection(locale);
+const t = createTInstance(locale);
 ---
 
 <Layout
@@ -244,10 +249,10 @@ import Button from "@/components/ui/Button.astro";
         </p>
         <div class="community-cta-links">
           <a href="/community/hangouts/" aria-label="Join the community"
-            >Join the community <MaskIcon src={arrowRight} size="1em" /></a
+            >Join the community <MaskIcon src={arrowRight} size="1em" rtl={dir == "rtl"}/></a
           >
           <a href="/community/workgroups/" aria-label="Contribute to Monero"
-            >Contribute to Monero <MaskIcon src={arrowRight} size="1em" /></a
+            >Contribute to Monero <MaskIcon src={arrowRight} size="1em" rtl={dir == "rtl"}/></a
           >
         </div>
       </div>
