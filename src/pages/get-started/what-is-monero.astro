@@ -219,7 +219,7 @@ const t = await createTInstance(locale);
                     locale,
                     "/resources/moneropedia/elliptic-curve-diffie-hellman/",
                   ),
-                }
+                },
               ),
             )}
           />
@@ -310,11 +310,8 @@ const t = await createTInstance(locale);
         <p
           set:html={safeMarkdown.parseInline(
             t("what-is-monero.sections.community.content", {
-              mrlLink: localizeHref(
-                locale,
-                "/resources/research-lab/",
-              ),
-            })
+              mrlLink: localizeHref(locale, "/resources/research-lab/"),
+            }),
           )}
         />
         <div class="community-cta-links">
@@ -345,10 +342,16 @@ const t = await createTInstance(locale);
       <h2 class="title">{t("what-is-monero.sections.cta.title")}</h2>
       <p class="subtitle">{t("what-is-monero.sections.cta.subtitle")}</p>
       <div class="cta-buttons">
-        <Button variant="primary" href={localizeHref(locale, "/downloads/community/#wallets")}>
+        <Button
+          variant="primary"
+          href={localizeHref(locale, "/downloads/community/#wallets")}
+        >
           {t("what-is-monero.sections.cta.downloadWallet")}
         </Button>
-        <Button variant="secondary" href={localizeHref(locale, "/get-started/exchanges/")}>
+        <Button
+          variant="secondary"
+          href={localizeHref(locale, "/get-started/exchanges/")}
+        >
           {t("what-is-monero.sections.cta.getMonero")}
         </Button>
       </div>

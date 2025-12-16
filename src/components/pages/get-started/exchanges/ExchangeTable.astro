@@ -1,5 +1,7 @@
 ---
 import DisclaimerNote from "@/components/ui/DisclaimerNote.astro";
+import { getPublicImageDimensions } from "@/utils/image";
+import { Image } from "astro:assets";
 import type { TFunction } from "i18next";
 
 export interface Props {
@@ -59,7 +61,7 @@ const { title, description, exchanges, hasKyc, disclaimerText, t } =
           </thead>
 
           <tbody>
-            {exchanges.map((ex) => {
+            {exchanges.map(async (ex) => {
               const highlightTags =
                 [
                   ex.fiat && "fiat",
@@ -73,16 +75,19 @@ const { title, description, exchanges, hasKyc, disclaimerText, t } =
 
               const kycClass = ex.kycClass ?? "";
               const kycText = ex.kycReq ? t(`exchanges.kyc.${ex.kycReq}`) : "";
+              const imgDimensions = await getPublicImageDimensions(ex.img);
 
               return (
                 <tr class="exchange-row" data-highlight={highlightTags}>
                   <td class="with-icon" data-label={t("exchanges.table.name")}>
-                    <img
+                    <Image
                       src={ex.img}
+                      width={imgDimensions.width}
+                      height={imgDimensions.height}
                       alt={ex.alt}
                       class="exchange-icon"
-                      loading="lazy"
-                      decoding="async"
+                      format="avif"
+                      priority
                     />
                     <span class="exchange-name">{ex.name}</span>
                     <span class="exchange-description">
