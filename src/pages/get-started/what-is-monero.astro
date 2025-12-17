@@ -449,12 +449,12 @@ const getLanguageLabel = (lang: string): string => {
   .card-item h2 {
     font-size: var(--font-size-3xl);
     color: var(--heading-color);
-    margin: 0.5rem 0 0;
+    margin-top: 0.5rem;
   }
   .card-item p {
     font-size: var(--font-size-lg);
     max-width: 75ch;
-    margin: 0;
+    margin-inline: auto;
   }
 
   .card-item .media {
@@ -488,7 +488,7 @@ const getLanguageLabel = (lang: string): string => {
 
   .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
     justify-content: center;
   }
@@ -602,6 +602,10 @@ const getLanguageLabel = (lang: string): string => {
 
     .card-item.reverse .text {
       order: 2;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }
 
     .community-cta-links {

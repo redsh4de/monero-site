@@ -366,10 +366,6 @@ const navItems = [
     transform: translateX(100%);
     opacity: 0;
     pointer-events: none;
-
-    transition:
-      transform 0.25s ease,
-      opacity 0.25s ease;
   }
 
   .drawer-header {
@@ -427,13 +423,6 @@ const navItems = [
 
   .header:has(.lang-container[open]) {
     background: var(--card-color);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .nav,
-    .scrim {
-      transition: none;
-    }
   }
 
   @media (min-width: 1200px) and (hover: hover) {
@@ -504,9 +493,10 @@ const navItems = [
     }
   }
 
-  @media (hover: none) {
-    .header:has(.lang-container[open]) {
-      background: var(--bg-color);
+  @media (prefers-reduced-motion: reduce) {
+    .nav,
+    .scrim {
+      transition: none;
     }
   }
 </style>
