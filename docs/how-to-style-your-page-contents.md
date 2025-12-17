@@ -96,9 +96,12 @@ import Button from "@/components/ui/Button.astro";
   More info on `:global` usage: [Astro: Global Styles](https://docs.astro.build/en/guides/styling/#global-styles)
 
 ## Breakpoints & patterns
-
-- Project commonly uses: 600, 900, 1200px. Inspect nearby components to match the pattern (some use `min-width`, others `max-width`).
 - Prefer mobile-first patterns (use `@media (min-width: ...)`) unless a component already follows `max-width` patterns.
+- These are the common breakpoints used in the project:
+  - >= 600px: tablet
+  - >= 900px: small desktop
+  - >= 1200px: desktop
+
 
 ## Accessibility & dark mode
 
