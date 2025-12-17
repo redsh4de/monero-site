@@ -4,7 +4,7 @@
 
 - Create `src/pages/<your-path>/index.astro` or `src/pages/<name>.astro`.
 - Use `Layout` and `TitleCard` for consistent header/footer/hero.
-- Reuse components from `src/components/ui/` where needed.
+- Use components from `src/components/ui/` where needed.
 - Run `pnpm dev` and preview at `http://localhost:4321/<your-path>`.
 
 ## Minimal page template
@@ -33,6 +33,7 @@ import TitleCard from "@/components/ui/TitleCard.astro";
 
 Notes:
 - For nested routes, create folders: `src/pages/resources/my-page.astro` -> `/resources/my-page`.
+- If you need containers, UI elements, check if anything useful exists in `src/components/ui/`. Refer to [How to Use the UI Library](how-to-use-the-ui-library.md).
 - For dynamic routes, use `[...slug].astro` (see existing Moneropedia pages).
 
 ## Localization & titles

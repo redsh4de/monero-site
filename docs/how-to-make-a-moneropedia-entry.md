@@ -35,7 +35,7 @@ terms:
 
 - Keep the style clear and factual. Use short paragraphs and headings.
 - Link to other entries using `@term` (e.g., `@block`) - the remark plugin converts these to tooltip links automatically.
-- Add images in a local `assets/` folder (e.g., `./assets/diagram.avif`) and reference them in Markdown: `![Alt text](./assets/diagram.avif)`.
+- Add images in a local `assets/<file-name>/` folder (e.g., `./assets/daemon/diagram.avif`) and reference them in Markdown: `![Alt text](./assets/daemon/diagram.avif)`.
 
 ## 4. I18n & translation workflow
 
@@ -56,7 +56,7 @@ If you're only adding content in English, submit your PR and the translation tea
 
 - [ ] English source added to `src/content/moneropedia/en/`.
 - [ ] Front matter includes `title`, `summary`, and `terms`.
-- [ ] Images (if any) placed in `./assets/` and referenced relatively.
+- [ ] Images (if any) placed in `./assets/<file-name>/` and referenced relatively.
 - [ ] Run `pnpm dev` and verify entry renders and links work.
 - [ ] If you changed files/new files were added, consider running `pnpm run i18n:moneropedia:config` and `pnpm run i18n:moneropedia:update-po` (maintainers may run these during review).
 

@@ -16,7 +16,7 @@
    }
    ```
 
-   For dynamic content, use `{{variable}}` placeholders. Pass values when calling `t()` (see step 2).
+   For dynamic content (links, etc), use `{{variable}}` placeholders. Pass values when calling `t()` (see step 2).
 
 2. **Update the Page**: Import and use the translation instance.
 

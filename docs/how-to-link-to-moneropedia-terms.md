@@ -47,10 +47,10 @@ import { getLocale, createTInstance } from "@/i18n/utils";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
-const entries = await getMoneropediaEntries(locale);
+const mpEntries = await getMoneropediaEntries(locale);
 
 const html = marked.parse(t("safetyTip"));
-const processed = processHTMLString(html, entries, locale);
+const processed = processHTMLString(html, mpEntries, locale);
 ---
 
 <div set:html={DOMPurify.sanitize(processed)} />

@@ -13,7 +13,7 @@
 - Spacing: `--page-top-margin`, `--mobile-padding`, `--desktop-padding`.
 - Typography: `--font-size-base`, `--font-size-2xl`, `--font-weight-semibold`.
 
-See `src/styles/global.css` for the full list.
+See `src/styles/global.css` for the full list. These variables have built-in dark mode equivalents.
 
 ## Minimal page-scoped example
 
@@ -64,26 +64,41 @@ import Button from "@/components/ui/Button.astro";
 - Use component-scoped `<style>` to avoid global leakage.
 - Use `define:vars` for dynamic CSS variables when a component needs runtime values:
 
-```astro
----
-const size = "2rem";
----
-<div class="icon" />
+  ```astro
+  ---
+  const size = "2rem";
+  ---
+  <div class="icon" />
 
-<style define:vars={{ size }}>
-  .icon {
-    width: var(--size);
-    height: var(--size);
-  }
-</style>
-```
+  <style define:vars={{ size }}>
+    .icon {
+      width: var(--size);
+      height: var(--size);
+    }
+  </style>
+  ```
 
-- When adding icons, use the `MaskIcon` or `ColorIcon` components (icons live in `src/assets/icons/`).
+- Use `:global` to style imported components or global elements within a scoped `<style>` block. Chain it with a local class to target specific instances and avoid global side effects:
+  ```astro
+  <div class="my-wrapper">
+    <Button variant="primary">Click me</Button>
+  </div>
+
+  <style>
+    .my-wrapper :global(.button) {
+      border-radius: 0.5rem;
+    }
+  </style>
+  ```
+
+  `:global` is needed because Astro scopes styles by default to prevent conflicts. Without `:global`, styles only apply to elements within the component. Use it sparingly to avoid unintended global side effects.
+
+  More info on `:global` usage: [Astro: Global Styles](https://docs.astro.build/en/guides/styling/#global-styles)
 
 ## Breakpoints & patterns
 
 - Project commonly uses: 600, 900, 1200px. Inspect nearby components to match the pattern (some use `min-width`, others `max-width`).
-- Prefer mobile-first (use `@media (min-width: ...)`) unless a component already follows `max-width` patterns.
+- Prefer mobile-first patterns (use `@media (min-width: ...)`) unless a component already follows `max-width` patterns.
 
 ## Accessibility & dark mode
 

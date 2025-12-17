@@ -1,6 +1,6 @@
 # How to Handle Icons
 
-This guide explains how to work with icons in the Monero site, including adding new icons and using the provided icon components. The custom icon system using AVIF files and specialized components ensures compatibility with browsers that block SVG, and provides efficient, scalable icon handling.
+This guide explains how to work with icons in the Monero site, including adding new icons and using the provided icon components. The custom icon system using AVIF files ensures compatibility with browsers that block SVG, and provides efficient, scalable icon handling.
 
 ## Icon Storage
 
@@ -36,7 +36,10 @@ import downloadIcon from "@/assets/icons/mask/globe.avif";
   - `size`: Size (default "1em").
   - `color`: Color of the icon. By default it will inherit the text color.
   - `rtl`: Flip for right-to-left pages (boolean). Usually used with `getDirection(locale)` from `src/i18n/utils.ts`.
-  - `spacing`: Left margin (string). Example: "0.5em".
+    ```astro
+    <MaskIcon src={icon} rtl={getDirection(locale) === "rtl"} />
+    ```
+  - `spacing`: (optional) Left margin (string). Example: "0.5em".
 
 For `MaskIcon` usage examples, see `/src/components/layout/header/Header.astro`
 

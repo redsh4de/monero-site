@@ -14,8 +14,8 @@ Guides for building and customizing pages, including creation, styling, componen
 - [How to make a new page](how-to-make-a-new-page.md)
 - [How to style your page contents](how-to-style-your-page-contents.md)
 - [How to use the UI library](how-to-use-the-ui-library.md)
-- [How to handle assets and images](how-to-handle-assets-and-images.md)
 - [How to use and create icons](how-to-use-and-create-icons.md)
+- [How to handle assets and images](how-to-handle-assets-and-images.md)
 - [How to create a new component](how-to-create-a-new-component.md)
 
 ## Localization

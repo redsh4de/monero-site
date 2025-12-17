@@ -21,7 +21,7 @@ src/
 ├── layouts/                  # Layout templates wrapping pages
 ├── styles/                   # Global CSS (variables, moneropedia-link.css)
 ├── assets/                   # icons/ (color, mask), images/
-├── data/                     # JSON data (downloads, merchants, exchanges)
+├── data/                     # Static JSON data (downloads, merchants, exchanges)
 ├── utils/                    # Helpers (moneropedia.ts, image.ts, safeMarkdown)
 └── plugins/                  # Remark/AST plugins (remark-moneropedia)
 ```

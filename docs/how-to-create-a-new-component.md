@@ -1,5 +1,7 @@
 # How to Create a New Component
 
+For more detailed information, refer to the [Astro component documentation.](https://docs.astro.build/en/basics/astro-components/).
+
 ## Quick checklist
 
 - Pick type: UI (`src/components/ui/`) | Page (`src/components/pages/.../`) | Layout (`src/components/layout/`).
@@ -11,12 +13,12 @@
 Quick decision guide:
 
 - `src/components/ui/` -> **Reusable UI building blocks**
-  - Use for small, style/behavior-focused components that may appear across the site (Buttons, Accordions, Icon wrappers).
+  - Use for small, style/behavior-focused components that may be used across the site (Buttons, Accordions, Icon wrappers).
   - Keep these dependency-free (accept props, avoid page-specific logic).
   - Example: `src/components/ui/Button.astro`, `Accordion.astro`.
 
 - `src/components/pages/` -> **Page-specific or feature components**
-  - Use when the component is tightly coupled to one page or feature (e.g., blog listing card, downloads grid, search results component).
+  - Use when the component is tightly coupled to one page or feature (e.g., blog listing card, downloads grid, search results component, exchanges table).
   - They can import page-level helpers and expect specific data shapes.
   - Example: `src/components/pages/blog/BlogCard.astro`.
 

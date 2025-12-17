@@ -23,7 +23,7 @@ export const rtlLocales = ["ar", "he", "fa", "ur"];
 ```
 
 Notes:
-- Adding a locale here will automatically make it available to the language dropdown and other i18n utilities (e.g., `getLocale`, `localizeHref`).
+- Adding a locale here will automatically make it available to the language dropdown and all other i18n utilities (e.g., `getLocale`, `localizeHref`).
 - Use the same short code consistently across the repo (e.g., `de`, `pt-br`, `nb-no`).
 
 ## 2. Create translation files (required)
@@ -31,7 +31,7 @@ Notes:
 Create a folder for the new language translations:
 
 ```
-src/i18n/translations/<lang>/
+mkdir -p src/i18n/translations/<lang>/
 ```
 
 Copy `common.json` and `translation.json` from `src/i18n/translations/en/` into the new folder to seed the translation keys. Example:
@@ -50,8 +50,7 @@ Important:
 - Run: `pnpm dev`.
 - Visit the site and open the language selector - the new language should be listed.
 - Verify translated UI strings with `t()` work by replacing a string in the new `translation.json` for a quick smoke test.
-- For RTL languages, preview pages and verify layout/direction (inspect `dir` attribute and check `getDirection()` output).
-- Most UI and layout strings come from `src/i18n/translations/<lang>/common.json`.
+- For RTL languages, preview pages and verify layout/direction looks correct.
 
 ## PR checklist
 
@@ -59,7 +58,6 @@ Important:
 - [ ] Created `src/i18n/translations/<lang>/` and seeded `common.json` and `translation.json`.
 - [ ] If applicable, added the locale to `rtlLocales` (for RTL languages).
 - [ ] Tested with `pnpm dev` and confirmed the language appears in the selector and basic strings resolve.
-- [ ] Added notes in the PR description about Weblate and translation coordination if needed.
 
 ## Troubleshooting
 
