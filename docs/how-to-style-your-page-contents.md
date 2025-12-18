@@ -102,7 +102,7 @@ import Button from "@/components/ui/Button.astro";
   - >= 600px: small tablet
   - >= 900px: tablet
   - >= 1200px: small desktop
-  - >= 1536px: regular desktop
+  - >= 1536px: desktop
 
 
 ## Accessibility & dark mode
