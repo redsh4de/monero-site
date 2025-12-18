@@ -97,11 +97,12 @@ import Button from "@/components/ui/Button.astro";
 
 ## Breakpoints & patterns
 - Prefer mobile-first patterns (use `@media (min-width: ...)`) unless a component already follows `max-width` patterns.
-- These are the common breakpoints used in the project:
-  - >= 600px: tablet
-  - >= 900px: small desktop
-  - >= 1200px: desktop
-  - >= 1536px: large screens
+- These are the common screen width breakpoints used in the project:
+  - >= 0px: mobile
+  - >= 600px: small tablet
+  - >= 900px: tablet
+  - >= 1200px: small desktop
+  - >= 1536px: regular desktop
 
 
 ## Accessibility & dark mode
