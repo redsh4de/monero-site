@@ -14,7 +14,7 @@
     "main": "Privacy",
     "privacyText": "Monero respects privacy by providing full anonymity and untraceable transactions for users.",
     "decentralized": "Decentralized",
-    "decentralizedText": "With more than 3300 nodes, Monero is one of the most decentralized cryptocurrencies that exist.",
+    "decentralizedText": "With more than 5000 nodes, Monero is one of the most decentralized cryptocurrencies that exist.",
     "communityDriven": "Community-driven",
     "communityText": "Monero is developed and evolved by its community, more than 500 developers have contributed to the project.",
     "startTitle": "Start using Monero",
@@ -245,6 +245,119 @@
         "description": "Old and known resources with old guides and howtos",
         "ctaLabel": "Visit"
       }
+    }
+  },
+  "mining": {
+    "pageTitle": "Mining",
+    "description": "Mine Monero with RandomX. Start fast and decentralized with Gupax + P2Pool, or use XMRig for traditional pool setups.",
+    "hero": {
+      "title": "Mining",
+      "subtitle": "Monero is a cryptocurrency that relies on proof-of-work mining to achieve distributed consensus."
+    },
+    "gupax": {
+      "title": "Gupax",
+      "subtitle": "The user-friendly Monero miner",
+      "lead": "The fastest way to start mining Monero. Gupax bundles P2Pool and XMRig into a simple app with easy setup and clear stats.",
+      "bullets": [
+        "P2Pool (peer-to-peer pool) - no centralized operator",
+        "Bundled setup - fewer moving parts",
+        "Visibility - hashrate, shares, payouts, logs"
+      ],
+      "cta": "Get Gupax",
+      "href": "https://gupax.io/"
+    },
+    "xmrig": {
+      "title": "XMRig",
+      "subtitle": "Advanced: tuning, GPUs, custom pools",
+      "lead": "Prefer full control? Use XMRig directly for pool/solo mining and performance tuning.",
+      "bullets": [
+        "The most popular RandomX miner",
+        "Works with pools, solo, and many advanced configs"
+      ],
+      "cta": "XMRig on GitHub",
+      "href": "https://github.com/xmrig/xmrig"
+    },
+    "solo": {
+      "title": "Solo Mining",
+      "subtitle": "Most independent, most variance",
+      "lead": "Solo mining maximizes independence, but expect long gaps between payouts unless your hashrate is high.",
+      "bullets": [
+        "No pool fees, no operator trust",
+        "\"Lottery\" payouts - higher variance"
+      ],
+      "cta": "Solo mine (GUI guide)",
+      "href": "https://www.getmonero.org/resources/user-guides/solo_mine_GUI.html"
+    },
+    "resources": {
+      "title": "Resources",
+      "guides": {
+        "title": "Guides",
+        "items": [
+          {
+            "href": "https://www.getmonero.org/resources/user-guides/mine-to-pool.html",
+            "title": "Mine to a pool",
+            "subtitle": "Step-by-step guide to mining with XMRig"
+          },
+          {
+            "href": "https://gupax.io/#guide",
+            "title": "Gupax setup guide",
+            "subtitle": "Easy setup guide for Gupax miner"
+          }
+        ]
+      },
+      "pools": {
+        "title": "Pools",
+        "items": [
+          {
+            "href": "https://miningpoolstats.stream/monero",
+            "title": "Compare pools",
+            "subtitle": "Fees, hashrate, distribution"
+          }
+        ]
+      },
+      "benchmarks": {
+        "title": "Benchmarks",
+        "items": [
+          {
+            "href": "https://xmrig.com/benchmark",
+            "title": "Hashrate estimates",
+            "subtitle": "By CPU model"
+          }
+        ]
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "items": [
+        {
+          "title": "What is RandomX?",
+          "content": "@RandomX is Monero's ASIC-resistant proof-of-work algorithm that favors consumer-grade hardware (CPUs), making mining accessible to everyone."
+        },
+        {
+          "title": "Solo vs pool mining - what's the tradeoff?",
+          "content": "Solo mining maximizes independence but payouts can take a long time. Pools pay more frequently but add trust and centralization risk.\n\n### Solo\n- No pool operator, no pool fee\n- Long waits between rewards\n- Best for decentralization\n\n[Solo mining guide](https://www.getmonero.org/resources/user-guides/solo_mine_GUI.html)\n\n### Pool\n- More frequent payouts\n- Pool fee + operator trust\n- Centralization risk if one pool grows too large\n- Requires third-party mining software\n\n[Browse pools](https://miningpoolstats.stream/monero)"
+        },
+        {
+          "title": "Why is P2Pool \"best of both\"?",
+          "content": "P2Pool gives you pool-like payout frequency while keeping mining peer-to-peer and non-custodial.\n\n- No centralized pool server\n- 0% pool fee (you still pay your own node costs)\n- Permissionless: anyone can join\n- Trustless: funds never in custody\n- PPLNS payout scheme\n- Less than 0.0004 XMR minimum payout\n\n[P2Pool announcement](/blog/2021/10/05/p2pool-released/)"
+        },
+        {
+          "title": "What should I expect from my hardware?",
+          "content": "Monero mining is much more efficient on CPUs than GPUs. You can estimate your hashrate by comparing CPUs on XMRig's benchmark list.\n\n[XMRig benchmarks](https://xmrig.com/benchmark)"
+        },
+        {
+          "title": "What mining software should I use?",
+          "content": "For solo mining: Monero GUI or CLI wallet (CPU only). For pools or GPUs: XMRig, CSminer, or Gupax (which bundles P2Pool and XMRig).\n\n- [Monero GUI](https://www.getmonero.org/downloads/#gui) (solo mining)\n- [Monero CLI](https://www.getmonero.org/downloads/#cli) (solo mining)\n- [Gupax](https://gupax.io/) (P2Pool + XMRig wrapper)\n- [XMRig](https://github.com/xmrig/xmrig) (CPU/GPU miner)\n- [CSminer](https://github.com/cryptonote-social/csminer) (CPU/GPU miner)"
+        },
+        {
+          "title": "Where do I get help?",
+          "content": "Ask other miners in the Monero Pools chat:\n\n- [Matrix](https://matrix.to/#%23monero-pools:monero.social)\n- [Libera IRC](irc://irc.libera.chat/#monero-pools)"
+        }
+      ]
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content": "The Monero Project does not endorse any particular pool, software, or hardware, and the content above is provided for informational purposes only."
     }
   },
   "moneropedia": {

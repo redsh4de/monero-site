@@ -10,7 +10,7 @@ import TitleCard from "@/components/ui/TitleCard.astro";
 
 import coreDownloads from "@/data/downloads/core.json";
 
-import TOCItem from "@/components/ui/TOCItem.astro";
+import TOCContainer from "@/components/ui/TOCContainer.astro";
 
 import cliImage from "@/assets/images/cli.avif";
 import guiImage from "@/assets/images/gui.avif";
@@ -58,18 +58,10 @@ const sections = [
     links={tabs.map((tab) => tab.link)}
     activeIndex={0}
   />
-  <nav class="toc" aria-label={`${t("downloads.tabs.core")}` + " sections"}>
-    {
-      sections.map((section) => (
-        <TOCItem
-          href={`#${section.id}`}
-          icon={section.icon}
-          title={section.title}
-          subtitle={section.subtitle}
-        />
-      ))
-    }
-  </nav>
+  <TOCContainer
+    sections={sections}
+    ariaLabel={`${t("downloads.tabs.core")}` + " sections"}
+  />
 
   <div class="downloads-grid">
     <!-- Monero GUI Card -->
@@ -119,23 +111,6 @@ const sections = [
 </Layout>
 
 <style>
-  .toc {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
-    gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .toc :global(.toc-item) {
-    background: var(--card-color);
-  }
-
-  .toc :global(.toc-item:hover),
-  .toc :global(.toc-item:focus-visible) {
-    background: var(--card-hover-color);
-  }
-
   /* Core downloads */
   .downloads-grid {
     margin-top: 2rem;

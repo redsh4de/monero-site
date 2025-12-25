@@ -141,7 +141,7 @@ for (const letter of sortedLetters) {
   .letter-groups {
     overflow-y: auto;
     max-height: clamp(20rem, 70vh, 60rem);
-    padding-right: 0.5rem;
+    padding-inline-start: 0.5rem;
     scroll-behavior: smooth;
     scroll-padding-top: 0;
   }
@@ -193,7 +193,7 @@ for (const letter of sortedLetters) {
       padding: 0.5rem 1rem 0.5rem 2rem;
       margin-inline-start: -2rem;
       border-bottom: unset;
-      border-right: 1px solid var(--border-color);
+      border-inline-start: 1px solid var(--border-color);
       width: auto;
       position: sticky;
       top: var(--sticky-offset);
@@ -240,7 +240,7 @@ for (const letter of sortedLetters) {
     .letter-groups {
       overflow: visible;
       max-height: none;
-      padding-right: 0;
+      padding-inline-start: 0;
     }
 
     .letter-layout {

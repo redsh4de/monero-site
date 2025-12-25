@@ -2,6 +2,49 @@
 import Layout from "@/layouts/Layout.astro";
 
 import TitleCard from "@/components/ui/TitleCard.astro";
+import TOCContainer from "@/components/ui/TOCContainer.astro";
+
+import appWindowIcon from "@/assets/icons/mask/app-window.avif";
+import arrowRight from "@/assets/icons/mask/arrow-right.avif";
+import bookTextIcon from "@/assets/icons/mask/bookText.avif";
+import codeXmlIcon from "@/assets/icons/mask/codeXml.avif";
+import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
+import globeIcon from "@/assets/icons/mask/globe.avif";
+import handCoinsIcon from "@/assets/icons/mask/handCoins.avif";
+import heartPlusIcon from "@/assets/icons/mask/heartPlus.avif";
+import networkIcon from "@/assets/icons/mask/network.avif";
+import pickaxeIcon from "@/assets/icons/mask/pickaxe.avif";
+import piggyBankIcon from "@/assets/icons/mask/piggyBank.avif";
+import serverIcon from "@/assets/icons/mask/server.avif";
+import terminalIcon from "@/assets/icons/mask/terminal.avif";
+
+import CoreProjectCard from "@/components/pages/contribute/CoreProjectCard.astro";
+import ContentCard from "@/components/ui/ContentCard.astro";
+import MaskIcon from "@/components/ui/MaskIcon.astro";
+import { Image } from "astro:assets";
+
+import contributingData from "@/data/contributing/contributing.json";
+
+const sections = [
+  {
+    id: "supportTheNetwork",
+    icon: networkIcon,
+    title: "Support the Network",
+    subtitle: "Ways to help strengthen the Monero network",
+  },
+  {
+    id: "develop",
+    icon: codeXmlIcon,
+    title: "Develop",
+    subtitle: "Contribute to the Monero codebase and ecosystem",
+  },
+  {
+    id: "donate",
+    icon: heartPlusIcon,
+    title: "Donate",
+    subtitle: "Support the Monero project financially",
+  },
+];
 ---
 
 <Layout
@@ -12,4 +55,364 @@ import TitleCard from "@/components/ui/TitleCard.astro";
     title="Contribute"
     subtitle="Monero is an open-source, community-driven project. Described below are several ways to support the project."
   />
+
+  <TOCContainer sections={sections} ariaLabel="On this page" />
+
+  <div id="content">
+    <section class="section">
+      <header>
+        <h2 id="supportTheNetwork">Support the Network</h2>
+        <p>
+          Practical, high-impact contributions that strengthen decentralization
+          and security.
+        </p>
+      </header>
+
+      <div class="gridTwo">
+        <ContentCard title="Run a node" icon={serverIcon}>
+          <p>
+            An easy and effective way to help the Monero network is to run a
+            node. Nodes keep the network safe and decentralized. A fully
+            synchronized node is enough, but you can also run an open remote
+            node to let others connect.
+          </p>
+
+          <div slot="bottom">
+            <span class="title">Guides</span>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.getmonero.org/running-node/monerod-systemd/#debugging"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Monero Docs
+                  <MaskIcon src={arrowRight} size="1em" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://sethforprivacy.com/guides/run-a-monero-node/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  SethForPrivacy
+                  <MaskIcon src={externalLinkIcon} size="1em" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </ContentCard>
+
+        <ContentCard title="Mine" icon={pickaxeIcon}>
+          <p>
+            Mining ensures the safety of the network. Monero uses <b>RandomX</b
+            >, an ASIC-resistant algorithm developed by Monero contributors,
+            which aims to remain mineable by consumer-grade hardware (CPUs).
+          </p>
+
+          <div slot="bottom">
+            <a href="/get-started/mining/" target="_blank" rel="noopener">
+              Learn about mining
+              <MaskIcon src={arrowRight} size="1em" />
+            </a>
+          </div>
+        </ContentCard>
+      </div>
+    </section>
+
+    <hr aria-hidden="true" />
+
+    <section class="section">
+      <header>
+        <h2 id="develop">Develop</h2>
+        <p>
+          Monero is open source and permissionless. Contributors are welcome
+          across the ecosystem - from core to docs.
+        </p>
+      </header>
+
+      <h3>Core Projects</h3>
+      <div class="gridProjects">
+        <CoreProjectCard
+          title="Daemon"
+          description="The core Monero implementation, including the consensus rules, P2P network, and wallet functionality."
+          tags={["C++"]}
+          link="https://github.com/monero-project/monero"
+          icon={terminalIcon}
+        />
+        <CoreProjectCard
+          title="GUI Wallet"
+          description="The graphical user interface for Monero, providing an easy-to-use desktop application for managing Monero funds."
+          tags={["C++", "QML"]}
+          link="https://github.com/monero-project/monero-gui"
+          icon={appWindowIcon}
+        />
+        <CoreProjectCard
+          title="Monero Website"
+          description="This website, built with the Astro framework."
+          tags={["Astro", "TypeScript"]}
+          link="https://github.com/monero-project/monero-site"
+          icon={globeIcon}
+        />
+        <CoreProjectCard
+          title="Monero Docs"
+          description="Documentation for Monero, including user guides, developer resources, and protocol specifications."
+          tags={["Markdown"]}
+          link="https://github.com/monero-project/monero-docs"
+          icon={bookTextIcon}
+        />
+      </div>
+
+      <h3>Additional Resources</h3>
+      <ContentCard title="Bounties">
+        <p>
+          Prefer working on clearly-scoped tasks with a reward? Numerous
+          bounties are available for various Monero-related projects, ranging
+          from bug bounties to feature implementations.
+        </p>
+
+        <div slot="bottom">
+          <span class="title">Links</span>
+          <ul>
+            <li>
+              <a
+                href="https://bounties.monero.social/"
+                target="_blank"
+                rel="noopener"
+              >
+                Browse Monero Bounties
+                <MaskIcon src={externalLinkIcon} size="1em" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://hackerone.com/monero"
+                target="_blank"
+                rel="noopener"
+              >
+                Security disclosures (HackerOne)
+                <MaskIcon src={externalLinkIcon} size="1em" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ContentCard>
+    </section>
+
+    <hr aria-hidden="true" />
+
+    <section class="section">
+      <header>
+        <h2 id="donate">Donate</h2>
+        <p>
+          Fund specific work via CCS or support the general fund for long-term
+          resilience.
+        </p>
+      </header>
+
+      <div style="display: grid; gap: 1rem;">
+        <ContentCard title="Community Crowdfunding System" icon={handCoinsIcon}>
+          <p>
+            Monero utilizes a community crowdfunding system where projects are
+            proposed for development and community-funded. Funding is held in
+            escrow and remunerated to developers once programming milestones are
+            achieved. Anyone may generate new proposals or fund existing ones.
+          </p>
+
+          <div slot="bottom">
+            <a
+              href="https://ccs.getmonero.org/funding-required/"
+              target="_blank"
+              rel="noopener"
+            >
+              View CCS Proposals
+              <MaskIcon src={arrowRight} size="1em" />
+            </a>
+          </div>
+        </ContentCard>
+
+        <ContentCard title="General Fund" icon={piggyBankIcon}>
+          <p>
+            Donations to the general fund are used for emergencies or need.
+            Infrastructure costs are currently covered by sponsors.
+          </p>
+
+          <div class="donateGrid">
+            <article>
+              <h4>Monero (XMR)</h4>
+              <div class="donateRow">
+                <Image
+                  src={contributingData.xmr.qr_filename}
+                  alt="QR code for Monero donation"
+                  width={220}
+                  height={220}
+                />
+                <div>
+                  <code>{contributingData.xmr.address}</code>
+
+                  <details>
+                    <summary>View-only wallet details</summary>
+                    <div>
+                      <p><strong>Primary address</strong></p>
+                      <code>{contributingData.xmr.view_address}</code>
+                      <p><strong>View Key</strong></p>
+                      <code>{contributingData.xmr.view_key}</code>
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </article>
+
+            <article>
+              <h4>Bitcoin (BTC)</h4>
+              <div class="donateRow">
+                <Image
+                  src={contributingData.btc.qr_filename}
+                  alt="QR code for Bitcoin donation"
+                  width={220}
+                  height={220}
+                />
+                <div>
+                  <code>{contributingData.btc.address}</code>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <p class="finePrint">
+            OpenAlias: donate.getmonero.org<br />
+            E-mail <a href="mailto:dev@getmonero.org">dev@getmonero.org</a> for alternative
+            means of donating or to become a sponsor.
+          </p>
+        </ContentCard>
+      </div>
+    </section>
+  </div>
 </Layout>
+
+<style>
+  #content {
+    margin-top: 2rem;
+  }
+
+  .section > header {
+    margin-bottom: 1.25rem;
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    color: var(--heading-color);
+    margin: 0;
+    scroll-margin-top: 6.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section > header > p {
+    margin: 0.5rem 0 0;
+    color: var(--paragraph-subtitle);
+    max-width: 75ch;
+  }
+
+  .gridTwo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .gridProjects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .donateGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .donateRow {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .donateGrid > article {
+    background: var(--card-hover-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .donateGrid > article > h4 {
+    margin: 0 0 0.75rem;
+  }
+
+  .donateRow :global(img) {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .donateRow > :last-child {
+    min-width: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .donateGrid :global(code) {
+    display: block;
+    border: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    word-break: break-all;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    font-size: 0.95rem;
+  }
+
+  .donateGrid details {
+    border: 1px dashed var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .donateGrid details summary {
+    cursor: pointer;
+    font-weight: var(--font-weight-bold);
+  }
+
+  .donateGrid details > div {
+    margin-top: 0.75rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .donateGrid details p {
+    margin: 0;
+  }
+
+  .finePrint {
+    color: var(--paragraph-subtitle);
+    font-size: 0.95rem;
+    max-width: 80ch;
+  }
+
+  @media (max-width: 600px) {
+    .donateRow {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .donateGrid, .gridTwo {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

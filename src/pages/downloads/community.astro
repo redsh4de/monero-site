@@ -7,7 +7,7 @@ import CommunityCard from "@/components/pages/downloads/CommunityCard.astro";
 import Tabs from "@/components/ui/Tabs.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
-import TOCItem from "@/components/ui/TOCItem.astro";
+import TOCContainer from "@/components/ui/TOCContainer.astro";
 import communityWallets from "@/data/downloads/community.json";
 
 import serverIcon from "@/assets/icons/mask/server.avif";
@@ -97,21 +97,10 @@ const setBuiltinId = (wallet: Wallet) => {
     activeIndex={1}
   />
 
-  <nav
-    class="toc"
-    aria-label={`${t("downloads.tabs.community")}` + " sections"}
-  >
-    {
-      sections.map((section) => (
-        <TOCItem
-          href={`#${section.id}`}
-          icon={section.icon}
-          title={section.title}
-          subtitle={section.subtitle}
-        />
-      ))
-    }
-  </nav>
+  <TOCContainer
+    sections={sections}
+    ariaLabel={`${t("downloads.tabs.community")}` + " sections"}
+  />
 
   <!-- Wallets -->
   <h2 class="section-title" id="wallets">
@@ -241,23 +230,6 @@ const setBuiltinId = (wallet: Wallet) => {
 </Layout>
 
 <style>
-  .toc {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
-    gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .toc :global(.toc-item) {
-    background: var(--card-color);
-  }
-
-  .toc :global(.toc-item:hover),
-  .toc :global(.toc-item:focus-visible) {
-    background: var(--card-hover-color);
-  }
-
   .section-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
