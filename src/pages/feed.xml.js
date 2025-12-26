@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 import { getDateStringFromId } from "@/utils/blog";
 import { getCollection } from "astro:content";
-import { createSafeMarkdown} from "@/utils/safeMarkdown";
+import { createSafeMarkdown } from "@/utils/safeMarkdown";
 
 const safeMarkdown = createSafeMarkdown();
 
