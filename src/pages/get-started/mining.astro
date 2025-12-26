@@ -5,6 +5,8 @@ import ContentCard from "@/components/ui/ContentCard.astro";
 import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
+import PageContainer from "@/components/ui/PageContainer.astro";
+import PageSection from "@/components/ui/PageSection.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
@@ -42,134 +44,134 @@ const faqItems = (
 ---
 
 <Layout title={t("mining.pageTitle")} description={t("mining.description")}>
-  <div class="page">
-    <TitleCard
-      title={t("mining.hero.title")}
-      subtitle={t("mining.hero.subtitle")}
-    />
-
-    <section class="grid" aria-label="Mining options">
-      <ContentCard
-        class="cardGupax"
-        title={t("mining.gupax.title")}
-        subtitle={t("mining.gupax.subtitle")}
-        icon={appWindowIcon}
-      >
-        <div class="frame">
-          <Image
-            src={gupaxWindow}
-            alt="Gupax window showing P2Pool and XMRig status"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-
-        <p class="lead">
-          {t("mining.gupax.lead")}
-        </p>
-
-        <ul class="bullets">
-          {
-            (
-              t("mining.gupax.bullets", { returnObjects: true }) as string[]
-            ).map((bullet: string) => <li>{bullet}</li>)
-          }
-        </ul>
-
-        <a
-          slot="bottom"
-          href="https://gupax.io/"
-          target="_blank"
-          rel="noopener"
-          class="cta"
-        >
-          {t("mining.gupax.cta")}
-          <MaskIcon src={externalLinkIcon} size="1em" />
-        </a>
-      </ContentCard>
-
-      <div class="rightCol" aria-label="Right column">
+  <TitleCard
+    title={t("mining.hero.title")}
+    subtitle={t("mining.hero.subtitle")}
+  />
+  <PageContainer>
+    <PageSection ariaLabel="Mining options">
+      <div class="grid">
         <ContentCard
-          title={t("mining.xmrig.title")}
-          subtitle={t("mining.xmrig.subtitle")}
-          icon={terminalIcon}
+          class="cardGupax"
+          title={t("mining.gupax.title")}
+          subtitle={t("mining.gupax.subtitle")}
+          icon={appWindowIcon}
         >
-          <div
-            aria-label="XMRig terminal window showing mining status"
-            style="margin: 0 auto;"
-          >
+          <div class="frame">
             <Image
-              src={xmrigWindow}
-              alt="XMRig terminal window showing mining status"
+              src={gupaxWindow}
+              alt="Gupax window showing P2Pool and XMRig status"
               loading="lazy"
               decoding="async"
-              height={100}
             />
           </div>
 
           <p class="lead">
-            {t("mining.xmrig.lead")}
+            {t("mining.gupax.lead")}
           </p>
 
           <ul class="bullets">
             {
               (
-                t("mining.xmrig.bullets", { returnObjects: true }) as string[]
+                t("mining.gupax.bullets", { returnObjects: true }) as string[]
               ).map((bullet: string) => <li>{bullet}</li>)
             }
           </ul>
 
           <a
             slot="bottom"
-            href="https://github.com/xmrig/xmrig"
+            href="https://gupax.io/"
             target="_blank"
             rel="noopener"
             class="cta"
           >
-            {t("mining.xmrig.cta")}
+            {t("mining.gupax.cta")}
             <MaskIcon src={externalLinkIcon} size="1em" />
           </a>
         </ContentCard>
 
-        <ContentCard
-          class="cardSolo"
-          title={t("mining.solo.title")}
-          subtitle={t("mining.solo.subtitle")}
-          icon={pickaxeIcon}
-        >
-          <p class="lead">
-            {t("mining.solo.lead")}
-          </p>
-
-          <ul class="bullets">
-            {
-              (
-                t("mining.solo.bullets", { returnObjects: true }) as string[]
-              ).map((bullet: string) => <li>{bullet}</li>)
-            }
-          </ul>
-
-          <a
-            slot="bottom"
-            href={localizeHref(locale, "/resources/user-guides/solo_mine_GUI")}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cta"
+        <div class="rightCol" aria-label="Right column">
+          <ContentCard
+            title={t("mining.xmrig.title")}
+            subtitle={t("mining.xmrig.subtitle")}
+            icon={terminalIcon}
           >
-            {t("mining.solo.cta")}
-            <MaskIcon src={externalLinkIcon} size="1em" />
-          </a>
-        </ContentCard>
+            <div
+              aria-label="XMRig terminal window showing mining status"
+              style="margin: 0 auto;"
+            >
+              <Image
+                src={xmrigWindow}
+                alt="XMRig terminal window showing mining status"
+                loading="lazy"
+                decoding="async"
+                height={100}
+              />
+            </div>
+
+            <p class="lead">
+              {t("mining.xmrig.lead")}
+            </p>
+
+            <ul class="bullets">
+              {
+                (
+                  t("mining.xmrig.bullets", { returnObjects: true }) as string[]
+                ).map((bullet: string) => <li>{bullet}</li>)
+              }
+            </ul>
+
+            <a
+              slot="bottom"
+              href="https://github.com/xmrig/xmrig"
+              target="_blank"
+              rel="noopener"
+              class="cta"
+            >
+              {t("mining.xmrig.cta")}
+              <MaskIcon src={externalLinkIcon} size="1em" />
+            </a>
+          </ContentCard>
+
+          <ContentCard
+            class="cardSolo"
+            title={t("mining.solo.title")}
+            subtitle={t("mining.solo.subtitle")}
+            icon={pickaxeIcon}
+          >
+            <p class="lead">
+              {t("mining.solo.lead")}
+            </p>
+
+            <ul class="bullets">
+              {
+                (
+                  t("mining.solo.bullets", { returnObjects: true }) as string[]
+                ).map((bullet: string) => <li>{bullet}</li>)
+              }
+            </ul>
+
+            <a
+              slot="bottom"
+              href={localizeHref(
+                locale,
+                "/resources/user-guides/solo_mine_GUI",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta"
+            >
+              {t("mining.solo.cta")}
+              <MaskIcon src={externalLinkIcon} size="1em" />
+            </a>
+          </ContentCard>
+        </div>
       </div>
-    </section>
+    </PageSection>
 
     <hr aria-hidden="true" />
 
-    <section aria-label="Resources">
-      <header class="sectionHeader">
-        <h2 class="sectionTitle">{t("mining.resources.title")}</h2>
-      </header>
-
+    <PageSection title={t("mining.resources.title")}>
       <div class="resourceGrid">
         <div class="resourceGroup">
           <h3 class="resourceLabel">{t("mining.resources.guides.title")}</h3>
@@ -228,22 +230,18 @@ const faqItems = (
           </ul>
         </div>
       </div>
-    </section>
+    </PageSection>
 
     <hr aria-hidden="true" />
 
-    <section class="faq" aria-label="Mining FAQ">
-      <header class="sectionHeader">
-        <h2 class="sectionTitle">{t("mining.faq.title")}</h2>
-      </header>
-
+    <PageSection class="faq" title={t("mining.faq.title")}>
       <Accordion variant="card" items={faqItems} />
 
       <DisclaimerBar icon={shieldIcon} title={t("mining.disclaimer.title")}>
         {t("mining.disclaimer.content")}
       </DisclaimerBar>
-    </section>
-  </div>
+    </PageSection>
+  </PageContainer>
 
   <style>
     .grid {
@@ -251,7 +249,6 @@ const faqItems = (
       grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: 1.25rem;
       align-items: stretch;
-      margin-top: 3rem;
     }
 
     .cardGupax {
@@ -307,21 +304,6 @@ const faqItems = (
       display: block;
       width: 100%;
       height: auto;
-    }
-
-    .sectionHeader {
-      margin-bottom: 1rem;
-      max-width: 80ch;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .sectionTitle {
-      margin: 0;
-      font-size: var(--font-size-xl);
-      color: var(--heading-color);
-      letter-spacing: -0.01em;
     }
 
     .resourceGrid {

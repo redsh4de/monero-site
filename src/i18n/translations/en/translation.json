@@ -338,7 +338,7 @@
         },
         {
           "title": "Where do I get help?",
-          "content": "Ask other miners in the Monero Pools chat:\n\n- [Matrix](https://matrix.to/#%23monero-pools:monero.social)\n- [Libera IRC](irc://irc.libera.chat/#monero-pools)"
+          "content": "Connect with other miners on the r/MoneroMining subreddit: https://www.reddit.com/r/MoneroMining/"
         }
       ]
     },
@@ -686,7 +686,7 @@
       },
       "develop": {
         "title": "Develop",
-        "subtitle": "Monero is open source and permissionless. Contributors are welcome across the ecosystem - from core to docs.",
+        "subtitle": "Monero is open source and permissionless. Contributors are welcome across the ecosystem.",
         "coreProjects": "Core Projects",
         "daemon": {
           "title": "Daemon",

@@ -21,6 +21,8 @@ import terminalIcon from "@/assets/icons/mask/terminal.avif";
 import CoreProjectCard from "@/components/pages/contribute/CoreProjectCard.astro";
 import ContentCard from "@/components/ui/ContentCard.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
+import PageContainer from "@/components/ui/PageContainer.astro";
+import PageSection from "@/components/ui/PageSection.astro";
 import { Image } from "astro:assets";
 
 import contributingData from "@/data/contributing/contributing.json";
@@ -63,17 +65,13 @@ const sections = [
 
   <TOCContainer sections={sections} ariaLabel="On this page" />
 
-  <div id="content">
-    <section class="section">
-      <header>
-        <h2 id="supportTheNetwork">
-          {t("contribute.sections.supportTheNetwork.title")}
-        </h2>
-        <p>
-          {t("contribute.sections.supportTheNetwork.subtitle")}
-        </p>
-      </header>
-
+  <PageContainer>
+    <PageSection
+      class="section"
+      anchorId="supportTheNetwork"
+      title={t("contribute.sections.supportTheNetwork.title")}
+      subtitle={t("contribute.sections.supportTheNetwork.subtitle")}
+    >
       <div class="gridTwo">
         <ContentCard
           title={t("contribute.sections.supportTheNetwork.runANode.title")}
@@ -138,18 +136,16 @@ const sections = [
           </div>
         </ContentCard>
       </div>
-    </section>
+    </PageSection>
 
     <hr aria-hidden="true" />
 
-    <section class="section">
-      <header>
-        <h2 id="develop">{t("contribute.sections.develop.title")}</h2>
-        <p>
-          {t("contribute.sections.develop.subtitle")}
-        </p>
-      </header>
-
+    <PageSection
+      class="section"
+      anchorId="develop"
+      title={t("contribute.sections.develop.title")}
+      subtitle={t("contribute.sections.develop.subtitle")}
+    >
       <h3>{t("contribute.sections.develop.coreProjects")}</h3>
       <div class="gridProjects">
         <CoreProjectCard
@@ -218,18 +214,16 @@ const sections = [
           </ul>
         </div>
       </ContentCard>
-    </section>
+    </PageSection>
 
     <hr aria-hidden="true" />
 
-    <section class="section">
-      <header>
-        <h2 id="donate">{t("contribute.sections.donate.title")}</h2>
-        <p>
-          {t("contribute.sections.donate.subtitle")}
-        </p>
-      </header>
-
+    <PageSection
+      class="section"
+      anchorId="donate"
+      title={t("contribute.sections.donate.title")}
+      subtitle={t("contribute.sections.donate.subtitle")}
+    >
       <div style="display: grid; gap: 1rem;">
         <ContentCard
           title={t(
@@ -342,33 +336,11 @@ const sections = [
           />
         </ContentCard>
       </div>
-    </section>
-  </div>
+    </PageSection>
+  </PageContainer>
 </Layout>
 
 <style>
-  #content {
-    margin-top: 2rem;
-  }
-
-  .section > header {
-    margin-bottom: 1.25rem;
-  }
-
-  h2 {
-    font-size: var(--font-size-xl);
-    color: var(--heading-color);
-    margin: 0;
-    scroll-margin-top: 6.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .section > header > p {
-    margin: 0.5rem 0 0;
-    color: var(--paragraph-subtitle);
-    max-width: 75ch;
-  }
-
   .gridTwo {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -412,13 +384,7 @@ const sections = [
     background: rgba(0, 0, 0, 0.03);
   }
 
-  .donateRow > :last-child {
-    min-width: 0;
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .donateGrid :global(code) {
+  .donateGrid code {
     display: block;
     border: 1px solid var(--border-color);
     background: rgba(0, 0, 0, 0.05);
@@ -428,7 +394,7 @@ const sections = [
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    font-size: 0.95rem;
+    font-size: var(--font-size-sm);
   }
 
   .donateGrid details {
@@ -436,6 +402,7 @@ const sections = [
     border-radius: 0.5rem;
     padding: 0.6rem 0.75rem;
     background: rgba(0, 0, 0, 0.02);
+    margin-top: 1rem;
   }
 
   .donateGrid details summary {
@@ -455,13 +422,14 @@ const sections = [
 
   .finePrint {
     color: var(--paragraph-subtitle);
-    font-size: 0.95rem;
+    font-size: var(--font-size-sm);
     max-width: 80ch;
   }
 
   @media (max-width: 600px) {
     .donateRow {
       grid-template-columns: 1fr;
+      justify-items: center;
     }
   }
 

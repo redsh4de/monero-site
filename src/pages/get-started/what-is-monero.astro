@@ -3,6 +3,7 @@ import MaskIcon from "@/components/ui/MaskIcon.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 
+import PageContainer from "@/components/ui/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
 import communityLogo from "@/assets/images/community-logo.png";
@@ -52,8 +53,8 @@ const getLanguageLabel = (lang: string): string => {
   title={t("what-is-monero.pageTitle")}
   description={t("what-is-monero.heroSubtitle")}
 >
-  <div id="content">
-    <TitleCard title={t("what-is-monero.heroTitle")} />
+  <TitleCard title={t("what-is-monero.heroTitle")} />
+  <PageContainer>
     <div class="card-item">
       <div class="text">
         <span class="eyebrow"
@@ -394,7 +395,7 @@ const getLanguageLabel = (lang: string): string => {
         </Button>
       </div>
     </div>
-  </div>
+  </PageContainer>
 </Layout>
 
 <style>
