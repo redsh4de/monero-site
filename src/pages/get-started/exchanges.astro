@@ -24,11 +24,12 @@ import TOCItem from "@/components/ui/TOCItem.astro";
 
 import exchanges from "@/data/exchanges.json";
 
-import safeMarkdown from "@/utils/safeMarkdown";
+import { createSafeMarkdown} from "@/utils/safeMarkdown";
 
 const locale = getLocale(Astro.url);
 const dir = getDirection(locale);
 const t = await createTInstance(locale);
+const safeMarkdown = createSafeMarkdown(locale);
 
 const highlightOptions = [
   {

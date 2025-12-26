@@ -118,7 +118,6 @@ export function buildMoneropediaMatcher(
 export function processHTMLString(
   html: string,
   entries: MoneropediaEntry[],
-  locale: string,
 ): string {
   let processedHtml = html;
 

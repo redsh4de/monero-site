@@ -2,7 +2,7 @@
 import "@/styles/moneropedia-link.css";
 
 import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-import safeMarkdown from "@/utils/safeMarkdown";
+import { createSafeMarkdown } from "@/utils/safeMarkdown";
 
 import Layout from "@/layouts/Layout.astro";
 
@@ -19,42 +19,43 @@ import PageContainer from "@/components/ui/PageContainer.astro";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
+const safeMarkdown = createSafeMarkdown(locale);
 
 const basicsItems = (
   t("faq.basics.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 const nodesItems = (
   t("faq.nodes.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 const privacyItems = (
   t("faq.privacy.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 const securityItems = (
   t("faq.security.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 const walletsItems = (
   t("faq.wallets.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 const economicsItems = (
   t("faq.economics.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 ---
 

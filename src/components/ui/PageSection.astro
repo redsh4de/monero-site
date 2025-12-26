@@ -1,4 +1,6 @@
 ---
+import type { HTMLTag } from "astro/types";
+
 interface Props {
   title?: string;
   subtitle?: string;
@@ -17,7 +19,7 @@ const {
   class: className,
 } = Astro.props;
 
-const Heading = `h${headingLevel}` as keyof HTMLElementTagNameMap;
+const Heading = `h${headingLevel}` as HTMLTag;
 const hasHeader = Boolean(title || subtitle);
 const classes = ["page-section", className ?? ""].filter(Boolean).join(" ");
 const ariaLabelledBy = ariaLabel ? undefined : anchorId;

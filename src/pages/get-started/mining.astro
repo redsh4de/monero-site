@@ -20,15 +20,17 @@ import terminalIcon from "@/assets/icons/mask/terminal.avif";
 
 import gupaxWindow from "@/assets/images/gupax-window.webp";
 import xmrigWindow from "@/assets/images/xmrig.png";
-import safeMarkdown from "@/utils/safeMarkdown";
+import { createSafeMarkdown } from "@/utils/safeMarkdown";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
+const safeMarkdown = createSafeMarkdown(locale);
+
 const faqItems = (
   t("mining.faq.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: safeMarkdown.parse(item.content, locale),
+  content: safeMarkdown.parse(item.content),
 }));
 ---
 

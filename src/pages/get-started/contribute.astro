@@ -28,9 +28,10 @@ import { Image } from "astro:assets";
 import contributingData from "@/data/contributing/contributing.json";
 
 import { createTInstance, getLocale } from "@/i18n/utils";
-import safeMarkdown from "@/utils/safeMarkdown";
+import { createSafeMarkdown } from "@/utils/safeMarkdown";
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
+const safeMarkdown = createSafeMarkdown(locale);
 
 const sections = [
   {
@@ -127,7 +128,6 @@ const sections = [
           <p
             set:html={safeMarkdown.parseInline(
               t("contribute.sections.supportTheNetwork.mine.description"),
-              locale,
             )}
           />
 

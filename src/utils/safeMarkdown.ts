@@ -2,7 +2,6 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { getMoneropediaEntries, processHTMLString } from "./moneropedia";
 import type { MoneropediaEntry } from "./moneropedia";
-import { defaultLocale } from "@/i18n/config";
 
 const purifyConfig = {
   ALLOWED_ATTR: [
@@ -29,26 +28,32 @@ export const initSafeMarkdown = async (locale: string): Promise<void> => {
   moneropediaCache.set(locale, entries);
 };
 
-export const parse = (markdown: string, locale?: string): string => {
+const parse = (markdown: string, locale?: string): string => {
   let html = marked.parse(markdown) as string;
   const entries = locale ? moneropediaCache.get(locale) : undefined;
-  if (entries && locale) {
-    html = processHTMLString(html, entries, locale);
+  if (entries) {
+    html = processHTMLString(html, entries);
   }
   return DOMPurify.sanitize(html, purifyConfig);
 };
 
-export const parseInline = (markdown: string, locale?: string): string => {
+const parseInline = (markdown: string, locale?: string): string => {
   let html = marked.parseInline(markdown, { breaks: true }) as string;
   const entries = locale ? moneropediaCache.get(locale) : undefined;
-  if (entries && locale) {
-    html = processHTMLString(html, entries, locale);
+  if (entries) {
+    html = processHTMLString(html, entries);
   }
   return DOMPurify.sanitize(html, purifyConfig);
+};
+
+export const createSafeMarkdown = (locale?: string) => {
+  return {
+    parse: (markdown: string) => parse(markdown, locale),
+    parseInline: (markdown: string) => parseInline(markdown, locale),
+  };
 };
 
 export default {
   initSafeMarkdown,
-  parse,
-  parseInline,
+  createSafeMarkdown,
 };
