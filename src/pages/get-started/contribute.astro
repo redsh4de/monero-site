@@ -124,7 +124,12 @@ const sections = [
           title={t("contribute.sections.supportTheNetwork.mine.title")}
           icon={pickaxeIcon}
         >
-          <p set:html={safeMarkdown.parseInline(t("contribute.sections.supportTheNetwork.mine.description"), locale)}/>
+          <p
+            set:html={safeMarkdown.parseInline(
+              t("contribute.sections.supportTheNetwork.mine.description"),
+              locale,
+            )}
+          />
 
           <div slot="bottom">
             <a href="/get-started/mining/" target="_blank" rel="noopener">

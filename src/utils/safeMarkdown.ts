@@ -29,10 +29,7 @@ export const initSafeMarkdown = async (locale: string): Promise<void> => {
   moneropediaCache.set(locale, entries);
 };
 
-export const parse = (
-  markdown: string,
-  locale?: string,
-): string => {
+export const parse = (markdown: string, locale?: string): string => {
   let html = marked.parse(markdown) as string;
   const entries = locale ? moneropediaCache.get(locale) : undefined;
   if (entries && locale) {
@@ -41,10 +38,7 @@ export const parse = (
   return DOMPurify.sanitize(html, purifyConfig);
 };
 
-export const parseInline = (
-  markdown: string,
-  locale?: string,
-): string => {
+export const parseInline = (markdown: string, locale?: string): string => {
   let html = marked.parseInline(markdown, { breaks: true }) as string;
   const entries = locale ? moneropediaCache.get(locale) : undefined;
   if (entries && locale) {
