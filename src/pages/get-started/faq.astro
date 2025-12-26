@@ -2,17 +2,13 @@
 import "@/styles/moneropedia-link.css";
 
 import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-import {
-  getMoneropediaEntries,
-  processHTMLString as processMoneropediaLinks,
-} from "@/utils/moneropedia";
-import { marked } from "marked";
+import safeMarkdown from "@/utils/safeMarkdown";
 
 import Layout from "@/layouts/Layout.astro";
 
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
-import type { AccordionItem } from "@/components/ui/Accordion.astro";
+import type { AccordionItemType } from "@/components/ui/Accordion.astro";
 import Accordion from "@/components/ui/Accordion.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
@@ -23,48 +19,42 @@ import PageContainer from "@/components/ui/PageContainer.astro";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
-const moneropediaEntries = await getMoneropediaEntries(locale);
-
-function processItemContent(content: string): string {
-  const html = marked.parse(content) as string;
-  return processMoneropediaLinks(html, moneropediaEntries, locale);
-}
 
 const basicsItems = (
-  t("faq.basics.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.basics.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 const nodesItems = (
-  t("faq.nodes.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.nodes.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 const privacyItems = (
-  t("faq.privacy.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.privacy.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 const securityItems = (
-  t("faq.security.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.security.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 const walletsItems = (
-  t("faq.wallets.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.wallets.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 const economicsItems = (
-  t("faq.economics.items", { returnObjects: true }) as AccordionItem[]
+  t("faq.economics.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 ---
 

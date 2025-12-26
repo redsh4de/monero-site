@@ -255,9 +255,9 @@
       "subtitle": "El minero de Monero fácil de usar",
       "lead": "La forma más rápida de comenzar a minar Monero. Gupax agrupa P2Pool y XMRig en una aplicación simple con configuración fácil y estadísticas claras.",
       "bullets": [
-        "Pool peer-to-peer (P2Pool) - sin operador centralizado",
-        "Configuración agrupada - menos piezas móviles",
-        "Visibilidad - hashrate, shares, pagos, logs"
+        "Multiplataforma: Funciona en Windows, Linux y macOS",
+        "Minería con un clic: Comienza con un solo botón",
+        "Eficiente en recursos: Impacto mínimo en tu sistema"
       ],
       "cta": "Obtener Gupax"
     },
@@ -676,7 +676,7 @@
         },
         "mine": {
           "title": "Minería",
-          "description": "La minería asegura la seguridad de la red. Monero usa <b>RandomX</b>, un algoritmo resistente a ASIC desarrollado por colaboradores de Monero, que apunta a permanecer minable por hardware de consumo (CPUs).",
+          "description": "La minería asegura la seguridad de la red. Monero usa @RandomX, un algoritmo resistente a ASIC desarrollado por colaboradores de Monero, que apunta a permanecer minable por hardware de consumo (CPUs).",
           "learnAboutMining": "Aprende sobre minería"
         }
       },

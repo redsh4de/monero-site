@@ -1,5 +1,5 @@
 ---
-import type { AccordionItem } from "@/components/ui/Accordion.astro";
+import type { AccordionItemType } from "@/components/ui/Accordion.astro";
 import Accordion from "@/components/ui/Accordion.astro";
 import ContentCard from "@/components/ui/ContentCard.astro";
 import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
@@ -10,12 +10,7 @@ import PageSection from "@/components/ui/PageSection.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
-import {
-  getMoneropediaEntries,
-  processHTMLString as processMoneropediaLinks,
-} from "@/utils/moneropedia";
 import { Image } from "astro:assets";
-import { marked } from "marked";
 
 import appWindowIcon from "@/assets/icons/mask/app-window.avif";
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
@@ -25,21 +20,15 @@ import terminalIcon from "@/assets/icons/mask/terminal.avif";
 
 import gupaxWindow from "@/assets/images/gupax-window.webp";
 import xmrigWindow from "@/assets/images/xmrig.png";
+import safeMarkdown from "@/utils/safeMarkdown";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
-const moneropediaEntries = await getMoneropediaEntries(locale);
-
-function processItemContent(content: string): string {
-  const html = marked.parse(content) as string;
-  return processMoneropediaLinks(html, moneropediaEntries, locale);
-}
-
 const faqItems = (
-  t("mining.faq.items", { returnObjects: true }) as AccordionItem[]
+  t("mining.faq.items", { returnObjects: true }) as AccordionItemType[]
 ).map((item) => ({
   ...item,
-  content: processItemContent(item.content),
+  content: safeMarkdown.parse(item.content, locale),
 }));
 ---
 

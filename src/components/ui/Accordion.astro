@@ -3,13 +3,13 @@ import "node:crypto";
 
 import AccordionItem from "./AccordionItem.astro";
 
-export interface AccordionItem {
+export interface AccordionItemType {
   title: string;
   content: string;
 }
 
 export interface Props {
-  items?: AccordionItem[];
+  items?: AccordionItemType[];
   multiExpand?: boolean;
   variant?: "default" | "card";
 }

@@ -82,7 +82,7 @@ export const moneropediaLinks: Plugin<[], Root> = () => {
               const entry = matcher.lookup.get(term.toLowerCase());
               if (!entry) return fullMatch;
 
-              const href = buildMoneropediaHref(locale, entry.fileName);
+              const href = buildMoneropediaHref(entry);
               const displayText = fullMatch.slice(1).replace(/-/g, " ");
               return createLinkNode(displayText, entry.summary, href);
             },

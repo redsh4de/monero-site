@@ -20,6 +20,7 @@ export interface MoneropediaEntry {
   terms: string[];
   summary: string;
   fileName: string;
+  locale: string;
 }
 
 export interface MoneropediaMatcher {
@@ -27,13 +28,13 @@ export interface MoneropediaMatcher {
   lookup: Map<string, MoneropediaEntry>;
 }
 
-export function buildMoneropediaHref(locale: string, fileName: string): string {
-  const basePath = `/resources/moneropedia/${fileName}/`;
-  if (locale === defaultLocale) {
+export function buildMoneropediaHref(entry: MoneropediaEntry): string {
+  const basePath = `/resources/moneropedia/${entry.fileName}/`;
+  if (entry.locale === defaultLocale) {
     return basePath;
   }
 
-  return `/${locale}${basePath}`;
+  return `/${entry.locale}${basePath}`;
 }
 
 async function loadLocaleEntries(
@@ -55,6 +56,7 @@ async function loadLocaleEntries(
 
       return {
         fileName,
+        locale,
         summary: typeof data?.summary === "string" ? data.summary : "",
         terms: Array.isArray(data?.terms)
           ? data.terms.map((term) => String(term))
@@ -128,7 +130,7 @@ export function processHTMLString(
     const entry = term && matcher.lookup.get(term.toLowerCase());
     if (!entry) return displayText;
 
-    const linkPath = buildMoneropediaHref(locale, entry.fileName);
+    const linkPath = buildMoneropediaHref(entry);
     const escapedSummary = entry.summary.replace(/"/g, "&quot;");
 
     return `<a class="moneropedia-link" data-tooltip="${escapedSummary}" href="${linkPath}">${displayText}<sup>&#x1F6C8;</sup></a>`;

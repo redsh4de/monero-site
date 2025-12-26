@@ -259,9 +259,9 @@
       "subtitle": "The user-friendly Monero miner",
       "lead": "The fastest way to start mining Monero. Gupax bundles P2Pool and XMRig into a simple app with easy setup and clear stats.",
       "bullets": [
-        "P2Pool (peer-to-peer pool) - no centralized operator",
-        "Bundled setup - fewer moving parts",
-        "Visibility - hashrate, shares, payouts, logs"
+        "Cross-platform: Works on Windows, Linux, and macOS",
+        "Simple setup: Start mining in under 3 minutes",
+        "Decentralized: Runs on P2Pool"
       ],
       "cta": "Get Gupax"
     },
@@ -290,8 +290,8 @@
       "guides": {
         "title": "Guides",
         "mineToPool": {
-          "title": "Mine to a pool",
-          "subtitle": "Step-by-step guide to mining with XMRig"
+          "title": "Mine to a pool with XMRig",
+          "subtitle": "Step-by-step guide to XMRig"
         },
         "gupaxSetup": {
           "title": "Gupax setup guide",
@@ -338,7 +338,7 @@
         },
         {
           "title": "Where do I get help?",
-          "content": "Connect with other miners on the r/MoneroMining subreddit: https://www.reddit.com/r/MoneroMining/"
+          "content": "Connect with other miners on the r/MoneroMining subreddit. \n\n [Reddit](https://www.reddit.com/r/MoneroMining/)"
         }
       ]
     },
@@ -680,7 +680,7 @@
         },
         "mine": {
           "title": "Mine",
-          "description": "Mining ensures the safety of the network. Monero uses <b>RandomX</b>, an ASIC-resistant algorithm developed by Monero contributors, which aims to remain mineable by consumer-grade hardware (CPUs).",
+          "description": "Mining ensures the safety of the network. Monero uses @RandomX, an ASIC-resistant algorithm developed by Monero contributors, which aims to remain mineable by consumer-grade hardware (CPUs).",
           "learnAboutMining": "Learn about mining"
         }
       },

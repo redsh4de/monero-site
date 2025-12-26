@@ -117,9 +117,10 @@ const hasBottom = Astro.slots.has("bottom");
   }
 
   .contentCardBottom :global(span.title) {
+    display: block;
+    margin-bottom: 0.5rem;
     font-weight: var(--font-weight-bold);
     color: var(--heading-color);
-    opacity: 0.9;
   }
 
   .contentCardBottom :global(ul) {

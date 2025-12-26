@@ -255,9 +255,9 @@
       "subtitle": "عامل تعدين Monero سهل الاستخدام",
       "lead": "أسرع طريقة لبدء تعدين Monero. يجمع Gupax بين P2Pool وXMRig في تطبيق بسيط مع إعداد سهل وإحصائيات واضحة.",
       "bullets": [
-        "المجموعة من نظير إلى نظير (P2Pool) - لا مشغل مركزي",
-        "إعداد مجمع - قطع متحركة أقل",
-        "الرؤية - معدل التجزئة، الأسهم، المدفوعات، السجلات"
+        "متعدد المنصات: يعمل على Windows وLinux وmacOS",
+        "التعدين بنقرة واحدة: ابدأ بضغطة زر واحدة",
+        "فعال في الموارد: تأثير ضئيل على نظامك"
       ],
       "cta": "احصل على Gupax"
     },
@@ -677,7 +677,7 @@
         },
         "mine": {
           "title": "Mine",
-          "description": "Mining ensures the safety of the network. Monero uses <b>RandomX</b>, an ASIC-resistant algorithm developed by Monero contributors, which aims to remain mineable by consumer-grade hardware (CPUs).",
+          "description": "Mining ensures the safety of the network. Monero uses @RandomX, an ASIC-resistant algorithm developed by Monero contributors, which aims to remain mineable by consumer-grade hardware (CPUs).",
           "learnAboutMining": "Learn about mining"
         }
       },

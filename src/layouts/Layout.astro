@@ -12,10 +12,12 @@ import dmSansFont from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-no
 import "@fontsource-variable/inter";
 import { getLocale } from "astro-i18n-aut";
 import { SEO } from "astro-seo";
+import { initSafeMarkdown } from "@/utils/safeMarkdown";
 
 const locale = getLocale(Astro.url);
 const t = await createTInstance(locale);
 const dir = getDirection(locale);
+await initSafeMarkdown(locale);
 
 interface Props {
   title: string;
