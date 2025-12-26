@@ -16,11 +16,13 @@ const hasBottom = Astro.slots.has("bottom");
 <article class:list={["contentCard", className]} {...rest}>
   <header class="contentCardHeader">
     <div class="titleRow">
-      {icon && (
-        <div class="cardIcon">
-          <MaskIcon src={icon} size="1.5em" />
-        </div>
-      )}
+      {
+        icon && (
+          <div class="cardIcon">
+            <MaskIcon src={icon} size="1.5em" />
+          </div>
+        )
+      }
       <div class="titleBlock">
         <h3 class="contentCardTitle">{title}</h3>
         {subtitle && <p class="contentCardSubtitle">{subtitle}</p>}
@@ -30,11 +32,13 @@ const hasBottom = Astro.slots.has("bottom");
 
   <div class="contentCardBody">
     <slot />
-    {hasBottom && (
-      <footer class="contentCardBottom">
-        <slot name="bottom" />
-      </footer>
-    )}
+    {
+      hasBottom && (
+        <footer class="contentCardBottom">
+          <slot name="bottom" />
+        </footer>
+      )
+    }
   </div>
 </article>
 

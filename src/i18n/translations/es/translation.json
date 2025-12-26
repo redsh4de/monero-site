@@ -259,8 +259,7 @@
         "Configuración agrupada - menos piezas móviles",
         "Visibilidad - hashrate, shares, pagos, logs"
       ],
-      "cta": "Obtener Gupax",
-      "href": "https://gupax.io/"
+      "cta": "Obtener Gupax"
     },
     "xmrig": {
       "title": "XMRig",
@@ -270,8 +269,7 @@
         "El minero RandomX más popular",
         "Funciona con pools, solo, y muchas configuraciones avanzadas"
       ],
-      "cta": "XMRig en GitHub",
-      "href": "https://github.com/xmrig/xmrig"
+      "cta": "XMRig en GitHub"
     },
     "solo": {
       "title": "Minería en solitario",
@@ -281,45 +279,34 @@
         "Sin tarifas de pool, sin confianza del operador",
         "Pagos \"lotería\" - varianza más alta"
       ],
-      "cta": "Minar en solitario (guía GUI)",
-      "href": "https://www.getmonero.org/resources/user-guides/solo_mine_GUI.html"
+      "cta": "Minar en solitario (guía GUI)"
     },
     "resources": {
       "title": "Recursos",
       "guides": {
         "title": "Guías",
-        "items": [
-          {
-            "href": "https://www.getmonero.org/resources/user-guides/mine-to-pool.html",
-            "title": "Minar a un pool",
-            "subtitle": "Guía paso a paso para minar con XMRig"
-          },
-          {
-            "href": "https://gupax.io/#guide",
-            "title": "Guía de configuración de Gupax",
-            "subtitle": "Guía de configuración fácil para el minero Gupax"
-          }
-        ]
+        "mineToPool": {
+          "title": "Minar a un pool",
+          "subtitle": "Guía paso a paso para minar con XMRig"
+        },
+        "gupaxSetup": {
+          "title": "Guía de configuración de Gupax",
+          "subtitle": "Guía de configuración fácil para el minero Gupax"
+        }
       },
       "pools": {
         "title": "Pools",
-        "items": [
-          {
-            "href": "https://miningpoolstats.stream/monero",
-            "title": "Comparar pools",
-            "subtitle": "Tarifas, hashrate, distribución"
-          }
-        ]
+        "comparePools": {
+          "title": "Comparar pools",
+          "subtitle": "Tarifas, hashrate, distribución"
+        }
       },
       "benchmarks": {
         "title": "Benchmarks",
-        "items": [
-          {
-            "href": "https://xmrig.com/benchmark",
-            "title": "Estimaciones de hashrate",
-            "subtitle": "Por modelo de CPU"
-          }
-        ]
+        "hashrateEstimates": {
+          "title": "Estimaciones de hashrate",
+          "subtitle": "Por modelo de CPU"
+        }
       }
     },
     "faq": {
@@ -669,6 +656,77 @@
         "subtitle": "Únete a los millones de usuarios tomando control de su privacidad financiera.",
         "downloadWallet": "Descarga una billetera",
         "getMonero": "Obtén Monero"
+      }
+    }
+  },
+  "contribute": {
+    "pageTitle": "Contribuir | Monero - criptomoneda segura, privada, no rastreable.",
+    "heroTitle": "Contribuir",
+    "heroSubtitle": "Monero es un proyecto de código abierto y impulsado por la comunidad. A continuación se describen varias formas de apoyar el proyecto.",
+    "sections": {
+      "supportTheNetwork": {
+        "title": "Apoyar la Red",
+        "subtitle": "Contribuciones prácticas de alto impacto que fortalecen la descentralización y la seguridad.",
+        "runANode": {
+          "title": "Ejecutar un nodo",
+          "description": "Una forma fácil y efectiva de ayudar a la red Monero es ejecutar un nodo. Los nodos mantienen la red segura y descentralizada. Un nodo completamente sincronizado es suficiente, pero también puedes ejecutar un nodo remoto abierto para que otros se conecten.",
+          "guides": "Guías",
+          "moneroDocs": "Documentos de Monero",
+          "sethForPrivacy": "SethForPrivacy"
+        },
+        "mine": {
+          "title": "Minería",
+          "description": "La minería asegura la seguridad de la red. Monero usa <b>RandomX</b>, un algoritmo resistente a ASIC desarrollado por colaboradores de Monero, que apunta a permanecer minable por hardware de consumo (CPUs).",
+          "learnAboutMining": "Aprende sobre minería"
+        }
+      },
+      "develop": {
+        "title": "Desarrollar",
+        "subtitle": "Monero es de código abierto y sin permisos. Los colaboradores son bienvenidos en todo el ecosistema - desde el núcleo hasta la documentación.",
+        "coreProjects": "Proyectos Núcleo",
+        "daemon": {
+          "title": "Daemon",
+          "description": "La implementación principal de Monero, incluyendo las reglas de consenso, red P2P y funcionalidad de billetera."
+        },
+        "guiWallet": {
+          "title": "Billetera GUI",
+          "description": "La interfaz gráfica de usuario para Monero, proporcionando una aplicación de escritorio fácil de usar para gestionar fondos Monero."
+        },
+        "moneroWebsite": {
+          "title": "Sitio Web de Monero",
+          "description": "Este sitio web, construido con el framework Astro."
+        },
+        "moneroDocs": {
+          "title": "Documentos de Monero",
+          "description": "Documentación para Monero, incluyendo guías de usuario, recursos para desarrolladores y especificaciones de protocolo."
+        },
+        "additionalResources": "Recursos Adicionales",
+        "bounties": {
+          "title": "Recompensas",
+          "description": "¿Prefieres trabajar en tareas claramente definidas con una recompensa? Numerosas recompensas están disponibles para varios proyectos relacionados con Monero, que van desde recompensas de bugs hasta implementaciones de características.",
+          "links": "Enlaces",
+          "browseMoneroBounties": "Explorar Recompensas de Monero",
+          "securityDisclosures": "Divulgaciones de seguridad (HackerOne)"
+        }
+      },
+      "donate": {
+        "title": "Donar",
+        "subtitle": "Financia trabajo específico a través de CCS o apoya el fondo general para resiliencia a largo plazo.",
+        "communityCrowdfundingSystem": {
+          "title": "Sistema de Financiamiento Comunitario",
+          "description": "Monero utiliza un sistema de financiamiento comunitario donde los proyectos son propuestos para desarrollo y financiados por la comunidad. Los fondos se mantienen en escrow y se remunera a los desarrolladores una vez que se logran hitos de programación. Cualquiera puede generar nuevas propuestas o financiar las existentes.",
+          "viewCcsProposals": "Ver Propuestas CCS"
+        },
+        "generalFund": {
+          "title": "Fondo General",
+          "description": "Las donaciones al fondo general se usan para emergencias o necesidad. Los costos de infraestructura son actualmente cubiertos por patrocinadores.",
+          "moneroXmr": "Monero (XMR)",
+          "bitcoinBtc": "Bitcoin (BTC)",
+          "viewOnlyWalletDetails": "Detalles de billetera de solo vista",
+          "primaryAddress": "Dirección primaria",
+          "viewKey": "Clave de vista",
+          "fineprint": "OpenAlias: {{openAlias}}\nEnvía un correo electrónico a {{email}} para medios alternativos de donar o para convertirte en patrocinador."
+        }
       }
     }
   }

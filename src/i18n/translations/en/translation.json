@@ -263,8 +263,7 @@
         "Bundled setup - fewer moving parts",
         "Visibility - hashrate, shares, payouts, logs"
       ],
-      "cta": "Get Gupax",
-      "href": "https://gupax.io/"
+      "cta": "Get Gupax"
     },
     "xmrig": {
       "title": "XMRig",
@@ -274,8 +273,7 @@
         "The most popular RandomX miner",
         "Works with pools, solo, and many advanced configs"
       ],
-      "cta": "XMRig on GitHub",
-      "href": "https://github.com/xmrig/xmrig"
+      "cta": "XMRig on GitHub"
     },
     "solo": {
       "title": "Solo Mining",
@@ -285,45 +283,34 @@
         "No pool fees, no operator trust",
         "\"Lottery\" payouts - higher variance"
       ],
-      "cta": "Solo mine (GUI guide)",
-      "href": "https://www.getmonero.org/resources/user-guides/solo_mine_GUI.html"
+      "cta": "Solo mine (GUI guide)"
     },
     "resources": {
       "title": "Resources",
       "guides": {
         "title": "Guides",
-        "items": [
-          {
-            "href": "https://www.getmonero.org/resources/user-guides/mine-to-pool.html",
-            "title": "Mine to a pool",
-            "subtitle": "Step-by-step guide to mining with XMRig"
-          },
-          {
-            "href": "https://gupax.io/#guide",
-            "title": "Gupax setup guide",
-            "subtitle": "Easy setup guide for Gupax miner"
-          }
-        ]
+        "mineToPool": {
+          "title": "Mine to a pool",
+          "subtitle": "Step-by-step guide to mining with XMRig"
+        },
+        "gupaxSetup": {
+          "title": "Gupax setup guide",
+          "subtitle": "Easy setup guide for Gupax miner"
+        }
       },
       "pools": {
         "title": "Pools",
-        "items": [
-          {
-            "href": "https://miningpoolstats.stream/monero",
-            "title": "Compare pools",
-            "subtitle": "Fees, hashrate, distribution"
-          }
-        ]
+        "comparePools": {
+          "title": "Compare pools",
+          "subtitle": "Fees, hashrate, distribution"
+        }
       },
       "benchmarks": {
         "title": "Benchmarks",
-        "items": [
-          {
-            "href": "https://xmrig.com/benchmark",
-            "title": "Hashrate estimates",
-            "subtitle": "By CPU model"
-          }
-        ]
+        "hashrateEstimates": {
+          "title": "Hashrate estimates",
+          "subtitle": "By CPU model"
+        }
       }
     },
     "faq": {
@@ -673,6 +660,77 @@
         "subtitle": "Join the millions of users taking control of their financial privacy.",
         "downloadWallet": "Download a wallet",
         "getMonero": "Get Monero"
+      }
+    }
+  },
+  "contribute": {
+    "pageTitle": "Contribute | Monero - secure, private, untraceable cryptocurrency.",
+    "heroTitle": "Contribute",
+    "heroSubtitle": "Monero is an open-source, community-driven project. Described below are several ways to support the project.",
+    "sections": {
+      "supportTheNetwork": {
+        "title": "Support the Network",
+        "subtitle": "Practical, high-impact contributions that strengthen decentralization and security.",
+        "runANode": {
+          "title": "Run a node",
+          "description": "An easy and effective way to help the Monero network is to run a node. Nodes keep the network safe and decentralized. A fully synchronized node is enough, but you can also run an open remote node to let others connect.",
+          "guides": "Guides",
+          "moneroDocs": "Monero Docs",
+          "sethForPrivacy": "SethForPrivacy"
+        },
+        "mine": {
+          "title": "Mine",
+          "description": "Mining ensures the safety of the network. Monero uses <b>RandomX</b>, an ASIC-resistant algorithm developed by Monero contributors, which aims to remain mineable by consumer-grade hardware (CPUs).",
+          "learnAboutMining": "Learn about mining"
+        }
+      },
+      "develop": {
+        "title": "Develop",
+        "subtitle": "Monero is open source and permissionless. Contributors are welcome across the ecosystem - from core to docs.",
+        "coreProjects": "Core Projects",
+        "daemon": {
+          "title": "Daemon",
+          "description": "The core Monero implementation, including the consensus rules, P2P network, and wallet functionality."
+        },
+        "guiWallet": {
+          "title": "GUI Wallet",
+          "description": "The graphical user interface for Monero, providing an easy-to-use desktop application for managing Monero funds."
+        },
+        "moneroWebsite": {
+          "title": "Monero Website",
+          "description": "This website, built with the Astro framework."
+        },
+        "moneroDocs": {
+          "title": "Monero Docs",
+          "description": "Documentation for Monero, including user guides, developer resources, and protocol specifications."
+        },
+        "additionalResources": "Additional Resources",
+        "bounties": {
+          "title": "Bounties",
+          "description": "Prefer working on clearly-scoped tasks with a reward? Numerous bounties are available for various Monero-related projects, ranging from bug bounties to feature implementations.",
+          "links": "Links",
+          "browseMoneroBounties": "Browse Monero Bounties",
+          "securityDisclosures": "Security disclosures (HackerOne)"
+        }
+      },
+      "donate": {
+        "title": "Donate",
+        "subtitle": "Fund specific work via CCS or support the general fund for long-term resilience.",
+        "communityCrowdfundingSystem": {
+          "title": "Community Crowdfunding System",
+          "description": "Monero utilizes a community crowdfunding system where projects are proposed for development and funded by the community. Funding is held in escrow and remunerated to developers once programming milestones are achieved. Anyone may generate new proposals or fund existing ones.",
+          "viewCcsProposals": "View CCS Proposals"
+        },
+        "generalFund": {
+          "title": "General Fund",
+          "description": "Donations to the general fund are used for emergencies or need. Infrastructure costs are currently covered by sponsors.",
+          "moneroXmr": "Monero (XMR)",
+          "bitcoinBtc": "Bitcoin (BTC)",
+          "viewOnlyWalletDetails": "View-only wallet details",
+          "primaryAddress": "Primary address",
+          "viewKey": "View Key",
+          "fineprint": "OpenAlias: `{{openAlias}}`\nE-mail {{email}} for alternative means of donating or to become a sponsor."
+        }
       }
     }
   }
