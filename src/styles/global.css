@@ -24,8 +24,8 @@
 
   /* Spacing */
   --page-top-margin: 2rem;
-  --desktop-padding: 1em 5em;
-  --mobile-padding: 1em 2em;
+  --desktop-padding-inline: 5rem;
+  --mobile-padding-inline: 2rem;
 
   /* Typography - Font Sizes */
   --font-size-base: 1rem; /* body-base */

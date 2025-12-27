@@ -10,7 +10,7 @@
 ## Useful variables (examples)
 
 - Colors: `--monero-orange`, `--card-color`, `--heading-color`, `--text-primary`.
-- Spacing: `--page-top-margin`, `--mobile-padding`, `--desktop-padding`.
+- Spacing: `--page-top-margin`, `--mobile-padding-inline`, `--desktop-padding-inline`.
 - Typography: `--font-size-base`, `--font-size-2xl`, `--font-weight-semibold`.
 
 See `src/styles/global.css` for the full list. These variables have built-in dark mode equivalents.
