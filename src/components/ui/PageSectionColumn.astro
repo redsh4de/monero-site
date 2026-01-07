@@ -12,8 +12,6 @@ const {
   minColumnWidth = "20rem",
   class: className,
 } = Astro.props;
-const isContainer =
-  columns !== undefined || (Astro.slots.has("default") && !title);
 ---
 
 <div
