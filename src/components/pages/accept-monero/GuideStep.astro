@@ -32,11 +32,11 @@ const {
   </div>
   <div class="step-image">
     {
-      !!image ? (
+      image ? (
         <Image src={image} alt={imageAlt} />
       ) : (
         <div class="step-image-placeholder">
-          {!!icon && (
+          {icon && (
             <div class="placeholder-icon">
               <MaskIcon src={icon} size="4rem" />
             </div>
