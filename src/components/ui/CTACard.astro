@@ -8,12 +8,13 @@ interface Props {
   href: string;
   linkText: string;
   icon?: ImageMetadata;
+  variant?: "centered";
 }
 
-const { title, href, linkText, icon } = Astro.props;
+const { title, href, linkText, icon, variant } = Astro.props;
 ---
 
-<div class:list={["cta-card", { "has-icon": icon }]}>
+<div class:list={["cta-card", { "has-icon": icon }, variant]}>
   {
     icon && (
       <span class="cta-icon">
@@ -77,6 +78,7 @@ const { title, href, linkText, icon } = Astro.props;
     margin: 0.5rem 0 1rem 0;
     line-height: var(--line-height-body);
     gap: 0.75rem;
+    max-width: 75ch;
   }
 
   .cta-description :global(p) {
@@ -88,5 +90,30 @@ const { title, href, linkText, icon } = Astro.props;
     display: inline-block;
     color: var(--monero-orange);
     font-weight: var(--font-weight-semibold);
+  }
+
+  .cta-card.centered {
+    text-align: center;
+    border-inline-start: unset;
+    border-start-start-radius: unset;
+    border-start-end-radius: unset;
+    border-block-start: 3px solid var(--monero-orange);
+  }
+  .cta-card.centered.has-icon {
+    grid-template-areas:
+      "icon"
+      "title"
+      "description"
+      "link";
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 0.5rem;
+  }
+  .cta-card.centered .cta-description {
+    max-width: 50ch;
+  }
+  .cta-card.centered .cta-link {
+    display: flex;
+    justify-content: center;
   }
 </style>
