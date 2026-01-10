@@ -1,0 +1,92 @@
+---
+import Button from "@/components/ui/Button.astro";
+import MaskIcon from "@/components/ui/MaskIcon.astro";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  title: string;
+  href: string;
+  linkText: string;
+  icon?: ImageMetadata;
+}
+
+const { title, href, linkText, icon } = Astro.props;
+---
+
+<div class:list={["cta-card", { "has-icon": icon }]}>
+  {
+    icon && (
+      <span class="cta-icon">
+        <MaskIcon src={icon} size="2rem" />
+      </span>
+    )
+  }
+  <h3 class="cta-title">{title}</h3>
+  <div class="cta-description">
+    <slot />
+  </div>
+  <div class="cta-link">
+    <Button href={href}>
+      {linkText}
+    </Button>
+  </div>
+</div>
+
+<style>
+  .cta-card {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--card-color);
+    border-radius: 0.5rem;
+    border-end-start-radius: 0;
+    border-start-start-radius: 0;
+    border-inline-start: 3px solid var(--monero-orange);
+  }
+
+  .cta-card.has-icon {
+    display: grid;
+    grid-template-areas:
+      "icon title"
+      ".    description"
+      ".    link";
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+  }
+
+  .cta-icon {
+    grid-area: icon;
+    display: flex;
+    align-items: center;
+    color: var(--monero-orange);
+  }
+
+  .cta-title {
+    grid-area: title;
+    align-self: start;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--heading-color);
+    margin: 0;
+  }
+
+  .cta-description {
+    display: flex;
+    flex-direction: column;
+    grid-area: description;
+    color: var(--paragraph-main);
+    margin: 0.5rem 0 1rem 0;
+    line-height: var(--line-height-body);
+    gap: 0.75rem;
+  }
+
+  .cta-description :global(p) {
+    margin: 0;
+  }
+
+  .cta-link {
+    grid-area: link;
+    display: inline-block;
+    color: var(--monero-orange);
+    font-weight: var(--font-weight-semibold);
+  }
+</style>
