@@ -82,4 +82,8 @@ const { name, description, href, logo, monochrome = false } = Astro.props;
       filter: invert(1);
     }
   }
+
+  :global(:root[data-theme="dark"]) .sponsor-logo.monochrome img {
+    filter: invert(1);
+  }
 </style>
