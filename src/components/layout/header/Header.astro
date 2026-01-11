@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 
 import LanguageDropdown from "@/components/layout/header/LanguageDropdown.astro";
 import NavItem from "@/components/layout/header/NavItem.astro";
+import ThemeToggle from "@/components/layout/header/ThemeToggle.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 
 import { navigationItems } from "@/data/navigation";
@@ -83,6 +84,7 @@ const navItems = navigationItems.map((item) => {
       aria-label="Close menu"></label>
 
     <div class="utils" aria-label="Utilities">
+      <ThemeToggle />
       <div class="lang">
         <LanguageDropdown />
       </div>

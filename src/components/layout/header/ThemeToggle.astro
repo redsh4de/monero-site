@@ -1,0 +1,76 @@
+---
+import MaskIcon from "@/components/ui/MaskIcon.astro";
+import sun from "@/assets/icons/mask/sun.avif";
+import moon from "@/assets/icons/mask/moon.avif";
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="theme-toggle"
+  aria-label="Toggle theme"
+  hidden
+>
+  <span class="sun"><MaskIcon src={sun} size="1.5rem" /></span>
+  <span class="moon"><MaskIcon src={moon} size="1.5rem" /></span>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  .theme-toggle[hidden] {
+    display: none;
+  }
+
+  .theme-toggle:hover,
+  .theme-toggle:focus-visible {
+    color: var(--heading-color);
+  }
+
+  .sun,
+  .moon {
+    line-height: 0;
+  }
+
+  /* In light mode, show moon */
+  .sun {
+    display: none;
+  }
+  .moon {
+    display: block;
+  }
+
+  /* In dark mode, show sun */
+  :global(:root[data-theme="dark"]) .sun {
+    display: block;
+  }
+  :global(:root[data-theme="dark"]) .moon {
+    display: none;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("theme-toggle")!;
+  const root = document.documentElement;
+  const prefersDark = matchMedia("(prefers-color-scheme: dark)");
+
+  const apply = (dark: boolean) => (root.dataset.theme = root.style.colorScheme = dark ? "dark" : "light");
+
+  // Initialize theme from storage or system preference
+  const stored = localStorage.getItem("theme");
+  apply(stored ? stored === "dark" : prefersDark.matches);
+  toggle.hidden = false;
+
+  toggle.onclick = () => localStorage.setItem("theme", apply(root.dataset.theme !== "dark"));
+
+  // Respond to system preference changes
+  prefersDark.onchange = (e) => apply(e.matches);
+</script>
