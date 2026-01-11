@@ -132,34 +132,40 @@ export const developerLibraries: Tool[] = [
 
 export const paymentGateways: Tool[] = [
   {
-    title: "BTCPay Server",
+    title: "BTCPayServer",
     subtitle: "Self-hosted, open-source payment processor",
     href: "https://btcpayserver.org",
+    logo: "/media/btcpayserver.png",
   },
   {
     title: "NOWPayments",
     subtitle: "Non-custodial crypto payment gateway",
     href: "https://nowpayments.io",
+    logo: "/media/nowpayments.png",
   },
   {
     title: "Bitcart",
     subtitle: "Open-source cryptocurrency payment platform",
     href: "https://bitcart.ai",
+    logo: "/media/bitcart.png",
   },
   {
     title: "CoinPayments",
     subtitle: "Multi-cryptocurrency payment gateway",
     href: "https://www.coinpayments.net",
+    logo: "/media/coinpayments.png",
   },
   {
     title: "CryptoWoo",
     subtitle: "WooCommerce Monero plugin",
     href: "https://www.cryptowoo.com",
+    logo: "/media/cryptowoo.jpg",
   },
   {
     title: "Monero WooCommerce",
     subtitle: "PHP extension for WooCommerce stores",
     href: "https://github.com/monero-integrations/monerowp",
+    logo: "/media/tools/monerowp.png",
   },
 ];
 
