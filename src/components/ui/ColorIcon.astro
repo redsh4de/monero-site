@@ -55,7 +55,7 @@ const darkUrl = darkSrc
   }
 
   @media (prefers-color-scheme: dark) {
-    .icon {
+    :root:not([data-theme]) .icon {
       --iconUrl: var(--darkUrl);
     }
   }
