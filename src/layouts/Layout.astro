@@ -118,6 +118,19 @@ const fullTitle = title.includes("|")
         ],
       }}
     />
+    <script is:inline>
+      // Blocks page content from flashing between themes before the theme is applied. applyTheme is a global function that can be called from anywhere
+      window.applyTheme = (dark) =>
+        (document.documentElement.dataset.theme =
+          document.documentElement.style.colorScheme =
+            dark ? "dark" : "light");
+      const stored = localStorage.getItem("theme");
+      applyTheme(
+        stored
+          ? stored === "dark"
+          : matchMedia("(prefers-color-scheme: dark)").matches,
+      );
+    </script>
     <slot name="head" />
   </head>
   <body>

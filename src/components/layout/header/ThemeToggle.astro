@@ -1,13 +1,12 @@
 ---
-import MaskIcon from "@/components/ui/MaskIcon.astro";
-import sun from "@/assets/icons/mask/sun.avif";
 import moon from "@/assets/icons/mask/moon.avif";
+import sun from "@/assets/icons/mask/sun.avif";
+import MaskIcon from "@/components/ui/MaskIcon.astro";
 ---
 
 <button
-  id="theme-toggle"
+  id="header--theme-toggle"
   type="button"
-  class="theme-toggle"
   aria-label="Toggle theme"
   hidden
 >
@@ -16,7 +15,7 @@ import moon from "@/assets/icons/mask/moon.avif";
 </button>
 
 <style>
-  .theme-toggle {
+  #header--theme-toggle {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
@@ -26,12 +25,12 @@ import moon from "@/assets/icons/mask/moon.avif";
     color: inherit;
   }
 
-  .theme-toggle[hidden] {
+  #header--theme-toggle[hidden] {
     display: none;
   }
 
-  .theme-toggle:hover,
-  .theme-toggle:focus-visible {
+  #header--theme-toggle:hover,
+  #header--theme-toggle:focus-visible {
     color: var(--heading-color);
   }
 
@@ -58,19 +57,18 @@ import moon from "@/assets/icons/mask/moon.avif";
 </style>
 
 <script>
-  const toggle = document.getElementById("theme-toggle")!;
+  const headerThemeToggle = document.getElementById("header--theme-toggle")!;
   const root = document.documentElement;
   const prefersDark = matchMedia("(prefers-color-scheme: dark)");
 
-  const apply = (dark: boolean) => (root.dataset.theme = root.style.colorScheme = dark ? "dark" : "light");
-
-  // Initialize theme from storage or system preference
-  const stored = localStorage.getItem("theme");
-  apply(stored ? stored === "dark" : prefersDark.matches);
-  toggle.hidden = false;
-
-  toggle.onclick = () => localStorage.setItem("theme", apply(root.dataset.theme !== "dark"));
+  // Theme already applied by Layout's inline script, just show the button
+  headerThemeToggle.hidden = false;
+  headerThemeToggle.onclick = () =>
+    localStorage.setItem(
+      "theme",
+      window.applyTheme(root.dataset.theme !== "dark"),
+    );
 
   // Respond to system preference changes
-  prefersDark.onchange = (e) => apply(e.matches);
+  prefersDark.onchange = (e) => window.applyTheme(e.matches);
 </script>
