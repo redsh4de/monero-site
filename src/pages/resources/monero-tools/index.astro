@@ -2,11 +2,7 @@
 import CategoryCard from "@/components/ui/CategoryCard.astro";
 import PageContainer from "@/components/ui/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import {
-  acceptCount,
-  developCount,
-  exploreCount,
-} from "@/data/monero-tools";
+import { acceptCount, developCount, exploreCount } from "@/data/monero-tools";
 import { getDirection, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
@@ -23,8 +19,7 @@ const categories = [
   },
   {
     title: "Develop",
-    description:
-      "Libraries and SDKs for building applications.",
+    description: "Libraries and SDKs for building applications.",
     href: localizeHref(locale, "/resources/monero-tools/develop"),
     linkText: `${developCount} items`,
   },

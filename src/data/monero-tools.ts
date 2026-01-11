@@ -20,7 +20,7 @@ export const blockExplorers: Tool[] = [
     title: "P2Pool Observer",
     subtitle: "Block explorer with miner proof verification",
     href: "https://blocks.p2pool.observer/",
-  }
+  },
 ];
 
 export const networkTools: Tool[] = [
