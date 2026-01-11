@@ -2,12 +2,7 @@
 import KnowledgeCard from "@/components/pages/knowledge-base/KnowledgeCard.astro";
 import PageContainer from "@/components/ui/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  localizeHref,
-} from "@/i18n/utils";
+import { getDirection, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 const locale = getLocale(Astro.url);
