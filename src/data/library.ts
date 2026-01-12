@@ -1,8 +1,8 @@
 import type { ImageMetadata } from "astro";
 
-import masteringMoneroCover from "@/assets/images/masteringmonero.png";
-import zeroToMonero1stCover from "@/assets/images/z2m-1st.png";
-import zeroToMonero2ndCover from "@/assets/images/z2m-2nd.png";
+import masteringMoneroCover from "@/assets/images/masteringmonero.avif";
+import zeroToMonero1stCover from "@/assets/images/z2m-1st.avif";
+import zeroToMonero2ndCover from "@/assets/images/z2m-2nd.avif";
 
 export interface Book {
   title: string;

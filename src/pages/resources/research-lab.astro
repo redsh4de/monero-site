@@ -16,6 +16,12 @@ import hashtagIcon from "@/assets/icons/mask/hashtag.avif";
 
 import mrlLogo from "@/assets/images/mrl-logo.avif";
 
+import { getDirection, getLocale } from "@/i18n/utils";
+
+const locale = getLocale(Astro.url);
+const dir = getDirection(locale);
+// const t = await createTInstance(locale);
+
 import {
   iacrPapers,
   mrlBulletins,
@@ -53,7 +59,7 @@ const paperTabs = [
         rel="noopener noreferrer"
       >
         MoneroResearch.info
-        <MaskIcon src={externalLinkIcon} size="1em" />
+        <MaskIcon src={externalLinkIcon} size="1em" rtl={dir === "rtl"} />
       </Button>
       <Button
         href="https://matrix.to/#/#monero-research-lab:monero.social"
@@ -63,7 +69,7 @@ const paperTabs = [
         variant="secondary"
       >
         Matrix
-        <MaskIcon src={externalLinkIcon} size="1em" />
+        <MaskIcon src={externalLinkIcon} size="1em" rtl={dir === "rtl"} />
       </Button>
       <Button
         as="a"
@@ -72,7 +78,7 @@ const paperTabs = [
         rel="noopener noreferrer"
         variant="secondary"
       >
-        <MaskIcon src={hashtagIcon} size="0.9em" />
+        <MaskIcon src={hashtagIcon} size="0.9em" rtl={dir === "rtl"} />
         IRC
       </Button>
     </HeroCard>
@@ -96,6 +102,7 @@ const paperTabs = [
                     abstract={paper.abstract}
                     url={paper.url}
                     note={paper.note}
+                    rtl={dir === "rtl"}
                   />
                 ))
               }
@@ -109,6 +116,7 @@ const paperTabs = [
                     abstract={paper.abstract}
                     url={paper.url}
                     note={paper.note}
+                    rtl={dir === "rtl"}
                   />
                 ))
               }
@@ -122,6 +130,7 @@ const paperTabs = [
                     abstract={paper.abstract}
                     url={paper.url}
                     note={paper.note}
+                    rtl={dir === "rtl"}
                   />
                 ))
               }
@@ -143,11 +152,19 @@ const paperTabs = [
                 class="whitepaper-item"
               >
                 <span class="whitepaper-icon">
-                  <MaskIcon src={bookTextIcon} size="1.25rem" />
+                  <MaskIcon
+                    src={bookTextIcon}
+                    size="1.25rem"
+                    rtl={dir === "rtl"}
+                  />
                 </span>
                 <span class="whitepaper-title">{paper.title}</span>
                 <span class="whitepaper-arrow">
-                  <MaskIcon src={arrowRightIcon} size="1em" />
+                  <MaskIcon
+                    src={arrowRightIcon}
+                    size="1em"
+                    rtl={dir === "rtl"}
+                  />
                 </span>
               </a>
             ))

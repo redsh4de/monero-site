@@ -15,6 +15,12 @@ import rssIcon from "@/assets/icons/mask/rss.avif";
 
 import { books, cheatsheets, newsletters } from "@/data/library";
 
+import { getDirection, getLocale } from "@/i18n/utils";
+
+const locale = getLocale(Astro.url);
+const dir = getDirection(locale);
+// const t = await createTInstance(locale);
+
 const sections = [
   {
     id: "books",
@@ -87,7 +93,11 @@ const sections = [
                 <p class="cheatsheet-description">{sheet.description}</p>
               </div>
               <div class="cheatsheet-action">
-                <MaskIcon src={arrowRightIcon} size="1.25em" />
+                <MaskIcon
+                  src={arrowRightIcon}
+                  size="1.25em"
+                  rtl={dir === "rtl"}
+                />
               </div>
             </a>
           ))
@@ -109,6 +119,7 @@ const sections = [
               href={newsletter.url}
               title={newsletter.title}
               subtitle={newsletter.description}
+              rtl={dir === "rtl"}
             />
           ))
         }

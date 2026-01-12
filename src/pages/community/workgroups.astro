@@ -15,7 +15,7 @@ import {
 } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
-import communityLogo from "@/assets/images/community-logo.png";
+import communityLogo from "@/assets/images/community-logo.avif";
 
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 import hashtagIcon from "@/assets/icons/mask/hashtag.avif";
@@ -64,7 +64,7 @@ const dir = getDirection(locale);
         rel="noopener noreferrer"
       >
         {t("workgroups:getStarted.communityWorkgroup.cta")}
-        <MaskIcon src={externalLinkIcon} size="1em" />
+        <MaskIcon src={externalLinkIcon} size="1em" rtl={dir === "rtl"} />
       </Button>
       <Button
         as="a"

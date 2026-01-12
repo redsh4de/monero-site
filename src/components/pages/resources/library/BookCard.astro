@@ -3,12 +3,14 @@ import arrowRightIcon from "@/assets/icons/mask/arrow-right.avif";
 import bookTextIcon from "@/assets/icons/mask/bookText.avif";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 import type { Book } from "@/data/library";
+import { getDirection, getLocale } from "@/i18n/utils";
 import { Image } from "astro:assets";
 
 export type Props = Book;
 
 const { title, subtitle, description, cover, coverAlt, link, translations } =
   Astro.props;
+const dir = getDirection(getLocale(Astro.url));
 ---
 
 <article class="book-card">
@@ -35,7 +37,7 @@ const { title, subtitle, description, cover, coverAlt, link, translations } =
 
     <a href={link} class="book-link" target="_blank" rel="noopener noreferrer">
       Read Online
-      <MaskIcon src={arrowRightIcon} size="1em" />
+      <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
     </a>
 
     {
