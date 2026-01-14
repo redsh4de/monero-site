@@ -19,7 +19,7 @@ const {
   backLabel,
 } = Astro.props;
 
-const dir = getDirection(getLocale(Astro.url));
+const rtl = getDirection(getLocale(Astro.url)) === "rtl";
 ---
 
 <header class:list={[{ centered }]}>
@@ -27,7 +27,7 @@ const dir = getDirection(getLocale(Astro.url));
     backHref && backLabel && (
       <a href={backHref} class="back-link">
         <span class="back-link-icon">
-          <MaskIcon src={chevronLeft} size="1.125rem" rtl={dir === "rtl"} />
+          <MaskIcon src={chevronLeft} size="1.125rem" rtl={rtl} />
         </span>
         <span class="back-link-label">{backLabel}</span>
       </a>

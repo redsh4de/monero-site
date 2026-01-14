@@ -4,18 +4,12 @@ import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro
 import PageContainer from "@/components/ui/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import { developerLibraries } from "@/data/monero-tools";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  localizeHref,
-} from "@/i18n/utils";
+import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 import shieldAlertIcon from "@/assets/icons/mask/shieldAlert.avif";
 
 const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
 const t = await createTInstance(locale);
 ---
 
@@ -40,7 +34,6 @@ const t = await createTInstance(locale);
               title={tool.title}
               subtitle={tool.subtitle}
               logo={tool.logo}
-              rtl={dir === "rtl"}
             />
           </li>
         ))

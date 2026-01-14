@@ -2,16 +2,10 @@
 import CategoryCard from "@/components/ui/CategoryCard.astro";
 import PageContainer from "@/components/ui/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  localizeHref,
-} from "@/i18n/utils";
+import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
 const t = await createTInstance(locale);
 
 const cards = [
@@ -50,7 +44,6 @@ const cards = [
             title={card.title}
             description={card.description}
             href={card.href}
-            rtl={dir === "rtl"}
           />
         ))
       }

@@ -1,6 +1,7 @@
 ---
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 import torIcon from "@/assets/icons/mask/tor.avif";
+import { getDirection, getLocale } from "@/i18n/utils";
 import { getPublicImageDimensions } from "@/utils/image";
 import type { HTMLAttributes } from "astro/types";
 import { Image } from "astro:assets";
@@ -12,7 +13,6 @@ export interface Props extends HTMLAttributes<"div"> {
   title: string;
   subtitle?: string;
   logo?: string;
-  rtl?: boolean;
   onionHref?: string;
   variant?: "default" | "mini";
   t?: TFunction;
@@ -23,12 +23,12 @@ const {
   title,
   subtitle,
   logo,
-  rtl,
   onionHref,
   variant = "default",
   t,
   ...rest
 } = Astro.props;
+const rtl = getDirection(getLocale(Astro.url)) === "rtl";
 const logoDimensions = logo ? await getPublicImageDimensions(logo) : null;
 ---
 

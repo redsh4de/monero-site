@@ -13,7 +13,7 @@ export interface Props extends Book {
 
 const { title, subtitle, description, cover, coverAlt, link, translations, t } =
   Astro.props;
-const dir = getDirection(getLocale(Astro.url));
+const rtl = getDirection(getLocale(Astro.url)) === "rtl";
 ---
 
 <article class="book-card">
@@ -40,7 +40,7 @@ const dir = getDirection(getLocale(Astro.url));
 
     <a href={link} class="book-link" target="_blank" rel="noopener noreferrer">
       {t("common:components.bookCard.readOnline")}
-      <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+      <MaskIcon src={arrowRightIcon} size="1em" rtl={rtl} />
     </a>
 
     {

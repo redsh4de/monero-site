@@ -96,14 +96,17 @@ if (!exchanges) {
               )}
 
               <td
-                class:list={["pill", { "checkmark": ex.fiat, "cross": !ex.fiat }]}
+                class:list={["pill", { checkmark: ex.fiat, cross: !ex.fiat }]}
                 data-label={t("exchanges:table.fiat")}
               >
                 <span aria-hidden="true">{ex.fiat ? "✓" : "✗"}</span>
               </td>
 
               <td
-                class:list={["pill", { "checkmark": ex.crypto, "cross": !ex.crypto }]}
+                class:list={[
+                  "pill",
+                  { checkmark: ex.crypto, cross: !ex.crypto },
+                ]}
                 data-label={t("exchanges:table.crypto")}
               >
                 <span aria-hidden="true">{ex.crypto ? "✓" : "✗"}</span>

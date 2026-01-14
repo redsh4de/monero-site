@@ -5,18 +5,12 @@ import PageContainer from "@/components/ui/PageContainer.astro";
 import PageSection from "@/components/ui/PageSection.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import { blockExplorers, networkTools, utilities } from "@/data/monero-tools";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  localizeHref,
-} from "@/i18n/utils";
+import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 import shieldAlertIcon from "@/assets/icons/mask/shieldAlert.avif";
 
 const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
 const t = await createTInstance(locale);
 ---
 
@@ -46,7 +40,6 @@ const t = await createTInstance(locale);
                 title={tool.title}
                 subtitle={tool.subtitle}
                 onionHref={tool.onionHref}
-                rtl={dir === "rtl"}
                 t={t}
               />
             </li>
@@ -70,7 +63,6 @@ const t = await createTInstance(locale);
                 href={tool.href}
                 title={tool.title}
                 subtitle={tool.subtitle}
-                rtl={dir === "rtl"}
                 t={t}
               />
             </li>
@@ -94,7 +86,6 @@ const t = await createTInstance(locale);
                 href={tool.href}
                 title={tool.title}
                 subtitle={tool.subtitle}
-                rtl={dir === "rtl"}
                 t={t}
               />
             </li>
