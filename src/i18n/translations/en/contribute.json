@@ -75,8 +75,8 @@
       "librariesSdks": "Libraries & SDKs",
       "githubOrganization": "GitHub Organization"
     },
-    "ecosystemProjects": "Community Projects",
-    "ecosystemProjectsSubtitle": "Infrastructure projects maintained by the community.",
+    "communityProjects": "Community Projects",
+    "communityProjectsSubtitle": "Infrastructure projects maintained by the community.",
     "xmrig": {
       "title": "XMRig",
       "description": "High-performance RandomX miner."

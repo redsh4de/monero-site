@@ -59,7 +59,7 @@ const coreProjects = [
   },
 ];
 
-const ecosystemProjects = [
+const communityProjects = [
   {
     title: t("contribute:develop.cuprate.title"),
     subtitle: t("contribute:develop.cuprate.description"),
@@ -150,12 +150,12 @@ const ecosystemProjects = [
         </PageSection>
 
         <PageSection
-          title={t("contribute:develop.ecosystemProjects")}
-          subtitle={t("contribute:develop.ecosystemProjectsSubtitle")}
+          title={t("contribute:develop.communityProjects")}
+          subtitle={t("contribute:develop.communityProjectsSubtitle")}
         >
           <div class="ecosystem-grid">
             {
-              ecosystemProjects.map((project) => (
+              communityProjects.map((project) => (
                 <ExternalResourceButton
                   href={project.href}
                   title={project.title}
