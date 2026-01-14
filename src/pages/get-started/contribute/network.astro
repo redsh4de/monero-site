@@ -10,7 +10,7 @@ import arrowRight from "@/assets/icons/mask/arrow-right.avif";
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 
 import moneroPickaxe from "@/assets/images/monero_pickaxe.webp";
-import serverImage from "@/assets/images/server.png";
+import serverImage from "@/assets/images/server.avif";
 
 import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import { createSafeMarkdown } from "@/utils/safeMarkdown";
@@ -56,6 +56,7 @@ const safeMarkdown = createSafeMarkdown(locale);
         <Image
           src={moneroPickaxe}
           alt={t("contribute:network.mine.imageAlt")}
+          format="avif"
         />
       </div>
     </section>
@@ -96,6 +97,7 @@ const safeMarkdown = createSafeMarkdown(locale);
         <Image
           src={serverImage}
           alt={t("contribute:network.runANode.imageAlt")}
+          format="avif"
         />
       </div>
     </section>

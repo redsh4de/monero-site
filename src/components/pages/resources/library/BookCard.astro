@@ -23,7 +23,7 @@ const dir = getDirection(getLocale(Astro.url));
         typeof cover === "string" ? (
           <img src={cover} alt={coverAlt || `${title} cover`} loading="lazy" />
         ) : (
-          <Image src={cover} alt={coverAlt || `${title} cover`} />
+          <Image src={cover} alt={coverAlt || `${title} cover`} format="avif" />
         )
       ) : (
         <div class="book-placeholder">
