@@ -108,7 +108,10 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
   class={`community-card ${hasBuiltinExchange ? "has-built-in-exchange" : ""}`}
   {...id ? { id } : {}}
 >
-  <header class="card-header" aria-label="Project">
+  <header
+    class="card-header"
+    aria-label={t("common:components.communityCard.project")}
+  >
     <div class="card-logo" aria-hidden="true">
       <Image
         src={logo}
@@ -126,7 +129,10 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
 
     {
       showTags && (
-        <div class="card-tags" aria-label="Tags">
+        <div
+          class="card-tags"
+          aria-label={t("common:components.communityCard.tags")}
+        >
           <ul class="list">
             {general.map((tag) => (
               <li
@@ -143,7 +149,10 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
 
   {
     showPlatforms && (
-      <div class="card-platforms" aria-label="Supported platforms">
+      <div
+        class="card-platforms"
+        aria-label={t("common:components.communityCard.supportedPlatforms")}
+      >
         {desktop.length > 0 && (
           <div class="platform-row">
             <span class="platforms-label">
@@ -181,7 +190,7 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
     class="visit-link"
     target="_blank"
     rel="noopener noreferrer external"
-    set:text={linkText ?? "Visit website"}
+    set:text={linkText ?? t("common:components.communityCard.visitWebsite")}
   />
 </div>
 

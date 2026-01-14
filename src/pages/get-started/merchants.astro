@@ -42,6 +42,7 @@ const dir = getDirection(locale);
               subtitle={t(`merchants:subtitles.${merchant.id}`)}
               logo={merchant.logo}
               rtl={dir == "rtl"}
+              t={t}
             />
           ))
       }
