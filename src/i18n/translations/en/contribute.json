@@ -72,7 +72,22 @@
     "resources": {
       "title": "Resources",
       "moneroDocs": "Monero Docs",
+      "librariesSdks": "Libraries & SDKs",
       "githubOrganization": "GitHub Organization"
+    },
+    "ecosystemProjects": "Community Projects",
+    "ecosystemProjectsSubtitle": "Infrastructure projects maintained by the community.",
+    "xmrig": {
+      "title": "XMRig",
+      "description": "High-performance RandomX miner."
+    },
+    "cuprate": {
+      "title": "Cuprate",
+      "description": "An alternative Monero node implementation written in Rust, focusing on performance, modularity, and correctness."
+    },
+    "p2pool": {
+      "title": "P2Pool",
+      "description": "Decentralized mining pool for Monero. Miners keep control of their funds and earn payouts directly."
     }
   },
   "donate": {

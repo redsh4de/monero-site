@@ -1,4 +1,5 @@
 ---
+import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
 import MaskIcon from "@/components/ui/MaskIcon.astro";
 import PageContainer from "@/components/ui/PageContainer.astro";
 import PageSection from "@/components/ui/PageSection.astro";
@@ -8,6 +9,7 @@ import Layout from "@/layouts/Layout.astro";
 import appWindowIcon from "@/assets/icons/mask/app-window.avif";
 import arrowRightIcon from "@/assets/icons/mask/arrow-right.avif";
 import bookTextIcon from "@/assets/icons/mask/bookText.avif";
+import codeXmlIcon from "@/assets/icons/mask/codeXml.avif";
 import coinsIcon from "@/assets/icons/mask/coins.avif";
 import externalLinkIcon from "@/assets/icons/mask/external-link.avif";
 import globeIcon from "@/assets/icons/mask/globe.avif";
@@ -56,6 +58,27 @@ const coreProjects = [
     icon: bookTextIcon,
   },
 ];
+
+const ecosystemProjects = [
+  {
+    title: t("contribute:develop.cuprate.title"),
+    subtitle: t("contribute:develop.cuprate.description"),
+    href: "https://github.com/Cuprate/cuprate",
+    logo: "/media/nodes/cuprate.avif",
+  },
+  {
+    title: t("contribute:develop.p2pool.title"),
+    subtitle: t("contribute:develop.p2pool.description"),
+    href: "https://github.com/SChernykh/p2pool",
+    logo: "/media/ecosystem/p2pool.png",
+  },
+  {
+    title: t("contribute:develop.xmrig.title"),
+    subtitle: t("contribute:develop.xmrig.description"),
+    href: "https://github.com/xmrig/xmrig",
+    logo: "/media/ecosystem/xmrig.png",
+  },
+];
 ---
 
 <Layout
@@ -70,13 +93,12 @@ const coreProjects = [
   />
 
   <PageContainer>
-    <PageSection
-      title={t("contribute:develop.coreProjects")}
-      subtitle={t("contribute:develop.coreProjectsSubtitle")}
-    >
-      <div class="develop-layout">
-        <!-- Main: Core Projects Table -->
-        <div class="main-content">
+    <div class="develop-layout">
+      <div class="main-content">
+        <PageSection
+          title={t("contribute:develop.coreProjects")}
+          subtitle={t("contribute:develop.coreProjectsSubtitle")}
+        >
           <div class="table-wrap">
             <table class="projects-table">
               <thead class="table-head">
@@ -125,113 +147,146 @@ const coreProjects = [
               </tbody>
             </table>
           </div>
+        </PageSection>
+
+        <PageSection
+          title={t("contribute:develop.ecosystemProjects")}
+          subtitle={t("contribute:develop.ecosystemProjectsSubtitle")}
+        >
+          <div class="ecosystem-grid">
+            {
+              ecosystemProjects.map((project) => (
+                <ExternalResourceButton
+                  href={project.href}
+                  title={project.title}
+                  subtitle={project.subtitle}
+                  logo={project.logo}
+                  rtl={dir === "rtl"}
+                />
+              ))
+            }
+          </div>
+        </PageSection>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">
+            {t("contribute:develop.bounties.title")}
+          </h3>
+          <p class="sidebar-subtitle">
+            {t("contribute:develop.bounties.description")}
+          </p>
+          <a
+            href="https://bounties.monero.social/"
+            target="_blank"
+            rel="noopener"
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={coinsIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.bounties.browseMoneroBounties")}</span
+            >
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
+          <a
+            href="https://hackerone.com/monero"
+            target="_blank"
+            rel="noopener"
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={shieldCheckIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.bounties.securityDisclosures")}</span
+            >
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
         </div>
 
-        <aside class="sidebar">
-          <div class="sidebar-section">
-            <h3 class="sidebar-title">
-              {t("contribute:develop.bounties.title")}
-            </h3>
-            <p class="sidebar-subtitle">
-              {t("contribute:develop.bounties.description")}
-            </p>
-            <a
-              href="https://bounties.monero.social/"
-              target="_blank"
-              rel="noopener"
-              class="sidebar-item"
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">
+            {t("contribute:develop.workgroups.title")}
+          </h3>
+          <p class="sidebar-subtitle">
+            {t("contribute:develop.workgroups.description")}
+          </p>
+          <a
+            href={localizeHref(locale, "/community/workgroups/")}
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={usersIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.workgroups.joinWorkgroups")}</span
             >
-              <span class="sidebar-item-icon">
-                <MaskIcon src={coinsIcon} size="1.25rem" />
-              </span>
-              <span class="sidebar-item-title"
-                >{t("contribute:develop.bounties.browseMoneroBounties")}</span
-              >
-              <span class="sidebar-item-arrow">
-                <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
-              </span>
-            </a>
-            <a
-              href="https://hackerone.com/monero"
-              target="_blank"
-              rel="noopener"
-              class="sidebar-item"
-            >
-              <span class="sidebar-item-icon">
-                <MaskIcon src={shieldCheckIcon} size="1.25rem" />
-              </span>
-              <span class="sidebar-item-title"
-                >{t("contribute:develop.bounties.securityDisclosures")}</span
-              >
-              <span class="sidebar-item-arrow">
-                <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
-              </span>
-            </a>
-          </div>
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
+        </div>
 
-          <div class="sidebar-section">
-            <h3 class="sidebar-title">
-              {t("contribute:develop.workgroups.title")}
-            </h3>
-            <p class="sidebar-subtitle">
-              {t("contribute:develop.workgroups.description")}
-            </p>
-            <a
-              href={localizeHref(locale, "/community/workgroups/")}
-              class="sidebar-item"
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">
+            {t("contribute:develop.resources.title")}
+          </h3>
+          <a
+            href="https://docs.getmonero.org/"
+            target="_blank"
+            rel="noopener"
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={bookTextIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.resources.moneroDocs")}</span
             >
-              <span class="sidebar-item-icon">
-                <MaskIcon src={usersIcon} size="1.25rem" />
-              </span>
-              <span class="sidebar-item-title"
-                >{t("contribute:develop.workgroups.joinWorkgroups")}</span
-              >
-              <span class="sidebar-item-arrow">
-                <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
-              </span>
-            </a>
-          </div>
-
-          <div class="sidebar-section">
-            <h3 class="sidebar-title">
-              {t("contribute:develop.resources.title")}
-            </h3>
-            <a
-              href="https://docs.getmonero.org/"
-              target="_blank"
-              rel="noopener"
-              class="sidebar-item"
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
+          <a
+            href={localizeHref(locale, "/resources/tools/develop/")}
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={codeXmlIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.resources.librariesSdks")}</span
             >
-              <span class="sidebar-item-icon">
-                <MaskIcon src={bookTextIcon} size="1.25rem" />
-              </span>
-              <span class="sidebar-item-title"
-                >{t("contribute:develop.resources.moneroDocs")}</span
-              >
-              <span class="sidebar-item-arrow">
-                <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
-              </span>
-            </a>
-            <a
-              href="https://github.com/monero-project"
-              target="_blank"
-              rel="noopener"
-              class="sidebar-item"
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
+          <a
+            href="https://github.com/monero-project"
+            target="_blank"
+            rel="noopener"
+            class="sidebar-item"
+          >
+            <span class="sidebar-item-icon">
+              <MaskIcon src={externalLinkIcon} size="1.25rem" />
+            </span>
+            <span class="sidebar-item-title"
+              >{t("contribute:develop.resources.githubOrganization")}</span
             >
-              <span class="sidebar-item-icon">
-                <MaskIcon src={externalLinkIcon} size="1.25rem" />
-              </span>
-              <span class="sidebar-item-title"
-                >{t("contribute:develop.resources.githubOrganization")}</span
-              >
-              <span class="sidebar-item-arrow">
-                <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
-              </span>
-            </a>
-          </div>
-        </aside>
-      </div>
-    </PageSection>
+            <span class="sidebar-item-arrow">
+              <MaskIcon src={arrowRightIcon} size="1em" rtl={dir === "rtl"} />
+            </span>
+          </a>
+        </div>
+      </aside>
+    </div>
   </PageContainer>
 </Layout>
 
@@ -244,12 +299,21 @@ const coreProjects = [
 
   .main-content {
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .table-wrap {
     background: var(--card-color);
     border-radius: 0.5rem;
     overflow: hidden;
+  }
+
+  .ecosystem-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .cell-stack {
