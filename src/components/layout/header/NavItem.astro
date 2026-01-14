@@ -29,7 +29,7 @@ const closeId = id + "-close";
 const dir = getDirection(getLocale(Astro.url));
 ---
 
-<li class={`nav-item${isDropdown ? " nav-item--dropdown" : ""}`}>
+<li class:list={["nav-item", { "nav-item--dropdown": isDropdown }]}>
   {
     isDropdown ? (
       <>

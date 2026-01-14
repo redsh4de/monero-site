@@ -105,7 +105,7 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
 ---
 
 <div
-  class={`community-card ${hasBuiltinExchange ? "has-built-in-exchange" : ""}`}
+  class:list={["community-card", { "has-built-in-exchange": hasBuiltinExchange }]}
   {...id ? { id } : {}}
 >
   <header
@@ -136,7 +136,7 @@ const hasBuiltinExchange = general.includes("i18n:builtInExchange");
           <ul class="list">
             {general.map((tag) => (
               <li
-                class={`pill ${tag === "i18n:builtInExchange" ? "builtin-exchange-pill" : ""}`}
+                class:list={["pill", { "builtin-exchange-pill": tag === "i18n:builtInExchange" }]}
               >
                 <span class="tag-text">{getTagLabel(tag)}</span>
               </li>

@@ -88,7 +88,7 @@ if (!exchanges) {
 
               {hasKyc && (
                 <td
-                  class={`pill ${kycClass}`}
+                  class:list={["pill", kycClass]}
                   data-label={t("exchanges:table.kyc")}
                 >
                   {kycText}
@@ -96,14 +96,14 @@ if (!exchanges) {
               )}
 
               <td
-                class={`pill ${ex.fiat ? "checkmark" : "cross"}`}
+                class:list={["pill", { "checkmark": ex.fiat, "cross": !ex.fiat }]}
                 data-label={t("exchanges:table.fiat")}
               >
                 <span aria-hidden="true">{ex.fiat ? "✓" : "✗"}</span>
               </td>
 
               <td
-                class={`pill ${ex.crypto ? "checkmark" : "cross"}`}
+                class:list={["pill", { "checkmark": ex.crypto, "cross": !ex.crypto }]}
                 data-label={t("exchanges:table.crypto")}
               >
                 <span aria-hidden="true">{ex.crypto ? "✓" : "✗"}</span>
