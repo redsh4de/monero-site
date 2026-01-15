@@ -8,5 +8,9 @@ try {
   const husky = (await import("husky")).default;
   console.log(husky());
 } catch (e) {
-  if (e.code !== "ERR_MODULE_NOT_FOUND") throw e;
+  if (e.code === "ERR_MODULE_NOT_FOUND") {
+    console.log("Husky not installed, skipping git hooks setup");
+  } else {
+    throw e;
+  }
 }
