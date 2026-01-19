@@ -17,7 +17,9 @@ const locale = getLocale(Astro.url);
 const rtl = getDirection(locale) === "rtl";
 
 const getLanguageName = (targetLocale: string): string => {
-  const displayNames = new Intl.DisplayNames([locale], { type: "language" });
+  const displayNames = new Intl.DisplayNames([targetLocale], {
+    type: "language",
+  });
   const name = displayNames.of(targetLocale);
   return name ? name.charAt(0).toUpperCase() + name.slice(1) : targetLocale;
 };
