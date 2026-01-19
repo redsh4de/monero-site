@@ -65,7 +65,12 @@
     },
     "whitepapers": {
       "title": "CryptoNote 白皮书",
-      "subtitle": "描述 Monero 所基于协议的基础文档。"
+      "subtitle": "描述 Monero 所基于协议的基础文档。",
+      "items": {
+        "cryptonote": "CryptoNote 白皮书",
+        "annotated": "注释版白皮书",
+        "goodellReview": "Brandon Goodell 的白皮书评论"
+      }
     }
   }
 }
