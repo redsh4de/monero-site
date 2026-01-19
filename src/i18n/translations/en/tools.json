@@ -4,7 +4,7 @@
     "title": "Monero Tools",
     "subtitle": "Find the right tool for what you're trying to do.",
     "description": "Find the right Monero tool for what you're trying to do - explore the blockchain, build applications, or accept payments.",
-    "itemsCount": "{{count}} items"
+    "itemsCount": "{{num}} items"
   },
   "explore": {
     "pageTitle": "Explore Monero",
