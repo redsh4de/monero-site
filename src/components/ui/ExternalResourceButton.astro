@@ -219,24 +219,24 @@ const logoDimensions = logo ? await getPublicImageDimensions(logo) : null;
   }
 
   @media screen and (max-width: 600px) {
-    .external-resource-button {
+    .external-resource-button.has-onion {
       flex-wrap: wrap;
-    }
 
-    .primary-link {
-      flex-basis: 100%;
-    }
+      .primary-link {
+        flex-basis: 100%;
+      }
 
-    .link-icon,
-    .onion-link {
-      flex: 1;
-      width: auto;
-      border-top: 1px solid var(--border-color);
-      padding: 0.75rem;
-    }
+      .link-icon,
+      .onion-link {
+        flex: 1;
+        width: auto;
+        border-top: 1px solid var(--border-color);
+        padding: 0.75rem;
+      }
 
-    .onion-link {
-      border-inline-start: 1px solid var(--border-color);
+      .onion-link {
+        border-inline-start: 1px solid var(--border-color);
+      }
     }
   }
 </style>
