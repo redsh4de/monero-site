@@ -1,9 +1,6 @@
 ---
 import "@/styles/moneropedia-link.css";
 
-import { createTInstance, getLocale } from "@/i18n/utils";
-import { createSafeMarkdown } from "@/utils/safeMarkdown";
-
 import Layout from "@/layouts/Layout.astro";
 
 import IndexCard from "@/components/pages/index/IndexCard.astro";
@@ -16,9 +13,7 @@ import developerGuidesIcon from "@/assets/icons/mask/developer-guides.avif";
 import faqIcon from "@/assets/icons/mask/faq.avif";
 import PageContainer from "@/components/ui/PageContainer.astro";
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
-const safeMarkdown = createSafeMarkdown(locale);
+const { t, safeMarkdown } = Astro.locals;
 
 const sectionToItems = (
   section: Record<string, { title: string; content: string }>,
@@ -99,8 +94,8 @@ const economicsItems = sectionToItems(
       </div>
     </div>
     <IndexCard
-      title={t("index:resourcesTitle")}
-      description={t("index:resourcesDescription")}
+      title={t("faq:additionalResources.title")}
+      description={t("faq:additionalResources.subtitle")}
       id="monero-resources"
     >
       <div id="resource-container">
@@ -140,19 +135,19 @@ const economicsItems = sectionToItems(
 <style>
   .accordion-grid {
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-lg);
     grid-template-columns: 1fr;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-2xl);
   }
 
   .accordion-card {
     background: var(--card-color);
-    padding: 1.5rem;
-    border-radius: 0.5rem;
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
   }
 
   .card-title {
-    margin: 0 0 1.5rem;
+    margin: 0 0 var(--space-xl);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--paragraph-main);
@@ -161,7 +156,7 @@ const economicsItems = sectionToItems(
 
   #resource-container {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-2xl);
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     overflow: hidden;
   }
@@ -171,7 +166,7 @@ const economicsItems = sectionToItems(
       grid-template-columns: repeat(2, 1fr);
     }
     .accordion-card {
-      padding: 3rem;
+      padding: var(--space-4xl);
     }
     #resource-container {
       grid-column: span 2;

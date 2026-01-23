@@ -1,6 +1,4 @@
 ---
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-import { createSafeMarkdown } from "@/utils/safeMarkdown";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
@@ -16,9 +14,7 @@ type MoneropediaItem = CollectionEntry<"moneropedia"> & {
   letter: string;
 };
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
-const safeMarkdown = createSafeMarkdown(locale);
+const { locale, t, localizeHref, safeMarkdown } = Astro.locals;
 
 const entries = (
   await getCollection("moneropedia", (entry) =>
@@ -34,7 +30,7 @@ const entries = (
 
   return {
     ...entry,
-    href: localizeHref(locale, `/resources/moneropedia/${slug}/`),
+    href: localizeHref(`/resources/moneropedia/${slug}/`),
     title,
     letter: title.charAt(0).toUpperCase(),
   };
@@ -54,15 +50,20 @@ for (const letter of sortedLetters) {
 ---
 
 <Layout
-  title={t("moneropedia:pageTitle") ?? "Moneropedia"}
-  description={t("moneropedia:hero.subtitle")}
+  title={t("knowledge-base:moneropedia.pageTitle")}
+  description={t("knowledge-base:moneropedia.subtitle")}
 >
   <TitleCard
-    title={t("moneropedia:hero.title") ?? "Moneropedia"}
-    subtitle={t("moneropedia:hero.subtitle")}
+    title={t("knowledge-base:moneropedia.title")}
+    subtitle={t("knowledge-base:moneropedia.subtitle")}
+    backHref={localizeHref("/resources/knowledge-base/")}
+    backLabel={t("knowledge-base:index.title")}
   />
   <PageContainer class="moneropedia-index">
-    <nav class="letter-nav" aria-label="Moneropedia navigation bar">
+    <nav
+      class="letter-nav"
+      aria-label={t("knowledge-base:moneropedia.aria.navBar")}
+    >
       {
         sortedLetters.map((letter) => (
           <a class="letter-nav-link" href={`#${letter}`}>
@@ -79,7 +80,7 @@ for (const letter of sortedLetters) {
           const accordionItems = groupEntries.map((entry) => ({
             title: entry.title,
             content: safeMarkdown.parse(
-              `${entry.data.summary}\n\n[${t("moneropedia:readMore")} ](${entry.href})`,
+              `${entry.data.summary}\n\n[${t("knowledge-base:moneropedia.readMore")} ](${entry.href})`,
             ),
           }));
 
@@ -115,16 +116,16 @@ for (const letter of sortedLetters) {
   .letter-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    padding-bottom: 0.75rem;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-sm);
     border-bottom: 1px solid var(--border-color);
     width: 100%;
     font-weight: var(--font-weight-semibold);
   }
 
   .letter-nav-link {
-    padding: 0.5rem 0.5rem;
-    border-radius: 5px;
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
     text-decoration: none;
     color: var(--text-primary);
@@ -138,7 +139,7 @@ for (const letter of sortedLetters) {
   .letter-groups {
     overflow-y: auto;
     max-height: clamp(20rem, 70vh, 60rem);
-    padding-inline-start: 0.5rem;
+    padding-inline-start: var(--space-xs);
     scroll-behavior: smooth;
     scroll-padding-top: 0;
   }
@@ -146,7 +147,7 @@ for (const letter of sortedLetters) {
   .letter-layout {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 1rem 2rem;
+    gap: var(--space-md) var(--space-2xl);
     align-items: flex-start;
   }
 
@@ -167,7 +168,7 @@ for (const letter of sortedLetters) {
   .letter-separator {
     border: 0;
     border-top: 1px solid var(--border-color);
-    margin: 2rem 0 2rem;
+    margin: var(--space-2xl) 0 var(--space-2xl);
   }
   .letter-group:first-child .letter-separator {
     margin-top: 0;
@@ -178,7 +179,7 @@ for (const letter of sortedLetters) {
     .moneropedia-index {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
-      gap: 1.5rem;
+      gap: var(--space-xl);
     }
 
     .letter-nav {
@@ -186,9 +187,9 @@ for (const letter of sortedLetters) {
 
       flex-direction: column;
       flex-wrap: nowrap;
-      gap: 1rem;
+      gap: var(--space-md);
       padding: 0.5rem 1rem 0.5rem 2rem;
-      margin-inline-start: -2rem;
+      margin-inline-start: calc(-1 * var(--space-2xl));
       border-bottom: unset;
       border-inline-start: 1px solid var(--border-color);
       width: auto;
@@ -198,7 +199,7 @@ for (const letter of sortedLetters) {
       max-height: calc(
         100vh - var(--sticky-offset) - calc(var(--sticky-offset) / 2)
       );
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--space-xl);
       overflow: hidden auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
@@ -216,7 +217,7 @@ for (const letter of sortedLetters) {
     }
 
     .letter-nav::-webkit-scrollbar {
-      width: 0.35rem;
+      width: var(--space-2xs);
     }
 
     .letter-nav::-webkit-scrollbar-track {
@@ -225,11 +226,11 @@ for (const letter of sortedLetters) {
 
     .letter-nav::-webkit-scrollbar-thumb {
       background: var(--monero-orange);
-      border-radius: 999px;
+      border-radius: var(--radius-full);
     }
 
     .letter-nav-link {
-      padding: 0.35rem 0.5rem;
+      padding: var(--space-2xs) var(--space-xs);
       font-size: var(--font-size-sm);
       text-align: center;
     }
@@ -245,7 +246,7 @@ for (const letter of sortedLetters) {
     }
 
     .letter-heading {
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-md);
     }
   }
 </style>

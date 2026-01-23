@@ -4,7 +4,7 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 export interface Props {
-  step: number;
+  step: number | string;
   title: string;
   icon?: ImageMetadata;
   image?: ImageMetadata;
@@ -20,11 +20,14 @@ const {
   imageAlt = "",
   reverse = false,
 } = Astro.props;
+const { t } = Astro.locals;
 ---
 
 <section class:list={["guide-step", { reverse }]}>
   <div class="step-content">
-    <span class="step-label">Step {step}</span>
+    <span class="step-label"
+      >{t("common:components.guideStep.step", { step })}</span
+    >
     <h2 class="step-title">{title}</h2>
     <div class="step-body">
       <slot />
@@ -33,7 +36,7 @@ const {
   <div class="step-image">
     {
       image ? (
-        <Image src={image} alt={imageAlt} />
+        <Image src={image} alt={imageAlt} format="avif" />
       ) : (
         <div class="step-image-placeholder">
           {icon && (
@@ -54,7 +57,7 @@ const {
   .guide-step {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: var(--space-4xl);
     align-items: center;
   }
 
@@ -73,11 +76,11 @@ const {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--monero-orange);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-xs);
   }
 
   .step-title {
-    margin-block: 0 1.25rem;
+    margin-block: 0 var(--space-lg);
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     color: var(--heading-color);
@@ -87,7 +90,7 @@ const {
   .step-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .step-body :global(p) {
@@ -100,14 +103,14 @@ const {
   .step-body :global(ol),
   .step-body :global(ul) {
     margin: 0;
-    padding-left: 1.5rem;
+    padding-inline-start: var(--space-xl);
     color: var(--paragraph-subtitle);
     line-height: 1.8;
   }
 
   .step-body :global(li) {
-    margin-bottom: 0.375rem;
-    padding-left: 0.375rem;
+    margin-bottom: var(--space-2xs);
+    padding-inline-start: var(--space-2xs);
   }
 
   .step-body :global(li::marker) {
@@ -120,7 +123,7 @@ const {
     align-items: center;
     justify-content: center;
     background: var(--card-color);
-    border-radius: 1rem;
+    border-radius: var(--radius-xl);
     overflow: hidden;
     aspect-ratio: 4 / 3;
     border: 1px solid var(--border-color);
@@ -166,7 +169,7 @@ const {
   @media (max-width: 900px) {
     .guide-step {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: var(--space-xl);
     }
 
     .guide-step.reverse .step-content,

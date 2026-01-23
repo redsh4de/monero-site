@@ -10,53 +10,54 @@ import Layout from "@/layouts/Layout.astro";
 
 import arrowRightIcon from "@/assets/icons/mask/arrow-right.avif";
 import bookTextIcon from "@/assets/icons/mask/bookText.avif";
+import mailsIcon from "@/assets/icons/mask/mails.avif";
 import receiptTextIcon from "@/assets/icons/mask/receiptText.avif";
-import rssIcon from "@/assets/icons/mask/rss.avif";
 
 import { books, cheatsheets, newsletters } from "@/data/library";
 
-import { getDirection, getLocale } from "@/i18n/utils";
-
-const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
-// const t = await createTInstance(locale);
+const { dir, t, localizeHref } = Astro.locals;
 
 const sections = [
   {
     id: "books",
     icon: bookTextIcon,
-    title: "Books",
-    subtitle: "In-depth educational resources",
+    title: t("knowledge-base:library.sections.books.title"),
+    subtitle: t("knowledge-base:library.sections.books.tocSubtitle"),
   },
   {
     id: "cheatsheets",
     icon: receiptTextIcon,
-    title: "Cheatsheets",
-    subtitle: "Visual guides and infographics",
+    title: t("knowledge-base:library.sections.cheatsheets.title"),
+    subtitle: t("knowledge-base:library.sections.cheatsheets.tocSubtitle"),
   },
   {
     id: "newsletters",
-    icon: rssIcon,
-    title: "Newsletters",
-    subtitle: "Stay updated with the community",
+    icon: mailsIcon,
+    title: t("knowledge-base:library.sections.newsletters.title"),
+    subtitle: t("knowledge-base:library.sections.newsletters.tocSubtitle"),
   },
 ];
 ---
 
 <Layout
-  title="Library"
-  description="Explore educational resources, books, and publications curated by the Monero community."
+  title={t("knowledge-base:library.pageTitle")}
+  description={t("knowledge-base:library.subtitle")}
 >
   <TitleCard
-    title="Library"
-    subtitle="Explore publications, books, and educational resources curated by the Monero community. Whether you're just starting out or diving deep into cryptography, there's something here for you."
+    title={t("knowledge-base:library.title")}
+    subtitle={t("knowledge-base:library.subtitle")}
+    backHref={localizeHref("/resources/knowledge-base/")}
+    backLabel={t("knowledge-base:index.title")}
   />
 
   <PageContainer>
-    <TOCContainer sections={sections} ariaLabel="Library sections" />
+    <TOCContainer
+      sections={sections}
+      ariaLabel={t("knowledge-base:library.aria.sectionsNav")}
+    />
     <PageSection
-      title="Books"
-      subtitle="In-depth guides and technical resources to help you understand Monero from the ground up."
+      title={t("knowledge-base:library.sections.books.title")}
+      subtitle={t("knowledge-base:library.sections.books.subtitle")}
       anchorId="books"
     >
       <div class="books-shelf">
@@ -66,13 +67,20 @@ const sections = [
 
     <hr aria-hidden="true" />
 
-    <PageSection title="Cheatsheets" anchorId="cheatsheets">
+    <PageSection
+      title={t("knowledge-base:library.sections.cheatsheets.title")}
+      anchorId="cheatsheets"
+    >
       <div class="cheatsheet-intro">
-        <h3 class="salmon-title">The Salmon Series</h3>
+        <h3 class="salmon-title">
+          {t("knowledge-base:library.sections.cheatsheets.salmonSeries.title")}
+        </h3>
         <p class="section-intro">
-          Infographics dealing with Monero's inner workings. The name comes from
-          the employed colors, having semantic meanings and resembling salmon
-          browning - from raw to well-done.
+          {
+            t(
+              "knowledge-base:library.sections.cheatsheets.salmonSeries.description",
+            )
+          }
         </p>
       </div>
 
@@ -108,8 +116,8 @@ const sections = [
     <hr aria-hidden="true" />
 
     <PageSection
-      title="Newsletters"
-      subtitle="Stay updated with the latest Monero news, developments, and community highlights."
+      title={t("knowledge-base:library.sections.newsletters.title")}
+      subtitle={t("knowledge-base:library.sections.newsletters.subtitle")}
       anchorId="newsletters"
     >
       <div class="newsletters-grid">
@@ -119,7 +127,6 @@ const sections = [
               href={newsletter.url}
               title={newsletter.title}
               subtitle={newsletter.description}
-              rtl={dir === "rtl"}
             />
           ))
         }
@@ -131,29 +138,29 @@ const sections = [
 <style>
   .section-intro {
     color: var(--paragraph-subtitle);
-    margin-block: 0 1.5rem;
+    margin-block: 0 var(--space-xl);
     max-width: 70ch;
     line-height: var(--line-height-body);
   }
 
   .books-shelf {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 
-  @media (min-width: 1600px) {
+  @media (max-width: 900px) {
     .books-shelf {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
     }
   }
 
   .cheatsheet-intro {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-xl);
   }
 
   .salmon-title {
-    margin-block: 0.5rem;
+    margin-block: var(--space-xs);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
@@ -162,14 +169,14 @@ const sections = [
   .cheatsheets-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .cheatsheet-card {
     display: flex;
     flex-direction: column;
     background: var(--card-color);
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
     overflow: hidden;
     text-decoration: none;
   }
@@ -180,7 +187,7 @@ const sections = [
 
   .cheatsheet-visual {
     background: var(--background-color);
-    padding: 1.5rem;
+    padding: var(--space-xl);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,11 +196,11 @@ const sections = [
 
   .cheatsheet-content {
     flex: 1;
-    padding: 1rem 1.25rem;
+    padding: var(--space-md) var(--space-lg);
   }
 
   .cheatsheet-title {
-    margin: 0 0 0.35rem;
+    margin: 0 0 var(--space-2xs);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
@@ -207,7 +214,7 @@ const sections = [
   }
 
   .cheatsheet-action {
-    padding: 0.75rem 1.25rem;
+    padding: var(--space-sm) var(--space-lg);
     border-top: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -218,21 +225,10 @@ const sections = [
   .newsletters-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  @media (max-width: 1200px) {
-    .books-shelf {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    gap: var(--space-sm);
   }
 
   @media (max-width: 600px) {
-    .books-shelf {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
     .cheatsheets-grid {
       grid-template-columns: 1fr;
     }

@@ -1,6 +1,4 @@
 ---
-import { localizeHref } from "@/i18n/utils";
-import { getLocale } from "astro-i18n-aut";
 import { Image } from "astro:assets";
 
 import LanguageDropdown from "@/components/layout/header/LanguageDropdown.astro";
@@ -14,8 +12,7 @@ import moneroLogo from "@/../public/meta/monerologo.avif";
 import close from "@/assets/icons/mask/close.avif";
 import hamburger from "@/assets/icons/mask/hamburger.avif";
 
-const { t } = Astro.props;
-const locale = getLocale(Astro.url);
+const { t, localizeHref } = Astro.locals;
 
 const navItems = navigationItems.map((item) => {
   const label = t(`common:header.nav.${item.translationKey}`);
@@ -26,7 +23,7 @@ const navItems = navigationItems.map((item) => {
       dropdown: item.items.map(({ key, href, icon, iconDark }) => ({
         label: t(`common:header.dropdowns.${item.section}.${key}.label`),
         desc: t(`common:header.dropdowns.${item.section}.${key}.desc`),
-        href: localizeHref(locale, href),
+        href: localizeHref(href),
         icon,
         iconDark,
       })),
@@ -35,14 +32,14 @@ const navItems = navigationItems.map((item) => {
 
   return {
     label,
-    href: localizeHref(locale, item.href),
+    href: localizeHref(item.href),
   };
 });
 ---
 
 <header class="header">
   <div class="header-inner">
-    <a class="brand" href={localizeHref(locale, "/")}>
+    <a class="brand" href={localizeHref("/")}>
       <Image
         class="mark"
         src={moneroLogo}
@@ -58,19 +55,19 @@ const navItems = navigationItems.map((item) => {
 
     <input id="nav-toggle" class="nav-toggle" type="checkbox" />
 
-    <nav id="primary-nav" class="nav" aria-label="Primary">
+    <nav id="primary-nav" class="nav" aria-label={t("common:aria.primaryNav")}>
       <div class="drawer-header">
         <label
           for="nav-toggle"
           class="close"
           aria-controls="primary-nav"
-          aria-label="Close menu"
+          aria-label={t("common:aria.closeMenu")}
         >
           <MaskIcon src={close} size="1.5rem" />
         </label>
       </div>
       <fieldset>
-        <legend class="sr-only">Primary navigation sections</legend>
+        <legend class="sr-only">{t("common:aria.primaryNavSections")}</legend>
         <ul class="nav-list">
           {navItems.map((item) => <NavItem {...item} />)}
         </ul>
@@ -81,9 +78,9 @@ const navItems = navigationItems.map((item) => {
       for="nav-toggle"
       class="scrim"
       aria-hidden="true"
-      aria-label="Close menu"></label>
+      aria-label={t("common:aria.closeMenu")}></label>
 
-    <div class="utils" aria-label="Utilities">
+    <div class="utils" aria-label={t("common:aria.utilities")}>
       <ThemeToggle />
       <div class="lang">
         <LanguageDropdown />
@@ -92,7 +89,7 @@ const navItems = navigationItems.map((item) => {
         for="nav-toggle"
         class="hamburger"
         aria-controls="primary-nav"
-        aria-label="Open menu"
+        aria-label={t("common:aria.openMenu")}
       >
         <MaskIcon src={hamburger} size="1.5rem" />
       </label>
@@ -109,22 +106,22 @@ const navItems = navigationItems.map((item) => {
     position: sticky;
     inset-block-start: 0;
     background: var(--bg-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+    box-shadow: var(--shadow-sm);
+    z-index: var(--z-header);
   }
 
   .header-inner {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-xs);
     color: var(--paragraph-main);
     text-decoration: none;
     font-weight: var(--font-weight-bold);
@@ -140,7 +137,7 @@ const navItems = navigationItems.map((item) => {
   .utils {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-md);
     justify-self: end;
   }
 
@@ -191,22 +188,22 @@ const navItems = navigationItems.map((item) => {
   .nav {
     position: fixed;
     inset-block: 0;
-    inset-inline-end: 0;
+    inset-inline-end: -100%;
 
     inline-size: min(26.25rem, calc(100vw - var(--drawer-gap)));
     box-sizing: border-box;
 
     background: var(--bg-color);
-    padding: 1rem;
+    padding: var(--space-md);
 
-    z-index: 1001;
+    z-index: var(--z-modal-content);
 
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
-    transform: translateX(100%);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
 
@@ -214,7 +211,7 @@ const navItems = navigationItems.map((item) => {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-block: 0.5rem;
+    padding-block: var(--space-xs);
     background: inherit;
     flex-shrink: 0;
   }
@@ -223,7 +220,7 @@ const navItems = navigationItems.map((item) => {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    margin: 1rem 0 0;
+    margin: var(--space-md) 0 0;
     padding: 0;
     list-style: none;
 
@@ -239,7 +236,7 @@ const navItems = navigationItems.map((item) => {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.45);
-    z-index: 1000;
+    z-index: var(--z-modal-background);
     touch-action: none;
 
     opacity: 0;
@@ -248,8 +245,9 @@ const navItems = navigationItems.map((item) => {
   }
 
   .nav-toggle:checked ~ .nav {
-    transform: translateX(0);
+    inset-inline-end: 0;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
   }
 
@@ -296,10 +294,9 @@ const navItems = navigationItems.map((item) => {
       background: unset;
       overflow: visible;
 
-      transform: none;
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
-      transition: none;
 
       display: block;
     }
@@ -308,14 +305,14 @@ const navItems = navigationItems.map((item) => {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: var(--space-2xl);
       margin: 0;
       flex: unset;
       overflow: visible;
     }
 
     .nav-toggle:checked ~ .nav {
-      transform: unset;
+      inset: unset;
       opacity: unset;
     }
 

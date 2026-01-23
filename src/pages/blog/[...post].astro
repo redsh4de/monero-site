@@ -1,12 +1,6 @@
 ---
 import BlogContent from "@/components/pages/blog/BlogContent.astro";
 import BlogHeader from "@/components/pages/blog/BlogHeader.astro";
-import {
-  createTInstance,
-  getLocale,
-  localizeDateString,
-  localizeHref,
-} from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { getDateStringFromId } from "@/utils/blog";
 import type { GetStaticPaths } from "astro";
@@ -27,8 +21,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref, localizeDateString } = Astro.locals;
 
 const { Content } = await render(post);
 // Get recent posts for the sidebar
@@ -75,8 +68,6 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
         id={post.id}
         author={post.data.author}
         tags={post.data.tags}
-        locale={locale}
-        t={t}
       />
       {
         post.data.image && (
@@ -103,7 +94,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
         {
           recentPosts.map((recentPost) => {
             const dateStr = getDateStringFromId(recentPost.id);
-            const formattedDate = localizeDateString(dateStr ?? "", locale, {
+            const formattedDate = localizeDateString(dateStr, {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -112,7 +103,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
               <li>
                 <a
                   class="post-title"
-                  href={localizeHref(locale, `/blog/${recentPost.id}/`)}
+                  href={localizeHref(`/blog/${recentPost.id}/`)}
                 >
                   {recentPost.data.title}
                 </a>
@@ -132,7 +123,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
   .blog-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: var(--space-2xl);
   }
 
   .blog-container > * {
@@ -141,8 +132,8 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
 
   .sidebar {
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    border-radius: 0.5rem;
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
     height: fit-content;
   }
 
@@ -157,18 +148,18 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .recent-posts li {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-xs);
   }
 
   .recent-posts .post-date {
     display: block;
     font-size: var(--font-size-sm);
     color: var(--paragraph-subtitle);
-    margin-top: 0.25rem;
+    margin-top: var(--space-2xs);
   }
 
   .recent-posts .post-title {
@@ -184,7 +175,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
 
   @media (min-width: 1200px) {
     .blog-container {
-      grid-template-columns: 1fr 75ch 1fr;
+      grid-template-columns: 1fr 65ch 1fr;
     }
 
     .blog-post {

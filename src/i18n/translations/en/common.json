@@ -2,6 +2,64 @@
   "site": {
     "titleSuffix": "Monero - secure, private, untraceable cryptocurrency."
   },
+  "components": {
+    "bookCard": {
+      "readOnline": "Read Online",
+      "alsoAvailableIn": "Also available in:"
+    },
+    "workgroupCard": {
+      "bestFor": "Best for:",
+      "joinIrc": "Join {{chatName}} on IRC",
+      "joinMatrix": "Join on Matrix"
+    },
+    "guideStep": {
+      "step": "Step {{step}}"
+    },
+    "paginator": {
+      "pagination": "Pagination",
+      "previousPage": "Previous page",
+      "nextPage": "Next page",
+      "page": "Page {{n}}"
+    },
+    "externalResourceButton": {
+      "onionService": "Onion service",
+      "openOnionService": "Open onion service"
+    },
+    "communityCard": {
+      "project": "Project",
+      "tags": "Tags",
+      "supportedPlatforms": "Supported platforms",
+      "visitWebsite": "Visit website"
+    },
+    "pageTabs": {
+      "tabSelection": "Tab selection"
+    },
+    "ircChannelButton": {
+      "matrix": "Matrix",
+      "openOnMatrix": "Open on Matrix"
+    },
+    "languageDropdown": {
+      "changeLanguage": "Change language",
+      "languages": "Languages"
+    },
+    "categoryCard": {
+      "explore": "Explore"
+    },
+    "paperCard": {
+      "readPaper": "Read Paper"
+    }
+  },
+  "aria": {
+    "footer": "Footer",
+    "footerNav": "Footer navigation",
+    "secondaryFooterNav": "Secondary footer navigation",
+    "primaryNav": "Primary",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "close": "Close",
+    "utilities": "Utilities",
+    "primaryNavSections": "Primary navigation sections"
+  },
   "header": {
     "nav": {
       "getStarted": "Get started",
@@ -92,10 +150,10 @@
           "aboutMonero": "About Monero",
           "moneropedia": "Moneropedia",
           "knowledgeBase": "Knowledge Base",
-          "downloads": "Downloads",
           "exchanges": "Exchanges",
           "merchants": "Merchants",
-          "moneroDocs": "Monero Docs"
+          "moneroDocs": "Monero Docs",
+          "faq": "FAQ"
         }
       },
       "reachOut": {

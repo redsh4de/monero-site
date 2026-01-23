@@ -1,6 +1,4 @@
 ---
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-
 import Layout from "@/layouts/Layout.astro";
 
 import CommunityCard from "@/components/pages/downloads/CommunityCard.astro";
@@ -41,13 +39,12 @@ export const sortWallets = (wallets: Wallet[]) =>
     return count(b) - count(a) || a.name.localeCompare(b.name);
   });
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref } = Astro.locals;
 const tabs = [
-  { label: t("downloads:tabs.core"), link: localizeHref(locale, "/downloads") },
+  { label: t("downloads:tabs.core"), link: localizeHref("/downloads") },
   {
     label: t("downloads:tabs.community"),
-    link: localizeHref(locale, "/downloads/community"),
+    link: localizeHref("/downloads/community"),
   },
 ];
 
@@ -127,7 +124,6 @@ const setBuiltinId = (wallet: Wallet) => {
               translateTag={(key: string) =>
                 t(`downloads:community.tags.${key}`)
               }
-              t={t}
               id={setBuiltinId(wallet)}
             />
           ))
@@ -150,7 +146,6 @@ const setBuiltinId = (wallet: Wallet) => {
               translateTag={(key: string) =>
                 t(`downloads:community.tags.${key}`)
               }
-              t={t}
               id={setBuiltinId(wallet)}
             />
           ))
@@ -176,7 +171,6 @@ const setBuiltinId = (wallet: Wallet) => {
               translateTag={(key: string) =>
                 t(`downloads:community.tags.${key}`)
               }
-              t={t}
               id={setBuiltinId(wallet)}
             />
           ))
@@ -205,7 +199,6 @@ const setBuiltinId = (wallet: Wallet) => {
               translateTag={(key: string) =>
                 t(`downloads:community.tags.${key}`)
               }
-              t={t}
               id={setBuiltinId(wallet)}
             />
           ))
@@ -234,7 +227,6 @@ const setBuiltinId = (wallet: Wallet) => {
               translateTag={(key: string) =>
                 t(`downloads:community.tags.${key}`)
               }
-              t={t}
               id={setBuiltinId(wallet)}
             />
           ))
@@ -242,36 +234,36 @@ const setBuiltinId = (wallet: Wallet) => {
       </div>
     </PageSection>
 
-    <DisclaimerBar icon={shieldIcon} title="Disclaimer">
-      This list is for informational purposes only. The Monero Project does not
-      endorse, recommend, or guarantee any service listed here. Always
-      double-check URLs, start with a small test amount if you're unsure, and
-      use every service at your own risk.
+    <DisclaimerBar
+      icon={shieldIcon}
+      title={t("downloads:community.disclaimerTitle")}
+    >
+      {t("downloads:community.disclaimer")}
     </DisclaimerBar>
   </PageContainer>
 </Layout>
 
 <style>
   :global(#built-in-exchange) {
-    scroll-margin-top: 3rem;
+    scroll-margin-top: var(--space-4xl);
   }
 
   .subheading {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
-    margin: 1.25rem 0 0.25rem 0;
+    margin: var(--space-lg) 0 var(--space-2xs) 0;
   }
 
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 1.25rem;
+    gap: var(--space-lg);
   }
 
   .cards-grid.compact {
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    padding: 0.5rem 0 1rem 0;
+    padding: var(--space-xs) 0 var(--space-md) 0;
   }
 
   @media (max-width: 900px) {
@@ -279,7 +271,7 @@ const setBuiltinId = (wallet: Wallet) => {
     .cards-grid.compact {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: var(--space-sm);
     }
   }
 

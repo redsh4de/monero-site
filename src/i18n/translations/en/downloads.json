@@ -16,6 +16,10 @@
     "freebsd": "FreeBSD",
     "ios": "iOS"
   },
+  "communityNote": {
+    "title": "Looking for more wallets?",
+    "content": "Visit the Community tab for mobile wallets and other community-created software."
+  },
   "core": {
     "gui": {
       "title": "Monero GUI Wallet",
@@ -101,7 +105,6 @@
       "stackwallet": "A multi-coin wallet with Monero support for desktop and mobile.",
       "unstoppable": "A multi-coin wallet supporting Monero.",
       "edge": "A multi-coin wallet with server-side syncing.",
-      "keystone": "Hardware wallet with Monero support via third-party apps.",
       "ledger": "Hardware wallet with Monero support via third-party apps.",
       "trezor": "Hardware wallet with Monero support via third-party apps.",
       "cupcake": "Offline signer app for use with Cake Wallet/Monero.com.",
@@ -114,6 +117,8 @@
       "remoteScanning": "Remote scanning",
       "diy": "DIY",
       "alphaSoftware": "Alpha software"
-    }
+    },
+    "disclaimerTitle": "Disclaimer",
+    "disclaimer": "This list is for informational purposes only. The Monero Project does not endorse, recommend, or guarantee any service listed here. Always double-check URLs, start with a small test amount if you're unsure, and use every service at your own risk."
   }
 }

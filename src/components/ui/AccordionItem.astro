@@ -15,7 +15,7 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
 ---
 
 <details
-  class={`accordion-item accordion-item--${variant}`}
+  class:list={["accordion-item", `accordion-item--${variant}`]}
   name={name}
   open={open}
 >
@@ -49,15 +49,11 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 0;
+    padding: var(--space-xl) 0;
     cursor: pointer;
     list-style: none;
     user-select: none;
-    gap: 0.75rem;
-  }
-
-  .accordion-header:focus-visible {
-    outline: none;
+    gap: var(--space-sm);
   }
 
   .accordion-header::-webkit-details-marker {
@@ -88,7 +84,7 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
   }
 
   .accordion-content {
-    padding: 0 0 1.5rem 0;
+    padding: 0 0 var(--space-xl) 0;
     color: var(--paragraph-main);
     line-height: var(--line-height-body);
     font-weight: var(--font-weight-normal);
@@ -97,10 +93,10 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
   /* Card variant: no borders, spaced items, card background and rounded corners */
   .accordion-item--card {
     border: none;
-    margin-bottom: 0.75rem;
-    border-radius: 0.75rem;
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-lg);
     background: var(--card-color);
-    padding: 0 1.25rem;
+    padding: 0 var(--space-lg);
   }
 
   .accordion-item--card:last-child {
@@ -108,15 +104,15 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
   }
 
   .accordion-item--card .accordion-header {
-    padding: 1.25rem 0;
+    padding: var(--space-lg) 0;
   }
 
   .accordion-item--card:has(.accordion-header:focus-visible) {
-    border-radius: 0.75rem;
+    border-radius: var(--radius-lg);
   }
 
   .accordion-item--card .accordion-content {
-    padding: 0 0 1.25rem 0;
+    padding: 0 0 var(--space-lg) 0;
   }
 
   :global(.accordion-content > p:first-child) {
@@ -134,7 +130,7 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
   }
   @media screen and (max-width: 900px) {
     .accordion-header {
-      padding: 1rem 0;
+      padding: var(--space-md) 0;
     }
     .accordion-title {
       font-size: var(--font-size-base);

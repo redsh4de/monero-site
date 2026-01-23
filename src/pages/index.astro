@@ -1,6 +1,4 @@
 ---
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-
 import Layout from "@/layouts/Layout.astro";
 
 import GetStartedCard from "@/components/pages/index/GetStartedCard.astro";
@@ -8,25 +6,27 @@ import Hero from "@/components/pages/index/Hero.astro";
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
 
-import developerGuidesIcon from "@/assets/icons/mask/developer-guides.avif";
-import faqIcon from "@/assets/icons/mask/faq.avif";
+import codeIcon from "@/assets/icons/mask/codeXml.avif";
+import chatIcon from "@/assets/icons/mask/messageCircle.avif";
+import usersIcon from "@/assets/icons/mask/users.avif";
 
 import landingImage from "@/assets/images/landing.avif";
 import { Image } from "astro:assets";
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref } = Astro.locals;
 ---
 
 <Layout title={t("index:pageTitle")} description={t("index:hero.lead")}>
-  <Hero t={t} class="index-hero" />
+  <Hero class="index-hero" />
   <div class="main-content">
     <IndexCard
       id="about-monero"
       title={t("index:aboutTitle")}
       description={t("index:aboutDescription")}
     >
-      <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <div
+        style="display: flex; flex-direction: column; gap: var(--space-2xl);"
+      >
         <div>
           <h2 style="margin-top: 0;">{t("index:main")}</h2>
           <p>
@@ -53,7 +53,7 @@ const t = await createTInstance(locale);
           controls
           preload="none"
           poster="/media/what-is-monero.webp"
-          aria-label="Video explaining what Monero is"
+          aria-label={t("index:aria.heroVideo")}
         >
           <source src="/media/what-is-monero.webm" type="video/webm" />
           <track kind="captions" src="" srclang="en" label="No captions" />
@@ -68,13 +68,12 @@ const t = await createTInstance(locale);
       id="start-using-monero"
     >
       <Image src={landingImage} alt="" class="landing-image" format="avif" />
-      {/*<MaskIcon src={placeholderIcon} size="100%" />*/}
       <div>
         <GetStartedCard
           step="01"
           title={t("index:step1Title")}
           description={t("index:step1Desc")}
-          ctaHref={localizeHref(locale, "/downloads/community/#wallets")}
+          ctaHref={localizeHref("/downloads/community/#wallets")}
           ctaLabel={t("index:step1Cta")}
         />
         <hr />
@@ -82,7 +81,7 @@ const t = await createTInstance(locale);
           step="02"
           title={t("index:step2Title")}
           description={t("index:step2Desc")}
-          ctaHref={localizeHref(locale, "/get-started/exchanges")}
+          ctaHref={localizeHref("/get-started/exchanges")}
           ctaLabel={t("index:step2Cta")}
         />
         <hr />
@@ -90,31 +89,38 @@ const t = await createTInstance(locale);
           step="03"
           title={t("index:step3Title")}
           description={t("index:step3Desc")}
-          ctaHref={localizeHref(locale, "/get-started/merchants")}
+          ctaHref={localizeHref("/get-started/merchants")}
           ctaLabel={t("index:step3Cta")}
         />
       </div>
     </IndexCard>
     <hr />
     <IndexCard
-      title={t("index:resourcesTitle")}
-      description={t("index:resourcesDescription")}
-      id="monero-resources"
+      title={t("index:getInvolvedTitle")}
+      description={t("index:getInvolvedDescription")}
+      id="get-involved"
     >
       <div id="resource-container">
         <ResourceCard
-          title={t("index:faqTitle")}
-          description={t("index:faqDesc")}
-          ctaLabel={t("index:faqCta")}
-          ctaHref={localizeHref(locale, "/get-started/faq")}
-          icon={faqIcon}
+          title={t("index:hangoutsTitle")}
+          description={t("index:hangoutsDesc")}
+          ctaLabel={t("index:hangoutsCta")}
+          ctaHref={localizeHref("/community/hangouts")}
+          icon={chatIcon}
         />
         <ResourceCard
-          title={t("index:moneroDocsTitle")}
-          description={t("index:moneroDocsDesc")}
-          ctaLabel={t("index:moneroDocsCta")}
-          ctaHref="https://docs.getmonero.org"
-          icon={developerGuidesIcon}
+          title={t("index:workgroupsTitle")}
+          description={t("index:workgroupsDesc")}
+          ctaLabel={t("index:workgroupsCta")}
+          ctaHref={localizeHref("/community/workgroups")}
+          icon={usersIcon}
+        />
+        <ResourceCard
+          title={t("index:contributeTitle")}
+          description={t("index:contributeDesc")}
+          ctaLabel={t("index:contributeCta")}
+          ctaHref={localizeHref("/get-started/contribute")}
+          icon={codeIcon}
         />
       </div>
     </IndexCard>
@@ -151,7 +157,7 @@ const t = await createTInstance(locale);
   #resource-container {
     grid-column: span 2;
     display: grid;
-    gap: 2rem;
+    gap: var(--space-2xl);
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
@@ -159,7 +165,7 @@ const t = await createTInstance(locale);
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    border-radius: 1rem;
+    border-radius: var(--radius-xl);
     border: 1px solid var(--border-color);
     overflow: hidden;
   }
@@ -193,7 +199,6 @@ const t = await createTInstance(locale);
     top: 3rem;
     inset-inline-start: 5rem;
     inset-inline-end: 5rem;
-    z-index: 5;
     min-height: var(--hero-min-height);
   }
 

@@ -1,8 +1,7 @@
 ---
-import { createSafeMarkdown } from "@/utils/safeMarkdown.ts";
+import Card from "@/components/ui/Card.astro";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import type { TFunction } from "i18next";
 
 import Button from "@/components/ui/Button.astro";
 import ColorIcon from "@/components/ui/ColorIcon.astro";
@@ -40,7 +39,6 @@ interface Props {
   releaseNotesUrl?: string;
   torrentUrl?: string;
   magnetUrl?: string;
-  t: TFunction;
 }
 
 const {
@@ -56,9 +54,9 @@ const {
   releaseNotesUrl,
   torrentUrl,
   magnetUrl,
-  t,
   ...rest
 } = Astro.props;
+const { t, safeMarkdown } = Astro.locals;
 
 const PLATFORM_ICONS: Record<string, ImageMetadata> = {
   windows: windowsIcon,
@@ -67,11 +65,9 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
   android: androidIcon,
   freebsd: freebsdIcon,
 };
-
-const safeMarkdown = createSafeMarkdown();
 ---
 
-<div class="download-card" id={id} {...rest}>
+<Card padding="none" class="download-card" id={id} {...rest}>
   <div class="card-image">
     <Image src={image} alt="" format="avif" />
   </div>
@@ -177,21 +173,19 @@ const safeMarkdown = createSafeMarkdown();
       </div>
     </div>
   </div>
-</div>
+</Card>
 
 <style>
   .download-card {
     display: flex;
     flex-direction: column;
-    background: var(--card-color);
-    border-radius: 0.5rem;
   }
 
   .card-image {
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-start-start-radius: var(--radius-md);
+    border-start-end-radius: var(--radius-md);
     background: var(--card-hover-color);
   }
 
@@ -206,21 +200,21 @@ const safeMarkdown = createSafeMarkdown();
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 1.5rem;
-    gap: 1rem;
+    padding: var(--space-xl);
+    gap: var(--space-md);
   }
 
   .card-header {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-2xs);
   }
 
   .title-row {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: var(--space-xs);
     flex-wrap: wrap;
   }
 
@@ -235,7 +229,7 @@ const safeMarkdown = createSafeMarkdown();
     font-weight: var(--font-weight-semibold);
     background: var(--secondary-button-color);
     padding: 0.25em 0.75em;
-    border-radius: 999px;
+    border-radius: var(--radius-full);
     white-space: nowrap;
   }
 
@@ -255,7 +249,7 @@ const safeMarkdown = createSafeMarkdown();
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    gap: var(--space-2xs);
   }
 
   .card-features li {
@@ -271,12 +265,12 @@ const safeMarkdown = createSafeMarkdown();
     margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 
   .download-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-xs);
     align-items: center;
     flex-wrap: wrap;
   }
@@ -291,21 +285,21 @@ const safeMarkdown = createSafeMarkdown();
   }
 
   .torrent-split-button .torrent-button {
-    border-start-start-radius: 22.5rem;
-    border-end-start-radius: 22.5rem;
+    border-start-start-radius: var(--radius-full);
+    border-end-start-radius: var(--radius-full);
   }
 
   .torrent-split-button .magnet-button {
-    border-start-end-radius: 22.5rem;
-    border-end-end-radius: 22.5rem;
+    border-start-end-radius: var(--radius-full);
+    border-end-end-radius: var(--radius-full);
     margin-inline-start: 0.1rem;
   }
 
   .metadata-links {
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-xs);
     font-size: var(--font-size-sm);
     flex-wrap: wrap;
   }
@@ -331,7 +325,7 @@ const safeMarkdown = createSafeMarkdown();
   .dropdown-label {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-xs);
   }
 
   .platform-icon {

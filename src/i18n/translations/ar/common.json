@@ -1,11 +1,69 @@
 {
   "site": {
-    "titleSuffix": "مونيرو - عملة رقمية آمنة وخاصة وغير قابلة للتتبع."
+    "titleSuffix": "Monero - عملة مشفرة آمنة وخاصة وغير قابلة للتتبع."
+  },
+  "components": {
+    "bookCard": {
+      "readOnline": "اقرأ عبر الإنترنت",
+      "alsoAvailableIn": "متوفر أيضًا في:"
+    },
+    "workgroupCard": {
+      "bestFor": "الأفضل لـ:",
+      "joinIrc": "انضم إلى {{chatName}} على IRC",
+      "joinMatrix": "انضم على Matrix"
+    },
+    "guideStep": {
+      "step": "الخطوة {{step}}"
+    },
+    "paginator": {
+      "pagination": "الترقيم",
+      "previousPage": "الصفحة السابقة",
+      "nextPage": "الصفحة التالية",
+      "page": "الصفحة {{n}}"
+    },
+    "externalResourceButton": {
+      "onionService": "خدمة Onion",
+      "openOnionService": "افتح خدمة Onion"
+    },
+    "communityCard": {
+      "project": "المشروع",
+      "tags": "العلامات",
+      "supportedPlatforms": "المنصات المدعومة",
+      "visitWebsite": "زور الموقع"
+    },
+    "pageTabs": {
+      "tabSelection": "اختيار التبويب"
+    },
+    "ircChannelButton": {
+      "matrix": "Matrix",
+      "openOnMatrix": "افتح على Matrix"
+    },
+    "languageDropdown": {
+      "changeLanguage": "غير اللغة",
+      "languages": "اللغات"
+    },
+    "categoryCard": {
+      "explore": "استكشف"
+    },
+    "paperCard": {
+      "readPaper": "اقرأ الورقة"
+    }
+  },
+  "aria": {
+    "footer": "التذييل",
+    "footerNav": "تنقل التذييل",
+    "secondaryFooterNav": "تنقل التذييل الثانوي",
+    "primaryNav": "التنقل الأساسي",
+    "closeMenu": "أغلق القائمة",
+    "openMenu": "افتح القائمة",
+    "close": "أغلق",
+    "utilities": "الأدوات",
+    "primaryNavSections": "أقسام التنقل الأساسي"
   },
   "header": {
     "nav": {
-      "getStarted": "ابدأ الآن",
-      "downloads": "التنزيلات",
+      "getStarted": "ابدأ",
+      "downloads": "التحميلات",
       "blog": "المدونة",
       "community": "المجتمع",
       "resources": "الموارد",
@@ -14,72 +72,72 @@
     "dropdowns": {
       "getStarted": {
         "whatIsMonero": {
-          "label": "ما هو مونيرو؟",
-          "desc": "كل ما تحتاج معرفته عن مونيرو باختصار."
+          "label": "ما هو Monero؟",
+          "desc": "كل ما تحتاجه لمعرفة Monero في لمحة."
         },
         "buyMonero": {
-          "label": "شراء مونيرو",
-          "desc": "منصات تداول العملات الرقمية التي تتيح لك شراء أو تداول مونيرو."
+          "label": "اشترِ Monero",
+          "desc": "بورصات العملات المشفرة التي تتيح لك شراء أو تداول Monero."
         },
         "acceptMonero": {
-          "label": "قبول مونيرو",
+          "label": "اقبل Monero",
           "desc": "تعلم كيفية قبول XMR كتاجر أو فرد."
         },
         "spendMonero": {
-          "label": "إنفاق مونيرو",
-          "desc": "اعثر على الأماكن والخدمات التي تقبل مونيرو كوسيلة دفع."
+          "label": "أنفق Monero",
+          "desc": "ابحث عن أماكن وخدمات تقبل Monero كدفع."
         },
         "contribute": {
-          "label": "المساهمة",
-          "desc": "ساعد مشروع مونيرو في توفير الخصوصية للجميع."
+          "label": "ساهم",
+          "desc": "ساعد مشروع Monero في جلب الخصوصية للجميع."
         },
         "mining": {
           "label": "التعدين",
-          "desc": "تعلم كيفية تعدين مونيرو على جهاز الكمبيوتر الخاص بك."
+          "desc": "تعلم كيفية تعدين Monero على جهاز الكمبيوتر الخاص بك."
         },
         "faq": {
           "label": "الأسئلة الشائعة",
-          "desc": "اعثر على إجابات للأسئلة الشائعة حول مونيرو."
+          "desc": "ابحث عن إجابات للأسئلة الشائعة حول Monero."
         }
       },
       "community": {
         "workgroups": {
           "label": "مجموعات العمل",
-          "desc": "تعاون مع مجموعات عمل مونيرو المتخصصة في التطوير والبحث وجهود المجتمع."
+          "desc": "تعاون مع مجموعات عمل Monero المخصصة في التطوير والبحث والجهود المجتمعية."
         },
         "sponsorships": {
-          "label": "الرعاة",
-          "desc": "قائمة الشركات التي تدعم مشروع مونيرو."
+          "label": "الرعايات",
+          "desc": "قائمة الشركات التي تدعم مشروع Monero."
         },
         "hangouts": {
-          "label": "التجمعات",
-          "desc": "انضم إلى تجمعات وفعاليات مجتمع مونيرو للتواصل مع المتحمسين والمطورين."
+          "label": "الأماكن",
+          "desc": "انضم إلى أماكن تجمع مجتمع Monero والفعاليات للاتصال بالمتحمسين والمطورين الآخرين."
         }
       },
       "resources": {
         "knowledgeBase": {
           "label": "قاعدة المعرفة",
-          "desc": "الكتب والمنشورات والمجلات وموسوعة مونيرو."
+          "desc": "الكتب والمنشورات والمجلات، مونيروبيديا."
         },
         "roadmap": {
           "label": "خارطة الطريق",
-          "desc": "ابق على اطلاع بأحدث خطط تطوير مونيرو والتقدم المحرز."
+          "desc": "ابقَ على اطلاع بأحدث خطط وتقدم تطوير Monero."
         },
         "researchLab": {
-          "label": "مختبر الأبحاث",
-          "desc": "استكشف منشورات وأبحاث مختبر أبحاث مونيرو."
+          "label": "مختبر البحث",
+          "desc": "استكشف منشورات مختبر بحث Monero وأبحاثه."
         },
         "moneroDocs": {
-          "label": "وثائق مونيرو",
-          "desc": "أدلة شاملة للمستخدمين والمطورين لاستخدام مونيرو بفعالية وأمان."
+          "label": "وثائق Monero",
+          "desc": "دليل شامل للمستخدمين والمطورين لاستخدام Monero بفعالية وأمان."
         },
         "moneroTools": {
-          "label": "أدوات مونيرو",
-          "desc": "قائمة منسقة من الأدوات والبرامج لمستخدمي ومطوري مونيرو."
+          "label": "أدوات Monero",
+          "desc": "قائمة منتقاة من الأدوات والبرمجيات لمستخدمي ومطوري Monero."
         },
         "pressKit": {
-          "label": "الملف الصحفي",
-          "desc": "جهات الاتصال الصحفية والشعارات والصور وموارد الوسائط الأخرى."
+          "label": "مجموعة الصحافة",
+          "desc": "اتصالات الصحافة والشعارات والصور والموارد الإعلامية الأخرى."
         }
       }
     }
@@ -89,21 +147,21 @@
       "resources": {
         "title": "الموارد",
         "links": {
-          "aboutMonero": "عن مونيرو",
-          "moneropedia": "موسوعة مونيرو",
+          "aboutMonero": "حول Monero",
+          "moneropedia": "مونيروبيديا",
           "knowledgeBase": "قاعدة المعرفة",
-          "downloads": "التنزيلات",
-          "exchanges": "المنصات",
+          "exchanges": "البورصات",
           "merchants": "التجار",
-          "moneroDocs": "وثائق مونيرو"
+          "moneroDocs": "وثائق Monero",
+          "faq": "الأسئلة الشائعة"
         }
       },
       "reachOut": {
-        "title": "تواصل معنا",
+        "title": "تواصل",
         "links": {
           "workgroups": "مجموعات العمل",
-          "hangouts": "التجمعات",
-          "mailingList": "القائمة البريدية"
+          "hangouts": "الأماكن",
+          "mailingList": "قائمة البريد"
         }
       },
       "community": {
@@ -111,20 +169,20 @@
         "links": {
           "stackExchange": "Stack Exchange",
           "bitcoinTalk": "Bitcoin Talk",
-          "translate": "الترجمة"
+          "translate": "ترجم"
         }
       },
       "theMoneroProject": {
-        "title": "مشروع مونيرو",
+        "title": "مشروع Monero",
         "links": {
           "openAlias": "Open Alias",
-          "moneroResearchLab": "مختبر أبحاث مونيرو (MRL)",
-          "pressKit": "الملف الصحفي",
-          "communityCrowdfundingSystem": "نظام التمويل الجماعي للمجتمع"
+          "moneroResearchLab": "مختبر بحث Monero (MRL)",
+          "pressKit": "مجموعة الصحافة",
+          "communityCrowdfundingSystem": "نظام التمويل الجماعي المجتمعي"
         }
       },
       "legal": {
-        "title": "قانوني",
+        "title": "القانوني",
         "links": {
           "privacyPolicy": "سياسة الخصوصية",
           "termsOfUse": "شروط الاستخدام"
@@ -133,13 +191,13 @@
     },
     "bottomLinks": {
       "torOnionService": "خدمة Tor Onion",
-      "vulnerabilityResponse": "الاستجابة للثغرات",
-      "legal": "قانوني",
-      "sourceCode": "الكود المصدري",
+      "vulnerabilityResponse": "استجابة الثغرات",
+      "legal": "القانوني",
+      "sourceCode": "رمز المصدر",
       "sitemap": "خريطة الموقع",
-      "rssFeed": "خلاصة RSS"
+      "rssFeed": "تغذية RSS"
     },
-    "copyright": "© 2025 مونيرو. جميع الحقوق محفوظة."
+    "copyright": "© 2025 Monero. جميع الحقوق محفوظة."
   },
   "strings": {
     "yes": "نعم",
@@ -149,11 +207,11 @@
     "pageTitle": "404",
     "pageDescription": "الصفحة التي تبحث عنها غير موجودة.",
     "title": "الصفحة غير موجودة",
-    "message": "يبدو أن هذه الصفحة غير موجودة، أو ربما لا تريد أن يُعثر عليها.",
+    "message": "يبدو أن هذه الصفحة غير موجودة - أو ربما تقدر خصوصيتها.",
     "links": {
       "home": "الرئيسية",
-      "whatIsMonero": "ما هو مونيرو؟",
-      "downloads": "التنزيلات",
+      "whatIsMonero": "ما هو Monero؟",
+      "downloads": "التحميلات",
       "faq": "الأسئلة الشائعة",
       "community": "المجتمع"
     }

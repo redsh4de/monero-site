@@ -1,15 +1,15 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
-import MaskIcon from "@/components/ui/MaskIcon.astro";
+import IconLink from "@/components/ui/IconLink.astro";
 import PageContainer from "@/components/ui/PageContainer.astro";
 import PageSection from "@/components/ui/PageSection.astro";
 import PageSectionColumn from "@/components/ui/PageSectionColumn.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 import TOCContainer from "@/components/ui/TOCContainer.astro";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
 
-import arrowRightIcon from "@/assets/icons/mask/arrow-right.avif";
 import bookTextIcon from "@/assets/icons/mask/bookText.avif";
 import componentIcon from "@/assets/icons/mask/component.avif";
 import usersIcon from "@/assets/icons/mask/users.avif";
@@ -19,69 +19,80 @@ import {
   marketingResources,
   pressDocuments,
 } from "@/data/press-kit";
-import { getDirection, getLocale, localizeHref } from "@/i18n/utils";
+import { getPublicImageDimensions } from "@/utils/image";
 
-const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
+const { t, localizeHref } = Astro.locals;
+const previewDimensions = await Promise.all(
+  brandAssets.map((asset) => getPublicImageDimensions(asset.preview)),
+);
 
 const sections = [
   {
     id: "brand-assets",
     icon: componentIcon,
-    title: "Brand Assets",
-    subtitle: "Logos and symbols",
+    title: t("press-kit:sections.brandAssets.title"),
+    subtitle: t("press-kit:sections.brandAssets.tocSubtitle"),
   },
   {
     id: "press-materials",
     icon: bookTextIcon,
-    title: "Press Materials",
-    subtitle: "Documentation and resources",
+    title: t("press-kit:sections.pressMaterials.title"),
+    subtitle: t("press-kit:sections.pressMaterials.tocSubtitle"),
   },
   {
     id: "contacts",
     icon: usersIcon,
-    title: "Contacts",
-    subtitle: "Reach the Monero community",
+    title: t("press-kit:sections.contacts.title"),
+    subtitle: t("press-kit:sections.contacts.tocSubtitle"),
   },
 ];
 ---
 
 <Layout
-  title="Press Kit"
-  description="Press contacts, brand assets, and media resources for Monero."
+  title={t("press-kit:pageTitle")}
+  description={t("press-kit:description")}
 >
-  <TitleCard
-    title="Press Kit"
-    subtitle="Press contacts, brand assets, and media resources for journalists and content creators."
-  />
+  <TitleCard title={t("press-kit:title")} subtitle={t("press-kit:subtitle")} />
 
   <PageContainer>
-    <TOCContainer sections={sections} ariaLabel="Press kit sections" />
+    <TOCContainer
+      sections={sections}
+      ariaLabel={t("press-kit:aria.sectionsNav")}
+    />
 
     <div class="press-content">
-      <PageSection title="Brand Assets" anchorId="brand-assets">
+      <PageSection
+        title={t("press-kit:sections.brandAssets.title")}
+        anchorId="brand-assets"
+      >
         <p class="section-intro">
-          Download official Monero logos and symbols. White background options
-          have a white background under the Monero symbol only.
+          {t("press-kit:sections.brandAssets.intro")}
         </p>
 
         <div class="assets-grid">
           {
-            brandAssets.map((asset) => (
+            brandAssets.map((asset, i) => (
               <div class="asset-card">
                 <div class="asset-preview">
-                  <img src={asset.preview} alt={asset.name} />
+                  <Image
+                    src={asset.preview}
+                    alt=""
+                    width={previewDimensions[i].width}
+                    height={previewDimensions[i].height}
+                  />
                 </div>
 
                 <div class="asset-header">
-                  <h3>{asset.name}</h3>
-                  <p>{asset.description}</p>
+                  <h3>{t(`press-kit:assets.${asset.id}.name`)}</h3>
+                  <p>{t(`press-kit:assets.${asset.id}.description`)}</p>
                 </div>
 
                 <div class="asset-variants">
                   {asset.variants.map((variant) => (
                     <div class="variant-group">
-                      <span class="variant-label">{variant.label}</span>
+                      <span class="variant-label">
+                        {t(`press-kit:assets.variants.${variant.labelKey}`)}
+                      </span>
                       <div class="size-links">
                         {variant.sizes.map((size) => (
                           <a
@@ -91,7 +102,7 @@ const sections = [
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {size.label}
+                            {t(`press-kit:assets.sizes.${size.labelKey}`)}
                           </a>
                         ))}
                       </div>
@@ -102,7 +113,7 @@ const sections = [
                 {asset.vectorUrl && (
                   <div class="vector-download">
                     <Button as="a" href={asset.vectorUrl} variant="secondary">
-                      Download Vector (.ai)
+                      {t("press-kit:sections.brandAssets.downloadVector")}
                     </Button>
                   </div>
                 )}
@@ -116,39 +127,46 @@ const sections = [
             href="/media/press-kit/monero-press-kit.zip"
             variant="primary"
           >
-            Download All Assets (.zip)
+            {t("press-kit:sections.brandAssets.downloadAll")}
           </Button>
         </div>
       </PageSection>
 
       <hr aria-hidden="true" />
 
-      <PageSection title="Press Materials" anchorId="press-materials">
+      <PageSection
+        title={t("press-kit:sections.pressMaterials.title")}
+        anchorId="press-materials"
+      >
         <PageSectionColumn columns={2}>
-          <PageSectionColumn title="Press Documentation">
+          <PageSectionColumn
+            title={t("press-kit:sections.pressMaterials.pressDocumentation")}
+          >
             <div class="resource-list">
               {
                 pressDocuments.map((doc) => (
                   <ExternalResourceButton
                     href={doc.url}
-                    title={doc.title}
-                    subtitle={doc.description}
-                    rtl={dir === "rtl"}
+                    title={t(`press-kit:documents.${doc.id}.title`)}
+                    subtitle={t(`press-kit:documents.${doc.id}.description`)}
                   />
                 ))
               }
             </div>
           </PageSectionColumn>
 
-          <PageSectionColumn title="Marketing Materials">
+          <PageSectionColumn
+            title={t("press-kit:sections.pressMaterials.marketingMaterials")}
+          >
             <div class="resource-list">
               {
                 marketingResources.map((resource) => (
                   <ExternalResourceButton
                     href={resource.url}
-                    title={resource.title}
-                    subtitle={resource.description}
-                    rtl={dir === "rtl"}
+                    title={t(`press-kit:marketing.${resource.id}.title`)}
+                    subtitle={t(
+                      `press-kit:marketing.${resource.id}.description`,
+                    )}
                   />
                 ))
               }
@@ -159,36 +177,31 @@ const sections = [
 
       <hr aria-hidden="true" />
 
-      <PageSection title="Contacts" anchorId="contacts">
+      <PageSection
+        title={t("press-kit:sections.contacts.title")}
+        anchorId="contacts"
+      >
         <div class="contact-grid">
           <div class="contact-card">
-            <h3>Press Inquiries</h3>
-            <p>For media and press related questions:</p>
+            <h3>{t("press-kit:sections.contacts.pressInquiries.title")}</h3>
+            <p>{t("press-kit:sections.contacts.pressInquiries.description")}</p>
             <a href="mailto:press@getmonero.org" class="contact-link">
               press@getmonero.org
             </a>
           </div>
           <div class="contact-card">
-            <h3>Workgroups</h3>
-            <p>Contact specific Monero workgroups:</p>
-            <a
-              href={localizeHref(locale, "/community/workgroups")}
-              class="contact-link"
-            >
-              View Workgroups
-              <MaskIcon src={arrowRightIcon} rtl={dir === "rtl"} />
-            </a>
+            <h3>{t("press-kit:sections.contacts.workgroups.title")}</h3>
+            <p>{t("press-kit:sections.contacts.workgroups.description")}</p>
+            <IconLink href={localizeHref("/community/workgroups")}>
+              {t("press-kit:sections.contacts.workgroups.link")}
+            </IconLink>
           </div>
           <div class="contact-card">
-            <h3>Community</h3>
-            <p>Reach the many subcommunities:</p>
-            <a
-              href={localizeHref(locale, "/community/hangouts")}
-              class="contact-link"
-            >
-              Community Hangouts
-              <MaskIcon src={arrowRightIcon} rtl={dir === "rtl"} />
-            </a>
+            <h3>{t("press-kit:sections.contacts.community.title")}</h3>
+            <p>{t("press-kit:sections.contacts.community.description")}</p>
+            <IconLink href={localizeHref("/community/hangouts")}>
+              {t("press-kit:sections.contacts.community.link")}
+            </IconLink>
           </div>
         </div>
       </PageSection>
@@ -205,42 +218,35 @@ const sections = [
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .contact-card {
     background: var(--card-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
   }
 
   .contact-card h3 {
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-xs);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
   }
 
   .contact-card p {
-    margin: 0 0 0.75rem;
+    margin: 0 0 var(--space-sm);
     color: var(--paragraph-subtitle);
     font-size: var(--font-size-sm);
   }
 
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35em;
-    font-weight: var(--font-weight-bold);
-  }
-
   .section-intro {
     color: var(--paragraph-subtitle);
-    margin: 0 0 1.5rem;
+    margin: 0 0 var(--space-xl);
     max-width: 70ch;
   }
 
   .download-all {
-    margin-top: 2rem;
+    margin-top: var(--space-2xl);
     display: flex;
     justify-content: flex-end;
   }
@@ -248,25 +254,25 @@ const sections = [
   .assets-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
   }
 
   .asset-card {
     background: var(--card-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
   }
 
   .asset-preview {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
-    margin-bottom: 1.25rem;
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
     background: repeating-conic-gradient(#e4e1e9 0% 25%, #f9f7fc 0% 50%) 50% /
       16px 16px;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
   }
 
   .asset-preview img {
@@ -276,7 +282,7 @@ const sections = [
   }
 
   .asset-header {
-    margin-bottom: 1.25rem;
+    margin-bottom: var(--space-lg);
   }
 
   .asset-header h3 {
@@ -294,14 +300,14 @@ const sections = [
   .asset-variants {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .variant-group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-xs);
   }
 
   .variant-label {
@@ -313,7 +319,7 @@ const sections = [
 
   .size-links {
     display: flex;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .size-link {
@@ -321,14 +327,14 @@ const sections = [
   }
 
   .vector-download {
-    margin-top: 1.25rem;
-    padding-top: 1rem;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
     border-top: 1px solid var(--border-color);
   }
 
   .resource-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 </style>

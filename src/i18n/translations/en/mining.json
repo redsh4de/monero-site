@@ -7,6 +7,7 @@
   },
   "gupax": {
     "title": "Gupax",
+    "imageAlt": "Gupax window showing P2Pool and XMRig status",
     "subtitle": "The user-friendly Monero miner",
     "lead": "The fastest way to start mining Monero. Gupax bundles P2Pool and XMRig into a simple app with easy setup and clear stats.",
     "bullets": [
@@ -18,6 +19,7 @@
   },
   "xmrig": {
     "title": "XMRig",
+    "imageAlt": "XMRig terminal window showing mining status",
     "subtitle": "For advanced users",
     "lead": "Prefer full control? Use XMRig directly for pool/solo mining and performance tuning.",
     "bullets": [
@@ -28,13 +30,14 @@
   },
   "solo": {
     "title": "Solo Mining",
+    "imageAlt": "Monero GUI wallet mining",
     "subtitle": "Most independent, most variance",
     "lead": "Solo mining maximizes independence, but expect long gaps between payouts unless your hashrate is high.",
     "bullets": [
       "No pool fees, no operator trust",
       "\"Lottery\" payouts - higher variance"
     ],
-    "cta": "Solo mine (GUI guide)"
+    "cta": "Guide"
   },
   "resources": {
     "title": "Resources",
@@ -72,7 +75,7 @@
     },
     "soloVsPool": {
       "title": "Solo vs pool mining - what's the tradeoff?",
-      "content": "Solo mining maximizes independence but payouts can take a long time. Pools pay more frequently but add trust and centralization risk.\n\n### Solo\n- No pool operator, no pool fee\n- Long waits between rewards\n- Best for decentralization\n\n[Solo mining guide](https://www.getmonero.org/resources/user-guides/solo_mine_GUI.html)\n\n### Pool\n- More frequent payouts\n- Pool fee + operator trust\n- Centralization risk if one pool grows too large\n- Requires third-party mining software\n\n[Browse pools](https://miningpoolstats.stream/monero)"
+      "content": "Solo mining maximizes independence but payouts can take a long time. Pools pay more frequently but add trust and centralization risk.\n\n### Solo\n- No pool operator, no pool fee\n- Long waits between rewards\n- Best for decentralization\n\n[Solo mining guide](https://docs.getmonero.org/interacting/mining/guides/solo)\n\n### Pool\n- More frequent payouts\n- Pool fee + operator trust\n- Centralization risk if one pool grows too large\n- Requires third-party mining software\n\n[Browse pools](https://miningpoolstats.stream/monero)"
     },
     "whyP2Pool": {
       "title": "Why is P2Pool \"best of both\"?",
@@ -94,5 +97,8 @@
   "disclaimer": {
     "title": "Disclaimer",
     "content": "The Monero Project does not endorse any particular pool, software, or hardware, and the content above is provided for informational purposes only."
+  },
+  "aria": {
+    "miningOptions": "Mining options"
   }
 }

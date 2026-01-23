@@ -5,21 +5,13 @@ import InternalResourceButton from "@/components/ui/InternalResourceButton.astro
 import PageContainer from "@/components/ui/PageContainer.astro";
 import PageSection from "@/components/ui/PageSection.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  localizeHref,
-} from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 
 import usersIcon from "@/assets/icons/mask/users.avif";
 
 import { channels, chatLinks, socialLinks } from "@/data/hangouts";
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
-const dir = getDirection(locale);
+const { t, localizeHref } = Astro.locals;
 ---
 
 <Layout title={t("hangouts:pageTitle")} description={t("hangouts:description")}>
@@ -31,8 +23,7 @@ const dir = getDirection(locale);
     <InternalResourceButton
       icon={usersIcon}
       title={t("hangouts:workgroupsNote.title")}
-      href={localizeHref(locale, "/community/workgroups")}
-      rtl={dir === "rtl"}
+      href={localizeHref("/community/workgroups")}
     >
       {t("hangouts:workgroupsNote.content")}
     </InternalResourceButton>
@@ -48,7 +39,6 @@ const dir = getDirection(locale);
                   title={t(link.titleKey)}
                   subtitle={link.subtitleKey ? t(link.subtitleKey) : undefined}
                   logo={link.logo}
-                  rtl={dir === "rtl"}
                 />
               </li>
             ))
@@ -66,7 +56,6 @@ const dir = getDirection(locale);
                   title={t(link.titleKey)}
                   subtitle={link.subtitleKey ? t(link.subtitleKey) : undefined}
                   logo={link.logo}
-                  rtl={dir === "rtl"}
                 />
               </li>
             ))
@@ -83,11 +72,10 @@ const dir = getDirection(locale);
           channels.map((ch) => (
             <li>
               <IRCChannelButton
-                name={t(ch.nameKey)}
+                name={ch.name}
                 description={t(ch.descriptionKey)}
                 href={ch.href}
                 matrixHref={ch.matrixHref}
-                rtl={dir === "rtl"}
               />
             </li>
           ))
@@ -101,8 +89,8 @@ const dir = getDirection(locale);
   .hangouts-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
   }
 
   .resource-list {
@@ -111,7 +99,7 @@ const dir = getDirection(locale);
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 
   .channel-list {
@@ -120,7 +108,7 @@ const dir = getDirection(locale);
     padding: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 
   @media (max-width: 1200px) {
@@ -132,7 +120,7 @@ const dir = getDirection(locale);
   @media (max-width: 900px) {
     .hangouts-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: var(--space-xl);
     }
   }
 </style>

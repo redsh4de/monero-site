@@ -19,25 +19,14 @@ import hatGlassesIcon from "@/assets/icons/mask/hat-glasses.avif";
 import shieldCheckIcon from "@/assets/icons/mask/shieldCheck.avif";
 import shieldPlusIcon from "@/assets/icons/mask/shieldPlus.avif";
 
-import arrowRight from "@/assets/icons/mask/arrow-right.avif";
-
 import Button from "@/components/ui/Button.astro";
-import {
-  createTInstance,
-  getDirection,
-  getLocale,
-  getLocaleName,
-  localizeHref,
-} from "@/i18n/utils";
-import { createSafeMarkdown } from "@/utils/safeMarkdown";
+import IconLink from "@/components/ui/IconLink.astro";
+import { getLocaleName } from "@/i18n/utils";
 
 import { readdirSync } from "fs";
 import { join } from "path";
 
-const locale = getLocale(Astro.url);
-const dir = getDirection(locale);
-const t = await createTInstance(locale);
-const safeMarkdown = createSafeMarkdown(locale);
+const { t, localizeHref, safeMarkdown } = Astro.locals;
 
 const i18nVttFiles = readdirSync(
   join(process.cwd(), "public", "media", "vtt", "msmsm"),
@@ -74,7 +63,7 @@ const getLanguageLabel = (lang: string): string => {
         />
       </div>
       <div class="media">
-        <Image src={surveillanceImage} alt="" />
+        <Image src={surveillanceImage} alt="" format="avif" />
       </div>
     </div>
 
@@ -97,7 +86,7 @@ const getLanguageLabel = (lang: string): string => {
         />
       </div>
       <div class="media">
-        <Image src={cryptoLock} alt="" />
+        <Image src={cryptoLock} alt="" format="avif" />
       </div>
     </div>
 
@@ -234,7 +223,6 @@ const getLanguageLabel = (lang: string): string => {
                 "what-is-monero:sections.technology.features.stealthAddresses.basedOn",
                 {
                   mpECDH: localizeHref(
-                    locale,
                     "/resources/moneropedia/elliptic-curve-diffie-hellman/",
                   ),
                 },
@@ -255,7 +243,6 @@ const getLanguageLabel = (lang: string): string => {
             set:html={safeMarkdown.parseInline(
               t("what-is-monero:sections.technology.features.fcmp.basedOn", {
                 mpCurveTrees: localizeHref(
-                  locale,
                   "/resources/moneropedia/curve-trees/",
                 ),
               }),
@@ -287,11 +274,9 @@ const getLanguageLabel = (lang: string): string => {
                 "what-is-monero:sections.technology.features.confidentialTransactions.basedOn",
                 {
                   mpPedersenCommitments: localizeHref(
-                    locale,
                     "/resources/moneropedia/pedersen-commitment/",
                   ),
                   mpBulletproofs: localizeHref(
-                    locale,
                     "/resources/moneropedia/bulletproofs/",
                   ),
                 },
@@ -318,7 +303,7 @@ const getLanguageLabel = (lang: string): string => {
           controls
           preload="none"
           poster="/media/msmsm.webp"
-          aria-label="Dr. Daniel Kim's presentation on Monero"
+          aria-label={t("what-is-monero:aria.presentationVideo")}
         >
           <source src="/media/msmsm.mp4" type="video/mp4" />
           <track
@@ -351,29 +336,21 @@ const getLanguageLabel = (lang: string): string => {
         <p
           set:html={safeMarkdown.parseInline(
             t("what-is-monero:sections.community.content", {
-              mrlLink: localizeHref(locale, "/resources/research-lab/"),
+              mrlLink: localizeHref("/resources/research-lab/"),
             }),
           )}
         />
         <div class="community-cta-links">
-          <a
-            href={localizeHref(locale, "/community/hangouts/")}
-            aria-label={t("what-is-monero:sections.community.joinCommunity")}
-            >{t("what-is-monero:sections.community.joinCommunity")}
-            <MaskIcon src={arrowRight} size="1em" rtl={dir == "rtl"} /></a
-          >
-          <a
-            href={localizeHref(locale, "/community/workgroups/")}
-            aria-label={t(
-              "what-is-monero:sections.community.contributeToMonero",
-            )}
-            >{t("what-is-monero:sections.community.contributeToMonero")}
-            <MaskIcon src={arrowRight} size="1em" rtl={dir == "rtl"} /></a
-          >
+          <IconLink href={localizeHref("/community/hangouts/")} weight="bold">
+            {t("what-is-monero:sections.community.joinCommunity")}
+          </IconLink>
+          <IconLink href={localizeHref("/community/workgroups/")} weight="bold">
+            {t("what-is-monero:sections.community.contributeToMonero")}
+          </IconLink>
         </div>
       </div>
       <div class="media">
-        <Image src={communityLogo} alt="" />
+        <Image src={communityLogo} alt="" format="avif" />
       </div>
     </div>
 
@@ -386,13 +363,13 @@ const getLanguageLabel = (lang: string): string => {
       <Fragment slot="buttons">
         <Button
           variant="primary"
-          href={localizeHref(locale, "/downloads/community/#wallets")}
+          href={localizeHref("/downloads/community/#wallets")}
         >
           {t("what-is-monero:sections.cta.downloadWallet")}
         </Button>
         <Button
           variant="secondary"
-          href={localizeHref(locale, "/get-started/exchanges/")}
+          href={localizeHref("/get-started/exchanges/")}
         >
           {t("what-is-monero:sections.cta.getMonero")}
         </Button>
@@ -414,14 +391,14 @@ const getLanguageLabel = (lang: string): string => {
     line-height: var(--line-height-body);
   }
   :where(.feature-item) {
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
   }
 
   .video-container {
     position: relative;
     width: min(100%, 854px);
     aspect-ratio: 16/9;
-    border-radius: 1rem;
+    border-radius: var(--radius-xl);
     border: 1px solid var(--border-color);
     overflow: hidden;
     margin: 0 auto;
@@ -436,14 +413,14 @@ const getLanguageLabel = (lang: string): string => {
   .card-item {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--space-md);
     align-items: center;
-    margin-block: 2rem;
+    margin-block: var(--space-2xl);
   }
   .card-item h2 {
     font-size: var(--font-size-3xl);
     color: var(--heading-color);
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
   }
   .card-item p {
     font-size: var(--font-size-lg);
@@ -463,11 +440,11 @@ const getLanguageLabel = (lang: string): string => {
   .use-cases-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-2xl);
   }
   .use-case-item {
     display: flex;
-    gap: 1rem;
+    gap: var(--space-md);
     align-items: flex-start;
   }
   .use-case-item h3 {
@@ -483,12 +460,12 @@ const getLanguageLabel = (lang: string): string => {
   .feature-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: var(--space-2xl);
     justify-content: center;
   }
   .feature-item {
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
+    padding: var(--space-xl);
     text-align: start;
     display: flex;
     flex-direction: column;
@@ -506,7 +483,7 @@ const getLanguageLabel = (lang: string): string => {
     font-size: var(--font-size-sm);
     color: var(--paragraph-subtitle);
     margin-top: auto;
-    padding-top: 2rem;
+    padding-top: var(--space-2xl);
   }
   .feature-item .based-on a {
     color: var(--monero-orange);
@@ -522,27 +499,19 @@ const getLanguageLabel = (lang: string): string => {
   .feature-item .icon {
     width: 2rem;
     height: 2rem;
-    padding: 1rem;
+    padding: var(--space-md);
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: var(--radius-full);
   }
 
   .community-cta-links {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
   }
-  .community-cta-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25em;
-    font-weight: var(--font-weight-bold);
-    color: var(--monero-orange);
-  }
-
   .final-cta {
-    padding-block: 2rem;
+    padding-block: var(--space-2xl);
   }
   .final-cta :global(.cta-title) {
     font-size: var(--font-size-3xl);
@@ -583,7 +552,7 @@ const getLanguageLabel = (lang: string): string => {
 
     .community-cta-links {
       flex-direction: row;
-      gap: 1rem;
+      gap: var(--space-md);
       flex-wrap: wrap;
     }
   }

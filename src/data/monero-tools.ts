@@ -1,6 +1,6 @@
 export interface Tool {
+  id: string;
   title: string;
-  subtitle: string;
   href: string;
   onionHref?: string;
   logo?: string;
@@ -8,123 +8,142 @@ export interface Tool {
 
 export const blockExplorers: Tool[] = [
   {
+    id: "p2poolObserver",
     title: "P2Pool Observer",
-    subtitle: "Block explorer with miner proof verification",
     href: "https://blocks.p2pool.observer/",
   },
   {
+    id: "p2poolIo",
+    title: "P2Pool.io Explorer",
+    href: "https://p2pool.io/explorer/",
+    onionHref:
+      "http://yucmgsbw7nknw7oi3bkuwudvc657g2xcqahhbjyewazusyytapqo4xid.onion/explorer/",
+  },
+  {
+    id: "moneroHash",
     title: "MoneroHash",
-    subtitle: "Popular Monero block explorer",
     href: "https://monerohash.com/explorer/",
   },
   {
+    id: "xmrchain",
     title: "xmrchain.net",
-    subtitle: "Popular open-source Monero block explorer",
     href: "https://xmrchain.net",
   },
   {
+    id: "localMonero",
     title: "LocalMonero Explorer",
-    subtitle: "Block explorer by LocalMonero",
     href: "https://localmonero.co/blocks",
+  },
+  {
+    id: "monerowat",
+    title: "Monerowat.ch",
+    href: "https://monerowat.ch",
+  },
+  {
+    id: "xmrmx",
+    title: "xmr.mx",
+    href: "https://xmr.mx",
+    onionHref:
+      "http://ravfxexpx76quysu77pbvao4ng5qnyo46gguklfwlafhllrujwdgqtyd.onion/",
   },
 ];
 
 export const networkTools: Tool[] = [
   {
+    id: "moneroFail",
     title: "Monero.fail",
-    subtitle: "Comprehensive node list and network map",
     href: "https://monero.fail",
   },
   {
+    id: "ditatompel",
+    title: "ditatompel",
+    href: "https://www.ditatompel.com/monero/remote-node",
+  },
+  {
+    id: "moneroHashNodes",
     title: "monerohash.com",
-    subtitle: "Interactive Monero node map",
     href: "https://monerohash.com/nodes-distribution.html",
   },
   {
+    id: "txStreet",
     title: "TxStreet",
-    subtitle: "Live transaction and block visualizer",
     href: "https://txstreet.com/v/xmr",
   },
   {
+    id: "nowNodes",
     title: "NOWNodes",
-    subtitle: "Blockchain node APIs for developers",
     href: "https://nownodes.io",
   },
   {
+    id: "getBlock",
     title: "GetBlock",
-    subtitle: "Blockchain nodes provider",
     href: "https://getblock.io",
   },
 ];
 
 export const utilities: Tool[] = [
   {
+    id: "llcoins",
     title: "xmr.llcoins.net",
-    subtitle: "Offline wallet and address generator",
     href: "https://xmr.llcoins.net",
   },
   {
+    id: "monerotech",
     title: "monerotech.info",
-    subtitle: "Paper wallet generator",
     href: "https://monerotech.info",
   },
   {
-    title: "Cryptoradar",
-    subtitle: "Compare Monero prices across exchanges",
-    href: "https://cryptoradar.co/buy-monero",
-  },
-  {
+    id: "moneroHow",
     title: "Monero.how",
-    subtitle: "Statistics and educational resources",
     href: "https://www.monero.how",
   },
   {
+    id: "moneroLogs",
     title: "MoneroLogs",
-    subtitle: "Archive of Monero IRC channels",
     href: "https://monerologs.net",
   },
 ];
 
 export const developerLibraries: Tool[] = [
   {
+    id: "moneroTs",
     title: "monero-ts",
-    subtitle: "TypeScript/JavaScript library for Node.js and browsers",
     href: "https://github.com/monero-ecosystem/monero-ts",
     logo: "/media/dev-tools/monero-ts.png",
   },
   {
+    id: "moneroPython",
     title: "monero-python",
-    subtitle: "Python library with RPC and native bindings",
     href: "https://github.com/monero-ecosystem/monero-python",
     logo: "/media/dev-tools/monero-python.png",
   },
   {
+    id: "moneroOxide",
     title: "monero-oxide",
-    subtitle: "Rust implementation of the Monero blockchain protocol",
     href: "https://github.com/monero-oxide/monero-oxide",
     logo: "/media/dev-tools/monero-oxide.png",
   },
   {
+    id: "moneroJava",
     title: "monero-java",
-    subtitle: "Java library for Monero wallet and daemon RPC",
     href: "https://github.com/monero-ecosystem/monero-java",
     logo: "/media/dev-tools/monero-java.png",
   },
   {
+    id: "moneroCpp",
     title: "monero-cpp",
-    subtitle: "C++ library for Monero wallet and daemon",
     href: "https://github.com/monero-ecosystem/monero-cpp",
     logo: "/media/dev-tools/monero-cpp.png",
   },
   {
+    id: "monerophp",
     title: "monerophp",
-    subtitle: "PHP library for Monero wallet RPC",
     href: "https://github.com/monero-integrations/monerophp",
     logo: "/media/dev-tools/monerophp.png",
   },
   {
+    id: "goMoneroRpc",
     title: "Go Monero RPC Client",
-    subtitle: "Go client for Monero wallet and daemon RPC",
     href: "https://github.com/omani/go-monero-rpc-client",
     logo: "/media/dev-tools/go-monero-rpc-client.png",
   },
@@ -132,38 +151,38 @@ export const developerLibraries: Tool[] = [
 
 export const paymentGateways: Tool[] = [
   {
+    id: "btcPayServer",
     title: "BTCPayServer",
-    subtitle: "Self-hosted, open-source payment processor",
     href: "https://btcpayserver.org",
     logo: "/media/payment-gateways/btcpayserver.png",
   },
   {
+    id: "nowPayments",
     title: "NOWPayments",
-    subtitle: "Non-custodial crypto payment gateway",
     href: "https://nowpayments.io",
     logo: "/media/payment-gateways/nowpayments.png",
   },
   {
+    id: "bitcart",
     title: "Bitcart",
-    subtitle: "Open-source cryptocurrency payment platform",
     href: "https://bitcart.ai",
     logo: "/media/payment-gateways/bitcart.png",
   },
   {
+    id: "coinPayments",
     title: "CoinPayments",
-    subtitle: "Multi-cryptocurrency payment gateway",
     href: "https://www.coinpayments.net",
     logo: "/media/payment-gateways/coinpayments.png",
   },
   {
+    id: "cryptoWoo",
     title: "CryptoWoo",
-    subtitle: "WooCommerce Monero plugin",
     href: "https://www.cryptowoo.com",
     logo: "/media/payment-gateways/cryptowoo.jpg",
   },
   {
+    id: "moneroWooCommerce",
     title: "Monero WooCommerce",
-    subtitle: "PHP extension for WooCommerce stores",
     href: "https://github.com/monero-integrations/monerowp",
     logo: "/media/dev-tools/monerowp.png",
   },
