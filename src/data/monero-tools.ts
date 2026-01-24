@@ -10,8 +10,8 @@ import btcpayLogo from "@/assets/images/payment-gateways/btcpayserver.png";
 import nowPaymentsLogo from "@/assets/images/payment-gateways/nowpayments.png";
 import bitcartLogo from "@/assets/images/payment-gateways/bitcart.png";
 import coinpaymentsLogo from "@/assets/images/payment-gateways/coinpayments.png";
-import cryptowooLogo from "@/assets/images/payment-gateways/cryptowoo.png";
-import monerowpLogo from "@/assets/images/payment-gateways/monerowp.png";
+import cryptowooLogo from "@/assets/images/payment-gateways/cryptowoo.jpg";
+import monerowpLogo from "@/assets/images/dev-tools/monerowp.png";
 
 export interface Tool {
   id: string;
