@@ -99,12 +99,11 @@ const colorValue = colorMap[color];
     &:hover,
     &:focus-visible {
       opacity: 0.8;
-    }
 
-    &[data-underline]:hover,
-    &[data-underline]:focus-visible {
-      opacity: 1;
-      text-decoration: underline;
+      &[data-underline] {
+        opacity: 1;
+        text-decoration: underline;
+      }
     }
   }
 </style>
