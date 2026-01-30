@@ -177,10 +177,10 @@ const rtl = Astro.locals.dir === "rtl";
     width: unset;
     max-height: 0;
     overflow: hidden;
-  }
 
-  .dropdown::before {
-    content: none;
+    &::before {
+      content: none;
+    }
   }
 
   .dropdown-inner {
@@ -246,11 +246,10 @@ const rtl = Astro.locals.dir === "rtl";
 
     &:where(:hover, :focus-visible) {
       background: var(--card-hover-color);
-    }
 
-    &:hover .arrow,
-    &:focus-visible .arrow {
-      opacity: 1;
+      .arrow {
+        opacity: 1;
+      }
     }
   }
 

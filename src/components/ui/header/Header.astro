@@ -235,16 +235,18 @@ const navItems = navigationItems.map((item) => {
     transition: opacity 0.2s ease;
   }
 
-  .nav-toggle:checked ~ .nav {
-    inset-inline-end: 0;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
+  .nav-toggle:checked {
+    & ~ .nav {
+      inset-inline-end: 0;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-  .nav-toggle:checked ~ .scrim {
-    opacity: 1;
-    pointer-events: auto;
+    & ~ .scrim {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   body:has(#nav-toggle:checked) {

@@ -53,10 +53,10 @@ const gapValue = `var(--space-${gap})`;
     .layout {
       flex-direction: row;
       align-items: flex-start;
-    }
 
-    .layout[data-position="start"] {
-      flex-direction: row-reverse;
+      &[data-position="start"] {
+        flex-direction: row-reverse;
+      }
     }
 
     .sidebar {

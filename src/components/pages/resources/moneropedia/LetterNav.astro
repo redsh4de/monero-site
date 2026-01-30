@@ -35,10 +35,10 @@ const { letters, ariaLabel } = Astro.props;
     text-decoration: none;
     color: var(--text-primary);
     user-select: none;
-  }
 
-  .letter-nav-link:hover {
-    background: var(--card-color);
+    &:hover {
+      background: var(--card-color);
+    }
   }
 
   @media (width <= 1000px) {
@@ -73,19 +73,19 @@ const { letters, ariaLabel } = Astro.props;
       mask-mode: alpha;
       scrollbar-width: thin;
       scrollbar-color: var(--monero-orange) transparent;
-    }
 
-    .letter-nav::-webkit-scrollbar {
-      width: var(--space-2xs);
-    }
+      &::-webkit-scrollbar {
+        width: var(--space-2xs);
+      }
 
-    .letter-nav::-webkit-scrollbar-track {
-      background: transparent;
-    }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
-    .letter-nav::-webkit-scrollbar-thumb {
-      background: var(--monero-orange);
-      border-radius: var(--radius-full);
+      &::-webkit-scrollbar-thumb {
+        background: var(--monero-orange);
+        border-radius: var(--radius-full);
+      }
     }
 
     .letter-nav-link {

@@ -162,29 +162,29 @@ const { t, dir, localizeHref } = Astro.locals;
   @media (width <= 1200px) {
     .workgroup-columns {
       grid-template-columns: 1fr 1fr;
-    }
 
-    .workgroup-columns > :last-child {
-      grid-column: span 2;
-    }
+      > :last-child {
+        grid-column: span 2;
 
-    .workgroup-columns > :last-child .column-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+        .column-cards {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     }
   }
 
   @media (width <= 900px) {
     .workgroup-columns {
       grid-template-columns: 1fr;
-    }
 
-    .workgroup-columns > :last-child {
-      grid-column: auto;
-    }
+      > :last-child {
+        grid-column: auto;
 
-    .workgroup-columns > :last-child .column-cards {
-      grid-template-columns: 1fr;
+        .column-cards {
+          grid-template-columns: 1fr;
+        }
+      }
     }
   }
 </style>

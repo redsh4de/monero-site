@@ -128,10 +128,10 @@ const titleKey = isMainTab ? "blog:index.hero.title" : "blog:tags.hero.title";
 
   .tabs-bar {
     margin-bottom: var(--space-2xl);
-  }
 
-  .tabs-bar :global(.tab-header) {
-    margin-bottom: unset;
+    & :global(.tab-header) {
+      margin-bottom: unset;
+    }
   }
 
   .rss-icon {
@@ -147,10 +147,10 @@ const titleKey = isMainTab ? "blog:index.hero.title" : "blog:tags.hero.title";
       display: inline-flex;
       align-items: center;
       color: var(--monero-orange);
-    }
 
-    .rss-icon:hover {
-      opacity: 0.8;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 </style>

@@ -97,10 +97,10 @@ const tabs = [
 
   .tabs-bar {
     margin-bottom: var(--space-2xl);
-  }
 
-  .tabs-bar :global(.tab-header) {
-    margin-bottom: unset;
+    & :global(.tab-header) {
+      margin-bottom: unset;
+    }
   }
 
   .rss-icon {
@@ -116,10 +116,10 @@ const tabs = [
       display: inline-flex;
       align-items: center;
       color: var(--monero-orange);
-    }
 
-    .rss-icon:hover {
-      opacity: 0.8;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 </style>

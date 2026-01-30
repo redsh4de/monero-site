@@ -246,10 +246,10 @@ const bottomLinks: Link[] = [
     list-style: none;
     padding: 0;
     margin: 0;
-  }
 
-  .list li {
-    margin: var(--space-xs) 0;
+    li {
+      margin: var(--space-xs) 0;
+    }
   }
 
   a {
@@ -280,9 +280,11 @@ const bottomLinks: Link[] = [
     justify-content: center;
   }
 
-  .inline-item a:hover,
-  .inline-item a:focus {
-    color: var(--heading-color);
+  .inline-item {
+    a:hover,
+    a:focus {
+      color: var(--heading-color);
+    }
   }
 
   @media (width >= 600px) {

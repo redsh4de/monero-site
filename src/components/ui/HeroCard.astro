@@ -53,12 +53,12 @@ const {
     width: 200px;
     height: 200px;
     flex-shrink: 0;
-  }
 
-  .hero-card-image :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    & :global(img) {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   .hero-card-content {
@@ -93,12 +93,12 @@ const {
     gap: var(--space-sm);
     margin-top: var(--space-sm);
     flex-wrap: wrap;
-  }
 
-  .hero-card-actions :global(a),
-  .hero-card-actions :global(button) {
-    padding: 0.625em 1.25em;
-    gap: 0.35em;
+    & :global(a),
+    & :global(button) {
+      padding: 0.625em 1.25em;
+      gap: 0.35em;
+    }
   }
 
   @media (width <= 900px) {

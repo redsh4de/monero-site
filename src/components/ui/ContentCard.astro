@@ -39,7 +39,7 @@ const hasBottom = Astro.slots.has("bottom");
     )
   }
 
-  <header class="contentCardHeader">
+  <header>
     <div class="title-row">
       {
         icon && (
@@ -95,37 +95,37 @@ const hasBottom = Astro.slots.has("bottom");
     gap: 0.5em;
     align-items: center;
     min-width: 0;
-  }
 
-  .card-icon {
-    width: 1.75rem;
-    height: 1.75rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--monero-orange);
-    flex-shrink: 0;
+    .card-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--monero-orange);
+      flex-shrink: 0;
+    }
   }
 
   .title-block {
     display: flex;
     flex-direction: column;
     min-width: 0;
-  }
 
-  .card-title {
-    margin: 0;
-    color: var(--heading-color);
-    font-weight: var(--font-weight-bold);
-    line-height: 1.2;
-    font-size: var(--font-size-lg);
-  }
+    .card-title {
+      margin: 0;
+      color: var(--heading-color);
+      font-weight: var(--font-weight-bold);
+      line-height: 1.2;
+      font-size: var(--font-size-lg);
+    }
 
-  .card-subtitle {
-    margin: var(--space-2xs) 0 0;
-    color: var(--paragraph-subtitle);
-    font-size: var(--font-size-sm);
-    line-height: 1.3;
+    .card-subtitle {
+      margin: var(--space-2xs) 0 0;
+      color: var(--paragraph-subtitle);
+      font-size: var(--font-size-sm);
+      line-height: 1.3;
+    }
   }
 
   .card-body {

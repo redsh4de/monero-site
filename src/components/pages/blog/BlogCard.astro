@@ -108,7 +108,7 @@ const localizedLink = localizeHref(`/blog/${id}/`);
     border-radius: var(--radius-md);
     position: relative;
 
-    &[data-no-image] {
+    &[data-no-image="true"] {
       background-color: var(--monero-orange);
     }
 
@@ -153,44 +153,45 @@ const localizedLink = localizeHref(`/blog/${id}/`);
     }
   }
 
+  .title {
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .summary {
+    margin: 0 0 var(--space-md);
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
   .tag-container {
     margin-top: auto;
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
     font-size: var(--font-size-sm);
-  }
 
-  .tag {
-    text-align: center;
-    padding: var(--space-2xs) var(--space-sm);
-    background: var(--footer-color);
-    border-radius: var(--radius-md);
-    text-transform: uppercase;
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    color: inherit;
-    white-space: nowrap;
+    .tag {
+      text-align: center;
+      padding: var(--space-2xs) var(--space-sm);
+      background: var(--footer-color);
+      border-radius: var(--radius-md);
+      text-transform: uppercase;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
 
-    &:hover {
-      color: var(--text-secondary);
+      &:hover {
+        color: var(--text-secondary);
+      }
     }
-  }
-
-  .title a {
-    text-decoration: none;
-    color: inherit;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .summary {
-    margin: 0;
-    margin-bottom: var(--space-md);
-    color: var(--text-secondary);
-    text-decoration: none;
   }
 
   @media (width <= 1200px) {
@@ -199,15 +200,17 @@ const localizedLink = localizeHref(`/blog/${id}/`);
       grid-template-rows: none;
     }
 
-    .thumbnail img {
-      position: absolute;
-      inset: 0;
-      object-fit: cover;
-    }
+    .thumbnail {
+      img {
+        position: absolute;
+        inset: 0;
+        object-fit: cover;
+      }
 
-    .thumbnail span {
-      bottom: unset;
-      top: 2rem;
+      span {
+        bottom: unset;
+        top: 2rem;
+      }
     }
 
     .title {
@@ -219,11 +222,6 @@ const localizedLink = localizeHref(`/blog/${id}/`);
 
     .meta {
       margin-bottom: var(--space-md);
-    }
-
-    .tag-container {
-      font-size: var(--font-size-sm);
-      gap: var(--space-md);
     }
   }
 
