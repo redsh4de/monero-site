@@ -61,10 +61,14 @@ const { t } = Astro.locals;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-4xl);
     align-items: center;
-  }
 
-  .guide-step[data-align="start"] {
-    align-items: start;
+    &[data-align="start"] {
+      align-items: start;
+    }
+
+    &[data-reverse="true"] .step-content {
+      order: 2;
+    }
   }
 
   .step-label {
@@ -98,8 +102,7 @@ const { t } = Astro.locals;
     max-width: 55ch;
   }
 
-  .step-body :global(ol),
-  .step-body :global(ul) {
+  .step-body :is(:global(ol), :global(ul)) {
     margin: 0;
     padding-inline-start: var(--space-xl);
     color: var(--paragraph-subtitle);
@@ -129,10 +132,6 @@ const { t } = Astro.locals;
     .guide-step[data-reverse="true"] & {
       order: 1;
     }
-  }
-
-  .guide-step[data-reverse="true"] .step-content {
-    order: 2;
   }
 
   .step-image :global(img) {
@@ -176,14 +175,14 @@ const { t } = Astro.locals;
     .guide-step {
       grid-template-columns: 1fr;
       gap: var(--space-xl);
+
+      &[data-reverse="true"] :is(.step-content, .step-image) {
+        order: unset;
+      }
     }
 
     .step-image {
       aspect-ratio: 16 / 9;
-    }
-
-    .guide-step[data-reverse="true"] :is(.step-content, .step-image) {
-      order: unset;
     }
 
     .step-title {
