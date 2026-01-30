@@ -25,7 +25,7 @@ const {
 const { t } = Astro.locals;
 ---
 
-<section class:list={["guide-step", { reverse }]} data-align={align ?? null}>
+<section class="guide-step" data-align={align ?? null} data-reverse={reverse}>
   <div class="step-content">
     <span class="step-label"
       >{t("common:components.guideStep.step", { step })}</span
@@ -126,12 +126,12 @@ const { t } = Astro.locals;
     aspect-ratio: 4 / 3;
     border: 1px solid var(--border-color);
 
-    .guide-step.reverse & {
+    .guide-step[data-reverse="true"] & {
       order: 1;
     }
   }
 
-  .guide-step.reverse .step-content {
+  .guide-step[data-reverse="true"] .step-content {
     order: 2;
   }
 
@@ -182,8 +182,7 @@ const { t } = Astro.locals;
       aspect-ratio: 16 / 9;
     }
 
-    .guide-step.reverse .step-content,
-    .guide-step.reverse .step-image {
+    .guide-step[data-reverse="true"] :is(.step-content, .step-image) {
       order: unset;
     }
 
