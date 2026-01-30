@@ -171,13 +171,13 @@ const rtl = dir === "rtl";
     color: color-mix(in srgb, var(--monero-orange) 60%, transparent);
     transition: color 0.15s ease;
 
+    .has-onion & {
+      border-inline-start: 1px solid var(--border-color);
+    }
+
     &:hover,
     .primary-link:hover ~ & {
       color: var(--monero-orange);
-    }
-
-    .has-onion & {
-      border-inline-start: 1px solid var(--border-color);
     }
   }
 
@@ -212,7 +212,7 @@ const rtl = dir === "rtl";
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     .external-resource-button.has-onion {
       flex-wrap: wrap;
 

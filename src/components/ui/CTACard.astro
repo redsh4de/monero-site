@@ -124,6 +124,7 @@ const hasButtonsSlot = Astro.slots.has("buttons");
     justify-items: center;
     row-gap: var(--space-xs);
   }
+
   .cta-card.centered.has-icon {
     grid-template-areas:
       "icon"
@@ -131,11 +132,13 @@ const hasButtonsSlot = Astro.slots.has("buttons");
       "description"
       "link";
   }
+
   .cta-card.centered .cta-description {
     max-width: 50ch;
     text-align: center;
     margin-inline: auto;
   }
+
   .cta-card.centered .cta-link {
     display: flex;
     justify-content: center;

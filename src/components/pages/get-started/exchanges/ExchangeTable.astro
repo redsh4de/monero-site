@@ -179,13 +179,16 @@ if (!exchanges) {
   .kyc-required {
     color: #f44336;
   }
+
   .kyc-optional {
     color: #ff9800;
   }
+
   .kyc-none,
   .checkmark {
     color: #4caf50;
   }
+
   .cross {
     color: var(--text-secondary);
   }
@@ -198,10 +201,11 @@ if (!exchanges) {
     text-align: end;
   }
 
-  @media (min-width: 901px) {
+  @media (width >= 901px) {
     .col-flag {
       width: 1%;
     }
+
     .col-visit {
       width: 1%;
     }
@@ -218,7 +222,7 @@ if (!exchanges) {
   }
 
   /* mobile cards */
-  @media (max-width: 900px) {
+  @media (width <= 900px) {
     .table-wrap {
       background: transparent;
       border-radius: 0;

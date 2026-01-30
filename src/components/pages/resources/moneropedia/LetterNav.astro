@@ -41,12 +41,11 @@ const { letters, ariaLabel } = Astro.props;
     background: var(--card-color);
   }
 
-  @media (max-width: 1000px) {
+  @media (width <= 1000px) {
     .letter-nav {
       --sticky-offset: 6rem;
 
-      flex-direction: column;
-      flex-wrap: nowrap;
+      flex-flow: column nowrap;
       gap: var(--space-md);
       padding: 0.5rem 1rem 0.5rem 2rem;
       margin-inline-start: calc(-1 * var(--space-2xl));

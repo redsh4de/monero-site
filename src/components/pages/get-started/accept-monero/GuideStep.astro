@@ -67,14 +67,6 @@ const { t } = Astro.locals;
     align-items: start;
   }
 
-  .guide-step.reverse .step-content {
-    order: 2;
-  }
-
-  .guide-step.reverse .step-image {
-    order: 1;
-  }
-
   .step-label {
     display: block;
     font-size: var(--font-size-sm);
@@ -133,6 +125,14 @@ const { t } = Astro.locals;
     overflow: hidden;
     aspect-ratio: 4 / 3;
     border: 1px solid var(--border-color);
+
+    .guide-step.reverse & {
+      order: 1;
+    }
+  }
+
+  .guide-step.reverse .step-content {
+    order: 2;
   }
 
   .step-image :global(img) {
@@ -172,19 +172,19 @@ const { t } = Astro.locals;
     opacity: 0.5;
   }
 
-  @media (max-width: 900px) {
+  @media (width <= 900px) {
     .guide-step {
       grid-template-columns: 1fr;
       gap: var(--space-xl);
     }
 
+    .step-image {
+      aspect-ratio: 16 / 9;
+    }
+
     .guide-step.reverse .step-content,
     .guide-step.reverse .step-image {
       order: unset;
-    }
-
-    .step-image {
-      aspect-ratio: 16 / 9;
     }
 
     .step-title {

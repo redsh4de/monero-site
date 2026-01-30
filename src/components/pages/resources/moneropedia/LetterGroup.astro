@@ -54,7 +54,7 @@ const { letter, items, isFirst = false } = Astro.props;
     border-color: transparent;
   }
 
-  @media (max-width: 1000px) {
+  @media (width <= 1000px) {
     .letter-layout {
       grid-template-columns: 1fr;
     }

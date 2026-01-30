@@ -44,35 +44,6 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
     &:last-child {
       border-bottom: none;
     }
-
-    &[open] .icon {
-      transform: rotate(180deg);
-    }
-
-    /* Card variant */
-    &[data-variant="card"] {
-      border: none;
-      margin-bottom: var(--space-sm);
-      border-radius: var(--radius-lg);
-      background: var(--card-color);
-      padding: 0 var(--space-lg);
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .header {
-        padding: var(--space-lg) 0;
-      }
-
-      &:has(.header:focus-visible) {
-        border-radius: var(--radius-lg);
-      }
-
-      .content {
-        padding: 0 0 var(--space-lg) 0;
-      }
-    }
   }
 
   .header {
@@ -107,6 +78,10 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
     color: var(--paragraph-main);
     flex-shrink: 0;
     margin-inline-start: auto;
+
+    .item[open] & {
+      transform: rotate(180deg);
+    }
   }
 
   .content {
@@ -116,9 +91,35 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
     font-weight: var(--font-weight-normal);
   }
 
+  /* Card variant */
+  .item[data-variant="card"] {
+    border: none;
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-lg);
+    background: var(--card-color);
+    padding: 0 var(--space-lg);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .header {
+      padding: var(--space-lg) 0;
+    }
+
+    &:has(.header:focus-visible) {
+      border-radius: var(--radius-lg);
+    }
+
+    .content {
+      padding: 0 0 var(--space-lg) 0;
+    }
+  }
+
   :global(.content > p:first-child) {
     margin-top: 0;
   }
+
   :global(.content > p:last-child) {
     margin-bottom: 0;
   }
@@ -128,10 +129,12 @@ const { title, content, variant = "default", name, open = false } = Astro.props;
       background: var(--card-hover-color);
     }
   }
-  @media screen and (max-width: 900px) {
+
+  @media screen and (width <= 900px) {
     .header {
       padding: var(--space-md) 0;
     }
+
     .title {
       font-size: var(--font-size-base);
     }

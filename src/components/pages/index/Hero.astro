@@ -70,6 +70,7 @@ const { t, localizeHref } = Astro.locals;
     line-height: var(--line-height-title);
     font-size: var(--font-size-5xl);
   }
+
   .accent {
     color: var(--monero-orange);
   }
@@ -96,7 +97,7 @@ const { t, localizeHref } = Astro.locals;
     }
   }
 
-  @media (max-width: 600px) {
+  @media (width <= 600px) {
     .actions {
       flex-direction: column;
       gap: var(--space-sm);
@@ -121,6 +122,7 @@ const { t, localizeHref } = Astro.locals;
     aspect-ratio: 1 / 1;
     position: relative;
   }
+
   @supports not (width: 100cqw) {
     .logo-box {
       inline-size: min(90vmin, 100%);
@@ -138,6 +140,6 @@ const { t, localizeHref } = Astro.locals;
     position: absolute;
     inset: 10%;
     border-radius: 50%;
-    box-shadow: inset 0px 0px 30px #dc4e2e80;
+    box-shadow: inset 0 0 30px #dc4e2e80;
   }
 </style>
