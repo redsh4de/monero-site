@@ -50,14 +50,27 @@ const localeList = Object.keys(locales).map((code) => {
   .lang-container {
     position: static;
     display: inline-block;
-  }
 
-  .lang-container > summary {
-    list-style: none;
-  }
-  .lang-container > summary::marker,
-  .lang-container > summary::-webkit-details-marker {
-    display: none;
+    > summary {
+      list-style: none;
+
+      &::marker,
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+
+    &[open] {
+      .lang-dropdown {
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .lang {
+        color: var(--heading-color);
+      }
+    }
   }
 
   .lang {
@@ -70,10 +83,11 @@ const localeList = Object.keys(locales).map((code) => {
     background: transparent;
     vertical-align: middle;
     color: inherit;
-  }
-  .lang:hover,
-  .lang:focus-visible {
-    color: var(--heading-color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--heading-color);
+    }
   }
 
   /* Panel (hidden by default) */
@@ -109,37 +123,28 @@ const localeList = Object.keys(locales).map((code) => {
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
-  }
 
-  .lang-list li {
-    margin: 0;
-  }
+    li {
+      margin: 0;
+    }
 
-  .lang-list a {
-    display: block;
-    padding: var(--space-sm);
-    color: var(--heading-color);
-    text-decoration: none;
-    border-radius: var(--radius-md);
-  }
+    a {
+      display: block;
+      padding: var(--space-sm);
+      color: var(--heading-color);
+      text-decoration: none;
+      border-radius: var(--radius-md);
 
-  .lang-list a:hover,
-  .lang-list a:focus {
-    background: var(--card-hover-color);
-  }
+      &:hover,
+      &:focus {
+        background: var(--card-hover-color);
+      }
 
-  .lang-list a.active {
-    font-weight: var(--font-weight-semibold);
-    background: var(--card-hover-color);
-  }
-
-  .lang-container[open] .lang-dropdown {
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-  .lang-container[open] .lang {
-    color: var(--heading-color);
+      &.active {
+        font-weight: var(--font-weight-semibold);
+        background: var(--card-hover-color);
+      }
+    }
   }
 
   @media (min-width: 1200px) and (hover: hover) {

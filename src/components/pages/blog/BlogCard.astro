@@ -106,25 +106,26 @@ const localizedLink = localizeHref(`/blog/${id}/`);
     background-color: #f0f0f0;
     border-radius: var(--radius-md);
     position: relative;
-  }
-  .thumbnail.no-image {
-    background-color: var(--monero-orange);
-  }
 
-  .thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: inherit;
-  }
+    &.no-image {
+      background-color: var(--monero-orange);
+    }
 
-  .thumbnail span {
-    position: absolute;
-    bottom: 2rem;
-    inset-inline-start: 2rem;
-    color: white;
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-4xl);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: inherit;
+    }
+
+    span {
+      position: absolute;
+      bottom: 2rem;
+      inset-inline-start: 2rem;
+      color: white;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-4xl);
+    }
   }
 
   .info {
@@ -144,12 +145,12 @@ const localizedLink = localizeHref(`/blog/${id}/`);
     display: flex;
     align-items: center;
     gap: var(--space-xs);
-  }
 
-  .meta-item > .icon {
-    display: grid;
-    place-items: center;
-    color: var(--monero-orange);
+    > .icon {
+      display: grid;
+      place-items: center;
+      color: var(--monero-orange);
+    }
   }
 
   .tag-container {
@@ -170,17 +171,19 @@ const localizedLink = localizeHref(`/blog/${id}/`);
     text-decoration: none;
     color: inherit;
     white-space: nowrap;
-  }
-  .tag:hover {
-    color: var(--text-secondary);
+
+    &:hover {
+      color: var(--text-secondary);
+    }
   }
 
   .title a {
     text-decoration: none;
     color: inherit;
-  }
-  .title a:hover {
-    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .summary {

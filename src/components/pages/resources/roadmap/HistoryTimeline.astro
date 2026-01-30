@@ -59,10 +59,10 @@ const { t } = Astro.locals;
     gap: var(--space-md);
     padding: var(--space-xl) 0;
     border-bottom: 1px solid var(--border-color);
-  }
 
-  .year-row:last-child {
-    border-bottom: none;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   .year-label {
@@ -86,19 +86,19 @@ const { t } = Astro.locals;
     font-size: var(--font-size-sm);
     color: var(--paragraph-main);
     text-decoration: none;
-  }
 
-  .event-chip.has-link {
-    color: var(--heading-color);
-  }
+    &.has-link {
+      color: var(--heading-color);
 
-  .event-chip.has-link:hover {
-    background: var(--monero-orange);
-    color: white;
-  }
+      &:hover {
+        background: var(--monero-orange);
+        color: white;
+      }
 
-  .event-chip.has-link::after {
-    display: none;
+      &::after {
+        display: none;
+      }
+    }
   }
 
   @media (max-width: 600px) {

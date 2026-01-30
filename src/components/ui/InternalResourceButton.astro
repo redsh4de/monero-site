@@ -111,13 +111,15 @@ const rtl = Astro.locals.dir === "rtl";
     transition: opacity 0.15s ease;
   }
 
-  .info-bar.is-link:hover .info-arrow,
-  .info-bar.is-link:focus-visible .info-arrow {
-    opacity: 1;
-  }
+  .info-bar.is-link {
+    &:hover .info-arrow,
+    &:focus-visible .info-arrow {
+      opacity: 1;
+    }
 
-  .info-bar.is-link:focus-visible {
-    outline: 2px solid var(--monero-orange);
-    outline-offset: 2px;
+    &:focus-visible {
+      outline: 2px solid var(--monero-orange);
+      outline-offset: 2px;
+    }
   }
 </style>

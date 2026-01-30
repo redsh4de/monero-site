@@ -134,10 +134,10 @@ const rtl = Astro.locals.dir === "rtl";
     white-space: nowrap;
     padding-block: var(--space-md);
     width: 100%;
-  }
 
-  .link:hover {
-    color: var(--heading-color);
+    &:hover {
+      color: var(--heading-color);
+    }
   }
 
   .caret {
@@ -235,10 +235,15 @@ const rtl = Astro.locals.dir === "rtl";
     text-decoration: none;
     padding: var(--space-sm);
     border-radius: var(--radius-md);
-  }
 
-  .dropdown-item:where(:hover, :focus-visible) {
-    background: var(--card-hover-color);
+    &:where(:hover, :focus-visible) {
+      background: var(--card-hover-color);
+    }
+
+    &:hover .arrow,
+    &:focus-visible .arrow {
+      opacity: 1;
+    }
   }
 
   .icon {
@@ -265,11 +270,6 @@ const rtl = Astro.locals.dir === "rtl";
     opacity: 0;
     transition: opacity 0.2s ease;
     color: var(--paragraph-subtitle);
-  }
-
-  .dropdown-item:hover .arrow,
-  .dropdown-item:focus-visible .arrow {
-    opacity: 1;
   }
 
   .nav-item--dropdown:is(:focus-within, :has(.dropdown :focus-visible))

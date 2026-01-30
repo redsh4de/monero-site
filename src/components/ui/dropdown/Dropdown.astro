@@ -38,9 +38,10 @@ const { label } = Astro.props;
     display: flex;
     align-items: center;
     border-radius: var(--radius-full);
-  }
-  .dropdown-summary::-webkit-details-marker {
-    display: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
   }
 
   .caret {
@@ -48,9 +49,6 @@ const { label } = Astro.props;
     align-items: center;
     margin-inline-start: var(--space-xs);
     transition: transform 0.2s ease;
-  }
-  .dropdown[open] .caret {
-    transform: rotate(180deg);
   }
 
   /* Panel */
@@ -78,9 +76,15 @@ const { label } = Astro.props;
     transition: transform 0.2s ease;
   }
 
-  .dropdown[open] .dropdown-content {
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
+  .dropdown[open] {
+    .caret {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-content {
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
   }
 </style>
