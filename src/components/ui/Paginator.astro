@@ -151,26 +151,28 @@ const hasNext = current < last;
 
   .pagination-arrow {
     color: var(--paragraph-main);
+
+    &:hover:not(.disabled) {
+      background: var(--card-hover-color);
+    }
+
+    &.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
+    }
   }
 
-  .pagination-arrow:hover:not(.disabled) {
-    background: var(--card-hover-color);
-  }
+  .pagination-page {
+    &:hover {
+      background: var(--card-hover-color);
+    }
 
-  .pagination-arrow.disabled {
-    opacity: 0.35;
-    pointer-events: none;
-    cursor: default;
-  }
-
-  .pagination-page:hover {
-    background: var(--card-hover-color);
-  }
-
-  .pagination-page[aria-current="page"] {
-    font-weight: var(--font-weight-semibold);
-    background: var(--footer-color);
-    pointer-events: none;
+    &[aria-current="page"] {
+      font-weight: var(--font-weight-semibold);
+      background: var(--footer-color);
+      pointer-events: none;
+    }
   }
 
   .pagination-ellipsis {

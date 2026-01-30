@@ -64,7 +64,7 @@ const { t, localizeHref } = Astro.locals;
 
   /* Title scales smoothly from phones to desktop */
   .title {
-    margin: 0 0 var(--space-sm) 0;
+    margin: 0 0 var(--space-sm);
     font-weight: var(--font-weight-extra-bold);
     letter-spacing: -0.015em;
     line-height: var(--line-height-title);
@@ -85,7 +85,6 @@ const { t, localizeHref } = Astro.locals;
 
   .actions {
     display: flex;
-    flex-direction: row;
     gap: var(--space-xl);
     justify-content: center;
     align-items: center;
@@ -132,9 +131,6 @@ const { t, localizeHref } = Astro.locals;
   .mask-icon {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
     opacity: 0.3;
   }
 

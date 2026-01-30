@@ -205,7 +205,6 @@ const active = I(initial);
 
   .tab-header {
     display: flex;
-    flex-wrap: nowrap;
     align-items: stretch;
     box-sizing: border-box;
 
@@ -220,9 +219,7 @@ const active = I(initial);
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-  }
 
-  .tab-header {
     &::-webkit-scrollbar {
       height: 4px;
     }
