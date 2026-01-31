@@ -1,15 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-import SponsorCard from "@/components/pages/sponsorships/SponsorCard.astro";
+import SponsorCard from "@/components/pages/community/sponsorships/SponsorCard.astro";
+import Row from "@/components/ui/layout/Row.astro";
 import CTACard from "@/components/ui/CTACard.astro";
-import PageContainer from "@/components/ui/PageContainer.astro";
-import PageSection from "@/components/ui/PageSection.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import PageSection from "@/components/ui/layout/PageSection.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
-import { currentSponsors, pastSponsors } from "@/data/sponsors";
-
-import heartPlusIcon from "@/assets/icons/mask/heartPlus.avif";
+import { currentSponsors, pastSponsors } from "@/data/community/sponsors";
+import { icons } from "@/utils/icons";
 
 const { t } = Astro.locals;
 ---
@@ -28,7 +29,7 @@ const { t } = Astro.locals;
       title={t("sponsorships:currentSponsors.title")}
       subtitle={t("sponsorships:currentSponsors.subtitle")}
     >
-      <div class="sponsors-grid">
+      <Grid columns={3} gap="md">
         {
           currentSponsors.map((sponsor) => (
             <SponsorCard
@@ -40,14 +41,14 @@ const { t } = Astro.locals;
             />
           ))
         }
-      </div>
+      </Grid>
     </PageSection>
 
     <CTACard
       title={t("sponsorships:becomeASponsor.title")}
       href="mailto:dev@getmonero.org"
       linkText={t("sponsorships:becomeASponsor.cta")}
-      icon={heartPlusIcon}
+      icon={icons.mask("heart-plus")}
       variant="centered"
     >
       {t("sponsorships:becomeASponsor.description")}
@@ -59,7 +60,7 @@ const { t } = Astro.locals;
       title={t("sponsorships:pastSponsors.title")}
       subtitle={t("sponsorships:pastSponsors.subtitle")}
     >
-      <div class="past-sponsors-grid">
+      <Row gap="sm">
         {
           pastSponsors.map((sponsor) => (
             <a
@@ -72,24 +73,12 @@ const { t } = Astro.locals;
             </a>
           ))
         }
-      </div>
+      </Row>
     </PageSection>
   </PageContainer>
 </Layout>
 
 <style>
-  .sponsors-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-  }
-
-  .past-sponsors-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-  }
-
   .past-sponsor-chip {
     display: inline-block;
     padding: var(--space-xs) var(--space-md);
@@ -101,26 +90,14 @@ const { t } = Astro.locals;
     transition:
       background 0.15s ease,
       color 0.15s ease;
-  }
 
-  .past-sponsor-chip:hover {
-    background: var(--card-hover-color);
-    color: var(--heading-color);
-  }
-
-  .past-sponsor-chip::after {
-    display: none;
-  }
-
-  @media (max-width: 1200px) {
-    .sponsors-grid {
-      grid-template-columns: repeat(2, 1fr);
+    &:hover {
+      background: var(--card-hover-color);
+      color: var(--heading-color);
     }
-  }
 
-  @media (max-width: 600px) {
-    .sponsors-grid {
-      grid-template-columns: 1fr;
+    &::after {
+      display: none;
     }
   }
 </style>

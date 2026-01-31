@@ -1,9 +1,7 @@
 ---
 import type { Page } from "astro";
-import MaskIcon from "./MaskIcon.astro";
-
-import chevronLeft from "@/assets/icons/mask/chevron-left.avif";
-import chevronRight from "@/assets/icons/mask/chevron-right.avif";
+import MaskIcon from "./icons/MaskIcon.astro";
+import { icons } from "@/utils/icons";
 
 interface Props {
   page: Page<unknown>;
@@ -66,12 +64,16 @@ const hasNext = current < last;
     >
       <a
         href={hasPrev ? page.url.prev : undefined}
-        class:list={["pagination-arrow", { disabled: !hasPrev }]}
+        class="pagination-arrow"
         aria-label={t("common:components.paginator.previousPage")}
         aria-disabled={!hasPrev}
         rel={hasPrev ? "prev" : undefined}
       >
-        <MaskIcon src={chevronLeft} size="1.25em" rtl={dir === "rtl"} />
+        <MaskIcon
+          src={icons.mask("chevron-left")}
+          size="1.25em"
+          rtl={dir === "rtl"}
+        />
       </a>
 
       <ul class="pagination-list">
@@ -105,12 +107,16 @@ const hasNext = current < last;
 
       <a
         href={hasNext ? page.url.next : undefined}
-        class:list={["pagination-arrow", { disabled: !hasNext }]}
+        class="pagination-arrow"
         aria-label={t("common:components.paginator.nextPage")}
         aria-disabled={!hasNext}
         rel={hasNext ? "next" : undefined}
       >
-        <MaskIcon src={chevronRight} size="1.25em" rtl={dir === "rtl"} />
+        <MaskIcon
+          src={icons.mask("chevron-right")}
+          size="1.25em"
+          rtl={dir === "rtl"}
+        />
       </a>
     </nav>
   )
@@ -151,26 +157,28 @@ const hasNext = current < last;
 
   .pagination-arrow {
     color: var(--paragraph-main);
+
+    &:hover:not([aria-disabled="true"]) {
+      background: var(--card-hover-color);
+    }
+
+    &[aria-disabled="true"] {
+      opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
+    }
   }
 
-  .pagination-arrow:hover:not(.disabled) {
-    background: var(--card-hover-color);
-  }
+  .pagination-page {
+    &:hover {
+      background: var(--card-hover-color);
+    }
 
-  .pagination-arrow.disabled {
-    opacity: 0.35;
-    pointer-events: none;
-    cursor: default;
-  }
-
-  .pagination-page:hover {
-    background: var(--card-hover-color);
-  }
-
-  .pagination-page[aria-current="page"] {
-    font-weight: var(--font-weight-semibold);
-    background: var(--footer-color);
-    pointer-events: none;
+    &[aria-current="page"] {
+      font-weight: var(--font-weight-semibold);
+      background: var(--footer-color);
+      pointer-events: none;
+    }
   }
 
   .pagination-ellipsis {

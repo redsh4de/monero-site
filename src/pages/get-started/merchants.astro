@@ -1,14 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
+import DisclaimerBar from "@/components/ui/disclaimer/DisclaimerBar.astro";
 import ExternalResourceButton from "@/components/ui/ExternalResourceButton.astro";
-import PageContainer from "@/components/ui/PageContainer.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import Column from "@/components/ui/layout/Column.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
-import merchants from "@/data/merchants";
-
-import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
-import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
+import merchants from "@/data/get-started/merchants";
+import { icons } from "@/utils/icons";
 
 const { t } = Astro.locals;
 ---
@@ -23,11 +23,9 @@ const { t } = Astro.locals;
   />
 
   <PageContainer>
-    <p>
-      {t("merchants:intro")}
-    </p>
+    <p>{t("merchants:intro")}</p>
 
-    <div class="button-container">
+    <Column gap="md">
       {
         merchants
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -41,22 +39,13 @@ const { t } = Astro.locals;
             />
           ))
       }
-    </div>
+    </Column>
   </PageContainer>
 
-  <DisclaimerBar icon={shieldIcon} title={t("merchants:disclaimerTitle")}>
+  <DisclaimerBar
+    icon={icons.mask("shield-alert")}
+    title={t("merchants:disclaimerTitle")}
+  >
     {t("merchants:disclaimer")}
   </DisclaimerBar>
 </Layout>
-
-<style>
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    margin-bottom: 3rem;
-  }
-  p {
-    color: var(--paragraph-subtitle);
-  }
-</style>

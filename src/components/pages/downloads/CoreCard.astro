@@ -4,19 +4,12 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 import Button from "@/components/ui/Button.astro";
-import ColorIcon from "@/components/ui/ColorIcon.astro";
+import ColorIcon from "@/components/ui/icons/ColorIcon.astro";
 import Dropdown from "@/components/ui/dropdown/Dropdown.astro";
 import DropdownItem from "@/components/ui/dropdown/DropdownItem.astro";
 import DropdownSeparator from "@/components/ui/dropdown/DropdownSeparator.astro";
-import MaskIcon from "@/components/ui/MaskIcon.astro";
-
-import magnetIconDark from "@/assets/icons/color/dark/magnet.avif";
-import magnetIcon from "@/assets/icons/color/light/magnet.avif";
-import androidIcon from "@/assets/icons/mask/brand/android.avif";
-import appleIcon from "@/assets/icons/mask/brand/apple.avif";
-import freebsdIcon from "@/assets/icons/mask/brand/freebsd.avif";
-import linuxIcon from "@/assets/icons/mask/brand/linux.avif";
-import windowsIcon from "@/assets/icons/mask/brand/windows.avif";
+import MaskIcon from "@/components/ui/icons/MaskIcon.astro";
+import { icons } from "@/utils/icons";
 
 export interface DownloadLink {
   href: string;
@@ -59,11 +52,11 @@ const {
 const { t, safeMarkdown } = Astro.locals;
 
 const PLATFORM_ICONS: Record<string, ImageMetadata> = {
-  windows: windowsIcon,
-  macos: appleIcon,
-  linux: linuxIcon,
-  android: androidIcon,
-  freebsd: freebsdIcon,
+  windows: icons.mask("brand/windows"),
+  macos: icons.mask("brand/apple"),
+  linux: icons.mask("brand/linux"),
+  android: icons.mask("brand/android"),
+  freebsd: icons.mask("brand/freebsd"),
 };
 ---
 
@@ -135,8 +128,8 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
                 title={t("downloads:core.magnetLink")}
               >
                 <ColorIcon
-                  src={magnetIcon}
-                  darkSrc={magnetIconDark}
+                  src={icons.color("magnet").light}
+                  darkSrc={icons.color("magnet").dark}
                   size="1.25em"
                 />
               </Button>
@@ -187,13 +180,13 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
     border-start-start-radius: var(--radius-md);
     border-start-end-radius: var(--radius-md);
     background: var(--card-hover-color);
-  }
 
-  .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
   }
 
   .card-content {
@@ -250,15 +243,15 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
-  }
 
-  .card-features li {
-    color: var(--paragraph-main);
-    line-height: var(--line-height-body);
-  }
+    li {
+      color: var(--paragraph-main);
+      line-height: var(--line-height-body);
 
-  .card-features li::marker {
-    color: var(--monero-orange);
+      &::marker {
+        color: var(--monero-orange);
+      }
+    }
   }
 
   .card-footer {
@@ -277,22 +270,22 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
 
   .torrent-split-button {
     display: flex;
-  }
 
-  .torrent-split-button .button {
-    border-radius: 0;
-    margin: 0;
-  }
+    .button {
+      border-radius: 0;
+      margin: 0;
+    }
 
-  .torrent-split-button .torrent-button {
-    border-start-start-radius: var(--radius-full);
-    border-end-start-radius: var(--radius-full);
-  }
+    .torrent-button {
+      border-start-start-radius: var(--radius-full);
+      border-end-start-radius: var(--radius-full);
+    }
 
-  .torrent-split-button .magnet-button {
-    border-start-end-radius: var(--radius-full);
-    border-end-end-radius: var(--radius-full);
-    margin-inline-start: 0.1rem;
+    .magnet-button {
+      border-start-end-radius: var(--radius-full);
+      border-end-end-radius: var(--radius-full);
+      margin-inline-start: 0.1rem;
+    }
   }
 
   .metadata-links {
@@ -315,22 +308,22 @@ const PLATFORM_ICONS: Record<string, ImageMetadata> = {
     text-decoration: none;
     opacity: 0.8;
     transition: opacity 0.2s ease;
-  }
 
-  .metadata-link:hover {
-    opacity: 1;
-    text-decoration: underline;
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
   }
 
   .dropdown-label {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
-  }
 
-  .platform-icon {
-    display: inline-flex;
-    align-items: center;
-    opacity: 0.6;
+    .platform-icon {
+      display: inline-flex;
+      align-items: center;
+      opacity: 0.6;
+    }
   }
 </style>

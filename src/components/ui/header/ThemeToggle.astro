@@ -1,0 +1,69 @@
+---
+import MaskIcon from "@/components/ui/icons/MaskIcon.astro";
+import { icons } from "@/utils/icons";
+---
+
+<button id="theme-toggle" type="button" aria-label="Toggle theme" hidden>
+  <span class="sun"><MaskIcon src={icons.mask("sun")} size="1.5rem" /></span>
+  <span class="moon"><MaskIcon src={icons.mask("moon")} size="1.5rem" /></span>
+</button>
+
+<style>
+  #theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--heading-color);
+    }
+  }
+
+  .sun,
+  .moon {
+    line-height: 0;
+  }
+
+  /* In light mode, show moon */
+  .sun {
+    display: none;
+  }
+
+  .moon {
+    display: block;
+  }
+
+  /* In dark mode, show sun */
+  :global(:root[data-theme="dark"]) .sun {
+    display: block;
+  }
+
+  :global(:root[data-theme="dark"]) .moon {
+    display: none;
+  }
+</style>
+
+<script>
+  const headerThemeToggle = document.getElementById("header--theme-toggle")!;
+  const root = document.documentElement;
+  const prefersDark = matchMedia("(prefers-color-scheme: dark)");
+
+  headerThemeToggle.hidden = false;
+  headerThemeToggle.onclick = () =>
+    localStorage.setItem(
+      "theme",
+      window.applyTheme(root.dataset.theme !== "dark"),
+    );
+
+  // Respond to system preference changes
+  prefersDark.onchange = (e) => window.applyTheme(e.matches);
+</script>

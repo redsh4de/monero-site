@@ -2,33 +2,20 @@
 import Layout from "@/layouts/Layout.astro";
 
 import CommunityCard from "@/components/pages/downloads/CommunityCard.astro";
-import PageTabs from "@/components/ui/PageTabs.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
+import PageTabs from "@/components/ui/tabs/PageTabs.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
-import TOCContainer from "@/components/ui/TOCContainer.astro";
-import communityWallets from "@/data/downloads/community.json";
+import TOCContainer from "@/components/ui/toc/TOCContainer.astro";
+import communityWallets from "@/data/downloads/community";
 
-import serverIcon from "@/assets/icons/mask/server.avif";
-import snowflakeIcon from "@/assets/icons/mask/snowflake.avif";
-import walletIcon from "@/assets/icons/mask/wallet.avif";
+import DisclaimerBar from "@/components/ui/disclaimer/DisclaimerBar.astro";
+import DisclaimerNote from "@/components/ui/disclaimer/DisclaimerNote.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import PageSection from "@/components/ui/layout/PageSection.astro";
 
-import shieldIcon from "@/assets/icons/mask/shieldAlert.avif";
-import DisclaimerBar from "@/components/ui/DisclaimerBar.astro";
-import DisclaimerNote from "@/components/ui/DisclaimerNote.astro";
-import PageContainer from "@/components/ui/PageContainer.astro";
-import PageSection from "@/components/ui/PageSection.astro";
-
-interface Wallet {
-  id: string;
-  name: string;
-  logo: string;
-  link: string;
-  tags: {
-    general?: string[];
-    mobile?: string[];
-    desktop?: string[];
-  };
-}
+import type { Wallet } from "@/data/downloads/community";
+import { icons } from "@/utils/icons";
 
 export const sortWallets = (wallets: Wallet[]) =>
   // Sort by number of supported platforms (mobile + desktop), then alphabetically
@@ -40,6 +27,7 @@ export const sortWallets = (wallets: Wallet[]) =>
   });
 
 const { t, localizeHref } = Astro.locals;
+
 const tabs = [
   { label: t("downloads:tabs.core"), link: localizeHref("/downloads") },
   {
@@ -51,19 +39,19 @@ const tabs = [
 const sections = [
   {
     id: "wallets",
-    icon: walletIcon,
+    icon: icons.mask("wallet"),
     title: t("downloads:community.sections.wallets.title"),
     subtitle: t("downloads:community.sections.wallets.subtitle"),
   },
   {
     id: "cold-wallets",
-    icon: snowflakeIcon,
+    icon: icons.mask("snowflake"),
     title: t("downloads:community.sections.cold.title"),
     subtitle: t("downloads:community.sections.cold.subtitle"),
   },
   {
     id: "nodes",
-    icon: serverIcon,
+    icon: icons.mask("server"),
     title: t("downloads:community.sections.nodes.title"),
     subtitle: t("downloads:community.sections.nodes.subtitle"),
   },
@@ -103,7 +91,6 @@ const setBuiltinId = (wallet: Wallet) => {
     />
 
     <PageSection
-      class="downloads-section"
       anchorId="wallets"
       title={t("downloads:community.sections.wallets.title")}
       subtitle={t("downloads:community.sections.wallets.subtitle")}
@@ -111,7 +98,7 @@ const setBuiltinId = (wallet: Wallet) => {
       <h3 class="subheading">
         {t("downloads:community.categories.moneroOnly")}
       </h3>
-      <div class="cards-grid compact">
+      <Grid minWidth="20rem" gap="lg" class="compact-grid">
         {
           sortWallets(communityWallets.wallets.moneroOnly).map((wallet) => (
             <CommunityCard
@@ -128,12 +115,12 @@ const setBuiltinId = (wallet: Wallet) => {
             />
           ))
         }
-      </div>
+      </Grid>
 
       <h3 class="subheading">
         {t("downloads:community.categories.multiCoin")}
       </h3>
-      <div class="cards-grid compact">
+      <Grid minWidth="20rem" gap="lg" class="compact-grid">
         {
           sortWallets(communityWallets.wallets.multiCoin).map((wallet) => (
             <CommunityCard
@@ -150,7 +137,7 @@ const setBuiltinId = (wallet: Wallet) => {
             />
           ))
         }
-      </div>
+      </Grid>
 
       <h3 class="subheading">
         {t("downloads:community.categories.lws.title")}
@@ -158,7 +145,7 @@ const setBuiltinId = (wallet: Wallet) => {
       <DisclaimerNote
         text={t("downloads:community.categories.lws.disclaimer")}
       />
-      <div class="cards-grid">
+      <Grid minWidth="25rem" gap="lg">
         {
           sortWallets(communityWallets.wallets.lws).map((wallet) => (
             <CommunityCard
@@ -175,18 +162,17 @@ const setBuiltinId = (wallet: Wallet) => {
             />
           ))
         }
-      </div>
+      </Grid>
     </PageSection>
 
     <hr aria-hidden="true" />
 
     <PageSection
-      class="downloads-section"
       anchorId="cold-wallets"
       title={t("downloads:community.sections.cold.title")}
       subtitle={t("downloads:community.sections.cold.subtitle")}
     >
-      <div class="cards-grid">
+      <Grid minWidth="25rem" gap="lg">
         {
           sortWallets(communityWallets.cold).map((wallet) => (
             <CommunityCard
@@ -203,18 +189,17 @@ const setBuiltinId = (wallet: Wallet) => {
             />
           ))
         }
-      </div>
+      </Grid>
     </PageSection>
 
     <hr aria-hidden="true" />
 
     <PageSection
-      class="downloads-section"
       anchorId="nodes"
       title={t("downloads:community.sections.nodes.title")}
       subtitle={t("downloads:community.sections.nodes.subtitle")}
     >
-      <div class="cards-grid">
+      <Grid minWidth="25rem" gap="lg">
         {
           sortWallets(communityWallets.nodes).map((wallet) => (
             <CommunityCard
@@ -231,11 +216,11 @@ const setBuiltinId = (wallet: Wallet) => {
             />
           ))
         }
-      </div>
+      </Grid>
     </PageSection>
 
     <DisclaimerBar
-      icon={shieldIcon}
+      icon={icons.mask("shield-alert")}
       title={t("downloads:community.disclaimerTitle")}
     >
       {t("downloads:community.disclaimer")}
@@ -255,27 +240,11 @@ const setBuiltinId = (wallet: Wallet) => {
     margin: var(--space-lg) 0 var(--space-2xs) 0;
   }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .cards-grid.compact {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  .compact-grid {
     padding: var(--space-xs) 0 var(--space-md) 0;
   }
 
-  @media (max-width: 900px) {
-    .cards-grid,
-    .cards-grid.compact {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-    }
-  }
-
-  @media (max-width: 1200px) {
+  @media (width <= 1200px) {
     :global(#built-in-exchange) {
       scroll-margin-top: 6.5rem;
     }

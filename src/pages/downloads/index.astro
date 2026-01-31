@@ -4,18 +4,18 @@ import Layout from "@/layouts/Layout.astro";
 import type { DownloadLink } from "@/components/pages/downloads/CoreCard.astro";
 import CoreCard from "@/components/pages/downloads/CoreCard.astro";
 import CTACard from "@/components/ui/CTACard.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
 import InternalResourceButton from "@/components/ui/InternalResourceButton.astro";
-import PageTabs from "@/components/ui/PageTabs.astro";
+import PageTabs from "@/components/ui/tabs/PageTabs.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
 import coreDownloads from "@/data/downloads/core.json";
 
-import shieldCheckIcon from "@/assets/icons/mask/shieldCheck.avif";
-import walletIcon from "@/assets/icons/mask/wallet.avif";
 import cliImage from "@/assets/images/cli.avif";
 import guiImage from "@/assets/images/gui.avif";
 
-import PageContainer from "@/components/ui/PageContainer.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import { icons } from "@/utils/icons";
 
 const { t, localizeHref, safeMarkdown } = Astro.locals;
 
@@ -43,13 +43,13 @@ const tabs = [
       activeIndex={0}
     />
     <InternalResourceButton
-      icon={walletIcon}
+      icon={icons.mask("wallet")}
       title={t("downloads:communityNote.title")}
       href={localizeHref("/downloads/community")}
     >
       {t("downloads:communityNote.content")}
     </InternalResourceButton>
-    <div class="downloads-grid">
+    <Grid columns={2} gap="xl" class="downloads-grid">
       <!-- Monero GUI Card -->
       <CoreCard
         id="gui"
@@ -91,13 +91,13 @@ const tabs = [
         )}
         downloads={coreDownloads.cli.downloads as DownloadLink[]}
       />
-    </div>
+    </Grid>
 
     <CTACard
       title={t("downloads:core.verifyDownload")}
       href="/downloads/hashes.txt"
       linkText={t("downloads:core.viewHashes")}
-      icon={shieldCheckIcon}
+      icon={icons.mask("shield-check")}
     >
       <Fragment
         set:html={safeMarkdown.parse(
@@ -113,9 +113,6 @@ const tabs = [
 
 <style>
   .downloads-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl);
     margin-top: var(--space-xl);
   }
 
@@ -124,13 +121,7 @@ const tabs = [
     scroll-margin-top: 6.5rem;
   }
 
-  @media (max-width: 900px) {
-    .downloads-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (min-width: 1200px) {
+  @media (width >= 1200px) {
     #gui,
     #cli {
       scroll-margin-top: unset;

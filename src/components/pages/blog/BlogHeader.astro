@@ -1,9 +1,7 @@
 ---
-import MaskIcon from "@/components/ui/MaskIcon.astro";
+import MaskIcon from "@/components/ui/icons/MaskIcon.astro";
 import { getDateStringFromId } from "@/utils/blog.ts";
-
-import calendarIcon from "@/assets/icons/mask/calendar.avif";
-import userIcon from "@/assets/icons/mask/user.avif";
+import { icons } from "@/utils/icons";
 
 interface Props {
   title: string;
@@ -31,7 +29,7 @@ const date = localizeDateString(dateString, {
       date && (
         <div class="meta-item">
           <div class="icon">
-            <MaskIcon src={calendarIcon} />
+            <MaskIcon src={icons.mask("calendar")} />
           </div>
           <time datetime={dateString}>{date}</time>
         </div>
@@ -42,7 +40,7 @@ const date = localizeDateString(dateString, {
       author && (
         <div class="meta-item">
           <div class="icon">
-            <MaskIcon src={userIcon} />
+            <MaskIcon src={icons.mask("user")} />
           </div>
           {author.replace(" and ", ` ${t("blog:post.and")} `)}
         </div>
@@ -68,7 +66,7 @@ const date = localizeDateString(dateString, {
   }
 </div>
 
-<style lang="scss">
+<style>
   h1 {
     font-size: var(--font-size-3xl);
     margin: 0;
@@ -80,7 +78,6 @@ const date = localizeDateString(dateString, {
 
   #meta {
     display: flex;
-    flex-direction: row;
     gap: var(--space-2xl);
     color: var(--text-secondary);
     margin-top: var(--space-md);
@@ -93,12 +90,12 @@ const date = localizeDateString(dateString, {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
-  }
 
-  .meta-item > .icon {
-    display: grid;
-    place-items: center;
-    color: var(--monero-orange);
+    > .icon {
+      display: grid;
+      place-items: center;
+      color: var(--monero-orange);
+    }
   }
 
   .tag-container {
@@ -106,25 +103,25 @@ const date = localizeDateString(dateString, {
     gap: var(--space-xs);
     font-size: var(--font-size-sm);
     flex-wrap: wrap;
+
+    .tag {
+      text-align: center;
+      padding: var(--space-2xs) var(--space-sm);
+      background: var(--footer-color);
+      border-radius: var(--radius-md);
+      text-transform: uppercase;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+
+      &:hover {
+        color: var(--text-secondary);
+      }
+    }
   }
 
-  .tag {
-    text-align: center;
-    padding: var(--space-2xs) var(--space-sm);
-    background: var(--footer-color);
-    border-radius: var(--radius-md);
-    text-transform: uppercase;
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    color: inherit;
-    white-space: nowrap;
-  }
-
-  .tag:hover {
-    color: var(--text-secondary);
-  }
-
-  @media (max-width: 600px) {
+  @media (width <= 600px) {
     #meta {
       flex-direction: column;
       font-size: var(--font-size-md);
@@ -132,12 +129,10 @@ const date = localizeDateString(dateString, {
       gap: var(--space-md);
     }
 
-    .meta-item > .icon {
-      font-size: var(--font-size-lg);
-    }
-
-    .tag-container {
-      font-size: var(--font-size-sm);
+    .meta-item {
+      > .icon {
+        font-size: var(--font-size-lg);
+      }
     }
   }
 </style>

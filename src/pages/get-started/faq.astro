@@ -3,15 +3,14 @@ import "@/styles/moneropedia-link.css";
 
 import Layout from "@/layouts/Layout.astro";
 
+import AccordionCard from "@/components/pages/get-started/faq/AccordionCard.astro";
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
-import type { AccordionItemType } from "@/components/ui/Accordion.astro";
-import Accordion from "@/components/ui/Accordion.astro";
+import type { AccordionItemType } from "@/components/ui/accordion/Accordion.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-
-import developerGuidesIcon from "@/assets/icons/mask/developer-guides.avif";
-import faqIcon from "@/assets/icons/mask/faq.avif";
-import PageContainer from "@/components/ui/PageContainer.astro";
+import { icons } from "@/utils/icons";
 
 const { t, safeMarkdown } = Astro.locals;
 
@@ -67,110 +66,65 @@ const economicsItems = sectionToItems(
 <Layout title={t("faq:pageTitle")} description={t("faq:hero.subtitle")}>
   <TitleCard title={t("faq:hero.title")} subtitle={t("faq:hero.subtitle")} />
   <PageContainer>
-    <div class="accordion-grid">
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:basics.title")}</h2>
-        <Accordion items={basicsItems} />
-      </div>
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:nodes.title")}</h2>
-        <Accordion items={nodesItems} />
-      </div>
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:privacy.title")}</h2>
-        <Accordion items={privacyItems} />
-      </div>
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:security.title")}</h2>
-        <Accordion items={securityItems} />
-      </div>
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:wallets.title")}</h2>
-        <Accordion items={walletsItems} />
-      </div>
-      <div class="accordion-card">
-        <h2 class="card-title">{t("faq:economics.title")}</h2>
-        <Accordion items={economicsItems} />
-      </div>
-    </div>
+    <Grid columns={2} gap="lg" class="accordion-grid">
+      <AccordionCard title={t("faq:basics.title")} items={basicsItems} />
+      <AccordionCard title={t("faq:nodes.title")} items={nodesItems} />
+      <AccordionCard title={t("faq:privacy.title")} items={privacyItems} />
+      <AccordionCard title={t("faq:security.title")} items={securityItems} />
+      <AccordionCard title={t("faq:wallets.title")} items={walletsItems} />
+      <AccordionCard title={t("faq:economics.title")} items={economicsItems} />
+    </Grid>
     <IndexCard
       title={t("faq:additionalResources.title")}
       description={t("faq:additionalResources.subtitle")}
       id="monero-resources"
     >
-      <div id="resource-container">
+      <Grid minWidth="18rem" gap="2xl" class="resource-grid">
         <ResourceCard
-          icon={developerGuidesIcon}
+          icon={icons.mask("developer-guides")}
           title={t("faq:additionalResources.moneroDocs.title")}
           description={t("faq:additionalResources.moneroDocs.description")}
           ctaLabel={t("faq:additionalResources.moneroDocs.ctaLabel")}
           ctaHref="https://docs.getmonero.org"
         />
         <ResourceCard
-          icon={faqIcon}
+          icon={icons.mask("faq")}
           title={t("faq:additionalResources.stackExchange.title")}
           description={t("faq:additionalResources.stackExchange.description")}
           ctaLabel={t("faq:additionalResources.stackExchange.ctaLabel")}
           ctaHref="https://monero.stackexchange.com"
         />
         <ResourceCard
-          icon={developerGuidesIcon}
+          icon={icons.mask("developer-guides")}
           title={t("faq:additionalResources.reddit.title")}
           description={t("faq:additionalResources.reddit.description")}
           ctaLabel={t("faq:additionalResources.reddit.ctaLabel")}
           ctaHref="https://www.reddit.com/r/MoneroSupport"
         />
         <ResourceCard
-          icon={developerGuidesIcon}
+          icon={icons.mask("developer-guides")}
           title={t("faq:additionalResources.monerohow.title")}
           description={t("faq:additionalResources.monerohow.description")}
           ctaLabel={t("faq:additionalResources.monerohow.ctaLabel")}
           ctaHref="https://monero.how"
         />
-      </div>
+      </Grid>
     </IndexCard>
   </PageContainer>
 </Layout>
 
 <style>
   .accordion-grid {
-    display: grid;
-    gap: var(--space-lg);
-    grid-template-columns: 1fr;
     margin-bottom: var(--space-2xl);
   }
 
-  .accordion-card {
-    background: var(--card-color);
-    padding: var(--space-xl);
-    border-radius: var(--radius-md);
+  .resource-grid {
+    grid-column: span 2;
   }
 
-  .card-title {
-    margin: 0 0 var(--space-xl);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--paragraph-main);
-    text-transform: uppercase;
-  }
-
-  #resource-container {
-    display: grid;
-    gap: var(--space-2xl);
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    overflow: hidden;
-  }
-
-  @media (min-width: 900px) {
-    .accordion-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .accordion-card {
-      padding: var(--space-4xl);
-    }
-    #resource-container {
-      grid-column: span 2;
-      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  @media (width >= 900px) {
+    .resource-grid {
+      --grid-min-width: 25rem;
     }
   }
 </style>

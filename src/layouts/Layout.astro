@@ -1,6 +1,6 @@
 ---
-import Footer from "@/components/layout/Footer.astro";
-import Header from "@/components/layout/header/Header.astro";
+import Footer from "@/components/ui/Footer.astro";
+import Header from "@/components/ui/header/Header.astro";
 import { locales } from "@/i18n/config";
 import { localizeHref } from "@/i18n/utils";
 import "@/styles/external-links.css";
@@ -160,7 +160,7 @@ const fullTitle = title.includes("|")
     box-sizing: border-box;
   }
 
-  @media (min-width: 1200px) {
+  @media (width >= 1200px) {
     main {
       padding-inline: var(--desktop-padding-inline);
     }

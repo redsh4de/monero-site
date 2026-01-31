@@ -12,7 +12,7 @@
   --paragraph-subtitle: light-dark(#75767f, #a9aab4);
 
   /* Surface Colors */
-  --bg-color: light-dark(#ffffff, #171717);
+  --bg-color: light-dark(#fff, #171717);
   --card-color: light-dark(#f9f7fc, #211f26);
   --card-hover-color: color-mix(
     in srgb,
@@ -35,13 +35,12 @@
   --radius-full: 999px; /* pills, circular */
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-sm: 0 2px 4px rgb(0 0 0 / 15%);
+  --shadow-md: 0 4px 8px rgb(0 0 0 / 20%);
+  --shadow-lg: 0 12px 30px rgb(0 0 0 / 35%);
 
   /* Z-Index */
-  --z-base: 1;
   --z-dropdown: 10;
   --z-header: 20;
   --z-overlay: 100;
@@ -101,6 +100,7 @@ a {
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -170,8 +170,10 @@ tbody tr:last-child {
    Third-Party Overrides
    ======================================== */
 
-body .__ns__pop2top,
-div .__ns__pop2top,
-article .__ns__pop2top {
-  z-index: unset !important;
+body,
+html {
+  /* stylelint-disable-next-line selector-class-pattern */
+  .__ns__pop2top {
+    z-index: unset !important;
+  }
 }

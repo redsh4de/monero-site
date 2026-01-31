@@ -1,14 +1,12 @@
 ---
-import PageContainer from "@/components/ui/PageContainer.astro";
-import PageSection from "@/components/ui/PageSection.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import PageSection from "@/components/ui/layout/PageSection.astro";
+import Column from "@/components/ui/layout/Column.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import TOCContainer from "@/components/ui/TOCContainer.astro";
+import TOCContainer from "@/components/ui/toc/TOCContainer.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
-
-import copyrightIcon from "@/assets/icons/mask/copyright.avif";
-import receiptTextIcon from "@/assets/icons/mask/receiptText.avif";
-import shieldCheckIcon from "@/assets/icons/mask/shieldCheck.avif";
+import { icons } from "@/utils/icons";
 
 const { t } = Astro.locals;
 
@@ -16,19 +14,19 @@ const sections = [
   {
     id: "terms-of-use",
     title: t("legal:sections.termsOfUse.title"),
-    icon: receiptTextIcon,
+    icon: icons.mask("receipt-text"),
     subtitle: t("legal:sections.termsOfUse.tocSubtitle"),
   },
   {
     id: "copyright",
     title: t("legal:sections.copyright.title"),
-    icon: copyrightIcon,
+    icon: icons.mask("copyright"),
     subtitle: t("legal:sections.copyright.tocSubtitle"),
   },
   {
     id: "privacy-policy",
     title: t("legal:sections.privacyPolicy.title"),
-    icon: shieldCheckIcon,
+    icon: icons.mask("shield-check"),
     subtitle: t("legal:sections.privacyPolicy.tocSubtitle"),
   },
 ];
@@ -54,7 +52,7 @@ const renderedSections = await Promise.all(
   <PageContainer>
     <TOCContainer sections={sections} ariaLabel={t("legal:aria.sectionsNav")} />
 
-    <div class="legal-content">
+    <Column class="legal-content">
       {
         renderedSections.map((section, index) => (
           <>
@@ -67,37 +65,35 @@ const renderedSections = await Promise.all(
           </>
         ))
       }
-    </div>
+    </Column>
   </PageContainer>
 </Layout>
 
 <style>
   .legal-content {
-    display: flex;
-    flex-direction: column;
     max-width: 75ch;
     margin-inline: auto;
   }
 
   .prose {
     line-height: var(--line-height-body);
-  }
 
-  .prose :global(h3) {
-    font-size: var(--font-size-lg);
-    color: var(--heading-color);
-    margin: var(--space-2xl) 0 var(--space-sm);
-  }
+    & :global(h3) {
+      font-size: var(--font-size-lg);
+      color: var(--heading-color);
+      margin: var(--space-2xl) 0 var(--space-sm);
 
-  .prose :global(h3:first-child) {
-    margin-top: 0;
-  }
+      &:first-child {
+        margin-top: 0;
+      }
+    }
 
-  .prose :global(p) {
-    margin: 0 0 var(--space-md);
-  }
+    & :global(p) {
+      margin: 0 0 var(--space-md);
+    }
 
-  .prose :global(li) {
-    margin-bottom: var(--space-xs);
+    & :global(li) {
+      margin-bottom: var(--space-xs);
+    }
   }
 </style>
