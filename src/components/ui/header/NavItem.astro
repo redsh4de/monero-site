@@ -83,12 +83,10 @@ const closeId = id + "-close";
   {
     isDropdown && (
       <div class="dropdown" role="menu" aria-label={`${label} menu`}>
-        <div class="dropdown-inner">
-          <div class="dropdown-content">
-            {dropdown.map((item) => (
-              <NavDropdownLink {...item} />
-            ))}
-          </div>
+        <div class="dropdown-content">
+          {dropdown.map((item) => (
+            <NavDropdownLink {...item} />
+          ))}
         </div>
       </div>
     )
@@ -160,12 +158,6 @@ const closeId = id + "-close";
     width: unset;
     max-height: 0;
     overflow: hidden;
-  }
-
-  .dropdown-inner {
-    background: none;
-    box-shadow: none;
-    border-radius: 0;
   }
 
   .dropdown-content {
@@ -258,6 +250,10 @@ const closeId = id + "-close";
       transform: translateY(-10px);
       transition: transform 0.2s ease;
       z-index: var(--z-header);
+      background: var(--card-color);
+      box-shadow: 0 4px 2px -2px rgb(0 0 0 / 20%);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      padding-block: 0 var(--space-md);
     }
 
     .dropdown::before {
@@ -268,13 +264,6 @@ const closeId = id + "-close";
       height: 1.5rem;
       transform: translateY(-100%);
       background: transparent;
-    }
-
-    .dropdown-inner {
-      background: var(--card-color);
-      box-shadow: 0 4px 2px -2px rgb(0 0 0 / 20%);
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
-      padding-block: 0 var(--space-md);
     }
 
     .dropdown-content {
