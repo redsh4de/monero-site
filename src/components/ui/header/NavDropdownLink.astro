@@ -1,21 +1,14 @@
 ---
-import type { ImageMetadata } from "astro";
-
 import ColorIcon from "@/components/ui/icons/ColorIcon.astro";
 import MaskIcon from "@/components/ui/icons/MaskIcon.astro";
 
 import arrowRight from "@/assets/icons/mask/arrow-right.avif";
+import type { DropdownItem } from "./NavItem.astro";
 
-interface Props {
-  href: string;
-  label: string;
-  desc?: string;
-  icon: ImageMetadata;
-  iconDark?: ImageMetadata;
-  rtl: boolean;
-}
+type Props = DropdownItem;
 
-const { href, label, desc, icon, iconDark, rtl } = Astro.props;
+const { href, label, desc, icon, iconDark } = Astro.props;
+const rtl = Astro.locals.dir === "rtl";
 ---
 
 <a href={href} class="dropdown-item" role="menuitem">
