@@ -1,0 +1,19 @@
+a[rel~="external"]::after {
+  content: "";
+  display: inline-block;
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+  margin-inline-start: 0.25em;
+  vertical-align: -0.1rem;
+  mask: url("../assets/icons/mask/external-link.avif") no-repeat center /
+    contain;
+  background-color: currentcolor;
+}
+
+[dir="rtl"] a[rel~="external"]::after {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] [dir="ltr"] a[rel~="external"]::after {
+  transform: unset;
+}

@@ -24,7 +24,7 @@ Upgrading your wallet to v0.18.2.2 will not only improve your sender anonymity, 
 
 ## Technical Explanation
 
-Large portions of the text below are copied directly from [j-berman's](https://github.com/j-berman) ["Post-Mortem of Decoy Selection Bugs"](/blog/2021/09/20/post-mortem-of-decoy-selection-bugs) in 2021
+Large portions of the text below are copied directly from [j-berman's](https://github.com/j-berman) ["Post-Mortem of Decoy Selection Bugs"](/2021/09/20/post-mortem-of-decoy-selection-bugs.html) in 2021
 
 ### More In-Depth Background
 
@@ -44,7 +44,7 @@ The bug was patched in PR [#8794](https://github.com/monero-project/monero/pull/
 
 ### Empirical Analysis
 
-<img src="/blog/assets/2023-05-25-10block-old-decoy-selection-bug/percent-of-rct-inputs-exactly-x-blocks-old.png" position="center" style="border-radius: 8px;" alt="Percent of RCT inputs exactly N blocks old">
+![Percent of RCT inputs exactly N blocks old](./assets/2023-05-25-10block-old-decoy-selection-bug/percent-of-rct-inputs-exactly-x-blocks-old.png)
 
 The graph you see above shows how much 10-block-old ring members vs 11-block-old ring members appeared in transactions over time. The blue line represents the percent of transaction ring members on-chain that are exactly 10 blocks old over time, with yellow representing the same for 11-block-old ring members. The dashed green line shows the ratio between these two values over time.
 
@@ -58,7 +58,7 @@ Also, thankfully, the data tells a more complex story than our worst-case heuris
 
 ## Conclusion
 
-Not to beat a dead horse, echoing j-berman in his [original decoy selection bug post-motem](/blog/2021/09/20/post-mortem-of-decoy-selection-bugs.html): "anyone with a background in statistics and probability theory is encouraged to join in discussions geared toward improving the algorithm." In hindsight, this bug could have been discovered if the statistical distributions had been analyzed carefully.
+Not to beat a dead horse, echoing j-berman in his [original decoy selection bug post-motem](/2021/09/20/post-mortem-of-decoy-selection-bugs.html): "anyone with a background in statistics and probability theory is encouraged to join in discussions geared toward improving the algorithm." In hindsight, this bug could have been discovered if the statistical distributions had been analyzed carefully.
 
 Instead, the bug was [stumbled upon by accident](https://github.com/monero-project/monero/pull/8794#issuecomment-1478585470) while [attempting to fix an infinite while loop](https://github.com/monero-project/monero/pull/8794#issue-1633821949) during decoy selection. This brings me to a second point which I think is important but may be controversial: the wallet2 decoy selection code needs to be completely rewritten. The `wallet2::get_outs` function is [over 600 lines long](https://github.com/monero-project/monero/blob/94e67bf96bbc010241f29ada6abc89f49a81759c/src/wallet/wallet2.cpp#L8165), with few comments and inadequate testing.
 

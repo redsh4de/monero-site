@@ -1,302 +1,252 @@
 ---
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-
 import Layout from "@/layouts/Layout.astro";
 
 import CommunityCard from "@/components/pages/downloads/CommunityCard.astro";
-import Tabs from "@/components/ui/Tabs.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
+import PageTabs from "@/components/ui/tabs/PageTabs.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
 
-import MaskIcon from "@/components/ui/MaskIcon.astro";
-import communityWallets from "@/data/downloads/community.json";
+import TOCContainer from "@/components/ui/toc/TOCContainer.astro";
+import communityWallets from "@/data/downloads/community";
 
-import hashtagIcon from "@/assets/icons/mask/hashtag.avif?url";
+import DisclaimerBar from "@/components/ui/disclaimer/DisclaimerBar.astro";
+import DisclaimerNote from "@/components/ui/disclaimer/DisclaimerNote.astro";
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
+import PageSection from "@/components/ui/layout/PageSection.astro";
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+import type { Wallet } from "@/data/downloads/community";
+import { icons } from "@/utils/icons";
+
+export const sortWallets = (wallets: Wallet[]) =>
+  // Sort by number of supported platforms (mobile + desktop), then alphabetically
+  [...wallets].sort((a, b) => {
+    const count = (w: Wallet) =>
+      (w.tags.mobile?.length ?? 0) + (w.tags.desktop?.length ?? 0);
+
+    return count(b) - count(a) || a.name.localeCompare(b.name);
+  });
+
+const { t, localizeHref } = Astro.locals;
+
 const tabs = [
-  { label: t("downloads.tabs.core"), link: localizeHref(locale, "/downloads") },
+  { label: t("downloads:tabs.core"), link: localizeHref("/downloads") },
   {
-    label: t("downloads.tabs.community"),
-    link: localizeHref(locale, "/downloads/community"),
+    label: t("downloads:tabs.community"),
+    link: localizeHref("/downloads/community"),
   },
 ];
 
 const sections = [
   {
-    id: "local-sync",
-    title: t("downloads.community.sections.localSync.title"),
-    subtitle: t("downloads.community.sections.localSync.subtitle"),
-  },
-  {
-    id: "remote-sync",
-    title: t("downloads.community.sections.remoteSync.title"),
-    subtitle: t("downloads.community.sections.remoteSync.subtitle"),
+    id: "wallets",
+    icon: icons.mask("wallet"),
+    title: t("downloads:community.sections.wallets.title"),
+    subtitle: t("downloads:community.sections.wallets.subtitle"),
   },
   {
     id: "cold-wallets",
-    title: t("downloads.community.sections.offline.title"),
-    subtitle: t("downloads.community.sections.offline.subtitle"),
+    icon: icons.mask("snowflake"),
+    title: t("downloads:community.sections.cold.title"),
+    subtitle: t("downloads:community.sections.cold.subtitle"),
   },
   {
     id: "nodes",
-    title: t("downloads.community.sections.nodes.title"),
-    subtitle: t("downloads.community.sections.nodes.subtitle"),
+    icon: icons.mask("server"),
+    title: t("downloads:community.sections.nodes.title"),
+    subtitle: t("downloads:community.sections.nodes.subtitle"),
   },
 ];
+let builtinIdAssigned = false;
+
+const setBuiltinId = (wallet: Wallet) => {
+  if (
+    !builtinIdAssigned &&
+    wallet.tags.general?.includes("i18n:builtInExchange")
+  ) {
+    builtinIdAssigned = true;
+    return "built-in-exchange";
+  }
+  return undefined;
+};
 ---
 
 <Layout
-  title={t("downloads.pageTitle")}
-  description={t("downloads.heroSubtitle")}
+  title={t("downloads:pageTitle")}
+  description={t("downloads:hero.subtitle")}
 >
   <TitleCard
-    title={t("downloads.heroTitle")}
-    subtitle={t("downloads.heroSubtitle")}
+    title={t("downloads:hero.title")}
+    subtitle={t("downloads:hero.subtitle")}
   />
-  <Tabs
-    labels={tabs.map((tab) => tab.label)}
-    links={tabs.map((tab) => tab.link)}
-    activeIndex={1}
-  />
+  <PageContainer>
+    <PageTabs
+      labels={tabs.map((tab) => tab.label)}
+      links={tabs.map((tab) => tab.link)}
+      activeIndex={1}
+    />
 
-  <nav
-    class="toc"
-    aria-label={`${t("downloads.tabs.community")}` + " sections"}
-  >
-    {
-      sections.map((section) => (
-        <a class="toc-link" href={`#${section.id}`}>
-          <div class="content">
-            <span class="toc-link-title">{section.title}</span>
-            <span class="toc-link-subtitle">{section.subtitle}</span>
-          </div>
-          <div class="arrow">
-            <MaskIcon src={hashtagIcon} size="0.75em" aria-hidden="true" />
-          </div>
-        </a>
-      ))
-    }
-  </nav>
+    <TOCContainer
+      sections={sections}
+      ariaLabel={`${t("downloads:tabs.community")}` + " sections"}
+    />
 
-  <!-- Local Sync Wallets -->
-  <h2 class="section-title" id="local-sync">
-    {t("downloads.community.sections.localSync.title")}
-  </h2>
-  <p class="section-subtitle">
-    {t("downloads.community.sections.localSync.subtitle")}
-  </p>
+    <PageSection
+      anchorId="wallets"
+      title={t("downloads:community.sections.wallets.title")}
+      subtitle={t("downloads:community.sections.wallets.subtitle")}
+    >
+      <h3 class="subheading">
+        {t("downloads:community.categories.moneroOnly")}
+      </h3>
+      <Grid minWidth="20rem" gap="lg" class="compact-grid">
+        {
+          sortWallets(communityWallets.wallets.moneroOnly).map((wallet) => (
+            <CommunityCard
+              logo={wallet.logo}
+              name={wallet.name}
+              description={t(`downloads:community.descriptions.${wallet.id}`)}
+              tags={wallet.tags}
+              link={wallet.link}
+              linkText={t("downloads:community.learnMore")}
+              translateTag={(key: string) =>
+                t(`downloads:community.tags.${key}`)
+              }
+              id={setBuiltinId(wallet)}
+            />
+          ))
+        }
+      </Grid>
 
-  <!-- Monero-only -->
-  <h3 class="subheading">{t("downloads.community.categories.moneroOnly")}</h3>
-  <div class="cards-grid compact">
-    {
-      communityWallets.localSync.moneroOnly.map((wallet) => (
-        <CommunityCard
-          logo={wallet.logo}
-          name={wallet.name}
-          description={t(`downloads.community.descriptions.${wallet.id}`)}
-          tags={wallet.tags}
-          link={wallet.link}
-          linkText={t("downloads.community.learnMore")}
-          translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
-          t={t}
-        />
-      ))
-    }
-  </div>
+      <h3 class="subheading">
+        {t("downloads:community.categories.multiCoin")}
+      </h3>
+      <Grid minWidth="20rem" gap="lg" class="compact-grid">
+        {
+          sortWallets(communityWallets.wallets.multiCoin).map((wallet) => (
+            <CommunityCard
+              logo={wallet.logo}
+              name={wallet.name}
+              description={t(`downloads:community.descriptions.${wallet.id}`)}
+              tags={wallet.tags}
+              link={wallet.link}
+              linkText={t("downloads:community.learnMore")}
+              translateTag={(key: string) =>
+                t(`downloads:community.tags.${key}`)
+              }
+              id={setBuiltinId(wallet)}
+            />
+          ))
+        }
+      </Grid>
 
-  <!-- Multi-coin -->
-  <h3 class="subheading">{t("downloads.community.categories.multiCoin")}</h3>
-  <div class="cards-grid compact">
-    {
-      communityWallets.localSync.multiCoin.map((wallet) => (
-        <CommunityCard
-          logo={wallet.logo}
-          name={wallet.name}
-          description={t(`downloads.community.descriptions.${wallet.id}`)}
-          tags={wallet.tags}
-          link={wallet.link}
-          linkText={t("downloads.community.learnMore")}
-          translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
-          t={t}
-        />
-      ))
-    }
-  </div>
+      <h3 class="subheading">
+        {t("downloads:community.categories.lws.title")}
+      </h3>
+      <DisclaimerNote
+        text={t("downloads:community.categories.lws.disclaimer")}
+      />
+      <Grid minWidth="25rem" gap="lg">
+        {
+          sortWallets(communityWallets.wallets.lws).map((wallet) => (
+            <CommunityCard
+              logo={wallet.logo}
+              name={wallet.name}
+              description={t(`downloads:community.descriptions.${wallet.id}`)}
+              tags={wallet.tags}
+              link={wallet.link}
+              linkText={t("downloads:community.learnMore")}
+              translateTag={(key: string) =>
+                t(`downloads:community.tags.${key}`)
+              }
+              id={setBuiltinId(wallet)}
+            />
+          ))
+        }
+      </Grid>
+    </PageSection>
 
-  <!-- Remote Sync Wallets -->
-  <h2 class="section-title" id="remote-sync">
-    {t("downloads.community.sections.remoteSync.title")}
-  </h2>
-  <p class="section-subtitle">
-    {t("downloads.community.sections.remoteSync.subtitle")}
-  </p>
-  <div class="cards-grid">
-    {
-      communityWallets.remoteSync.map((wallet) => (
-        <CommunityCard
-          logo={wallet.logo}
-          name={wallet.name}
-          description={t(`downloads.community.descriptions.${wallet.id}`)}
-          tags={wallet.tags}
-          link={wallet.link}
-          linkText={t("downloads.community.learnMore")}
-          translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
-          t={t}
-        />
-      ))
-    }
-  </div>
+    <hr aria-hidden="true" />
 
-  <!-- Cold Wallets -->
-  <h2 class="section-title" id="cold-wallets">
-    {t("downloads.community.sections.offline.title")}
-  </h2>
-  <p class="section-subtitle">
-    {t("downloads.community.sections.offline.subtitle")}
-  </p>
-  <div class="cards-grid">
-    {
-      communityWallets.offline.map((wallet) => (
-        <CommunityCard
-          logo={wallet.logo}
-          name={wallet.name}
-          description={t(`downloads.community.descriptions.${wallet.id}`)}
-          tags={wallet.tags}
-          link={wallet.link}
-          linkText={t("downloads.community.learnMore")}
-          translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
-          t={t}
-        />
-      ))
-    }
-  </div>
+    <PageSection
+      anchorId="cold-wallets"
+      title={t("downloads:community.sections.cold.title")}
+      subtitle={t("downloads:community.sections.cold.subtitle")}
+    >
+      <Grid minWidth="25rem" gap="lg">
+        {
+          sortWallets(communityWallets.cold).map((wallet) => (
+            <CommunityCard
+              logo={wallet.logo}
+              name={wallet.name}
+              description={t(`downloads:community.descriptions.${wallet.id}`)}
+              tags={wallet.tags}
+              link={wallet.link}
+              linkText={t("downloads:community.learnMore")}
+              translateTag={(key: string) =>
+                t(`downloads:community.tags.${key}`)
+              }
+              id={setBuiltinId(wallet)}
+            />
+          ))
+        }
+      </Grid>
+    </PageSection>
 
-  <!-- Node Software -->
-  <h2 class="section-title" id="nodes">
-    {t("downloads.community.sections.nodes.title")}
-  </h2>
-  <p class="section-subtitle">
-    {t("downloads.community.sections.nodes.subtitle")}
-  </p>
-  <div class="cards-grid">
-    {
-      communityWallets.nodes.map((wallet) => (
-        <CommunityCard
-          logo={wallet.logo}
-          name={wallet.name}
-          description={t(`downloads.community.descriptions.${wallet.id}`)}
-          tags={wallet.tags}
-          link={wallet.link}
-          linkText={t("downloads.community.learnMore")}
-          translateTag={(key: string) => t(`downloads.community.tags.${key}`)}
-          t={t}
-        />
-      ))
-    }
-  </div>
+    <hr aria-hidden="true" />
+
+    <PageSection
+      anchorId="nodes"
+      title={t("downloads:community.sections.nodes.title")}
+      subtitle={t("downloads:community.sections.nodes.subtitle")}
+    >
+      <Grid minWidth="25rem" gap="lg">
+        {
+          sortWallets(communityWallets.nodes).map((wallet) => (
+            <CommunityCard
+              logo={wallet.logo}
+              name={wallet.name}
+              description={t(`downloads:community.descriptions.${wallet.id}`)}
+              tags={wallet.tags}
+              link={wallet.link}
+              linkText={t("downloads:community.learnMore")}
+              translateTag={(key: string) =>
+                t(`downloads:community.tags.${key}`)
+              }
+              id={setBuiltinId(wallet)}
+            />
+          ))
+        }
+      </Grid>
+    </PageSection>
+
+    <DisclaimerBar
+      icon={icons.mask("shield-alert")}
+      title={t("downloads:community.disclaimerTitle")}
+    >
+      {t("downloads:community.disclaimer")}
+    </DisclaimerBar>
+  </PageContainer>
 </Layout>
 
 <style>
-  .toc {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    flex-direction: row;
-    gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .toc-link {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
-    color: var(--heading-color);
-    text-decoration: none;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    border: var(--border-color);
-    background: var(--card-color);
-  }
-
-  .toc-link .content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .toc-link:hover,
-  .toc-link:focus-visible {
-    background: color-mix(in srgb, var(--card-color), white 5%);
-  }
-
-  .toc-link-title {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
-    color: var(--heading-color);
-  }
-
-  .toc-link-subtitle {
-    font-size: var(--font-size-sm);
-    color: var(--paragraph-subtitle);
-    line-height: var(--line-height-caption);
-    margin-top: 0.15rem;
-  }
-
-  .toc-link .arrow {
-    display: flex;
-    align-items: flex-start;
-    margin-inline-start: auto;
-    color: var(--paragraph-subtitle);
-  }
-
-  .section-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--heading-color);
-    margin: 2rem 0 1rem 0;
-    scroll-margin-top: 2rem;
-  }
-
-  .section-subtitle {
-    font-size: var(--font-size-sm);
-    color: var(--paragraph-subtitle);
-    line-height: var(--line-height-body);
+  :global(#built-in-exchange) {
+    scroll-margin-top: var(--space-4xl);
   }
 
   .subheading {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--heading-color);
-    margin: 1.25rem 0 0.25rem 0;
+    margin: var(--space-lg) 0 var(--space-2xs) 0;
   }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 1.25rem;
-    padding: 1rem 0;
+  .compact-grid {
+    padding: var(--space-xs) 0 var(--space-md) 0;
   }
 
-  .cards-grid.compact {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    padding: 0.5rem 0 1rem 0;
-  }
-
-  @media (max-width: 900px) {
-    .cards-grid,
-    .cards-grid.compact {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .section-title {
-      scroll-margin-top: 6rem;
+  @media (width <= 1200px) {
+    :global(#built-in-exchange) {
+      scroll-margin-top: 6.5rem;
     }
   }
 </style>

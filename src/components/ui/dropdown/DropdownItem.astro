@@ -1,13 +1,10 @@
 ---
-interface Props {
-  href?: string;
-  target?: string;
-  rel?: string;
-}
-const { href = "#", target, rel } = Astro.props;
+import type { HTMLAttributes } from "astro/types";
+
+const { class: className, ...rest } = Astro.props as HTMLAttributes<"a">;
 ---
 
-<a href={href} target={target} rel={rel} class={`dropdown-item`}>
+<a {...rest} class:list={["dropdown-item", className]}>
   <span class="label"><slot /></span>
   {
     Astro.slots.has("meta") && (
@@ -20,7 +17,7 @@ const { href = "#", target, rel } = Astro.props;
 
 <style>
   .dropdown-item {
-    padding: 0.75rem;
+    padding: var(--space-sm);
     color: var(--heading-color);
     text-decoration: none;
     font-size: var(--font-size-sm);
@@ -28,12 +25,13 @@ const { href = "#", target, rel } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-md);
     white-space: nowrap;
-    border-radius: 0.5rem;
-  }
-  .dropdown-item:hover {
-    background: var(--card-hover-color);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      background: var(--card-hover-color);
+    }
   }
 
   .meta {

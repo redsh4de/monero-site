@@ -1,38 +1,78 @@
 :root {
+  color-scheme: light dark;
+
   /* Accent Colors */
   --monero-orange: #e2611f;
 
-  /* Surface Colors */
-  --bg-color: #ffffff;
-  --card-color: #f9f7fc;
-  --card-hover-color: #1e1b230d;
-  --footer-color: #f0ecf4;
-
   /* Text Colors */
-  --heading-color: #191b23;
-  --text-primary: #2e3038;
-  --text-secondary: #5c5e67;
-  --paragraph-main: #44464e;
-  --paragraph-subtitle: #75767f;
+  --heading-color: light-dark(#191b23, #f0f0f0);
+  --text-primary: light-dark(#2e3038, #c6c6d0);
+  --text-secondary: light-dark(#5c5e67, #9a9ba3);
+  --paragraph-main: light-dark(#44464e, #c6c6d0);
+  --paragraph-subtitle: light-dark(#75767f, #a9aab4);
+
+  /* Surface Colors */
+  --bg-color: light-dark(#fff, #171717);
+  --card-color: light-dark(#f9f7fc, #211f26);
+  --card-hover-color: color-mix(
+    in srgb,
+    var(--card-color),
+    var(--heading-color) 5%
+  );
+  --footer-color: light-dark(#f0ecf4, #211f26);
+
+  /* Button Colors */
+  --secondary-button-color: light-dark(#f0ecf4, #36343b);
 
   /* Border Colors */
-  --border-color: #e4e1e9;
+  --border-color: light-dark(#e4e1e9, #36343b);
+
+  /* Border Radius */
+  --radius-sm: 0.25rem; /* 4px - tooltips, small elements */
+  --radius-md: 0.5rem; /* 8px - cards, buttons (primary) */
+  --radius-lg: 0.75rem; /* 12px - large cards, dropdowns, modals */
+  --radius-xl: 1rem; /* 16px - hero elements */
+  --radius-full: 999px; /* pills, circular */
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-sm: 0 2px 4px rgb(0 0 0 / 15%);
+  --shadow-md: 0 4px 8px rgb(0 0 0 / 20%);
+  --shadow-lg: 0 12px 30px rgb(0 0 0 / 35%);
+
+  /* Z-Index */
+  --z-dropdown: 10;
+  --z-header: 20;
+  --z-overlay: 100;
+  --z-modal-background: 1000;
+  --z-modal-content: 1001;
 
   /* Spacing */
-  --page-top-margin: 2rem;
-  --desktop-padding: 1em 5em;
-  --mobile-padding: 1em 2em;
+  --space-2xs: 0.35rem; /* 4px - tight gaps, icon spacing */
+  --space-xs: 0.5rem; /* 8px - compact elements, small gaps */
+  --space-sm: 0.75rem; /* 12px - list items, form inputs */
+  --space-md: 1rem; /* 16px - (primary) standard spacing, card gaps */
+  --space-lg: 1.25rem; /* 20px - card padding, medium gaps */
+  --space-xl: 1.5rem; /* 24px - section gaps, large padding */
+  --space-2xl: 2rem; /* 32px - section margins, page spacing */
+  --space-3xl: 2.5rem; /* 40px - large section gaps */
+  --space-4xl: 3rem; /* 48px - hero sections, major divisions */
+
+  /* Layout Spacing */
+  --page-top-margin: var(--space-2xl);
+  --desktop-padding-inline: 5rem;
+  --mobile-padding-inline: var(--space-2xl);
 
   /* Typography - Font Sizes */
   --font-size-base: 1rem; /* body-base */
   --font-size-xs: 0.75rem; /* extra small text */
-  --font-size-sm: 0.9rem; /* small text */
+  --font-size-sm: 0.875rem; /* small text */
   --font-size-lg: 1.125rem; /* body-lg */
-  --font-size-xl: clamp(1.2rem, 2vw, 1.5rem); /* subhead1 */
-  --font-size-2xl: clamp(1.5rem, 3vw, 2rem); /* 24px - 32px - h4 */
-  --font-size-3xl: clamp(1.8rem, 4vw, 2.25rem); /* 28.8px - 36px - h3 */
-  --font-size-4xl: clamp(2.5rem, 5vw, 3.5rem); /* 40px - 56px - h2 */
-  --font-size-5xl: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px - h1 */
+  --font-size-xl: clamp(1.25rem, 2vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 3vw, 1.875rem);
+  --font-size-3xl: clamp(1.875rem, 4vw, 2.25rem);
+  --font-size-4xl: clamp(2.25rem, 5vw, 3rem);
+  --font-size-5xl: clamp(3rem, 6vw, 3.75rem);
 
   /* Typography - Font Weights */
   --font-weight-normal: 400;
@@ -48,31 +88,7 @@
   --line-height-title: 1.2;
 
   /* Maximum Content Width */
-  --content-max-width: 1920px;
-}
-
-/* ========================================
-   Dark Mode
-   ======================================== */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Surface Colors */
-    --bg-color: #171717;
-    --card-color: #211f26;
-    --card-hover-color: #e1e1ec0d;
-    --footer-color: #211f26;
-
-    /* Text Colors */
-    --text-secondary: #9a9ba3;
-    --paragraph-main: #c6c6d0;
-    --paragraph-subtitle: #a9aab4;
-    --heading-color: #f0f0f0;
-    --text-primary: var(--paragraph-main);
-
-    /* Border Colors */
-    --border-color: #36343b;
-  }
+  --content-max-width: 1600px;
 }
 
 /* ========================================
@@ -84,6 +100,7 @@ a {
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -97,12 +114,66 @@ h6 {
   color: var(--heading-color);
 }
 
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: var(--space-2xl) 0;
+}
+
+p {
+  line-height: var(--line-height-body);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: start;
+  vertical-align: middle;
+}
+
+th {
+  background: var(--card-hover-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  color: var(--heading-color);
+}
+
+tbody tr {
+  box-shadow: inset 0 -1px 0 var(--border-color);
+}
+
+tbody tr:last-child {
+  box-shadow: none;
+}
+
+/* ========================================
+   Locale-specific styles
+   ======================================== */
+
+[lang="ar"] ol,
+[lang="fa"] ol,
+[lang="ur"] ol {
+  list-style-type: arabic-indic;
+}
+
+[lang="he"] ol {
+  list-style-type: hebrew;
+}
+
 /* ========================================
    Third-Party Overrides
    ======================================== */
 
-body .__ns__pop2top,
-div .__ns__pop2top,
-article .__ns__pop2top {
-  z-index: unset !important;
+body,
+html {
+  /* stylelint-disable-next-line selector-class-pattern */
+  .__ns__pop2top {
+    z-index: unset !important;
+  }
 }

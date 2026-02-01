@@ -1,0 +1,44 @@
+---
+import "node:crypto";
+
+import AccordionItem from "./AccordionItem.astro";
+
+export interface AccordionItemType {
+  title: string;
+  content: string;
+}
+
+export interface Props {
+  items?: AccordionItemType[];
+  multiExpand?: boolean;
+  variant?: "default" | "card";
+}
+
+const { items, multiExpand = false, variant = "default" } = Astro.props;
+const accordionId = crypto.randomUUID();
+const accordionName = multiExpand ? undefined : `accordion-${accordionId}`;
+---
+
+<div class:list={["accordion", `accordion--${variant}`]}>
+  {
+    items ? (
+      items.map((item) => (
+        <AccordionItem
+          title={item.title}
+          content={item.content}
+          variant={variant}
+          name={accordionName}
+        />
+      ))
+    ) : (
+      <slot />
+    )
+  }
+</div>
+
+<style>
+  .accordion {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

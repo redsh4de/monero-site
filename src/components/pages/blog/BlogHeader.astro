@@ -1,25 +1,20 @@
 ---
-import MaskIcon from "@/components/ui/MaskIcon.astro";
-import { localizeHref } from "@/i18n/utils";
-
-import calendarIcon from "@/assets/icons/mask/calendar.avif?url";
-import userIcon from "@/assets/icons/mask/user.avif?url";
-import { localizeDateString } from "@/i18n/utils";
+import MaskIcon from "@/components/ui/icons/MaskIcon.astro";
 import { getDateStringFromId } from "@/utils/blog.ts";
+import { icons } from "@/utils/icons";
 
 interface Props {
   title: string;
   id: string;
   author: string;
   tags?: string[];
-  locale: string;
-  t: (key: string) => string;
 }
 
-const { title, id, author, tags = [], locale, t } = Astro.props;
+const { title, id, author, tags = [] } = Astro.props;
+const { t, localizeHref, localizeDateString } = Astro.locals;
 
 const dateString = getDateStringFromId(id);
-const date = localizeDateString(dateString, locale, {
+const date = localizeDateString(dateString, {
   day: "numeric",
   month: "long",
   year: "numeric",
@@ -34,7 +29,7 @@ const date = localizeDateString(dateString, locale, {
       date && (
         <div class="meta-item">
           <div class="icon">
-            <MaskIcon src={calendarIcon} />
+            <MaskIcon src={icons.mask("calendar")} />
           </div>
           <time datetime={dateString}>{date}</time>
         </div>
@@ -45,9 +40,9 @@ const date = localizeDateString(dateString, locale, {
       author && (
         <div class="meta-item">
           <div class="icon">
-            <MaskIcon src={userIcon} />
+            <MaskIcon src={icons.mask("user")} />
           </div>
-          {author.replace(" and ", ` ${t("blog.post.and")} `)}
+          {author.replace(" and ", ` ${t("blog:post.and")} `)}
         </div>
       )
     }
@@ -60,11 +55,10 @@ const date = localizeDateString(dateString, locale, {
           <a
             class="tag"
             href={localizeHref(
-              locale,
               `/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`,
             )}
           >
-            {tag}
+            {t(`blog:tagLabels.${tag}`, { defaultValue: tag })}
           </a>
         ))}
       </div>
@@ -72,7 +66,7 @@ const date = localizeDateString(dateString, locale, {
   }
 </div>
 
-<style lang="scss">
+<style>
   h1 {
     font-size: var(--font-size-3xl);
     margin: 0;
@@ -84,11 +78,10 @@ const date = localizeDateString(dateString, locale, {
 
   #meta {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
+    gap: var(--space-2xl);
     color: var(--text-secondary);
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xl);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-normal);
   }
@@ -96,52 +89,50 @@ const date = localizeDateString(dateString, locale, {
   .meta-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-  }
+    gap: var(--space-xs);
 
-  .meta-item > .icon {
-    display: grid;
-    place-items: center;
-    color: var(--monero-orange);
+    > .icon {
+      display: grid;
+      place-items: center;
+      color: var(--monero-orange);
+    }
   }
 
   .tag-container {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-xs);
     font-size: var(--font-size-sm);
     flex-wrap: wrap;
+
+    .tag {
+      text-align: center;
+      padding: var(--space-2xs) var(--space-sm);
+      background: var(--footer-color);
+      border-radius: var(--radius-md);
+      text-transform: uppercase;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+
+      &:hover {
+        color: var(--text-secondary);
+      }
+    }
   }
 
-  .tag {
-    text-align: center;
-    padding: 0.25rem 0.75rem;
-    background: var(--footer-color);
-    border-radius: 0.5rem;
-    text-transform: uppercase;
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    color: inherit;
-    white-space: nowrap;
-  }
-
-  .tag:hover {
-    color: var(--text-secondary);
-  }
-
-  @media (max-width: 768px) {
+  @media (width <= 600px) {
     #meta {
       flex-direction: column;
       font-size: var(--font-size-md);
       font-weight: var(--font-weight-medium);
-      gap: 1rem;
+      gap: var(--space-md);
     }
 
-    .meta-item > .icon {
-      font-size: var(--font-size-lg);
-    }
-
-    .tag-container {
-      font-size: var(--font-size-sm);
+    .meta-item {
+      > .icon {
+        font-size: var(--font-size-lg);
+      }
     }
   }
 </style>

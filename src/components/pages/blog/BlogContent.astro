@@ -2,22 +2,29 @@
   <slot />
 </div>
 
-<style is:global lang="scss">
+<style is:global>
   #blog-content {
     line-height: var(--line-height-body);
+    word-wrap: break-word;
+    color: light-dark(inherit, var(--paragraph-main));
 
     :where(h2, h3, h4) {
       font-weight: var(--font-weight-bold);
     }
 
+    img {
+      border-radius: var(--radius-md);
+    }
+
     a:not(.moneropedia-link) {
-      color: var(--text-primary);
+      /* Moneropedia links have their own styles: src/styles/moneropedia-link.css */
+      color: light-dark(var(--text-primary), var(--paragraph-main));
       font-weight: var(--font-weight-medium);
       text-decoration-line: underline;
       text-decoration-style: dotted;
 
       &:hover {
-        color: var(--text-secondary);
+        color: light-dark(var(--text-secondary), var(--heading-color));
       }
     }
 
@@ -41,55 +48,44 @@
       margin-bottom: 1em;
     }
 
-    ul,
-    ol {
-      margin: 1em 0 1em 1.5em;
-      padding-left: 1.25em;
-    }
-
     li {
       margin-bottom: 0.25em;
     }
 
     pre {
       padding: 1em;
-      border-radius: 0.5em;
+      border-radius: var(--radius-md);
       overflow-x: auto;
       background: var(--footer-color);
-    }
 
-    pre code {
-      background: none;
-      padding: 0;
-      border-radius: 0;
+      code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+      }
     }
 
     code:not(pre code) {
       font-family: monospace;
       background-color: var(--footer-color);
       padding: 0.1em 0.3em;
-      border-radius: 0.2em;
+      border-radius: var(--radius-sm);
     }
 
     blockquote {
       margin: 1.5em 0;
-      padding-left: 1em;
-      border-left: 3px solid var(--border-color);
+      padding-inline: 1.5em 1em;
+      border-inline-start: 3px solid var(--border-color);
       font-style: italic;
       color: var(--text-secondary);
     }
 
-    @media (prefers-color-scheme: dark) {
-      color: var(--paragraph-main);
+    strong {
+      font-weight: var(--font-weight-bold);
+    }
 
-      a:not(.moneropedia-link) {
-        /* Moneropedia links have their own styles: src/styles/moneropedia-link.css */
-        color: var(--paragraph-main);
-
-        &:hover {
-          color: var(--heading-color);
-        }
-      }
+    em {
+      font-style: italic;
     }
   }
 </style>

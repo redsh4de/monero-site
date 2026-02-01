@@ -1,130 +1,126 @@
 ---
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
-
 import Layout from "@/layouts/Layout.astro";
 
 import GetStartedCard from "@/components/pages/index/GetStartedCard.astro";
 import Hero from "@/components/pages/index/Hero.astro";
 import IndexCard from "@/components/pages/index/IndexCard.astro";
 import ResourceCard from "@/components/pages/index/ResourceCard.astro";
+import Grid from "@/components/ui/layout/Grid.astro";
+import Column from "@/components/ui/layout/Column.astro";
+import VideoContainer from "@/components/ui/VideoContainer.astro";
 
-import developerGuidesIcon from "@/assets/icons/mask/developer-guides.avif?url";
-import faqIcon from "@/assets/icons/mask/faq.avif?url";
-import userGuidesIcon from "@/assets/icons/mask/user-guides.avif?url";
+import landingImage from "@/assets/images/landing.avif";
+import { Image } from "astro:assets";
+import { icons } from "@/utils/icons";
 
-import placeholderIcon from "@/assets/icons/mask/placeholder.avif?url";
-import MaskIcon from "@/components/ui/MaskIcon.astro";
-
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref } = Astro.locals;
 ---
 
-<Layout title="Monero" description={t("index.hero.lead")}>
-  <Hero t={t} class="index-hero" />
+<Layout title={t("index:pageTitle")} description={t("index:hero.lead")}>
+  <Hero class="index-hero" />
   <div class="main-content">
     <IndexCard
-      title={t("index.aboutTitle")}
-      description={t("index.aboutDescription")}
+      id="about-monero"
+      title={t("index:aboutTitle")}
+      description={t("index:aboutDescription")}
     >
-      <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <Column gap="2xl">
         <div>
-          <h2>{t("index.main")}</h2>
+          <h2 style="margin-top: 0;">{t("index:main")}</h2>
           <p>
-            {t("index.privacyText")}
+            {t("index:privacyText")}
           </p>
         </div>
         <div>
-          <h2>{t("index.decentralized")}</h2>
+          <h2>{t("index:decentralized")}</h2>
           <p>
-            {t("index.decentralizedText")}
+            {t("index:decentralizedText")}
           </p>
         </div>
         <div>
-          <h2>{t("index.communityDriven")}</h2>
+          <h2>{t("index:communityDriven")}</h2>
           <p>
-            {t("index.communityText")}
+            {t("index:communityText")}
           </p>
         </div>
-      </div>
-      <div class="video-container">
+      </Column>
+      <VideoContainer>
         <video
           width="100%"
           height="100%"
           controls
           preload="none"
           poster="/media/what-is-monero.webp"
-          aria-label="Video explaining what Monero is"
+          aria-label={t("index:aria.heroVideo")}
         >
           <source src="/media/what-is-monero.webm" type="video/webm" />
           <track kind="captions" src="" srclang="en" label="No captions" />
           Your browser does not support the video tag.
         </video>
-      </div>
+      </VideoContainer>
     </IndexCard>
     <hr />
     <IndexCard
-      title={t("index.startTitle")}
-      description={t("index.startDescription")}
+      title={t("index:startTitle")}
+      description={t("index:startDescription")}
       id="start-using-monero"
     >
-      {
-        /*<Image src={landingImage} alt="" style="width: 100%; height: auto;" />*/
-      }
-      <MaskIcon src={placeholderIcon} size="100%" />
+      <Image src={landingImage} alt="" class="landing-image" format="avif" />
       <div>
         <GetStartedCard
           step="01"
-          title={t("index.step1Title")}
-          description={t("index.step1Desc")}
-          ctaHref="/downloads/community"
-          ctaLabel={t("index.step1Cta")}
+          title={t("index:step1Title")}
+          description={t("index:step1Desc")}
+          ctaHref={localizeHref("/downloads/community/#wallets")}
+          ctaLabel={t("index:step1Cta")}
         />
         <hr />
         <GetStartedCard
           step="02"
-          title={t("index.step2Title")}
-          description={t("index.step2Desc")}
-          ctaHref="/get-started/exchanges"
-          ctaLabel={t("index.step2Cta")}
+          title={t("index:step2Title")}
+          description={t("index:step2Desc")}
+          ctaHref={localizeHref("/get-started/exchanges")}
+          ctaLabel={t("index:step2Cta")}
         />
         <hr />
         <GetStartedCard
           step="03"
-          title={t("index.step3Title")}
-          description={t("index.step3Desc")}
-          ctaHref="/get-started/merchants"
-          ctaLabel={t("index.step3Cta")}
+          title={t("index:step3Title")}
+          description={t("index:step3Desc")}
+          ctaHref={localizeHref("/get-started/merchants")}
+          ctaLabel={t("index:step3Cta")}
         />
       </div>
     </IndexCard>
     <hr />
     <IndexCard
-      title={t("index.resourcesTitle")}
-      description={t("index.resourcesDescription")}
+      title={t("index:getInvolvedTitle")}
+      description={t("index:getInvolvedDescription")}
+      id="get-involved"
     >
-      <div id="resource-container">
+      <Grid minWidth="250px" gap="2xl" class="resource-grid">
         <ResourceCard
-          title={t("index.faqTitle")}
-          description={t("index.faqDesc")}
-          ctaLabel={t("index.faqCta")}
-          ctaHref={localizeHref(locale, "/get-started/faq")}
-          icon={faqIcon}
+          title={t("index:hangoutsTitle")}
+          description={t("index:hangoutsDesc")}
+          ctaLabel={t("index:hangoutsCta")}
+          ctaHref={localizeHref("/community/hangouts")}
+          icon={icons.mask("message-circle")}
         />
         <ResourceCard
-          title={t("index.userGuidesTitle")}
-          description={t("index.userGuidesDesc")}
-          ctaLabel={t("index.userGuidesCta")}
-          ctaHref={localizeHref(locale, "/resources/user-guides")}
-          icon={userGuidesIcon}
+          title={t("index:workgroupsTitle")}
+          description={t("index:workgroupsDesc")}
+          ctaLabel={t("index:workgroupsCta")}
+          ctaHref={localizeHref("/community/workgroups")}
+          icon={icons.mask("users")}
         />
         <ResourceCard
-          title={t("index.devGuidesTitle")}
-          description={t("index.devGuidesDesc")}
-          ctaLabel={t("index.devGuidesCta")}
-          ctaHref={localizeHref(locale, "/resources/developer-guides")}
-          icon={developerGuidesIcon}
+          title={t("index:contributeTitle")}
+          description={t("index:contributeDesc")}
+          ctaLabel={t("index:contributeCta")}
+          ctaHref={localizeHref("/get-started/contribute")}
+          icon={icons.mask("code-xml")}
         />
-      </div>
+      </Grid>
     </IndexCard>
   </div>
 </Layout>
@@ -143,7 +139,9 @@ const t = await createTInstance(locale);
   h2 {
     font-size: var(--font-size-3xl);
     color: var(--heading-color);
+    margin-bottom: var(--space-sm);
   }
+
   p {
     margin: 0;
     color: var(--paragraph-subtitle);
@@ -156,28 +154,12 @@ const t = await createTInstance(locale);
     margin: 1em 0;
   }
 
-  #resource-container {
+  .resource-grid {
     grid-column: span 2;
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
-  .video-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-    border-radius: 1rem;
-    overflow: hidden;
-  }
-
-  .video-container video {
-    position: absolute;
-    top: 0;
-    inset-inline-start: 0;
-    width: 100%;
-    height: 100%;
+  .landing-image {
+    mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
   }
 
   .main-content {
@@ -187,29 +169,22 @@ const t = await createTInstance(locale);
     ) !important;
   }
 
-  :global(#start-using-monero) {
-    scroll-margin-top: 4rem;
-  }
-
-  :global(.hero.index-hero) {
+  .index-hero {
     position: absolute;
     top: 3rem;
-    inset-inline-start: 5rem;
-    inset-inline-end: 5rem;
-    z-index: 5;
+    inset-inline: 5rem;
     min-height: var(--hero-min-height);
   }
 
-  @media (max-width: 1200px) {
-    :global(#start-using-monero) {
-      scroll-margin-top: 6rem;
+  @media (width <= 1200px) {
+    #start-using-monero {
+      scroll-margin-top: 4rem;
     }
   }
 
-  @media (max-width: 600px) {
-    :global(.hero.index-hero) {
-      inset-inline-start: 2rem;
-      inset-inline-end: 2rem;
+  @media (width <= 600px) {
+    .index-hero {
+      inset-inline: 2rem;
     }
   }
 </style>

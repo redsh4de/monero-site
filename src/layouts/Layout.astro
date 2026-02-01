@@ -1,19 +1,17 @@
 ---
-import Footer from "@/components/layout/Footer.astro";
-import Header from "@/components/layout/header/Header.astro";
+import Footer from "@/components/ui/Footer.astro";
+import Header from "@/components/ui/header/Header.astro";
 import { locales } from "@/i18n/config";
-import { createTInstance, getDirection, localizeHref } from "@/i18n/utils";
+import { localizeHref } from "@/i18n/utils";
+import "@/styles/external-links.css";
 import "@/styles/global.css";
 import "@/styles/moneropedia-link.css";
+
 import "@fontsource-variable/dm-sans";
 import dmSansFont from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url";
-import "@fontsource-variable/inter";
-import { getLocale } from "astro-i18n-aut";
 import { SEO } from "astro-seo";
 
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
-const dir = getDirection(locale);
+const { t, locale, dir } = Astro.locals;
 
 interface Props {
   title: string;
@@ -36,13 +34,16 @@ interface Props {
 }
 
 const { title, description, openGraph } = Astro.props;
+const fullTitle = title.includes("|")
+  ? title
+  : `${title} | ${t("common:site.titleSuffix")}`;
 ---
 
 <!doctype html>
 <html lang={locale} dir={dir}>
   <head>
     <SEO
-      title={title}
+      title={fullTitle}
       description={description}
       charset="UTF-8"
       openGraph={{
@@ -77,7 +78,7 @@ const { title, description, openGraph } = Astro.props;
       twitter={{
         card: "summary_large_image",
         site: "@monero",
-        title: title,
+        title: fullTitle,
         description: description,
       }}
       extend={{
@@ -113,11 +114,11 @@ const { title, description, openGraph } = Astro.props;
     <slot name="head" />
   </head>
   <body>
-    <Header t={t} />
-    <main id="content">
+    <Header />
+    <main>
       <slot />
     </main>
-    <Footer t={t} />
+    <Footer />
   </body>
 </html>
 
@@ -133,24 +134,22 @@ const { title, description, openGraph } = Astro.props;
     flex-direction: column;
   }
 
-  #content {
-    padding: var(--mobile-padding);
-    margin-block: var(--page-top-margin);
-    padding-top: var(--page-top-margin);
-    flex: 1;
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding: var(--page-top-margin) var(--mobile-padding-inline)
+      var(--space-2xl);
+    margin: var(--page-top-margin) auto 0;
+    width: 100%;
+    max-width: var(--content-max-width);
+    flex: 1 0 auto;
+    box-sizing: border-box;
   }
 
-  @media (min-width: 600px) {
-    #content {
-      padding: var(--desktop-padding);
-      padding-top: var(--page-top-margin);
-    }
-  }
-
-  @media (min-width: 1920px) {
-    #content {
-      width: var(--content-max-width);
-      margin-inline: auto;
+  @media (width >= 1200px) {
+    main {
+      padding-inline: var(--desktop-padding-inline);
     }
   }
 </style>

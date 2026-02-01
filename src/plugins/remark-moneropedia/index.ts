@@ -1,7 +1,6 @@
-import type { Link, Root, Text } from "mdast";
+import type { Link, Root, Text, Html } from "mdast";
 import type { Plugin } from "unified";
 import type { VFile } from "vfile";
-import type { MoneropediaEntry } from "../../utils/moneropedia";
 
 import { defaultLocale, locales } from "../../i18n/config";
 import {
@@ -20,14 +19,13 @@ const BLOCKED_PARENT_TYPES = [
   "inlineCode",
 ] as const;
 
-const entriesCache = new Map<string, Promise<MoneropediaEntry[]>>();
-
 function createLinkNode(
   displayText: string,
   summary: string,
   href: string,
 ): Link {
-  const child: Text = { type: "text", value: displayText };
+  const textChild: Text = { type: "text", value: displayText };
+  const iconChild: Html = { type: "html", value: "<sup>&#x1F6C8;</sup>" };
   return {
     type: "link",
     url: href,
@@ -37,16 +35,8 @@ function createLinkNode(
         "data-tooltip": summary,
       },
     },
-    children: [child],
+    children: [textChild, iconChild],
   };
-}
-
-function loadEntries(locale: string): Promise<MoneropediaEntry[]> {
-  if (!entriesCache.has(locale)) {
-    entriesCache.set(locale, getMoneropediaEntries(locale));
-  }
-
-  return entriesCache.get(locale)!;
 }
 
 function getLocaleFromFile(file?: VFile | null): string | undefined {
@@ -65,7 +55,7 @@ export const moneropediaLinks: Plugin<[], Root> = () => {
     try {
       const locale = getLocaleFromFile(file) ?? defaultLocale;
 
-      const entries = await loadEntries(locale);
+      const entries = await getMoneropediaEntries(locale);
       if (!entries.length) return;
 
       const matcher = buildMoneropediaMatcher(entries);
@@ -81,7 +71,7 @@ export const moneropediaLinks: Plugin<[], Root> = () => {
               const entry = matcher.lookup.get(term.toLowerCase());
               if (!entry) return fullMatch;
 
-              const href = buildMoneropediaHref(locale, entry.fileName);
+              const href = buildMoneropediaHref(entry);
               const displayText = fullMatch.slice(1).replace(/-/g, " ");
               return createLinkNode(displayText, entry.summary, href);
             },

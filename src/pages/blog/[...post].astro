@@ -1,15 +1,11 @@
 ---
 import BlogContent from "@/components/pages/blog/BlogContent.astro";
 import BlogHeader from "@/components/pages/blog/BlogHeader.astro";
-import {
-  createTInstance,
-  getLocale,
-  localizeDateString,
-  localizeHref,
-} from "@/i18n/utils";
+import Card from "@/components/ui/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getDateStringFromId } from "@/utils/blog";
 import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 
@@ -26,8 +22,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref, localizeDateString } = Astro.locals;
 
 const { Content } = await render(post);
 // Get recent posts for the sidebar
@@ -40,8 +35,8 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
 ---
 
 <Layout
-  title={t("blog.post.pageTitle", { title: post.data.title })}
-  description={post.data.summary}
+  title={t("blog:post.pageTitle", { title: post.data.title })}
+  description={post.data.summary || post.data.title}
   openGraph={{
     basic: {
       title: post.data.title,
@@ -74,21 +69,33 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
         id={post.id}
         author={post.data.author}
         tags={post.data.tags}
-        locale={locale}
-        t={t}
       />
+      {
+        post.data.image && (
+          <div style="text-align: center;">
+            <Image
+              src={post.data.image}
+              alt=""
+              width={350}
+              layout="constrained"
+              position="center"
+              format="avif"
+            />
+          </div>
+        )
+      }
       <BlogContent>
         <Content />
       </BlogContent>
     </article>
 
-    <aside class="sidebar">
-      <h2>{t("blog.post.recentPosts")}</h2>
+    <Card as="aside" border transparent class="sidebar">
+      <h2>{t("blog:post.recentPosts")}</h2>
       <ul class="recent-posts">
         {
           recentPosts.map((recentPost) => {
             const dateStr = getDateStringFromId(recentPost.id);
-            const formattedDate = localizeDateString(dateStr ?? "", locale, {
+            const formattedDate = localizeDateString(dateStr, {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -97,7 +104,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
               <li>
                 <a
                   class="post-title"
-                  href={localizeHref(locale, `/blog/${recentPost.id}/`)}
+                  href={localizeHref(`/blog/${recentPost.id}/`)}
                 >
                   {recentPost.data.title}
                 </a>
@@ -109,7 +116,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
           })
         }
       </ul>
-    </aside>
+    </Card>
   </div>
 </Layout>
 
@@ -117,23 +124,20 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
   .blog-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+    gap: var(--space-2xl);
 
-  .blog-container > * {
-    min-width: 0;
+    > * {
+      min-width: 0;
+    }
   }
 
   .sidebar {
-    border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    border-radius: 0.5rem;
     height: fit-content;
-  }
 
-  .sidebar h2 {
-    font-size: var(--font-size-xl);
-    margin-top: 0;
+    & h2 {
+      font-size: var(--font-size-xl);
+      margin-top: 0;
+    }
   }
 
   .recent-posts {
@@ -142,34 +146,34 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
+
+    li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .post-title {
+      font-size: var(--font-size-md);
+      color: var(--paragraph-main);
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .post-date {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: var(--paragraph-subtitle);
+      margin-top: var(--space-2xs);
+    }
   }
 
-  .recent-posts li {
-    margin-bottom: 0.5rem;
-  }
-
-  .recent-posts .post-date {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--paragraph-subtitle);
-    margin-top: 0.25rem;
-  }
-
-  .recent-posts .post-title {
-    font-size: var(--font-size-md);
-    color: var(--paragraph-main);
-    text-decoration-line: underline;
-    text-decoration-style: dotted;
-  }
-
-  .recent-posts .post-title:hover {
-    text-decoration: underline;
-  }
-
-  @media (min-width: 1200px) {
+  @media (width >= 1200px) {
     .blog-container {
-      grid-template-columns: 1fr 75ch 1fr;
+      grid-template-columns: 1fr 65ch 1fr;
     }
 
     .blog-post {
@@ -182,7 +186,7 @@ const recentPosts = allPosts.filter((_, i) => i !== currentIndex).slice(0, N);
     }
   }
 
-  @media (min-width: 1600px) {
+  @media (width >= 1600px) {
     .sidebar {
       grid-column: 3;
       grid-row: 1;

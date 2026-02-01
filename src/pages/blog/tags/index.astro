@@ -1,6 +1,6 @@
 ---
+import PageContainer from "@/components/ui/layout/PageContainer.astro";
 import TitleCard from "@/components/ui/TitleCard.astro";
-import { createTInstance, getLocale, localizeHref } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -8,13 +8,12 @@ const allPosts = await getCollection("blog");
 const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))].filter(
   (tag) => tag !== undefined,
 );
-const locale = getLocale(Astro.url);
-const t = await createTInstance(locale);
+const { t, localizeHref } = Astro.locals;
 ---
 
 <Layout
-  title={t("blog.tagIndex.heroTitle")}
-  description={t("blog.tagIndex.heroSubtitle")}
+  title={t("blog:tagIndex.hero.title")}
+  description={t("blog:tagIndex.hero.subtitle")}
 >
   <Fragment slot="head">
     <link
@@ -25,23 +24,24 @@ const t = await createTInstance(locale);
     />
   </Fragment>
   <TitleCard
-    title={t("blog.tagIndex.heroTitle")}
-    subtitle={t("blog.tagIndex.heroSubtitle")}
+    title={t("blog:tagIndex.hero.title")}
+    subtitle={t("blog:tagIndex.hero.subtitle")}
   />
-  <ul>
-    {
-      tags.map((tag) => (
-        <li>
-          <a
-            href={localizeHref(
-              locale,
-              `/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`,
-            )}
-          >
-            {tag}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <PageContainer>
+    <ul>
+      {
+        tags.map((tag) => (
+          <li>
+            <a
+              href={localizeHref(
+                `/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`,
+              )}
+            >
+              {t(`blog:tagLabels.${tag}`, { defaultValue: tag })}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </PageContainer>
 </Layout>

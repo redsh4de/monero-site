@@ -2,19 +2,15 @@
 export interface Props {
   title: string;
   description?: string;
-  id?: string;
+  id: string;
 }
 
-const {
-  title,
-  description = "",
-  id = "card-" + Math.random().toString(36).slice(2),
-} = Astro.props;
+const { title, description = "", id, ...rest } = Astro.props;
 ---
 
-<div class="card" aria-labelledby={id}>
+<div class="card" id={id} aria-labelledby={id} {...rest}>
   <header class="head">
-    <h1 id={id} class="title">{title}</h1>
+    <h1 class="title">{title}</h1>
     {description && <p class="desc">{description}</p>}
   </header>
 
@@ -27,15 +23,17 @@ const {
   .card {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-2xl);
     padding-block: 3rem;
   }
+
   .head {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
     gap: 5rem;
     align-items: start;
   }
+
   .title {
     margin: 0;
     font-weight: var(--font-weight-bold);
@@ -43,12 +41,14 @@ const {
     font-size: var(--font-size-4xl);
     color: var(--heading-color);
   }
+
   .desc {
     margin: 0;
     line-height: var(--line-height-body);
     color: var(--text-primary);
     font-size: var(--font-size-xl);
   }
+
   .body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
@@ -57,16 +57,18 @@ const {
   }
 
   /* stack on small screens */
-  @media (max-width: 900px) {
+  @media (width <= 900px) {
     .card {
-      gap: 1.25rem;
-      padding-block: 2rem;
+      gap: var(--space-lg);
+      padding-block: var(--space-2xl);
     }
+
     .head,
     .body {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: var(--space-md);
     }
+
     .body {
       display: flex;
       flex-direction: column-reverse;

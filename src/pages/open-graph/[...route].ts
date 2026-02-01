@@ -16,7 +16,7 @@ const pages = posts.reduce(
   {} as Record<string, { title: string; description: string }>,
 );
 
-export const { getStaticPaths, GET } = OGImageRoute({
+export const { getStaticPaths, GET } = await OGImageRoute({
   param: "route",
   pages,
   getImageOptions: (_path, page) => ({
@@ -59,7 +59,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
     padding: 96,
 
     logo: {
-      path: "./public/meta/monerologo.png",
+      path: "./public/meta/monerologo.avif",
       size: [80, 80],
     },
 

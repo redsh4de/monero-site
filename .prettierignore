@@ -8,3 +8,6 @@ dist
 
 pnpm-lock.yaml
 package-lock.json
+
+*.md
+src/i18n/translations/**/*.json
