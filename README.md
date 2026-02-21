@@ -51,6 +51,42 @@ All commands are run from the root of the project:
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
+## Docker
+
+You can build and run the site without installing Node.js or pnpm. Three targets are available:
+
+| Target   | Purpose                        | Output                  |
+| :------- | :----------------------------- | :---------------------- |
+| `dev`    | Local development, live reload | Dev server on `:4321`   |
+| `static` | Export static site to host     | `dist/` on your machine |
+| `serve`  | Production site via Caddy      | Static server on `:80`  |
+
+### `dev`
+
+```bash
+docker build --target dev -t monero-site-dev .
+docker run -p 4321:4321 -v $(pwd)/src:/app/src monero-site-dev
+```
+
+Then open [http://127.0.0.1:4321](http://127.0.0.1:4321).
+
+### `static`
+
+```bash
+docker build --target static --output dist .
+```
+
+The built site will be output to the `dist/` directory on your host.
+
+### `serve`
+
+```bash
+docker build --target serve -t monero-site .
+docker run -p 8080:80 monero-site
+```
+
+Then open [http://127.0.0.1:8080](http://127.0.0.1:8080).
+
 ## More
 
 - [Astro Documentation](https://docs.astro.build)
