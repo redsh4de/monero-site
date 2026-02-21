@@ -10,9 +10,14 @@ import { isExternal } from "./src/utils/links";
 
 const SITE_ROOTDOMAIN = "beta.monerodevs.org";
 
+const isSSR = process.env.SSR === "true";
+
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+  output: isSSR ? "server" : "static",
+  adapter: isSSR
+    ? (await import("@astrojs/node")).default({ mode: "standalone" })
+    : undefined,
   site: `https://${SITE_ROOTDOMAIN}`,
   trailingSlash: "always",
   markdown: {
