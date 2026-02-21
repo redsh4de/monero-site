@@ -81,7 +81,7 @@ const fullTitle = title.includes("|")
       twitter={{
         card: "summary_large_image",
         site: "@monero",
-        title: fullTitle,
+        title: openGraph?.basic?.title ?? title,
         description: description,
         image: new URL(
           openGraph?.basic?.image ?? "/open-graph/default.png",
