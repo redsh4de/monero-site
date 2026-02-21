@@ -87,7 +87,6 @@ docker run -p 8080:80 monero-site
 
 Then open [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
-
 ## More
 
 - [Astro Documentation](https://docs.astro.build)
