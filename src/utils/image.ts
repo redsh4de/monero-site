@@ -1,4 +1,4 @@
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import sharp from "sharp";
 
 type Dimensions = { width: number; height: number };
@@ -9,8 +9,7 @@ export async function getPublicImageDimensions(
   if (!path) return { width: 0, height: 0 };
 
   const normalized = path.startsWith("/") ? path.slice(1) : path;
-  const fileUrl = new URL(`../../public/${normalized}`, import.meta.url);
-  const filePath = fileURLToPath(fileUrl);
+  const filePath = join(process.cwd(), "public", normalized);
 
   const { width, height } = await sharp(filePath).metadata();
   if (!width || !height) {

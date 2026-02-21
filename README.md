@@ -53,13 +53,15 @@ All commands are run from the root of the project:
 
 ## Docker
 
-You can build and run the site without installing Node.js or pnpm. Three targets are available:
+You can build and run the site without installing Node.js or pnpm. Five targets are available:
 
-| Target   | Purpose                        | Output                  |
-| :------- | :----------------------------- | :---------------------- |
-| `dev`    | Local development, live reload | Dev server on `:4321`   |
-| `static` | Export static site to host     | `dist/` on your machine |
-| `serve`  | Production site via Caddy      | Static server on `:80`  |
+| Target         | Purpose                        | Output                    |
+| :------------- | :----------------------------- | :------------------------ |
+| `dev`          | Local development, live reload | Dev server on `:4321`     |
+| `static`       | Export static site to host     | `dist/` on your machine   |
+| `ssr`          | Export SSR build to host       | SSR files on your machine |
+| `serve-static` | Production static via Caddy    | Static server on `:80`    |
+| `serve-ssr`    | SSR via Node.js (e.g. Coolify) | Node.js server on `:4321` |
 
 ### `dev`
 
@@ -78,14 +80,33 @@ docker build --target static --output dist .
 
 The built site will be output to the `dist/` directory on your host.
 
-### `serve`
+### `ssr`
 
 ```bash
-docker build --target serve -t monero-site .
+docker build --target ssr --output dist-ssr .
+```
+
+The SSR build will be output to the `dist-ssr/` directory on your host. Run it with `node dist-ssr/dist/server/entry.mjs`.
+
+### `serve-static`
+
+```bash
+docker build --target serve-static -t monero-site .
 docker run -p 8080:80 monero-site
 ```
 
 Then open [http://127.0.0.1:8080](http://127.0.0.1:8080).
+
+### `serve-ssr`
+
+Builds with `SSR=true` and runs the Astro Node.js standalone server. Useful for platforms like Coolify for preview deployments.
+
+```bash
+docker build --target serve-ssr -t monero-site-ssr .
+docker run -p 4321:4321 monero-site-ssr
+```
+
+Then open [http://127.0.0.1:4321](http://127.0.0.1:4321).
 
 ## More
 
