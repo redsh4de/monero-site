@@ -8,7 +8,7 @@ import { moneropediaLinks } from "./src/plugins/remark-moneropedia";
 import rehypeExternalLinks from "rehype-external-links";
 import { isExternal } from "./src/utils/links";
 
-const SITE_ROOTDOMAIN = "getmonero.org";
+const SITE_ROOTDOMAIN = "beta.monerodevs.org";
 
 // https://astro.build/config
 export default defineConfig({

@@ -80,7 +80,10 @@ const fullTitle = title.includes("|")
         site: "@monero",
         title: fullTitle,
         description: description,
-        image: openGraph?.basic?.image ?? "/open-graph/default.png",
+        image: new URL(
+          openGraph?.basic?.image ?? "/open-graph/default.png",
+          Astro.site,
+        ).toString(),
       }}
       extend={{
         link: [
