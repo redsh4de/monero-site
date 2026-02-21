@@ -50,7 +50,10 @@ const fullTitle = title.includes("|")
         basic: {
           title: openGraph?.basic?.title ?? title,
           type: openGraph?.basic?.type ?? "website",
-          image: openGraph?.basic?.image ?? "/open-graph/default.png",
+          image: new URL(
+            openGraph?.basic?.image ?? "/open-graph/default.png",
+            Astro.site,
+          ).toString(),
         },
         optional: {
           locale: locale,
