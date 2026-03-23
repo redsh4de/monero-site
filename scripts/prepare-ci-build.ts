@@ -86,10 +86,6 @@ if (args["limit-posts"]) {
   for (const file of allPosts) {
     if (keep.has(file)) continue;
     rmSync(join(BLOG_DIR, file));
-    rmSync(join(BLOG_DIR, "assets", file.slice(0, -3)), {
-      recursive: true,
-      force: true,
-    });
     removed++;
   }
 
