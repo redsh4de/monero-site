@@ -50,9 +50,8 @@ jobs:
         run: pnpm check
 
   build:
-    name: Build
+    name: Build & Validate
     runs-on: ubuntu-22.04
-    needs: [lint]
 
     steps:
       - uses: actions/checkout@v6
@@ -65,45 +64,22 @@ jobs:
         with:
           node-version: "22"
           cache: "pnpm"
-
-      - name: Install production dependencies
-        run: pnpm install --frozen-lockfile --prod
-
-      - name: Build site
-        run: pnpm build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: site-build
-          path: dist/
-          retention-days: 1
-
-  validate:
-    name: Validate HTML
-    runs-on: ubuntu-22.04
-    needs: [build]
-
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          cache: "pnpm"
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: site-build
-          path: dist/
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prepare source for CI build
+        run: >-
+          pnpm prepare-ci
+          --limit-posts 10
+          --skip-og
+          --limit-locales
+          --base-sha ${{ github.event.pull_request.base.sha }}
+
+      - name: Build site
+        env:
+          SKIP_IMAGE_OPTIMIZATION: "true"
+        run: pnpm build
 
       - name: Validate built HTML
         run: pnpm exec htmlhint 'dist/**/*.html'

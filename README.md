@@ -112,11 +112,20 @@ Then open [http://127.0.0.1:4321](http://127.0.0.1:4321).
 
 | Arg                        | Description                                         | Example |
 | :------------------------- | :-------------------------------------------------- | :------ |
-| `LIMIT_POSTS`              | Keep only the N most recent blog posts for previews | `6`     |
+| `PREPARE_CI_ARGS`          | Arguments for the CI preparation script             | `--limit-posts 6 --skip-og` |
 | `SKIP_IMAGE_OPTIMIZATION`  | Disable image processing for faster builds          | `true`  |
 
+`PREPARE_CI_ARGS` are passed to `scripts/prepare-ci-build.ts`:
+
+| Flag               | Description                                              |
+| :----------------- | :------------------------------------------------------- |
+| `--limit-posts N`  | Keep only the N most recent blog posts                   |
+| `--skip-og`        | Remove OpenGraph image generation                        |
+| `--limit-locales`  | Build only the default locale (+ locales with PR changes)|
+| `--base-sha SHA`   | Git SHA to diff against for preserving changed content   |
+
 ```bash
-docker build --build-arg LIMIT_POSTS=6 --build-arg SKIP_IMAGE_OPTIMIZATION=true --target serve-ssr -t monero-site-ssr .
+docker build --build-arg PREPARE_CI_ARGS="--limit-posts 6 --skip-og" --build-arg SKIP_IMAGE_OPTIMIZATION=true --target serve-ssr -t monero-site-ssr .
 ```
 
 ## More

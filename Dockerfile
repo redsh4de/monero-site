@@ -16,11 +16,11 @@ RUN pnpm install --frozen-lockfile
 
 # Prepare source
 FROM base AS src
-ARG LIMIT_POSTS
+ARG PREPARE_CI_ARGS
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN if [ -n "$LIMIT_POSTS" ]; then \
-      find src/content/blog -maxdepth 1 -name '[^_]*.md' | sort -r | tail -n +$((LIMIT_POSTS + 1)) | while IFS= read -r f; do rm -f "$f"; done; \
+RUN if [ -n "$PREPARE_CI_ARGS" ]; then \
+      CI=true pnpm prepare-ci $PREPARE_CI_ARGS; \
     fi
 
 # Build the site (static)
