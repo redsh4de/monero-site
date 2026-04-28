@@ -6,11 +6,7 @@ import BlogHeader from "@/components/pages/blog/BlogHeader.astro";
 import Card from "@/components/ui/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { defaultLocale } from "@/i18n/config";
-import {
-  getDirection,
-  getLocalizedEntry,
-  stripLocaleFromId,
-} from "@/i18n/utils";
+import { getDirection, getLocalizedEntry, splitLocaleId } from "@/i18n/utils";
 import { getDateStringFromId, getLocalizedBlog } from "@/utils/blog";
 import type { GetStaticPaths } from "astro";
 import { Image } from "astro:assets";
@@ -19,7 +15,7 @@ import { render } from "astro:content";
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getLocalizedBlog(defaultLocale);
   return posts.map((post) => {
-    const slug = stripLocaleFromId(post.id);
+    const { slug } = splitLocaleId(post.id);
     return { params: { post: slug }, props: { slug } };
   });
 };
@@ -39,7 +35,7 @@ if (!post) {
 const { Content } = await render(post);
 const allPosts = await getLocalizedBlog(locale);
 const recentPosts = allPosts.filter((p) => p.id !== post.id).slice(0, 4);
-const contentLocale = post.id.split("/")[0];
+const { locale: contentLocale } = splitLocaleId(post.id);
 const contentDir = getDirection(contentLocale);
 ---
 
@@ -103,7 +99,7 @@ const contentDir = getDirection(contentLocale);
       <ul class="recent-posts">
         {
           recentPosts.map((recentPost) => {
-            const recentSlug = stripLocaleFromId(recentPost.id);
+            const { slug: recentSlug } = splitLocaleId(recentPost.id);
             const dateStr = getDateStringFromId(recentSlug);
             const formattedDate = localizeDateString(dateStr, {
               year: "numeric",

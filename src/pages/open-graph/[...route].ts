@@ -1,7 +1,7 @@
 import { OGImageRoute } from "astro-og-canvas";
 
 import { defaultLocale } from "@/i18n/config";
-import { stripLocaleFromId } from "@/i18n/utils";
+import { splitLocaleId } from "@/i18n/utils";
 import { getLocalizedBlog } from "@/utils/blog";
 
 export const prerender = true;
@@ -9,7 +9,7 @@ export const prerender = true;
 const posts = await getLocalizedBlog(defaultLocale);
 const pages: Record<string, { title: string; description: string }> = {};
 for (const post of posts) {
-  const slug = stripLocaleFromId(post.id);
+  const { slug } = splitLocaleId(post.id);
   // astro-og-canvas trims anything after the last dot, so its necessary to include a dummy .md extension, don't remove this!
   pages[`blog/${slug}.md`] = {
     title: post.data.title ?? "Blog post",

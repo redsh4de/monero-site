@@ -5,7 +5,7 @@ import { defaultLocale } from "@/i18n/config";
 import {
   getLocalizedCollection,
   getLocalizedEntry,
-  stripLocaleFromId,
+  splitLocaleId,
 } from "@/i18n/utils";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
@@ -16,7 +16,7 @@ import BackLink from "@/components/ui/BackLink.astro";
 export async function getStaticPaths() {
   const entries = await getLocalizedCollection("moneropedia", defaultLocale);
   return entries.map((entry) => ({
-    params: { slug: stripLocaleFromId(entry.id) },
+    params: { slug: splitLocaleId(entry.id).slug },
   }));
 }
 

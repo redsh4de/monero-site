@@ -92,9 +92,11 @@ export function createTInstance(locale: string): Promise<TFunction> {
 }
 export { getLocale };
 
-export const stripLocaleFromId = (id: string): string => {
-  const slashIdx = id.indexOf("/");
-  return slashIdx === -1 ? id : id.slice(slashIdx + 1);
+export const splitLocaleId = (id: string): { locale: string; slug: string } => {
+  const i = id.indexOf("/");
+  return i === -1
+    ? { locale: id, slug: id }
+    : { locale: id.slice(0, i), slug: id.slice(i + 1) };
 };
 
 const collectionMapCache = new Map<string, Promise<Map<string, unknown>>>();
@@ -112,32 +114,6 @@ const getCollectionMap = <C extends CollectionKey>(
   return promise as Promise<Map<string, CollectionEntry<C>>>;
 };
 
-export const getLocalizedCollection = async <C extends CollectionKey>(
-  name: C,
-  locale: string,
-): Promise<CollectionEntry<C>[]> => {
-  const map = await getCollectionMap(name);
-  const defaults = [...map.values()].filter((e) =>
-    e.id.startsWith(`${defaultLocale}/`),
-  );
-  if (locale === defaultLocale) return defaults;
-  return defaults.map(
-    (e) =>
-      (map.get(`${locale}/${stripLocaleFromId(e.id)}`) as
-        | CollectionEntry<C>
-        | undefined) ?? e,
-  );
-};
-
-export const getLocalizedEntry = async <C extends CollectionKey>(
-  name: C,
-  locale: string,
-  slug: string,
-): Promise<CollectionEntry<C> | undefined> => {
-  const map = await getCollectionMap(name);
-  return map.get(`${locale}/${slug}`) ?? map.get(`${defaultLocale}/${slug}`);
-};
-
 export const applyLocale = async <C extends CollectionKey>(
   entries: CollectionEntry<C>[],
   name: C,
@@ -147,8 +123,28 @@ export const applyLocale = async <C extends CollectionKey>(
   const map = await getCollectionMap(name);
   return entries.map(
     (e) =>
-      (map.get(`${locale}/${stripLocaleFromId(e.id)}`) as
+      (map.get(`${locale}/${splitLocaleId(e.id).slug}`) as
         | CollectionEntry<C>
         | undefined) ?? e,
   );
+};
+
+export const getLocalizedCollection = async <C extends CollectionKey>(
+  name: C,
+  locale: string,
+): Promise<CollectionEntry<C>[]> => {
+  const map = await getCollectionMap(name);
+  const defaults = [...map.values()].filter((e) =>
+    e.id.startsWith(`${defaultLocale}/`),
+  );
+  return applyLocale(defaults, name, locale);
+};
+
+export const getLocalizedEntry = async <C extends CollectionKey>(
+  name: C,
+  locale: string,
+  slug: string,
+): Promise<CollectionEntry<C> | undefined> => {
+  const map = await getCollectionMap(name);
+  return map.get(`${locale}/${slug}`) ?? map.get(`${defaultLocale}/${slug}`);
 };

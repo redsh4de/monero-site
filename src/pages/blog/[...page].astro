@@ -2,7 +2,7 @@
 export const prerender = true;
 
 import { defaultLocale } from "@/i18n/config";
-import { applyLocale, stripLocaleFromId } from "@/i18n/utils";
+import { applyLocale, splitLocaleId } from "@/i18n/utils";
 import { getLocalizedBlog } from "@/utils/blog";
 
 import Layout from "@/layouts/Layout.astro";
@@ -77,7 +77,7 @@ const tabs = [
       {
         posts.map((post) => (
           <BlogCard
-            id={stripLocaleFromId(post.id)}
+            id={splitLocaleId(post.id).slug}
             title={post.data.title}
             author={post.data.author}
             tags={post.data.tags || []}
