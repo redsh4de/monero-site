@@ -3,8 +3,11 @@ import path from "node:path";
 import { getLocale } from "astro-i18n-aut";
 import { createInstance, type TFunction } from "i18next";
 import Backend from "i18next-fs-backend";
+import type { CollectionEntry, CollectionKey } from "astro:content";
+import { getCollection } from "astro:content";
 
 import { defaultLocale, locales, rtlLocales } from "@/i18n/config";
+import { localeKeys, localePrefixRe } from "@/i18n/keys";
 
 const translationsDir = path.join(
   process.cwd(),
@@ -18,17 +21,13 @@ const namespaces = fs
 export const localizeHref = (locale: string, href: string): string => {
   if (href.startsWith("http")) return href;
 
-  const localeRegex = new RegExp(
-    `^/(${Object.keys(locales).join("|")})(?=/|$)`,
-  );
-
   const urlPath = (href.startsWith("/") ? href : `/${href}`).replace(
-    localeRegex,
+    localePrefixRe,
     "",
   );
   const prefix = locale === defaultLocale ? "" : `/${locale}`;
 
-  return `${prefix}${urlPath}${urlPath.includes("#") ? "" : "/"}`.replace(
+  return `${prefix}${urlPath}${/[?#]/.test(urlPath) ? "" : "/"}`.replace(
     /\/+/g,
     "/",
   );
@@ -70,18 +69,86 @@ export const getDirection = (locale: string): "ltr" | "rtl" => {
   return rtlLocales.includes(locale) ? "rtl" : "ltr";
 };
 
+const tInstanceCache = new Map<string, Promise<TFunction>>();
 export function createTInstance(locale: string): Promise<TFunction> {
-  const newInstance = createInstance();
+  const cached = tInstanceCache.get(locale);
+  if (cached) return cached;
 
-  return newInstance.use(Backend).init({
-    lng: locale,
-    fallbackLng: defaultLocale,
-    supportedLngs: Object.keys(locales),
-    ns: [...namespaces],
-    defaultNS: false,
-    backend: {
-      loadPath: "./src/i18n/translations/{{lng}}/{{ns}}.json",
-    },
-  }) as Promise<TFunction>;
+  const promise = createInstance()
+    .use(Backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      supportedLngs: localeKeys,
+      ns: [...namespaces],
+      defaultNS: false,
+      backend: {
+        loadPath: "./src/i18n/translations/{{lng}}/{{ns}}.json",
+      },
+    }) as Promise<TFunction>;
+
+  tInstanceCache.set(locale, promise);
+  return promise;
 }
 export { getLocale };
+
+export const stripLocaleFromId = (id: string): string => {
+  const slashIdx = id.indexOf("/");
+  return slashIdx === -1 ? id : id.slice(slashIdx + 1);
+};
+
+const collectionMapCache = new Map<string, Promise<Map<string, unknown>>>();
+const getCollectionMap = <C extends CollectionKey>(
+  name: C,
+): Promise<Map<string, CollectionEntry<C>>> => {
+  const key = name as string;
+  const cached = collectionMapCache.get(key);
+  if (cached) return cached as Promise<Map<string, CollectionEntry<C>>>;
+  const promise = getCollection(name).then(
+    (entries: CollectionEntry<C>[]) =>
+      new Map(entries.map((e: CollectionEntry<C>) => [e.id, e])),
+  );
+  collectionMapCache.set(key, promise);
+  return promise as Promise<Map<string, CollectionEntry<C>>>;
+};
+
+export const getLocalizedCollection = async <C extends CollectionKey>(
+  name: C,
+  locale: string,
+): Promise<CollectionEntry<C>[]> => {
+  const map = await getCollectionMap(name);
+  const defaults = [...map.values()].filter((e) =>
+    e.id.startsWith(`${defaultLocale}/`),
+  );
+  if (locale === defaultLocale) return defaults;
+  return defaults.map(
+    (e) =>
+      (map.get(`${locale}/${stripLocaleFromId(e.id)}`) as
+        | CollectionEntry<C>
+        | undefined) ?? e,
+  );
+};
+
+export const getLocalizedEntry = async <C extends CollectionKey>(
+  name: C,
+  locale: string,
+  slug: string,
+): Promise<CollectionEntry<C> | undefined> => {
+  const map = await getCollectionMap(name);
+  return map.get(`${locale}/${slug}`) ?? map.get(`${defaultLocale}/${slug}`);
+};
+
+export const applyLocale = async <C extends CollectionKey>(
+  entries: CollectionEntry<C>[],
+  name: C,
+  locale: string,
+): Promise<CollectionEntry<C>[]> => {
+  if (locale === defaultLocale) return entries;
+  const map = await getCollectionMap(name);
+  return entries.map(
+    (e) =>
+      (map.get(`${locale}/${stripLocaleFromId(e.id)}`) as
+        | CollectionEntry<C>
+        | undefined) ?? e,
+  );
+};
