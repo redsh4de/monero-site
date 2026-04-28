@@ -5,7 +5,7 @@ import { idToDateSlug } from "@/utils/blog";
 
 const localizedGlob = (base: string, slugify?: (slug: string) => string) =>
   glob({
-    pattern: `{${localeKeys.join(",")}}/**/[^_]*.md`,
+    pattern: `@(${localeKeys.join("|")})/**/[^_]*.md`,
     base,
     generateId: ({ entry }) => {
       const id = entry.replace(/\.md$/, "");

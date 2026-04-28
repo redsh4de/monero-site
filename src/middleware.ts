@@ -25,7 +25,10 @@ const shouldSkip = (p: string): boolean =>
 
 const localePrefixRewriter = (prefix: string) => {
   const prefixAttr = (attr: "href" | "src") => ({
-    element(el: { getAttribute(n: string): string | null; setAttribute(n: string, v: string): void }) {
+    element(el: {
+      getAttribute(n: string): string | null;
+      setAttribute(n: string, v: string): void;
+    }) {
       const v = el.getAttribute(attr);
       if (!v || shouldSkip(v)) return;
       el.setAttribute(attr, prefix + v);
