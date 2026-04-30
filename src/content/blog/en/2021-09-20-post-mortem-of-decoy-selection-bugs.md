@@ -13,7 +13,7 @@ Between Monero versions v0.14.1.0 and v0.17.2.2, the core wallet code had two bu
 
 2. If transaction volume were to increase substantially over a sustained period of time, then wallets would eventually construct transactions that reveal real outputs in the vast majority of cases.
 
-Both have been patched in [v0.17.2.3](/2021/08/31/monero-0.17.2.3-released.html) and it is highly recommended to upgrade as soon as able.
+Both have been patched in [v0.17.2.3](/blog/2021/08/31/monero-0.17.2.3-released/) and it is highly recommended to upgrade as soon as able.
 
 Users should also be aware that the implications of the first bug are not as severe as previously reported. It was [widely publicized](https://decrypt.co/76938/monero-developers-disclose-significant-bug-privacy-algorithm) that as a result of the first bug, some very newly spent outputs observed on chain were guaranteed identifiable as real outputs spent in a transaction, however, _this is not actually the case_. Since publication, we learned that at least one popular light wallet ([MyMonero](https://mymonero.com/)) has been using a [separate implementation](https://github.com/vtnerd/monero-lws/blob/faa51780f3f8e6c5c0c4235499b95c246e074f29/src/util/gamma_picker.cpp) of the decoy selection algorithm that _did not have the bug_. Therefore, MyMonero users could have feasibly constructed transactions that selected newly spendable outputs as decoys, which means newly spent outputs observed on chain were not guaranteed identifiable as real outputs.
 

@@ -43,7 +43,7 @@ Probabilistic guessing can create elevated privacy risk to users with extreme th
 
 The OSPEAD-derived decoy selection distribution could be deployed to mitigate the risk of the MAP Decoder attack. However, a Monero network upgrade (hard fork) would be required for safest deployment. A network upgrade, though necessary for major improvement to Monero, is disruptive to the Monero ecosystem. The costs may outweigh the benefits.
 
-Currently, the next expected hard fork is set to deploy [Full-Chain Membership Proofs](/2024/04/27/fcmps.html), which eliminate the weaknesses of the ring signature privacy model.
+Currently, the next expected hard fork is set to deploy [Full-Chain Membership Proofs](/blog/2024/04/27/fcmps/), which eliminate the weaknesses of the ring signature privacy model.
 
 ## References
 

@@ -15,7 +15,7 @@ Let's start by comparing Monero's per kB fees to the per kB fees of other (hybri
 - **Dash:** ~$0.07
 - **Monero:** ~$0.24
 
-As you can see, the per kB fee of Monero is fairly low. However, due to the high transaction size, the absolute default fee (in $ terms) is quite high. Note that the transaction size is this big due to Monero's inherent default privacy, i.e., the range proofs, which mask the amount values, make up ~12 kB of a single transaction. RingCT, however, was absolutely necessary to strengthen the privacy of the network. More specifically, there were a lot of privacy "leaks" when Monero didn't mask amounts yet. Fortunately, [Bulletproofs](/2017/12/07/Monero-Compatible-Bulletproofs.html) will reduce transaction sizes by at least 80%.
+As you can see, the per kB fee of Monero is fairly low. However, due to the high transaction size, the absolute default fee (in $ terms) is quite high. Note that the transaction size is this big due to Monero's inherent default privacy, i.e., the range proofs, which mask the amount values, make up ~12 kB of a single transaction. RingCT, however, was absolutely necessary to strengthen the privacy of the network. More specifically, there were a lot of privacy "leaks" when Monero didn't mask amounts yet. Fortunately, [Bulletproofs](/blog/2017/12/07/Monero-Compatible-Bulletproofs/) will reduce transaction sizes by at least 80%.
 
 ---
 
@@ -115,7 +115,7 @@ In conclusion, whilst fees are currently too high, they, most likely, won't be a
 
 2. A more in depth analysis (by ArticMine) of the penalty function can be found [here](https://bitcointalk.org/index.php?topic=753252.msg13591241#msg13591241).
 
-3. The penalty function in the original [CryptoNote whitepaper](cryptonote.org/whitepaper.pdf) is somewhat different. More information can be found [here](https://monero.stackexchange.com/questions/1067/block-reward-penalties-and-dynamic-block-size).
+3. The penalty function in the original [CryptoNote whitepaper](https://cryptonote.org/whitepaper.pdf) is somewhat different. More information can be found [here](https://monero.stackexchange.com/questions/1067/block-reward-penalties-and-dynamic-block-size).
 
 4. Code details and the actual implementation of the dynamic block size algorithm can be found [here](https://github.com/monero-project/monero/blob/master/src/cryptonote_basic/cryptonote_basic_impl.cpp).
 

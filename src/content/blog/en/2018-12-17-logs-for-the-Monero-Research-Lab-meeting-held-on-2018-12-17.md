@@ -233,7 +233,7 @@ author: el00ruobuob / surae
 **\<suraeNoether>** would they be do-able together or would it be one or the other only?  
 **\<kayront>** DLSAG = ?  
 **\<sarang>** You could probably do a separate return subaddress per output address  
-**\<sarang>** MRL-0008: https://ww.getmonero.org/resources/research-lab/  
+**\<sarang>** MRL-0008: https://www.getmonero.org/resources/research-lab/  
 **\<ilyaAldanov>** If you ask me, I came up with many more use cases for return addresses.  
 **\<sarang>** I definitely see the usefulness  
 **\<suraeNoether>** DLSAG = dual-output linkable spontaneous anonymous group signatures  

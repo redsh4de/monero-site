@@ -7,9 +7,9 @@ author: ErCiccione
 
 The next network upgrade will take place on **17th October 2020**. Network upgrades are technically hard forks and require all participants in the Monero network to update their software. The new software will be released one month before the network upgrade: **17th September**.
 
-This network upgrade will introduce important new features like the [new ring signature construction CLSAG](/2020/07/31/clsag-audit.html), which will **reduce the typical transaction size by ~25%** and **improve typical verification performance by ~10%**. Basically, every transaction will be lighter and faster. The complete list of changes and improvements will be released along with the new binaries.
+This network upgrade will introduce important new features like the [new ring signature construction CLSAG](/blog/2020/07/31/clsag-audit/), which will **reduce the typical transaction size by ~25%** and **improve typical verification performance by ~10%**. Basically, every transaction will be lighter and faster. The complete list of changes and improvements will be released along with the new binaries.
 
-The logs of the meeting where the dates of the network upgrade were decided [are available on this website](/2020/07/19/monero-dev-meeting.html).
+The logs of the meeting where the dates of the network upgrade were decided [are available on this website](/blog/2020/07/19/monero-dev-meeting/).
 
 ### Common questions
 

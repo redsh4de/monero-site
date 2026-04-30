@@ -13,7 +13,7 @@ The next network upgrade will take place on **~13th August, 2022** (block 2,688,
 This network upgrade will introduce important new features like:
 
 - A ring-size increase from 11 to 16 -- **the largest ever absolute increase in the base anonymity set** (read: plausible deniability, or base privacy) -- of every transaction on the network
-- [Upgraded Bulletproofs algorithm, "Bulletproofs+"](/2020/12/24/Bulletproofs+-in-Monero.html), which will **reduce the typical transaction size by ~5-7%** and **improve typical verification performance by ~5-7%**, making every transaction lighter and faster
+- [Upgraded Bulletproofs algorithm, "Bulletproofs+"](/blog/2020/12/24/Bulletproofs+-in-Monero/), which will **reduce the typical transaction size by ~5-7%** and **improve typical verification performance by ~5-7%**, making every transaction lighter and faster
 - [View tags, a brilliant way to **reduce wallet sync times by 30-40%**](https://localmonero.co/knowledge/view-tags-reduce-monero-sync-time)
 - Fee changes, **improving the security and resilience of the network** to rapid changes in the fee market or attacks by malicious entities
 - Major multi-sig fixes and improvements, including critical security patches
