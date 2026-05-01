@@ -1,0 +1,70 @@
+name: Broken Link Check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Crawl and check links
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare source for English-only build
+        run: pnpm prepare-build --skip-og --limit-locales
+
+      - name: Build site
+        env:
+          SKIP_IMAGE_OPTIMIZATION: "true"
+        run: pnpm build
+
+      - name: Read site URL
+        id: site
+        run: echo "url=$(jq -r .homepage package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore lychee cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .lycheecache
+          key: lychee-${{ github.run_id }}
+          restore-keys: lychee-
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >-
+            --config lychee.toml
+            --root-dir "$PWD/dist"
+            --remap "${{ steps.site.outputs.url }} file://$PWD/dist"
+            --fallback-extensions html
+            dist
+          format: markdown
+          jobSummary: true
+          fail: true
+
+      - name: Save lychee cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .lycheecache
+          key: lychee-${{ github.run_id }}
