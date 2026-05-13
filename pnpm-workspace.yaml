@@ -1,5 +1,5 @@
 allowBuilds:
   lefthook: true
   esbuild: false
-  '@parcel/watcher': false
+  "@parcel/watcher": false
   sharp: false
