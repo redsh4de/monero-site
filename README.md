@@ -77,6 +77,16 @@ Changed-file detection (pick one):
 
 `SKIP_PREPARE_BUILD=true` early-exits the script. Useful if you can't set a per-environment build command in your platform, and have to skip the script in production.
 
+## Link checking
+
+Broken links are checked weekly in CI via [lychee](https://github.com/lycheeverse/lychee). Configuration lives in `lychee.toml`. To check locally:
+
+```bash
+# Install lychee once: cargo install lychee (or brew install lychee)
+pnpm build
+pnpm check:links
+```
+
 ## Docker
 
 You can build and run the site without installing Node.js or pnpm. Five targets are available:

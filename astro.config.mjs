@@ -7,8 +7,7 @@ import { defaultLocale, locales } from "./src/i18n/config";
 import { moneropediaLinks } from "./src/plugins/remark-moneropedia";
 import rehypeExternalLinks from "rehype-external-links";
 import { isExternal } from "./src/utils/links";
-
-const SITE_ROOTDOMAIN = "beta.monerodevs.org";
+import pkg from "./package.json" with { type: "json" };
 
 const isSSR = process.env.SSR === "true";
 const skipImageOptimization = process.env.SKIP_IMAGE_OPTIMIZATION === "true";
@@ -19,7 +18,7 @@ export default defineConfig({
   adapter: isSSR
     ? (await import("@astrojs/node")).default({ mode: "standalone" })
     : undefined,
-  site: `https://${SITE_ROOTDOMAIN}`,
+  site: pkg.homepage,
   trailingSlash: "always",
   markdown: {
     remarkPlugins: [moneropediaLinks],
@@ -30,7 +29,7 @@ export default defineConfig({
           target: "_blank",
           rel: ["noopener", "noreferrer", "external"],
           /** @param {import('hast').Element} node*/
-          test: (node) => isExternal(node, SITE_ROOTDOMAIN),
+          test: (node) => isExternal(node, new URL(pkg.homepage).hostname),
         },
       ],
     ],

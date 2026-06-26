@@ -2,6 +2,7 @@
   "name": "monero-site-next",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://beta.monerodevs.org",
   "engines": {
     "node": ">=22.x"
   },
@@ -16,7 +17,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare-build": "tsx scripts/prepare-build.ts"
+    "prepare-build": "tsx scripts/prepare-build.ts",
+    "check:links": "tsx scripts/check-links.ts"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.4",
