@@ -126,16 +126,6 @@ const { t, localizeHref } = Astro.locals;
 </Layout>
 
 <style>
-  :root {
-    --hero-min-height: calc(75vh + 3rem);
-  }
-
-  @supports (height: 100dvh) {
-    :root {
-      --hero-min-height: calc(75dvh + 3rem);
-    }
-  }
-
   h2 {
     font-size: var(--font-size-3xl);
     color: var(--heading-color);
@@ -162,29 +152,18 @@ const { t, localizeHref } = Astro.locals;
     mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
   }
 
-  .main-content {
-    position: relative;
-    margin-top: calc(
-      var(--hero-min-height) - var(--page-top-margin)
-    ) !important;
-  }
-
   .index-hero {
-    position: absolute;
-    top: 3rem;
-    inset-inline: 5rem;
-    min-height: var(--hero-min-height);
+    box-sizing: border-box;
+    margin-block-start: calc(
+      -2 * var(--page-top-margin) - var(--header-height)
+    );
+    min-block-size: 100dvh;
+    padding-block-start: var(--header-overlay);
   }
 
   @media (width <= 1200px) {
     #start-using-monero {
       scroll-margin-top: 4rem;
-    }
-  }
-
-  @media (width <= 600px) {
-    .index-hero {
-      inset-inline: 2rem;
     }
   }
 </style>

@@ -97,6 +97,7 @@ const navItems = navigationItems.map((item) => {
 <style>
   :root {
     --drawer-gap: clamp(5rem, 20vw, 9rem);
+    --header-overlay: var(--header-height);
   }
 
   .header {
@@ -113,6 +114,8 @@ const navItems = navigationItems.map((item) => {
     align-items: center;
     gap: var(--space-sm);
     padding: var(--space-md);
+    box-sizing: border-box;
+    block-size: var(--header-height);
   }
 
   .brand {
@@ -264,6 +267,10 @@ const navItems = navigationItems.map((item) => {
   }
 
   @media (width >= 1200px) and (hover: hover) {
+    :root {
+      --header-overlay: 0px;
+    }
+
     .header {
       position: relative;
       background: unset;

@@ -58,6 +58,7 @@
 
   /* Layout Spacing */
   --page-top-margin: var(--space-2xl);
+  --header-height: 4.5rem;
   --desktop-padding-inline: 5rem;
   --mobile-padding-inline: var(--space-2xl);
 
