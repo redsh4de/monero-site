@@ -5,6 +5,7 @@ import featherLogo from "@/assets/images/wallets/feather.avif";
 import monerocomLogo from "@/assets/images/wallets/monerocom.avif";
 import monerujoLogo from "@/assets/images/wallets/monerujo.avif";
 import monfluoLogo from "@/assets/images/wallets/monfluo.avif";
+import skylightLogo from "@/assets/images/wallets/skylight.avif";
 import cakewalletLogo from "@/assets/images/wallets/cakewallet.avif";
 import eigenwalletLogo from "@/assets/images/wallets/eigenwallet.avif";
 import stackWalletLogo from "@/assets/images/wallets/stack-wallet.webp";
@@ -103,6 +104,17 @@ export const community: CommunityData = {
         tags: {
           mobile: ["android"],
           general: ["GPL-3.0"],
+        },
+      },
+      {
+        id: "skylight",
+        name: "Skylight Wallet",
+        logo: skylightLogo,
+        link: "https://skylight.magicgrants.org",
+        tags: {
+          mobile: ["android", "ios"],
+          desktop: ["windows", "macos", "linux"],
+          general: ["MIT"],
         },
       },
     ],
